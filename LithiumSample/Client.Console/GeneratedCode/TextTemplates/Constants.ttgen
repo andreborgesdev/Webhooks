@@ -1,0 +1,59 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".gen.cs" #>
+<#@ ServiceDesigner processor="ServiceDesignerDirectiveProcessor" requires="FileName=''" #>
+<#
+
+// Build the transformations
+
+ServiceModelTransformations<CSharpFileModel> transformations = new ServiceModelTransformations<CSharpFileModel>(this.ServiceModel);
+
+transformations.Add(
+    (s, t) => true,
+    (s, t) => { return s is ServiceModel; },
+    (s, t) =>
+    {
+        if (s is ServiceModel source)
+        {
+            t
+                .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"));
+
+            t.Namespace = new NamespaceModel(source.Namespace + ".Client.Console");
+
+            ClassModel classModel = t.Namespace
+                .AddClass(new ClassModel("Constants")
+                {
+                    Modifiers = ClassModifiers.Internal | ClassModifiers.Static | ClassModifiers.Partial,
+                    Documentation = new DocumentationModel("Defines constants used by the application.")
+                });
+
+            if (source.UseClientCredentialsClient)
+            {
+                classModel
+                    .WithConstant(new ConstantModel("ClientId", "string", "\"" + source.ClientCredentialsClientId + "\"")
+                    {
+                        Modifiers = ConstantModifiers.Internal,
+                        Documentation = new DocumentationModel("The client identifier.")
+                    })
+                    .WithConstant(new ConstantModel("ClientSecret", "string", "\"" + source.ClientCredentialsClientSecret + "\"")
+                    {
+                        Modifiers = ConstantModifiers.Internal,
+                        Documentation = new DocumentationModel("The client secret.")
+                    });
+            }
+        }
+    });
+
+// Transform
+
+CSharpFileModel targetModel = new CSharpFileModel();
+transformations.TransformTo(targetModel);
+
+// Create controller
+
+ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+// Generate code
+
+controller.Write(targetModel);
+
+#>

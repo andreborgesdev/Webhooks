@@ -1,0 +1,2032 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Storage.Azure</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions">
+            <summary>
+            Defines extension methods for the <see cref="T:Microsoft.Azure.Storage.StorageException"/> type.
+            </summary>
+            <summary>
+            Defines extension methods for the <see cref="T:Microsoft.Azure.Cosmos.Table.StorageException"/> type.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.IsConflict(Microsoft.Azure.Storage.StorageException)">
+            <summary>
+            Determines whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.Conflict"/> error.
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>
+            A value indicating whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.Conflict"/> error.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.IsNotFound(Microsoft.Azure.Storage.StorageException)">
+            <summary>
+            Determines whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.NotFound"/> error.
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>
+            A value indicating whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.NotFound"/> error.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.IsBadRequest(Microsoft.Azure.Storage.StorageException)">
+            <summary>
+            Determines whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.BadRequest"/> error.
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>
+            A value indicating whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.BadRequest"/> error.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.IsConnectionFailure(Microsoft.Azure.Storage.StorageException)">
+            <summary>
+            Determines whether the exception corresponds to a connection failure error.
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>
+            A value indicating whether the exception corresponds to a connection failure error.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.GetErrorCode(Microsoft.Azure.Storage.StorageException)">
+            <summary>
+            Gets the error code for the exception (if any).
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>The error code.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.IsConflict(Microsoft.Azure.Cosmos.Table.StorageException)">
+            <summary>
+            Determines whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.Conflict"/> error.
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>
+            A value indicating whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.Conflict"/> error.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.IsNotFound(Microsoft.Azure.Cosmos.Table.StorageException)">
+            <summary>
+            Determines whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.NotFound"/> error.
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>
+            A value indicating whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.NotFound"/> error.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.IsBadRequest(Microsoft.Azure.Cosmos.Table.StorageException)">
+            <summary>
+            Determines whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.BadRequest"/> error.
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>
+            A value indicating whether the exception corresponds to a <see cref="F:System.Net.HttpStatusCode.BadRequest"/> error.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.IsConnectionFailure(Microsoft.Azure.Cosmos.Table.StorageException)">
+            <summary>
+            Determines whether the exception corresponds to a connection failure error.
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>
+            A value indicating whether the exception corresponds to a connection failure error.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.CosmosTableStorageExceptionExtensions.GetErrorCode(Microsoft.Azure.Cosmos.Table.StorageException)">
+            <summary>
+            Gets the error code for the exception (if any).
+            </summary>
+            <param name="exception">The exception.</param>
+            <returns>The error code.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.AzureStorageServiceRetryPolicy">
+            <summary>
+            Defines the retry policy applied to a request to the storage server.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.AzureStorageServiceRetryPolicy.None">
+            <summary>
+            No retry.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.AzureStorageServiceRetryPolicy.Linear">
+            <summary>
+            Retries are performed each time at linear intervals.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.AzureStorageServiceRetryPolicy.Exponential">
+            <summary>
+            Retries are performed each time at exponentially larger intervals.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobProperties">
+            <summary>
+            Defines an implementation of <see cref="T:Primavera.Hydrogen.Storage.Blobs.IBlobProperties"/> for the Azure
+            Blob Storage (the underlying type is <see cref="T:Microsoft.Azure.Storage.Blob.BlobProperties"/>).
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobProperties.Created">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobProperties.LastModified">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobProperties.DeletedTime">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobProperties.ContentType">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobProperties.ContentEncoding">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobProperties.Length">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobProperties.#ctor(Microsoft.Azure.Storage.Blob.CloudBlob)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobProperties"/> class.
+            </summary>
+            <param name="blob">The parent blob.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobsExtensions">
+            <summary>
+            Provides extension methods used to convert types in the <see cref="N:Microsoft.Azure.Storage.Blob"/> namespace.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobsExtensions.ToBlobContainerPublicAccessType(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType)">
+            <summary>
+            Converts the <see cref="T:Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType"/> to the corresponding <see cref="T:Microsoft.Azure.Storage.Blob.BlobContainerPublicAccessType"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType"/> value.</param>
+            <returns>
+            The <see cref="T:Microsoft.Azure.Storage.Blob.BlobContainerPublicAccessType"/> value.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobsExtensions.ToContainerPublicAccessType(Microsoft.Azure.Storage.Blob.BlobContainerPublicAccessType)">
+            <summary>
+            Converts the <see cref="T:Microsoft.Azure.Storage.Blob.BlobContainerPublicAccessType"/> to the corresponding <see cref="T:Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType"/>.
+            </summary>
+            <param name="value">The <see cref="T:Microsoft.Azure.Storage.Blob.BlobContainerPublicAccessType"/> value.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType"/> value.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobsExtensions.ToAzureContainerPermissions(Microsoft.Azure.Storage.Blob.BlobContainerPermissions)">
+            <summary>
+            Converts the <see cref="T:Microsoft.Azure.Storage.Blob.BlobContainerPermissions"/> to the corresponding <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerPermissions"/>.
+            </summary>
+            <param name="value">The <see cref="T:Microsoft.Azure.Storage.Blob.BlobContainerPermissions"/> value.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerPermissions"/> value.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobsExtensions.ToBlobContainerPermissions(Primavera.Hydrogen.Storage.Blobs.IContainerPermissions)">
+            <summary>
+            Converts the <see cref="T:Primavera.Hydrogen.Storage.Blobs.IContainerPermissions"/> to the corresponding <see cref="T:Microsoft.Azure.Storage.Blob.BlobContainerPermissions"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Blobs.IContainerPermissions"/> value.</param>
+            <returns>
+            The <see cref="T:Microsoft.Azure.Storage.Blob.BlobContainerPermissions"/> value.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobsExtensions.ToBlobType(Microsoft.Azure.Storage.Blob.BlobType)">
+            <summary>
+            Converts the <see cref="T:Microsoft.Azure.Storage.Blob.BlobType"/> to the corresponding <see cref="T:Primavera.Hydrogen.Storage.Blobs.BlobType"/>.
+            </summary>
+            <param name="value">The <see cref="T:Microsoft.Azure.Storage.Blob.BlobType"/> value.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Blobs.BlobType"/> value.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException">
+            <summary>
+            Represents errors raised by the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService" />.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageException" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException"/> class.
+            </summary>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException"/> class.
+            </summary>
+            <param name="message">The error message.</param>
+            <param name="innerException">The exception that caused this error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException.#ctor(Primavera.Hydrogen.Storage.Blobs.BlobStorageError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException.#ctor(Primavera.Hydrogen.Storage.Blobs.BlobStorageError,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException.#ctor(Primavera.Hydrogen.Storage.Blobs.BlobStorageError,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException"/> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+            <param name="innerException">The exception that caused this error.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageExceptionHandler">
+            <summary>
+            Provides a default exceptions handler that converts <see cref="T:Microsoft.Azure.Storage.StorageException"/> to
+            <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageException"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageExceptionHandler.Handle(Primavera.Hydrogen.Storage.Azure.Blobs.OperationTarget,System.Action)">
+            <summary>
+            Handles exceptions raised by the specified action.
+            </summary>
+            <param name="target">The target of the action.</param>
+            <param name="action">The action that should be executed.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageExceptionHandler.HandleAsync(Primavera.Hydrogen.Storage.Azure.Blobs.OperationTarget,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Handles exceptions raised by the specified action.
+            </summary>
+            <param name="target">The target of the action.</param>
+            <param name="action">The action that should be executed.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous task.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageExceptionHandler.Handle``1(Primavera.Hydrogen.Storage.Azure.Blobs.OperationTarget,System.Func{``0})">
+            <summary>
+            Handles exceptions raised by the specified action.
+            </summary>
+            <typeparam name="T">The type of the result.</typeparam>
+            <param name="target">The target of the action.</param>
+            <param name="action">The action that should be executed.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageExceptionHandler.HandleAsync``1(Primavera.Hydrogen.Storage.Azure.Blobs.OperationTarget,System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Handles exceptions raised by the specified action.
+            </summary>
+            <typeparam name="T">The type of the result.</typeparam>
+            <param name="target">The target of the action.</param>
+            <param name="action">The action that should be executed.</param>
+            <returns>
+            The action result.
+            The <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous task.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService">
+            <summary>
+            Defines a implementation of the <see cref="T:Primavera.Hydrogen.Storage.Blobs.IBlobStorageService" /> that uses
+            the Azure Blob Storage (the underlying type is <see cref="T:Microsoft.Azure.Storage.Blob.CloudBlobClient" />).
+            </summary>
+            <remarks>
+            More information on the Blob Service features:
+            <see href="https://docs.microsoft.com/en-us/rest/api/storageservices/blob-service-concepts">here</see>.
+            More information on the Blob Service REST API:
+            <see href="https://docs.microsoft.com/en-us/rest/api/storageservices/blob-service-rest-api">here</see>.
+            </remarks>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Blobs.IBlobStorageService" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService.Client">
+            <summary>
+            Gets the <see cref="T:Microsoft.Azure.Storage.Blob.CloudBlobClient"/> object associated with this instance.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService.Options">
+            <summary>
+            Gets the options.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService.#ctor(Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions,Microsoft.Extensions.Logging.ILogger{Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService" /> class.
+            </summary>
+            <param name="options">The options.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService.GetContainer(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference">
+            <summary>
+            Defines an implementation of <see cref="T:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference"/> for the Azure
+            Blob Storage (the underlying type is <see cref="T:Microsoft.Azure.Storage.Blob.CloudBlockBlob"/>).
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.Properties">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.Uri">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.BlobType">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.IsDeleted">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.Instance">
+            <summary>
+            Gets the <see cref="T:Microsoft.Azure.Storage.Blob.CloudBlockBlob"/> object associated with this instance.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.#ctor(Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService,Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference" /> class.
+            </summary>
+            <param name="service">The blob storage service.</param>
+            <param name="container">The container reference.</param>
+            <param name="blobName">The name of the blob.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.Delete">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DeleteAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DeleteIfExists">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DeleteIfExistsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.Exists">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.ExistsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadToByteArray(System.Byte[],System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadToByteArrayAsync(System.Byte[],System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadFromByteArray(System.Byte[],System.Int32,System.Int32,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadFromByteArrayAsync(System.Byte[],System.Int32,System.Int32,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadToFile(System.String,System.IO.FileMode)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadToFileAsync(System.String,System.IO.FileMode,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadFromFile(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadFromFileAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadToStream(System.IO.Stream)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadToStreamAsync(System.IO.Stream,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadFromStream(System.IO.Stream,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadFromStream(System.IO.Stream,System.Int64,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadFromStreamAsync(System.IO.Stream,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadFromStreamAsync(System.IO.Stream,System.Int64,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadText">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadText(System.Text.Encoding)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadTextAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.DownloadTextAsync(System.Text.Encoding,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadText(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadText(System.Text.Encoding,System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadTextAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlockBlobReference.UploadTextAsync(System.Text.Encoding,System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerPermissions">
+            <summary>
+            Represents the permissions of a blob container.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerPermissions.PublicAccess">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerPermissions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerPermissions"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerPermissions.#ctor(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerPermissions"/> class.
+            </summary>
+            <param name="publicAccess">The public access permissions.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference">
+            <summary>
+            Defines an implementation of <see cref="T:Primavera.Hydrogen.Storage.Blobs.IContainerReference"/> for the Azure
+            Table Storage (the underlying type is <see cref="T:Microsoft.Azure.Storage.Blob.CloudBlobContainer"/>).
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Blobs.IContainerReference" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.Instance">
+            <summary>
+            Gets the <see cref="T:Microsoft.Azure.Storage.Blob.CloudBlobContainer"/> object associated with this instance.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.#ctor(Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference" /> class.
+            </summary>
+            <param name="service">The blob storage service.</param>
+            <param name="containerName">The name of the container.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.Create(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.CreateAsync(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.CreateIfNotExists(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.CreateIfNotExistsAsync(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.Delete">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.DeleteAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.DeleteIfExists">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.DeleteIfExistsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.Exists">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.ExistsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.GetPermissions">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.GetPermissionsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.SetPermissions(Primavera.Hydrogen.Storage.Blobs.IContainerPermissions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.SetPermissionsAsync(Primavera.Hydrogen.Storage.Blobs.IContainerPermissions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureContainerReference.GetBlockBlob(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.BlobRequestOptionsExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Azure.Storage.Blob.BlobRequestOptions"/> type.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.BlobRequestOptionsExtensions.SetFromOptions(Microsoft.Azure.Storage.Blob.BlobRequestOptions,Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions)">
+            <summary>
+            Sets the request options from the specified configuration settings.
+            </summary>
+            <param name="requestOptions">The request options.</param>
+            <param name="options">The configuration options.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobNamingPolicy">
+            <summary>
+            Defines the naming policy that should be used by the blob storage service for blobs.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobNamingPolicy.CaseInsensitive">
+            <summary>
+            The names of blobs are case insensitive.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobNamingPolicy.CaseSensitive">
+            <summary>
+            The names of blobs are case sensitive.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions">
+            <summary>
+            Defines the options used to configure new <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageService"/> instances.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions.ConnectionString">
+            <summary>
+            Gets or sets the connection string to connect to the storage service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions.ServerConnectionTimeout">
+            <summary>
+            Gets or sets the timeout time when establishing a connection to the storage server.
+            This setting is optional and the default value is 5 seconds.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions.MaximumExecutionTime">
+            <summary>
+            Gets or sets the maximum execution time of the storage server requests (including all retries).
+            This setting is optional and the default value is 60 seconds.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions.RetryPolicy">
+            <summary>
+            Gets or sets the retry policy that should be applied to all requests to the storage server.
+            This setting is optional and the default value is <see cref="F:Primavera.Hydrogen.Storage.Azure.AzureStorageServiceRetryPolicy.Exponential"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions.RetryPolicyMaximumAttempts">
+            <summary>
+            Gets or sets the maximum number of retries for all requests to the storage server.
+            This setting is optional and the default value is 3.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions.RetryPolicyBackoffTime">
+            <summary>
+            Gets or sets the initial back-off time of the retry policy applied to all requests to the storage server.
+            This setting is optional and the default value is 4 seconds.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions.BlobNamingPolicy">
+            <summary>
+            Gets or sets the naming policy that should be used by the blob storage service for blobs.
+            The default value is <see cref="F:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobNamingPolicy.CaseInsensitive"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type
+            that allows configuring the <see cref="T:Primavera.Hydrogen.Storage.Blobs.IBlobStorageService"/> to use
+            Azure Table Storage.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageServiceCollectionExtensions.AddAzureBlobStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.Storage.Blobs.IBlobStorageService"/> using
+            configuration defined by <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions"/>. These services will
+            use Blob Table Storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageServiceCollectionExtensions.AddAzureBlobStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions})">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.Storage.Azure.Blobs.AzureBlobStorageOptions"/> using the
+            specified configuration options. These services will use Azure Blob Storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Blobs.OperationTarget">
+            <summary>
+            Defines the target of an action on a blob storage resource.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.Blobs.OperationTarget.Container">
+            <summary>
+            The target is a container.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.Blobs.OperationTarget.Blob">
+            <summary>
+            The target is a blob.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_BlobAlreadyExists">
+            <summary>
+              Looks up a localized string similar to The blob already exists..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_BlobNotFound">
+            <summary>
+              Looks up a localized string similar to The blob does not exist..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_ContainerAlreadyExists">
+            <summary>
+              Looks up a localized string similar to The container already exists..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_ContainerBeingDeleted">
+            <summary>
+              Looks up a localized string similar to The container is being deleted..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_ContainerDisabled">
+            <summary>
+              Looks up a localized string similar to The container is disabled..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_ContainerNotFound">
+            <summary>
+              Looks up a localized string similar to The container does not exist..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_CouldNotInitializeBlockBlobReference">
+            <summary>
+              Looks up a localized string similar to Could not initialize reference for block blob &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_CouldNotInitializeContainerReference">
+            <summary>
+              Looks up a localized string similar to Could not initialize reference for container &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_ErrorConnectingToServer">
+            <summary>
+              Looks up a localized string similar to Could not connect to storage server..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_ErrorExecutingOperation">
+            <summary>
+              Looks up a localized string similar to Error executing the operation. See inner exception for more information..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_InvalidBlobName">
+            <summary>
+              Looks up a localized string similar to The blob name is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_InvalidContainerName">
+            <summary>
+              Looks up a localized string similar to The container name is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_Options_ConnectionStringInvalid">
+            <summary>
+              Looks up a localized string similar to Invalid configuration options. The connection string is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_Options_ConnectionStringUnspecified">
+            <summary>
+              Looks up a localized string similar to Invalid configuration options. The connection string is required..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Blobs_StatusCode">
+            <summary>
+              Looks up a localized string similar to The server returned an error ({0}, {1})..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_CouldNotInitializeTableReference">
+            <summary>
+              Looks up a localized string similar to Could not initialize reference for table &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_DuplicateProperties">
+            <summary>
+              Looks up a localized string similar to The table has duplicate properties..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_ErrorConnectingToServer">
+            <summary>
+              Looks up a localized string similar to Could not connect to storage server..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_ErrorExecutingOperation">
+            <summary>
+              Looks up a localized string similar to Error executing the operation. See inner exception for more information..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_InsertFirstKeyMismatch">
+            <summary>
+              Looks up a localized string similar to All the records to insert must have the same value in the first key..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_InvalidDateTimeValue">
+            <summary>
+              Looks up a localized string similar to The value &apos;{0}&apos; for a property is not supported. The minimum value is &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_InvalidInput">
+            <summary>
+              Looks up a localized string similar to The value of a property is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_InvalidRecordKeys">
+            <summary>
+              Looks up a localized string similar to At least one of the records has invalid keys..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_InvalidTableName">
+            <summary>
+              Looks up a localized string similar to The table name is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_InvalidValueType">
+            <summary>
+              Looks up a localized string similar to The value type of a property is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_Options_ConnectionStringInvalid">
+            <summary>
+              Looks up a localized string similar to Invalid configuration options. The connection string is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_Options_ConnectionStringUnspecified">
+            <summary>
+              Looks up a localized string similar to Invalid configuration options. The connection string is required..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_OutOfRangeInput">
+            <summary>
+              Looks up a localized string similar to The value of a property is out of range..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_PropertiesValueMissing">
+            <summary>
+              Looks up a localized string similar to The value of a property is missing..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_PropertyNameInvalid">
+            <summary>
+              Looks up a localized string similar to The name of a property is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_PropertyNameTooLong">
+            <summary>
+              Looks up a localized string similar to The name of a property is too long..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_PropertyTypeNotSupported">
+            <summary>
+              Looks up a localized string similar to The property type &apos;{0}&apos; is not supported..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_PropertyValueTooLarge">
+            <summary>
+              Looks up a localized string similar to The value of a property is too large..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_RecordAlreadyExists">
+            <summary>
+              Looks up a localized string similar to The record already exists..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_RecordNotFound">
+            <summary>
+              Looks up a localized string similar to The record does not exist..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_RecordTypeNotSupportedInResult">
+            <summary>
+              Looks up a localized string similar to The record type &apos;{0}&apos; is not supported as a result a table operation..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_StatusCode">
+            <summary>
+              Looks up a localized string similar to The server returned an error ({0}, {1})..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_TableAlreadyExists">
+            <summary>
+              Looks up a localized string similar to The table already exists..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_TableBeingDeleted">
+            <summary>
+              Looks up a localized string similar to The table is being deleted..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_TableNotFound">
+            <summary>
+              Looks up a localized string similar to The table does not exist..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_TableTooLarge">
+            <summary>
+              Looks up a localized string similar to The table is too large..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Properties.Resources.RES_Exception_Tables_TooManyProperties">
+            <summary>
+              Looks up a localized string similar to The table has too many properties..
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery">
+            <summary>
+            Defines an implementation of <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQuery"/> for the Azure
+            Table Storage (the underlying type is <see cref="T:Microsoft.Azure.Cosmos.Table.TableQuery"/>).
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Tables.ITableReference" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery.SelectProperties">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery.Filter">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery.TakeCount">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery.Select(System.String[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery.Select(System.Collections.Generic.IEnumerable{System.String})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery.Take(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQuery.Where(Primavera.Hydrogen.Storage.Tables.ITableQueryCondition)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition">
+            <summary>
+            Defines an implementation of <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> for the Azure
+            Table Storage.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.Filter">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.#ctor(System.String,Primavera.Hydrogen.Storage.Tables.TableQueryComparison,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition"/> class.
+            </summary>
+            <param name="propertyName">The name of the property to which the condition should be applied.</param>
+            <param name="comparison">The condition comparison.</param>
+            <param name="value">The condition value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.#ctor(System.String,Primavera.Hydrogen.Storage.Tables.TableQueryComparison,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition"/> class.
+            </summary>
+            <param name="propertyName">The name of the property to which the condition should be applied.</param>
+            <param name="comparison">The condition comparison.</param>
+            <param name="value">The condition value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.#ctor(System.String,Primavera.Hydrogen.Storage.Tables.TableQueryComparison,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition"/> class.
+            </summary>
+            <param name="propertyName">The name of the property to which the condition should be applied.</param>
+            <param name="comparison">The condition comparison.</param>
+            <param name="value">The condition value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.#ctor(System.String,Primavera.Hydrogen.Storage.Tables.TableQueryComparison,System.Int64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition"/> class.
+            </summary>
+            <param name="propertyName">The name of the property to which the condition should be applied.</param>
+            <param name="comparison">The condition comparison.</param>
+            <param name="value">The condition value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.#ctor(System.String,Primavera.Hydrogen.Storage.Tables.TableQueryComparison,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition"/> class.
+            </summary>
+            <param name="propertyName">The name of the property to which the condition should be applied.</param>
+            <param name="comparison">The condition comparison.</param>
+            <param name="value">The condition value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.#ctor(System.String,Primavera.Hydrogen.Storage.Tables.TableQueryComparison,System.Guid)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition"/> class.
+            </summary>
+            <param name="propertyName">The name of the property to which the condition should be applied.</param>
+            <param name="comparison">The condition comparison.</param>
+            <param name="value">The condition value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.#ctor(System.String,Primavera.Hydrogen.Storage.Tables.TableQueryComparison,System.DateTimeOffset)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition"/> class.
+            </summary>
+            <param name="propertyName">The name of the property to which the condition should be applied.</param>
+            <param name="comparison">The condition comparison.</param>
+            <param name="value">The condition value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.And(Primavera.Hydrogen.Storage.Tables.ITableQueryCondition,Primavera.Hydrogen.Storage.Tables.ITableQueryCondition)">
+            <summary>
+            Creates a new condition that combines the two specified conditions with an AND.
+            </summary>
+            <param name="left">The left condition.</param>
+            <param name="right">The right condition.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.Or(Primavera.Hydrogen.Storage.Tables.ITableQueryCondition,Primavera.Hydrogen.Storage.Tables.ITableQueryCondition)">
+            <summary>
+            Creates a new condition that combines the two specified conditions with an OR.
+            </summary>
+            <param name="left">The left condition.</param>
+            <param name="right">The right condition.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsEqual(System.String,System.Boolean)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsEqual(System.String,System.Int32)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsEqual(System.String,System.Int64)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsEqual(System.String,System.Double)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsEqual(System.String,System.DateTimeOffset)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsEqual(System.String,System.Guid)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsEqual(System.String,System.String)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsNotEqual(System.String,System.Boolean)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is not equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsNotEqual(System.String,System.Int32)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is not equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsNotEqual(System.String,System.Int64)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is not equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsNotEqual(System.String,System.Double)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is not equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsNotEqual(System.String,System.DateTimeOffset)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is not equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsNotEqual(System.String,System.Guid)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is not equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsNotEqual(System.String,System.String)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is not equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThan(System.String,System.Boolean)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThan(System.String,System.Int32)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThan(System.String,System.Int64)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThan(System.String,System.Double)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThan(System.String,System.DateTimeOffset)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThan(System.String,System.Guid)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThan(System.String,System.String)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThanOrEqual(System.String,System.Boolean)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThanOrEqual(System.String,System.Int32)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThanOrEqual(System.String,System.Int64)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThanOrEqual(System.String,System.Double)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThanOrEqual(System.String,System.DateTimeOffset)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThanOrEqual(System.String,System.Guid)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsGreaterThanOrEqual(System.String,System.String)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is greater than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThan(System.String,System.Boolean)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThan(System.String,System.Int32)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThan(System.String,System.Int64)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThan(System.String,System.Double)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThan(System.String,System.DateTimeOffset)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThan(System.String,System.Guid)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThan(System.String,System.String)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThanOrEqual(System.String,System.Boolean)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThanOrEqual(System.String,System.Int32)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThanOrEqual(System.String,System.Int64)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThanOrEqual(System.String,System.Double)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThanOrEqual(System.String,System.DateTimeOffset)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThanOrEqual(System.String,System.Guid)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableQueryCondition.IsLessThanOrEqual(System.String,System.String)">
+            <summary>
+            Creates a new condition that compares if the value of the specified property is less than or equal to the specified value.
+            </summary>
+            <param name="propertyName">The property name.</param>
+            <param name="value">The value to compare against.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference">
+            <summary>
+            Defines an implementation of <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableReference"/> for the Azure
+            Table Storage (the underlying type is <see cref="T:Microsoft.Azure.Cosmos.Table.CloudTable"/>).
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Tables.ITableReference" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.Instance">
+            <summary>
+            Gets the <see cref="T:Microsoft.Azure.Cosmos.Table.CloudTable"/> object associated with this instance.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.#ctor(Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference" /> class.
+            </summary>
+            <param name="service">The table storage service.</param>
+            <param name="tableName">The name of the table.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryInsertEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertEntitiesAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertOrReplaceEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertOrReplaceEntitiesAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryDeleteEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteEntitiesAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.ReplaceEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryReplaceEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.ReplaceEntitiesAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveEntityAsync``1(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryRetrieveEntityAsync``1(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveEntitiesAsync``1(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveEntitiesAsync``1(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveEntitiesAsync``1(Primavera.Hydrogen.Storage.Tables.ITableQuery,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertEntity``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryInsertEntity``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertEntities``1(System.Collections.Generic.IEnumerable{``0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertOrReplaceEntity``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertOrReplaceEntities``1(System.Collections.Generic.IEnumerable{``0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteEntity``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryDeleteEntity``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteEntities``1(System.Collections.Generic.IEnumerable{``0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.ReplaceEntity``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryReplaceEntity``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.ReplaceEntities``1(System.Collections.Generic.IEnumerable{``0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveEntity``1(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryRetrieveEntity``1(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveEntities``1">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveEntities``1(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveEntities``1(Primavera.Hydrogen.Storage.Tables.ITableQuery)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryInsertRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertRecordsAsync(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertOrReplaceRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertOrReplaceRecordsAsync(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryDeleteRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteRecordsAsync(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.ReplaceRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryReplaceRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.ReplaceRecordsAsync(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveRecordAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryRetrieveRecordAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveRecordsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveRecordsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveRecordsAsync(Primavera.Hydrogen.Storage.Tables.ITableQuery,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryInsertRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertRecords(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertOrReplaceRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.InsertOrReplaceRecords(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryDeleteRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteRecords(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.ReplaceRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryReplaceRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.ReplaceRecords(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveRecord(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.TryRetrieveRecord(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveRecords">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveRecords(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.RetrieveRecords(Primavera.Hydrogen.Storage.Tables.ITableQuery)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.CreateAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.CreateIfNotExistsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteIfExistsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.ExistsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.Create">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.CreateIfNotExists">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.Delete">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.DeleteIfExists">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableReference.Exists">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageConstants">
+            <summary>
+            Defines constants used in Azure Table Storage.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageConstants.PartitionKey">
+            <summary>
+            Defines the name of the column in a table that holds the partition key.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageConstants.RowKey">
+            <summary>
+            Defines the name of the column in a table that holds the row key.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageConstants.MinDateTime">
+            <summary>
+            Gets the minimum value for a date time property.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException">
+            <summary>
+            Represents errors raised by the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService" />.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Tables.TableStorageException" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException"/> class.
+            </summary>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException"/> class.
+            </summary>
+            <param name="message">The error message.</param>
+            <param name="innerException">The exception that caused this error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException.#ctor(Primavera.Hydrogen.Storage.Tables.TableStorageError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException.#ctor(Primavera.Hydrogen.Storage.Tables.TableStorageError,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException.#ctor(Primavera.Hydrogen.Storage.Tables.TableStorageError,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException"/> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+            <param name="innerException">The exception that caused this error.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageExceptionHandler">
+            <summary>
+            Provides a default exceptions handler that converts <see cref="T:Microsoft.Azure.Cosmos.Table.StorageException"/> to
+            <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageExceptionHandler.Handle(Primavera.Hydrogen.Storage.Azure.Tables.OperationTarget,System.Action)">
+            <summary>
+            Handles exceptions raised by the specified action.
+            </summary>
+            <param name="target">The target of the action.</param>
+            <param name="action">The action that should be executed.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageExceptionHandler.HandleAsync(Primavera.Hydrogen.Storage.Azure.Tables.OperationTarget,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Handles exceptions raised by the specified action.
+            </summary>
+            <param name="target">The target of the action.</param>
+            <param name="action">The action that should be executed.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous task.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageExceptionHandler.Handle``1(Primavera.Hydrogen.Storage.Azure.Tables.OperationTarget,System.Func{``0})">
+            <summary>
+            Handles exceptions raised by the specified action.
+            </summary>
+            <typeparam name="T">The type of the result.</typeparam>
+            <param name="target">The target of the action.</param>
+            <param name="action">The action that should be executed.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageExceptionHandler.HandleAsync``1(Primavera.Hydrogen.Storage.Azure.Tables.OperationTarget,System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Handles exceptions raised by the specified action.
+            </summary>
+            <typeparam name="T">The type of the result.</typeparam>
+            <param name="target">The target of the action.</param>
+            <param name="action">The action that should be executed.</param>
+            <returns>
+            The action result.
+            The <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous task.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService">
+            <summary>
+            Defines a implementation of the <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableStorageService" /> that uses
+            the Azure Table Storage (the underlying type is <see cref="T:Microsoft.Azure.Cosmos.Table.CloudTableClient" />).
+            </summary>
+            <remarks>
+            More information on the Table Service features:
+            <see href="https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/summary-of-table-service-functionality">here</see>.
+            More information on the Table Service REST API:
+            <see href="https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/table-service-rest-api">here</see>.
+            </remarks>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Tables.ITableStorageService" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService.Client">
+            <summary>
+            Gets the <see cref="T:Microsoft.Azure.Cosmos.Table.CloudTableClient"/> object associated with this instance.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService.Options">
+            <summary>
+            Gets the options.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService.#ctor(Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions,Microsoft.Extensions.Logging.ILogger{Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService" /> class.
+            </summary>
+            <param name="options">The options.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService.GetTable(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions">
+            <summary>
+            Defines the options used to configure new <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageService"/> instances.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions.ConnectionString">
+            <summary>
+            Gets or sets the connection string to connect to the storage service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions.ServerConnectionTimeout">
+            <summary>
+            Gets or sets the timeout time when establishing a connection to the storage server.
+            This setting is optional and the default value is 5 seconds.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions.MaximumExecutionTime">
+            <summary>
+            Gets or sets the maximum execution time of the storage server requests (including all retries).
+            This setting is optional and the default value is 60 seconds.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions.RetryPolicy">
+            <summary>
+            Gets or sets the retry policy that should be applied to all requests to the storage server.
+            This setting is optional and the default value is <see cref="F:Primavera.Hydrogen.Storage.Azure.AzureStorageServiceRetryPolicy.Exponential"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions.RetryPolicyMaximumAttempts">
+            <summary>
+            Gets or sets the maximum number of retries for all requests to the storage server.
+            This setting is optional and the default value is 3.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions.RetryPolicyBackoffTime">
+            <summary>
+            Gets or sets the initial back-off time of the retry policy applied to all requests to the storage server.
+            This setting is optional and the default value is 4 seconds.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type
+            that allows configuring the <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableStorageService"/> to use
+            Azure Table Storage.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageServiceCollectionExtensions.AddAzureTableStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableStorageService"/> using
+            configuration defined by <see cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions"/>. These services will
+            use Azure Table Storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageServiceCollectionExtensions.AddAzureTableStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions})">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableStorageService"/> using the
+            specified configuration options. These services will use Azure Table Storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.OperationTarget">
+            <summary>
+            Defines the target of an operation on a table storage resource.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.Tables.OperationTarget.Table">
+            <summary>
+            The target is a table.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Azure.Tables.OperationTarget.Record">
+            <summary>
+            The target is a record.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.TablePropertyConverter">
+            <summary>
+            Provides methods to convert to and from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TablePropertyConverter.ToEntityProperty(Primavera.Hydrogen.Storage.Tables.TableProperty)">
+            <summary>
+            Converts the specified <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty" /> to a <see cref="T:Microsoft.Azure.Cosmos.Table.EntityProperty" />.
+            </summary>
+            <param name="property">The property that should be converted.</param>
+            <returns>
+            The <see cref="T:Microsoft.Azure.Cosmos.Table.EntityProperty" /> instance.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageException">
+            Raised if the property type is not supported.
+            </exception>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TablePropertyConverter.ToTableProperty(Microsoft.Azure.Cosmos.Table.EntityProperty)">
+            <summary>
+            Converts the specified <see cref="T:Microsoft.Azure.Cosmos.Table.EntityProperty"/> to a <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+            <param name="property">The property that should be converted.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TablePropertyConverter.ToTableProperty(System.Object,System.Type)">
+            <summary>
+            Creates a <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty" /> instance from the specified value.
+            Null if the value type is not supported.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="propertyType">The property type.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty" /> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.TableRecordConverter">
+            <summary>
+            Provides methods to convert to and from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TableRecordConverter.ToTableRecord``1(``0)">
+            <summary>
+            Converts the specified entity to a <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/>.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be converted.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TableRecordConverter.ToTableRecords``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Converts the specified entities to a list of <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/>.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entities">The entities that should be converted.</param>
+            <returns>
+            The list of <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/> instances.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TableRecordConverter.ToTableEntity``1(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <summary>
+            Converts the specified <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/> to an entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="record">The record that should be converted.</param>
+            <returns>
+            The <typeparamref name="TEntity"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TableRecordConverter.ToTableEntities``1(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord})">
+            <summary>
+            Converts the specified list of <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/> to a list of entities.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="records">The records that should be converted.</param>
+            <returns>
+            The list of <typeparamref name="TEntity"/> instances.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TableRecordConverter.ToDynamicTableEntity(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <summary>
+            Converts the specified <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/> to a <see cref="T:Microsoft.Azure.Cosmos.Table.DynamicTableEntity"/>.
+            </summary>
+            <param name="record">The record that should be converted.</param>
+            <returns>
+            The <see cref="T:Microsoft.Azure.Cosmos.Table.DynamicTableEntity"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TableRecordConverter.ToTableRecord(System.Object)">
+            <summary>
+            Converts the specified object to a <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/>.
+            </summary>
+            <param name="record">The record that should be converted.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TableRecordConverter.ToTableRecord(Microsoft.Azure.Cosmos.Table.DynamicTableEntity)">
+            <summary>
+            Converts the specified <see cref="T:Microsoft.Azure.Cosmos.Table.DynamicTableEntity"/> to a <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/>.
+            </summary>
+            <param name="record">The record that should be converted.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TableRecordConverter.ToTableRecords(System.Collections.Generic.IEnumerable{Microsoft.Azure.Cosmos.Table.DynamicTableEntity})">
+            <summary>
+            Converts the specified list of <see cref="T:Microsoft.Azure.Cosmos.Table.DynamicTableEntity"/> to a list of <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/>.
+            </summary>
+            <param name="records">The records that should be converted.</param>
+            <returns>
+            The list of <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/> instances.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Azure.Tables.TableRequestOptionsExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Azure.Cosmos.Table.TableRequestOptions"/> type.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Azure.Tables.TableRequestOptionsExtensions.SetFromOptions(Microsoft.Azure.Cosmos.Table.TableRequestOptions,Primavera.Hydrogen.Storage.Azure.Tables.AzureTableStorageOptions)">
+            <summary>
+            Sets the request options from the specified configuration settings.
+            </summary>
+            <param name="requestOptions">The request options.</param>
+            <param name="options">The configuration options.</param>
+        </member>
+    </members>
+</doc>

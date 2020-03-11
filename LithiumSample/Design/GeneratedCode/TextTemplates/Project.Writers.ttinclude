@@ -1,0 +1,24 @@
+﻿<#+
+
+public void WriteProperties(ModelWriter modelWriter, ServiceModel model)
+{
+    if (model == null)
+    {
+        return;
+    }
+    
+#>
+<Project>
+
+    <!-- NuGet properties -->
+
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+</Project>
+<#+
+
+}
+
+#>

@@ -1,0 +1,479 @@
+﻿<#+
+
+// *** WriteBaseClassConstructor
+
+public void WriteBaseClassConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => client, client);
+            SmartGuard.NotNull(() => actions, actions);
+
+            // Set properties
+
+            this.Client = client;
+            this.Actions = actions;
+
+            // Additional initialization
+
+            this.Initialize();
+<#+
+
+}
+
+// *** WriteActionCancellation
+
+public void WriteActionCancellation(ModelWriter modelWriter, MethodBodyModel model)
+{
+    MethodModel parentMethod = model.ParentModelAs<MethodModel>();
+    ControllerTypeAction controllerTypeAction = parentMethod.GetFacet<ControllerTypeAction>("Action");
+    ServiceModel serviceModel = controllerTypeAction.ServiceModel;
+
+    if (serviceModel.GenerateWebApi)
+    {
+        this.WriteActionCancellationWithWebApi(modelWriter, parentMethod, controllerTypeAction, serviceModel);
+    }
+    else
+    {
+        this.WriteActionCancellationWithoutWebApi(modelWriter, parentMethod, controllerTypeAction, serviceModel);
+    }
+}
+
+// *** WriteActionCancellationWithWebApi
+
+public void WriteActionCancellationWithWebApi(ModelWriter modelWriter, MethodModel methodModel, ControllerTypeAction controllerTypeAction, ServiceModel serviceModel)
+{
+
+#>
+            // Begin Validation
+
+<#+
+    
+    this.WriteActionCancellationValidation(controllerTypeAction);
+
+#>
+            // End Validation
+
+            // Route
+
+<#+
+    
+    this.WriteActionCancellationRoute(controllerTypeAction);
+
+#>
+            // Result
+
+<#+
+    
+    this.WriteActionCancellationResult(controllerTypeAction);
+}
+
+// *** WriteActionCancellationWithoutWebApi
+
+public void WriteActionCancellationWithoutWebApi(ModelWriter modelWriter, MethodModel methodModel, ControllerTypeAction controllerTypeAction, ServiceModel serviceModel)
+{
+    string parameters = string.Join(", ", methodModel.Parameters.Select(p => p.Name));
+
+#>
+            // Begin Validation
+
+<#+
+    
+    this.WriteActionCancellationValidation(controllerTypeAction);
+
+#>
+            // End Validation
+
+            // Execute
+
+            return this.<#= controllerTypeAction.Name #>CoreAsync(<#= parameters #>);
+<#+
+    
+}
+
+// *** WriteActionCancellationRoute
+
+public void WriteActionCancellationRoute(ControllerTypeAction sourceModel)
+{
+    if (sourceModel.ChildParameters.Count == 0)
+    {
+
+#>
+            Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
+                this.Client.BaseUri,
+                Models.Metadata.Routes.<#= sourceModel.ParentController.Name #>.<#= sourceModel.Name #>,
+                new Dictionary<string, object>()
+                {
+                    ["version"] = this.Client.ApiVersion
+                });
+
+<#+
+
+    }
+    else
+    {
+        List<string> parameters = new List<string>();
+      
+        foreach (ControllerTypeActionParameter parameter in sourceModel.ChildParameters)
+        {
+            ControllerTypeActionScalarParameter scalarParameter = parameter as ControllerTypeActionScalarParameter;
+            if (scalarParameter != null && !scalarParameter.IsList)
+            {
+                string parameterName = scalarParameter.Name.Transform().ToCamelCase();
+                parameters.Add("[\"{0}\"] = {0}".Format(parameterName));
+            }
+        }
+
+        if (parameters.Count == 0)
+        {
+
+#>
+            Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
+                this.Client.BaseUri,
+                Models.Metadata.Routes.<#= sourceModel.ParentController.Name #>.<#= sourceModel.Name #>,
+                new Dictionary<string, object>()
+                {
+                    ["version"] = this.Client.ApiVersion
+                });
+
+<#+
+
+        }
+        else
+        {
+            string routeName = sourceModel.Name;
+
+            if (sourceModel.ChildParameters.OfType<ControllerTypeActionScalarParameter>().Any(p => p.Binding == ControllerTypeActionScalarParameterBinding.FromQuery))
+            {
+                routeName = "WithQueryString." + routeName;
+            }
+
+#>
+            Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
+                this.Client.BaseUri,
+                Models.Metadata.Routes.<#= sourceModel.ParentController.Name #>.<#= routeName #>,
+                new Dictionary<string, object>()
+                {
+                    ["version"] = this.Client.ApiVersion,
+<#+
+
+            foreach (string parameter in parameters)
+            {
+
+#>
+                    <#= parameter #>,
+<#+
+
+            }
+
+#>
+                });
+
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionCancellationResult
+
+public void WriteActionCancellationResult(ControllerTypeAction sourceModel)
+{
+    switch (sourceModel.HttpMethod)
+    {
+        case ControllerTypeActionHttpMethodKind.Post:
+            this.WriteActionCancellationResultPost(sourceModel);
+            break;
+        case ControllerTypeActionHttpMethodKind.Get:
+            this.WriteActionCancellationResultGet(sourceModel);
+            break;
+        case ControllerTypeActionHttpMethodKind.Delete:
+            this.WriteActionCancellationResultDelete(sourceModel);
+            break;
+        case ControllerTypeActionHttpMethodKind.Put:
+            this.WriteActionCancellationResultPut(sourceModel);
+            break;
+        default:
+            this.WriteActionCancellationResultUnsupported(sourceModel);
+            break;
+    }
+}
+
+// *** WriteActionCancellationResultPost
+
+public void WriteActionCancellationResultPost(ControllerTypeAction sourceModel)
+{
+    string returnValueType = sourceModel.ToCSharpType();
+
+    ControllerTypeActionModelParameter modelParameter = sourceModel.ChildParameters.OfType<ControllerTypeActionModelParameter>().FirstOrDefault();
+    ControllerTypeActionScalarParameter scalarParameter = sourceModel.ChildParameters.OfType<ControllerTypeActionScalarParameter>().FirstOrDefault();
+
+    if (string.IsNullOrEmpty(returnValueType))
+    {
+        if (modelParameter != null)
+        {
+            string parameterName = modelParameter.Name.Transform().ToCamelCase();
+            string parameterType = modelParameter.ToCSharpType();
+
+#>
+            return this.Actions.ExecutePostNoResultAsync<<#= parameterType #>>(requestUri, <#= parameterName #>, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+        else if (scalarParameter != null)
+        {
+            string parameterName = scalarParameter.Name.Transform().ToCamelCase();
+            string parameterType = scalarParameter.ToCSharpType();
+
+#>
+            return this.Actions.ExecutePostNoResultAsync<<#= parameterType #>>(requestUri, <#= parameterName #>, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+        else
+        {
+#>
+            return this.Actions.ExecutePostNoResultAsync(requestUri, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+    }
+    else
+    {
+        if (modelParameter != null)
+        {
+            string parameterName = modelParameter.Name.Transform().ToCamelCase();
+            string parameterType = modelParameter.ToCSharpType();
+
+#>
+            return this.Actions.ExecutePostAsync<<#= parameterType #>, <#= returnValueType #>>(requestUri, <#= parameterName #>, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+        else if (scalarParameter != null)
+        {
+            string parameterName = scalarParameter.Name.Transform().ToCamelCase();
+            string parameterType = scalarParameter.ToCSharpType();
+
+#>
+            return this.Actions.ExecutePostAsync<<#= parameterType #>, <#= returnValueType #>>(requestUri, <#= parameterName #>, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+        else
+        {
+
+#>
+            return this.Actions.ExecutePostAsync<<#= returnValueType #>>(requestUri, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionCancellationResultGet
+
+public void WriteActionCancellationResultGet(ControllerTypeAction sourceModel)
+{
+    string returnValueType = sourceModel.ToCSharpType();
+
+    if (string.IsNullOrEmpty(returnValueType))
+    {
+
+#>
+            return this.Actions.ExecuteGetNoResultAsync(requestUri, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+    }
+    else
+    {
+
+#>
+            return this.Actions.ExecuteGetAsync<<#= returnValueType #>>(requestUri, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+    }
+}
+
+// *** WriteActionCancellationResultDelete
+
+public void WriteActionCancellationResultDelete(ControllerTypeAction sourceModel)
+{
+
+#>
+            return this.Actions.ExecuteDeleteNoResultAsync(requestUri, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+}
+
+// *** WriteActionCancellationResultPut
+
+public void WriteActionCancellationResultPut(ControllerTypeAction sourceModel)
+{
+    string returnValueType = sourceModel.ToCSharpType();
+
+    ControllerTypeActionModelParameter modelParameter = sourceModel.ChildParameters.OfType<ControllerTypeActionModelParameter>().FirstOrDefault();
+    ControllerTypeActionScalarParameter scalarParameter = sourceModel.ChildParameters.OfType<ControllerTypeActionScalarParameter>().FirstOrDefault();
+
+    if (string.IsNullOrEmpty(returnValueType))
+    {
+        if (modelParameter != null)
+        {
+            string parameterName = modelParameter.Name.Transform().ToCamelCase();
+            string parameterType = modelParameter.ToCSharpType();
+
+#>
+            return this.Actions.ExecutePutNoResultAsync<<#= parameterType #>>(requestUri, <#= parameterName #>, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+        else
+        {
+#>
+            return this.Actions.ExecutePutNoResultAsync(requestUri, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+    }
+    else
+    {
+        if (modelParameter != null)
+        {
+            string parameterName = modelParameter.Name.Transform().ToCamelCase();
+            string parameterType = modelParameter.ToCSharpType();
+
+#>
+            return this.Actions.ExecutePutAsync<Models.<#= parameterType #>, <#= returnValueType #>>(requestUri, <#= parameterName #>, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+        else if (scalarParameter != null)
+        {
+            string parameterName = scalarParameter.Name.Transform().ToCamelCase();
+            string parameterType = scalarParameter.ToCSharpType();
+
+#>
+            return this.Actions.ExecutePutAsync<<#= parameterType #>, <#= returnValueType #>>(requestUri, <#= parameterName #>, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+        else
+        {
+
+#>
+            return this.Actions.ExecutePutAsync<<#= returnValueType #>>(requestUri, <#= sourceModel.SuccessStatusCode.ToCSharpType() #>, cancellationToken);
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionCancellationResultUnsupported
+
+public void WriteActionCancellationResultUnsupported(ControllerTypeAction sourceModel)
+{
+
+#>
+            // TODO this generated code does not cover all scenarios yet
+
+            throw new NotSupportedException();
+<#+
+
+}
+
+// *** WriteActionSync
+
+public void WriteActionSync(ModelWriter modelWriter, MethodBodyModel model)
+{
+    MethodModel parentMethod = model.ParentModelAs<MethodModel>();
+    ControllerTypeAction sourceModel = parentMethod.GetFacet<ControllerTypeAction>("Action");
+
+    string parametersText = string.Empty;
+    if (sourceModel.ChildParameters.Count > 0)
+    {
+        parametersText = string.Join(", ", sourceModel.ChildParameters.Select(p => p.Name.Transform().ToCamelCase()));
+    }
+
+#>
+            // Result
+
+            return this.<#= sourceModel.Name #>Async(<#= parametersText #>).GetAwaiter().GetResult();
+<#+
+
+}
+
+// *** WriteProbeActionCancellation
+
+public void WriteProbeActionCancellation(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Build the URL of the request
+            
+            Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
+                this.Client.BaseUri,
+                Models.Metadata.Routes.Monitoring.Probe, 
+                new Dictionary<string, object>()
+                {
+                    ["version"] = this.Client.ApiVersion
+                });
+            
+            // Result
+            
+            return this.Actions.ExecuteGetAsync<string>(requestUri, HttpStatusCode.OK, cancellationToken);
+<#+
+
+}
+
+// *** WriteDiagnosticsActionCancellation
+
+public void WriteDiagnosticsActionCancellation(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Build the URL of the request
+            
+            Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
+                this.Client.BaseUri,
+                Models.Metadata.Routes.Monitoring.Diagnostics, 
+                new Dictionary<string, object>()
+                {
+                    ["version"] = this.Client.ApiVersion
+                });
+            
+            // Result
+            
+            return this.Actions.ExecuteGetAsync<string>(requestUri, HttpStatusCode.OK, cancellationToken);
+<#+
+
+}
+
+// *** WriteProbeAction
+
+public void WriteProbeAction(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Result
+            
+            return this.ProbeAsync().GetAwaiter().GetResult();
+<#+
+
+}
+
+// *** WriteDiagnosticsAction
+
+public void WriteDiagnosticsAction(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Result
+            
+            return this.DiagnosticsAsync().GetAwaiter().GetResult();
+<#+
+
+}
+
+#>

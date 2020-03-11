@@ -1,0 +1,39 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".Client.Console");
+
+    targetModel.Namespace
+        .AddInterface(new InterfaceModel("IApplication")
+        {
+            Modifiers = InterfaceModifiers.Internal | InterfaceModifiers.Partial,
+            Inheritance = "IDisposable",
+            Documentation = new DocumentationModel("Defines the interface of the type that implements the application.")
+            {
+                SeeAlso = new List<string>(new string[] { "IDisposable"})
+            }
+        })
+            .AddMethod(new MethodModel("RunAsync", "Task")
+            {
+                Documentation = new DocumentationModel("Runs the application.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            });
+}
+
+#>

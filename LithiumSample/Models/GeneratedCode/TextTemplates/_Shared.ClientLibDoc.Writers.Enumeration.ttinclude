@@ -1,0 +1,41 @@
+﻿<#+
+
+// *** WriteReferenceEnumerations
+
+public void WriteReferenceEnumerations(ModelWriter w, ServiceModel m)
+{
+    IList<EnumType> enumerations = m.Enumerations.OrderBy(i => i.Name).ToList();
+
+    if (enumerations.Count == 0)
+    {
+        return;
+    }
+
+    w.AppendLine("### Enumerations Classes");
+    w.AppendLine();
+
+    foreach (EnumType enumType in enumerations)
+    {
+        this.WriteReferenceEnumeration(w, enumType);
+    }
+}
+
+// *** WriteReferenceEnumeration
+
+public void WriteReferenceEnumeration(ModelWriter w, EnumType m)
+{
+    w.AppendLine("#### <a name=\"{0}\"></a>`{0}`", m.Name);
+    w.AppendLine();
+    w.AppendLine(m.Summary);
+    w.AppendLine();
+    w.AppendLine("- Namespace: `{0}.Models`", m.ServiceModel.Namespace);
+
+    w.AppendLine();
+    w.AppendLine("##### Members");
+    w.AppendLine();
+    this.WriteReferenceEnumerationMembers(w, m);
+    w.AppendLine("[^ Back to top](#root)");
+    w.AppendLine();
+}
+
+#>

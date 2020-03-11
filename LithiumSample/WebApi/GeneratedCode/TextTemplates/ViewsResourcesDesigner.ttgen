@@ -1,0 +1,43 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".gen.cs" #>
+<#@ ServiceDesigner processor="ServiceDesignerDirectiveProcessor" requires="FileName=''" #>
+<#
+
+// Build the transformations
+
+ServiceModelTransformations<ResourcesFileModel> transformations1 = new ServiceModelTransformations<ResourcesFileModel>(this.ServiceModel);
+
+transformations1.Add(new ServiceModelTransformation());
+
+// Transform
+
+ResourcesFileModel intermediateModel = new ResourcesFileModel(
+    "ViewsResources",
+    this.ServiceModel.Namespace + ".WebApi.Controllers",
+    this.ServiceModel.Namespace + ".WebApi.GeneratedCode.ViewsResources.gen",
+    true);
+
+transformations1.TransformTo(intermediateModel);
+
+// Second transformation
+
+ResourcesFileModelTransformations<CSharpFileModel> transformations2 =
+    new ResourcesFileModelTransformations<CSharpFileModel>(intermediateModel);
+
+transformations2.Add(new ResourcesFileModelToCSharpCodeFileModelTransformation());
+
+// Transform
+
+CSharpFileModel targetModel = new CSharpFileModel();
+transformations2.TransformTo(targetModel);
+
+// Create controller
+
+ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+// Generate code
+
+controller.Write(targetModel);
+
+#>
+<#@ include file="ViewsResourcesCommon.ttinclude" #>

@@ -1,0 +1,8 @@
+C:\Users\Andre.Borges\source\repos\LithiumSample\Primavera.Lithium.Webhooks\bin\Debug\netcoreapp3.1\Primavera.Lithium.Webhooks.deps.json
+C:\Users\Andre.Borges\source\repos\LithiumSample\Primavera.Lithium.Webhooks\bin\Debug\netcoreapp3.1\Primavera.Lithium.Webhooks.dll
+C:\Users\Andre.Borges\source\repos\LithiumSample\Primavera.Lithium.Webhooks\bin\Debug\netcoreapp3.1\Primavera.Lithium.Webhooks.pdb
+C:\Users\Andre.Borges\source\repos\LithiumSample\Primavera.Lithium.Webhooks\obj\Debug\netcoreapp3.1\Primavera.Lithium.Webhooks.AssemblyInfoInputs.cache
+C:\Users\Andre.Borges\source\repos\LithiumSample\Primavera.Lithium.Webhooks\obj\Debug\netcoreapp3.1\Primavera.Lithium.Webhooks.AssemblyInfo.cs
+C:\Users\Andre.Borges\source\repos\LithiumSample\Primavera.Lithium.Webhooks\obj\Debug\netcoreapp3.1\Primavera.Lithium.Webhooks.dll
+C:\Users\Andre.Borges\source\repos\LithiumSample\Primavera.Lithium.Webhooks\obj\Debug\netcoreapp3.1\Primavera.Lithium.Webhooks.pdb
+C:\Users\Andre.Borges\source\repos\LithiumSample\Primavera.Lithium.Webhooks\obj\Debug\netcoreapp3.1\Primavera.Lithium.Webhooks.csprojAssemblyReference.cache

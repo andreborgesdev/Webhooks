@@ -1,0 +1,248 @@
+﻿<#+
+
+// *** WriteErrorViewModelBaseConstructor1
+
+public void WriteErrorViewModelBaseConstructor1(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+#>
+            // Set properties
+
+            this.IsStatusCodeError = true;
+            this.ErrorStatusCode = statusCode;
+            this.ErrorOriginalPath = originalPath;
+            this.ErrorOriginalQueryString = originalQueryString;
+            this.UserSignedIn = userSignedIn;
+            this.UserEmail = userEmail;
+<#+
+
+}
+
+// *** WriteErrorViewModelBaseConstructor2
+
+public void WriteErrorViewModelBaseConstructor2(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+#>
+            // Validation
+
+            SmartGuard.NotNullOrEmpty(() => errorId, errorId);
+            SmartGuard.NotNull(() => message, message);
+
+            // Set properties
+
+            this.IsStatusCodeError = false;
+            this.ErrorId = errorId;
+            this.Message = message;
+<#+
+
+}
+
+// *** WriteGetPageTitle
+
+public void WriteGetPageTitle(ModelWriter modelWriter, MethodBodyModel model)
+{
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Result
+
+            if (model == null)
+            {
+                return ViewsResources.RES_PageTitle_Error.Format(hostConfiguration.Information.HostTitle);
+            }
+
+            if (model.IsStatusCodeError)
+            {
+                return ViewsResources.RES_PageTitle_Error_StatusCode.Format(hostConfiguration.Information.HostTitle, model.ErrorStatusCode);
+            }
+
+            return ViewsResources.RES_PageTitle_Error.Format(hostConfiguration.Information.HostTitle);
+<#+
+
+}
+
+// *** WriteGetTitle
+
+public void WriteGetTitle(ModelWriter modelWriter, MethodBodyModel model)
+{
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Result
+
+            if (model == null)
+            {
+                title = ViewsResources.RES_Title_Error;
+                return;
+            }
+
+            if (model.IsStatusCodeError)
+            {
+                switch (model.ErrorStatusCode)
+                {
+                    case 0:
+                        title = ViewsResources.RES_Title_Error;
+                        return;
+                    case 403:
+                        title = ViewsResources.RES_Title_403;
+                        return;
+                    case 404:
+                        title = ViewsResources.RES_Title_404;
+                        return;
+                    case 500:
+                        title = ViewsResources.RES_Title_500;
+                        return;
+                    default:
+                        title = ViewsResources.RES_Title_StatusCode.Format(model.ErrorStatusCode);
+                        return;
+                }
+            }
+
+            switch (model.ErrorId)
+            {
+                default:
+                    title = ViewsResources.RES_Title_Error;
+                    return;
+            }
+<#+
+
+}
+
+// *** WriteGetDescriptionHtml
+
+public void WriteGetDescriptionHtml(ModelWriter modelWriter, MethodBodyModel model)
+{
+#>
+            if (model == null)
+            {
+                description = ViewsResources.RES_Description_Unexpected;
+                additionalInformation = null;
+                return;
+            }
+
+            if (model.IsStatusCodeError)
+            {
+                switch (model.ErrorStatusCode)
+                {
+                    case 0:
+                        description = ViewsResources.RES_Description_Unexpected;
+                        additionalInformation = null;
+                        return;
+                    case 403:
+                        description = ViewsResources.RES_Description_403;
+                        additionalInformation = GetAdditionalInformationSignedInUser(model);
+                        return;
+                    case 404:
+                        description = ViewsResources.RES_Description_404;
+                        additionalInformation = null;
+                        return;
+                    case 500:
+                        description = ViewsResources.RES_Description_500;
+                        additionalInformation = null;
+                        return;
+                    default:
+                        description = ViewsResources.RES_Description_StatusCode.Format(model.ErrorStatusCode);
+                        additionalInformation = null;
+                        return;
+                }
+            }
+
+            if (model.Message == null)
+            {
+                description = ViewsResources.RES_Description_Unexpected;
+            }
+
+            string error = null;
+
+            switch (model.ErrorId)
+            {
+                default:
+                    if (model.Message.IsExpected)
+                    {
+                        error = "<p><b>{0}</b></p>{1}"
+                            .Format(
+                                model.Message.Error,
+                                model.Message.ErrorDescription == null ? string.Empty : "<p>" + model.Message.ErrorDescription + "</p>");
+                    }
+                    else
+                    {
+                        error = ViewsResources.RES_Description_Unexpected_ErrorId
+                            .Format(
+                                model.Message.Error,
+                                model.Message.ErrorDescription == null ? string.Empty : "<p>" + model.Message.ErrorDescription + "</p>");
+                    }
+
+                    break;
+            }
+
+            description = error;
+            additionalInformation = null;
+<#+
+
+}
+
+// *** WriteGetErrorIdHtml
+
+public void WriteGetErrorIdHtml(ModelWriter modelWriter, MethodBodyModel model)
+{
+#>
+            if (model == null)
+            {
+                return string.Empty;
+            }
+
+            if (model.IsStatusCodeError)
+            {
+                return string.Empty;
+            }
+
+            if (string.IsNullOrEmpty(model.ErrorId))
+            {
+                return string.Empty;
+            }
+
+            return ViewsResources.RES_ErrorId
+                .Format(
+                    HttpUtility.HtmlEncode(
+                        model.ErrorId));
+<#+
+
+}
+
+// *** WriteGetAdditionalInformationSignedInUser
+
+public void WriteGetAdditionalInformationSignedInUser(ModelWriter modelWriter, MethodBodyModel model)
+{
+#>
+            if (model == null)
+            {
+                return null;
+            }
+
+            if (!model.UserSignedIn)
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(model.UserEmail))
+            {
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(model.ErrorOriginalPath))
+            {
+                return null;
+            }
+
+            return ViewsResources.RES_SignedInAs
+                .Format(
+                    model.UserEmail,
+                    Constants.Controllers.Home.Routes.Signout + model.ErrorOriginalQueryString);
+<#+
+
+}
+
+#>

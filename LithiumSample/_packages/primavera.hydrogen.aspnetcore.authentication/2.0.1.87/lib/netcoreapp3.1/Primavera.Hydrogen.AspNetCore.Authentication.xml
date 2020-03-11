@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.AspNetCore.Authentication</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeBuilder">
+            <summary>
+            Allows building HTTP bearer challenges.
+            </summary>
+            <remarks>
+            For more information on what is an HTTP bearer challenge see: https://tools.ietf.org/html/rfc6750.
+            The WWW-Authenticate header is used to return the challenge to the client.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeBuilder.BuildHeader(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerChallengeContext)">
+            <summary>
+            Builds a WWW-Authenticate header containing the HTTP bearer challenge that should be returned to the client.
+            </summary>
+            <param name="context">The bearer challenge context. This is the argument of the <see cref="M:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.Challenge(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerChallengeContext)"/> event.</param>
+            <example>
+            This method should be called from the <see cref="M:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.Challenge(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerChallengeContext)"/> event like in the following example:
+            <code>
+            <![CDATA[
+            // Add the JWT bearer middleware (in the Web API host)
+            
+            authentication.AddJwtBearer(
+                (options) =>
+                {
+                    (...)
+                    options.Events = new JwtBearerEvents()
+                    {
+                        OnChallenge = HandleChallenge
+                    };
+                });
+                
+            // Handle the event
+            
+            private static Task HandleChallenge(JwtBearerChallengeContext context)
+            {
+                HttpBearerChallengeBuilder.BuildHeader(context);
+                return Task.CompletedTask;
+            }
+            ]]>
+            </code>
+            Alternativelly, <see cref="T:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeEvents"/> can be used instead:
+            <code>
+            <![CDATA[
+            // Add the JWT bearer middleware (in the Web API host)
+            
+            authentication.AddJwtBearer(
+                (options) =>
+                {
+                    (...)
+                    options.Events = new HttpBearerChallengeEvents();
+                });
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeBuilder.BuildHeader(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerChallengeContext,System.String)">
+            <summary>
+            Builds a WWW-Authenticate header containing the HTTP bearer challenge that should be returned to the client.
+            </summary>
+            <param name="context">The bearer challenge context. This is the argument of the <see cref="M:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.Challenge(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerChallengeContext)"/> event.</param>
+            <param name="scope">The scope that should be added in the header. Optional. When set it should be a space-delimited of case-sensitive scope values.</param>
+            <example>
+            This method should be called from the <see cref="M:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.Challenge(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerChallengeContext)"/> event like in the following example:
+            <code>
+            <![CDATA[
+            // Add the JWT bearer middleware (in the Web API host)
+            
+            authentication.AddJwtBearer(
+                (options) =>
+                {
+                    (...)
+                    options.Events = new JwtBearerEvents()
+                    {
+                        OnChallenge = HandleChallenge
+                    };
+                });
+                
+            // Handle the event
+            
+            private static Task HandleChallenge(JwtBearerChallengeContext context)
+            {
+                HttpBearerChallengeBuilder.BuildHeader(context, "myscope");
+                return Task.CompletedTask;
+            }
+            ]]>
+            </code>
+            Alternativelly, <see cref="T:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeEvents"/> can be used instead:
+            <code>
+            <![CDATA[
+            // Add the JWT bearer middleware (in the Web API host)
+            
+            authentication.AddJwtBearer(
+                (options) =>
+                {
+                    (...)
+                    options.Events = new HttpBearerChallengeEvents("myscope");
+                });
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeEvents">
+            <summary>
+            Specifies events that <see cref="T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler"/> invokes during the
+            autentication process. This class automatically builds a HTTP Bearer challenge,
+            using <see cref="T:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeBuilder"/> in the <see cref="P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.OnChallenge"/>
+            event.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeEvents.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeEvents"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeEvents.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeEvents"/> class.
+            </summary>
+            <param name="scope">The scope that should be included in the challenge.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer.HttpBearerChallengeEvents.Challenge(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerChallengeContext)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

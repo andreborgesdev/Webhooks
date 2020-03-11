@@ -1,0 +1,163 @@
+﻿<#+
+
+// *** WriteReferenceControllerActions
+
+public void WriteReferenceControllerActions(ModelWriter w, ControllerType m)
+{
+    IList<ControllerTypeAction> actions = m.ChildActions.OrderBy(i => i.Name).Where(i => i.IsVisible).ToList();
+
+    if (!m.HasCustomActionsClientLibrary && actions.Count == 0)
+    {
+        w.AppendLine("The class has no methods.");
+        w.AppendLine();
+        return;
+    }
+
+    foreach (ControllerTypeAction action in actions)
+    {
+        this.WriteReferenceControllerAction(w, action);
+    }
+
+    if (m.HasCustomActionsClientLibrary)
+    {
+        w.AppendLine("> The class includes custom methods not described here.");
+        w.AppendLine();
+    }
+}
+
+// *** WriteReferenceControllerAction
+
+public void WriteReferenceControllerAction(ModelWriter w, ControllerTypeAction m)
+{
+    string returnType = "ServiceOperationResult";
+    if (m.ReturnValueType != ControllerTypeActionReturnValueType.None)
+    {
+        returnType = "ServiceOperationResult<{0}>".Format(m.ToCSharpType(false));
+    }
+
+    w.AppendLine("##### `{0}Async()`", m.Name);
+    w.AppendLine();
+    w.AppendLine(m.Summary);
+    w.AppendLine();
+    w.AppendLine("```csharp");
+    w.AppendLine("public async Task<{0}> {1}Async({2});", returnType, m.Name, this.GetParametersString(m, true));
+
+    if (m.ParentController.ServiceModel.GenerateSyncActions)
+    {
+        w.AppendLine();
+        w.AppendLine("public {0} {1}({2});", returnType, m.Name, this.GetParametersString(m, false));
+    }
+
+    w.AppendLine("```");
+    w.AppendLine();
+
+    w.AppendLine("###### Parameters");
+    w.AppendLine();
+    this.WriteReferenceControllerActionParameters(w, m);
+    w.AppendLine();
+    w.AppendLine("###### Returns");
+    w.AppendLine();
+    this.WriteReferenceControllerActionResult(w, m);
+    w.AppendLine();
+    w.AppendLine("###### Status Codes");
+    w.AppendLine();
+    this.WriteReferenceControllerActionStatusCodes(w, m);
+    w.AppendLine();
+    w.AppendLine("[^ Back to top](#root)");
+    w.AppendLine();
+}
+
+// *** WriteReferenceControllerActionResult
+
+public void WriteReferenceControllerActionResult(ModelWriter w, ControllerTypeAction m)
+{
+    w.AppendLine("| Return Type | Description |");
+    w.AppendLine("| - | - | - | - |");
+
+    if (m.ReturnValueType == ControllerTypeActionReturnValueType.None)
+    {
+        w.AppendLine("| None | The operation has no return value. |");
+    }
+    else
+    {
+        w.AppendLine("| `{0}` | {1} |", m.ToCSharpType(), m.Returns);
+    }
+
+    w.AppendLine();
+}
+
+// *** WriteReferenceControllerActionStatusCodes
+
+public void WriteReferenceControllerActionStatusCodes(ModelWriter w, ControllerTypeAction m)
+{
+    w.AppendLine("| Status Code | Description |");
+    w.AppendLine("| - | - | - | - |");
+    w.AppendLine("| `HttpStatusCode.{0}` | Success. |", m.SuccessStatusCode);
+    w.AppendLine("| `HttpStatusCode.BadRequest` | Failure: the request is invalid.|");
+
+    if (m.ProducesNotFound)
+    {
+        w.AppendLine("| `HttpStatusCode.NotFound` | Failure: not found.|");
+    }
+
+    if (m.ProducesConflict)
+    {
+        w.AppendLine("| `HttpStatusCode.Conflict` | Failure: conflict.|");
+    }
+
+    w.AppendLine();
+
+    w.AppendLine("> The operation will raise `ServiceException` for any failure status code. The exception may include a body with a `ServiceError` depending on the status code.");
+    w.AppendLine();
+}
+
+// *** GetParametersString
+
+private string GetParametersString(ControllerTypeAction m, bool useCancellation)
+{
+    string result = GetParametersString(m);
+
+    if (useCancellation)
+    {
+        if (string.IsNullOrEmpty(result))
+        {
+            result = "CancellationToken cancellationToken = default";
+        }
+        else
+        {
+            result = string.Concat(result, ", CancellationToken cancellationToken = default");
+        }
+    }
+
+    return result;
+}
+
+// *** GetParametersString
+
+private string GetParametersString(ControllerTypeAction m)
+{
+    string result = null;
+
+    foreach (ControllerTypeActionParameter parameter in m.ChildParameters)
+    {
+        string parameterString = "{0} {1}".Format(parameter.ToCSharpType(false), parameter.Name.Transform().ToCamelCase());
+
+        if (!string.IsNullOrEmpty(parameter.DefaultValue))
+        {
+            parameterString = string.Concat(parameterString, " = {0}".Format(parameter.DefaultValue));
+        }
+        
+        if (string.IsNullOrEmpty(result))
+        {
+            result = parameterString;
+        }
+        else
+        {
+            result = string.Join(", ", result, parameterString);
+        }
+    }
+
+    return result;
+}
+
+#>

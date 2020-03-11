@@ -1,0 +1,76 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    if (!sourceModel.GenerateClientLibrary)
+    {
+        targetModel.WithComment("This file is empty because the service model does not generate a client library.");
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace);
+
+    InterfaceModel interfaceModel = targetModel.Namespace
+        .AddInterface(new InterfaceModel("I{0}Client".Format(sourceModel.Name))
+        {
+            Modifiers = InterfaceModifiers.Public | InterfaceModifiers.Partial,
+            Inheritance = "IDisposable",
+            Documentation = new DocumentationModel("Defines the interface of the service client that allows accessing the {0} Web API.".Format(sourceModel.DisplayName))
+            {
+                SeeAlso = new List<string>(new string[] { "IDisposable" })
+            }
+        });
+
+    if (sourceModel.GenerateWebApi)
+    {
+        interfaceModel
+            .WithProperty(new PropertyModel("Monitoring", "IMonitoringOperations")
+            {
+                GetAccessor = new PropertyGetAccessorModel(),
+                Documentation = new DocumentationModel("Provides monitoring operations on the service.")
+            });
+    }
+}
+
+// *** TransformController
+
+public void TransformController(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ControllerType sourceModel = sourceElement as ControllerType;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    if (!sourceModel.ServiceModel.GenerateClientLibrary)
+    {
+        return;
+    }
+
+    if (!sourceModel.IsVisible)
+    {
+        return;
+    }
+
+    InterfaceModel interfaceModel = targetModel.Namespace.Interfaces[0];
+
+    interfaceModel.AddProperty(new PropertyModel(sourceModel.Name, "I{0}Operations".Format(sourceModel.Name))
+    {
+        GetAccessor = new PropertyGetAccessorModel(),
+        Documentation = new DocumentationModel(sourceModel.Summary)
+    });
+}
+
+#>

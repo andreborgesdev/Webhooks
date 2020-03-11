@@ -1,0 +1,108 @@
+﻿<#+
+
+// *** WriteInitializeApiVersion
+
+public void WriteInitializeApiVersion(ModelWriter modelWriter, MethodBodyModel model)
+{
+    MethodModel parentModel = model.ParentModelAs<MethodModel>();
+    ServiceModel sourceModel = parentModel.GetFacet<ServiceModel>("SourceModel");
+
+    if (sourceModel.GenerateWebApi)
+    {
+
+#>
+            // Set API version
+
+            this.ApiVersion = ApiVersions.Literals.DefaultVersionLiteral;
+<#+
+
+    }
+}
+
+// *** WriteDispose
+
+public void WriteDispose(ModelWriter modelWriter, MethodBodyModel model)
+{
+    MethodModel parentModel = model.ParentModelAs<MethodModel>();
+    ServiceModel sourceModel = parentModel.GetFacet<ServiceModel>("SourceModel");
+
+#>
+            if (this.disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                // Dispose operations
+<#+
+
+    foreach (ControllerType controllerType in sourceModel.Controllers.Where(c => c.IsVisible && c.ChildActions.Any(d => d.IsVisible)).OrderBy(c => c.Name))
+    {
+
+#>
+
+                if (this.<#= controllerType.Name #> != null)
+                {
+                    this.<#= controllerType.Name #>.Dispose();
+                    this.<#= controllerType.Name #> = null;
+                }
+<#+
+
+    }
+
+#>
+            }
+
+            this.disposed = true;
+
+            base.Dispose(disposing);
+<#+
+
+}
+
+// *** WriteConstructorBody
+
+public void WriteConstructorBody(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+
+#>
+            // Initialize
+
+            this.InitializeCore();
+<#+
+
+}
+
+// *** WriteInitializeCore
+
+public void WriteInitializeCore(ModelWriter modelWriter, MethodBodyModel model)
+{
+    MethodModel parentModel = model.ParentModelAs<MethodModel>();
+    ServiceModel sourceModel = parentModel.GetFacet<ServiceModel>("SourceModel");
+
+#>
+            // Initialize members
+
+<#+
+
+    foreach (ControllerType controllerType in sourceModel.Controllers.Where(c => c.IsVisible).OrderBy(c => c.Name))
+    {
+
+#>
+            this.<#= controllerType.Name #> = new <#= controllerType.Name #>Operations(this, this.Actions);
+<#+
+
+    }
+
+    if (sourceModel.GenerateWebApi)
+    {
+
+#>
+            this.Monitoring = new MonitoringOperations(this, this.Actions);
+<#+
+
+    }
+}
+
+#>

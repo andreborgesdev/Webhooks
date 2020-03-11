@@ -1,0 +1,30 @@
+﻿<Project>
+
+    <!-- Assembly name and namespace -->
+
+    <PropertyGroup>
+        <RootNamespace>Primavera.Lithium.Faturacao.Models</RootNamespace>
+        <AssemblyName>Primavera.Lithium.Faturacao.Models</AssemblyName>
+    </PropertyGroup>
+
+    <!-- Output path and XML documentation file -->
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DocumentationFile>.\Bin\Primavera.Lithium.Faturacao.Models.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DocumentationFile>.\Bin\Primavera.Lithium.Faturacao.Models.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <!-- NuGet properties -->
+
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <Authors>PRIMAVERA Business Software Solutions, S.A.</Authors>
+        <Description>Class library that includes the types that define the models used by the Faturacao Service.</Description>
+        <Copyright>Copyright © 2018-2020 PRIMAVERA</Copyright>
+        <PackageTags>PRIMAVERA;Lithium</PackageTags>
+    </PropertyGroup>
+
+</Project>

@@ -1,0 +1,77 @@
+﻿<#+
+
+public void WriteProperties(ModelWriter modelWriter, ServiceModel model)
+{
+    if (model == null)
+    {
+        return;
+    }
+    
+    string assemblyName = model.Namespace + ".WebApi";
+    string documentationFileName = @".\Bin\" + model.Namespace + ".WebApi.xml";
+
+#>
+<Project>
+
+    <!-- Assembly name and namespace -->
+
+    <PropertyGroup>
+        <RootNamespace><#= assemblyName #></RootNamespace>
+        <AssemblyName><#= assemblyName #></AssemblyName>
+    </PropertyGroup>
+
+    <!-- Output path and XML documentation file -->
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DocumentationFile><#= documentationFileName #></DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DocumentationFile><#= documentationFileName #></DocumentationFile>
+    </PropertyGroup>
+
+    <!-- NuGet properties -->
+
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+        <Authors><#= model.Company #></Authors>
+        <Description>Class library that provides the Web application for the <#= model.DisplayName #> Web API.</Description>
+        <Copyright><#= model.Copyright #></Copyright>
+        <PackageTags>PRIMAVERA;Lithium</PackageTags>
+    </PropertyGroup>
+
+    <!-- Razor Compilation -->
+
+    <ItemGroup>
+        <!--
+        NOTE:
+        This is a fix to an issue that started after the .NETCore 2.0 to .NETCore 2.2 upgrade
+        The AssemblyInfo.cs is required because the Primavera.Hydrogen.DesignTime.Configuration package
+        is added. Nevertheless the Razor compilation ignores it without this and that would result
+        in a build error: "Mark assemblies with assembly version".
+        -->
+        <!--<Compile Include="$(MSBuildThisFileDirectory)\Properties\AssemblyInfo.cs" />-->
+        <RazorCompile Include="GeneratedCode\AssemblyInfo.gen.cs" />
+    </ItemGroup>
+
+    <!-- Embedded Resources -->
+
+    <ItemGroup>
+        <EmbeddedResource Include="GeneratedCode\OpenApiCustomScript.gen.js" />
+        <EmbeddedResource Include="GeneratedCode\OpenApiCustomStyleSheet.gen.css" />
+    </ItemGroup>
+
+    <!-- Content -->
+
+    <ItemGroup>
+        <Content Include="GeneratedCode\ClientLibDoc.gen.md">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+</Project>
+<#+
+
+}
+
+#>

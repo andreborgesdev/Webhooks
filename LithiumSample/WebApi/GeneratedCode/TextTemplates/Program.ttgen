@@ -1,0 +1,94 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".gen.cs" #>
+<#@ ServiceDesigner processor="ServiceDesignerDirectiveProcessor" requires="FileName=''" #>
+<#
+
+// Build the transformations
+
+ServiceModelTransformations<CSharpFileModel> transformations = new ServiceModelTransformations<CSharpFileModel>(this.ServiceModel);
+
+transformations.Add(
+    (s, t) => true,
+    (s, t) => { return s is ServiceModel; },
+    this.TransformServiceModel);
+
+// Transform
+
+CSharpFileModel targetModel = new CSharpFileModel(this.ServiceModel);
+transformations.TransformTo(targetModel);
+
+// Create controller
+
+ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+// Add writers
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        return parentProperty.Name.EqualsNoCase("CaptureStartupErrors");
+    }, 
+    this.WriteCaptureStartupErrors);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        return parentProperty.Name.EqualsNoCase("UseDevelopmentSettings");
+    }, 
+    this.WriteUseDevelopmentSettings);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("Main");
+    }, 
+    this.WriteMain);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("Build");
+    }, 
+    this.WriteBuild);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("ConfigureAppConfiguration");
+    }, 
+    this.WriteConfigureAppConfiguration);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("ConfigureLogging");
+    }, 
+    this.WriteConfigureLogging);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("ConfigureHostConfiguration");
+    }, 
+    this.WriteConfigureHostConfiguration);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("ConfigureWebHostDefaults");
+    }, 
+    this.WriteConfigureWebHostDefaults);
+
+// Generate code
+
+controller.Write(targetModel);
+
+#>

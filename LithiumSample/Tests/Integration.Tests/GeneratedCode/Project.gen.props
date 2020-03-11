@@ -1,0 +1,26 @@
+﻿<Project>
+
+    <!-- Assembly name and namespace -->
+
+    <PropertyGroup>
+        <RootNamespace>Primavera.Lithium.Faturacao.Integration.Tests</RootNamespace>
+        <AssemblyName>Primavera.Lithium.Faturacao.Integration.Tests</AssemblyName>
+    </PropertyGroup>
+
+    <!-- Output path and XML documentation file -->
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DocumentationFile>.\Bin\Primavera.Lithium.Faturacao.Integration.Tests.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DocumentationFile>.\Bin\Primavera.Lithium.Faturacao.Integration.Tests.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <!-- NuGet properties -->
+
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+</Project>

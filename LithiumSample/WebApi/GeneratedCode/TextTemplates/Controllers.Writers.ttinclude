@@ -1,0 +1,482 @@
+﻿<#+
+
+// *** WriteMonitoringControllerBaseConstructor
+
+public void WriteMonitoringControllerBaseConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+#>
+<#+
+
+}
+
+// *** WriteControllerBaseConstructor
+
+public void WriteControllerBaseConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+#>
+<#+
+
+}
+
+// *** WriteAction
+
+public void WriteAction(ModelWriter modelWriter, MethodBodyModel model)
+{
+    MethodModel parentModel = model.ParentModelAs<MethodModel>();
+
+    ControllerTypeAction action = parentModel.GetFacet<ControllerTypeAction>("Action");
+    if (action == null)
+    {
+        return;
+    }
+
+    string parametersText = string.Empty;
+    if (action.ChildParameters.Count > 0)
+    {
+        parametersText = string.Join(", ", action.ChildParameters.Select(p => p.Name.Transform().ToCamelCase()));
+    }
+
+    this.WriteActionValidation(action);
+
+#>
+            // Result
+
+            return this.<#= action.Name #>CoreAsync(<#= parametersText #>);
+<#+
+}
+
+// *** WriteActionValidation
+
+public void WriteActionValidation(ControllerTypeAction action)
+{
+#>
+            // Begin Validation
+
+            if (!this.Validate()
+<#+
+
+    foreach (ControllerTypeActionParameter parameter in action.ChildParameters)
+    {
+        this.WriteActionParameterValidation(parameter);
+    }
+
+#>
+                .Result(ErrorCodes.RequestArgsInvalid, ValidationResources.RES_Error_RequestArgsInvalid, out ServiceError validationError))
+            {
+                return Task.FromResult<IActionResult>(this.BadRequest(validationError));
+            }
+
+<#+
+}
+
+// *** WriteActionParameterValidation
+
+public void WriteActionParameterValidation(ControllerTypeActionParameter parameter)
+{
+    this.WriteActionParameterValidation(parameter as ControllerTypeActionScalarParameter);
+    this.WriteActionParameterValidation(parameter as ControllerTypeActionModelParameter);
+}
+
+// *** WriteActionParameterValidation (ControllerTypeActionScalarParameter)
+
+public void WriteActionParameterValidation(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter == null || parameter.ValidationRules == null)
+    {
+        return;
+    }
+
+    this.WriteActionParameterValidationBoolean(parameter);
+    this.WriteActionParameterValidationByteArray(parameter);
+    this.WriteActionParameterValidationDateTime(parameter);
+    this.WriteActionParameterValidationDouble(parameter);
+    this.WriteActionParameterValidationLong(parameter);
+    this.WriteActionParameterValidationInteger(parameter);
+    this.WriteActionParameterValidationEmail(parameter);
+    this.WriteActionParameterValidationPassword(parameter);
+    this.WriteActionParameterValidationString(parameter);
+    this.WriteActionParameterValidationUrl(parameter);
+    this.WriteActionParameterValidationPhoneNumber(parameter);
+    this.WriteActionParameterValidationGuid(parameter);
+}
+
+// *** WriteActionParameterValidationBoolean
+
+public void WriteActionParameterValidationBoolean(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Boolean)
+    {
+    }
+}
+
+// *** WriteActionParameterValidationByteArray
+
+public void WriteActionParameterValidationByteArray(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.ByteArray)
+    {
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+        string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+
+#>
+                .Required(<#= parameterName #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Required, ValidationResources.RES_Error_<#= errorName #>_Required)
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionParameterValidationDateTime
+
+public void WriteActionParameterValidationDateTime(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.DateTime)
+    {
+    }
+}
+
+// *** WriteActionParameterValidationDouble
+
+public void WriteActionParameterValidationDouble(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Double)
+    {
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+        string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+        if (parameter.ValidationRules.GreaterThan != null)
+        {
+
+#>
+                .GreaterThan(<#= parameterName #>, <#= parameter.ValidationRules.GreaterThan.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+
+        if (parameter.ValidationRules.LessThan != null)
+        {
+
+#>
+                .LessThan(<#= parameterName #>, <#= parameter.ValidationRules.LessThan.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionParameterValidationLong
+
+public void WriteActionParameterValidationLong(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Long)
+    {
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+        string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+        if (parameter.ValidationRules.GreaterThan != null)
+        {
+
+#>
+                .GreaterThan(<#= parameterName #>, <#= parameter.ValidationRules.GreaterThan.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+
+        if (parameter.ValidationRules.LessThan != null)
+        {
+
+#>
+                .LessThan(<#= parameterName #>, <#= parameter.ValidationRules.LessThan.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionParameterValidationInteger
+
+public void WriteActionParameterValidationInteger(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Integer)
+    {
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+        string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+        if (parameter.ValidationRules.GreaterThan != null)
+        {
+
+#>
+                .GreaterThan(<#= parameterName #>, <#= parameter.ValidationRules.GreaterThan.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+
+        if (parameter.ValidationRules.LessThan != null)
+        {
+
+#>
+                .LessThan(<#= parameterName #>, <#= parameter.ValidationRules.LessThan.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionParameterValidationEmail
+
+public void WriteActionParameterValidationEmail(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Email)
+    {
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+        string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+
+#>
+                .Required(<#= parameterName #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Required, ValidationResources.RES_Error_<#= errorName #>_Required)
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MinLength != null)
+        {
+
+#>
+                .MinLength(<#= parameterName #>, <#= parameter.ValidationRules.MinLength.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MaxLength != null)
+        {
+
+#>
+                .MaxLength(<#= parameterName #>, <#= parameter.ValidationRules.MaxLength.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+
+        if (!string.IsNullOrEmpty(parameter.ValidationRules.RegularExpression))
+        {
+            string regularExpression = this.FindRegularExpression(parameter.ValidationRules.RegularExpression, parameter);
+
+#>
+                .RegularExpression(<#= parameterName #>, @"<#= regularExpression #>", ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionParameterValidationPassword
+
+public void WriteActionParameterValidationPassword(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Password)
+    {
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+        string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+
+#>
+                .Required(<#= parameterName #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Required, ValidationResources.RES_Error_<#= errorName #>_Required)
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MinLength != null)
+        {
+
+#>
+                .MinLength(<#= parameterName #>, <#= parameter.ValidationRules.MinLength.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MaxLength != null)
+        {
+
+#>
+                .MaxLength(<#= parameterName #>, <#= parameter.ValidationRules.MaxLength.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+
+        if (!string.IsNullOrEmpty(parameter.ValidationRules.RegularExpression))
+        {
+            string regularExpression = this.FindRegularExpression(parameter.ValidationRules.RegularExpression, parameter);
+
+#>
+                .RegularExpression(<#= parameterName #>, @"<#= regularExpression #>", ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionParameterValidationString
+
+public void WriteActionParameterValidationString(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.String)
+    {
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+        string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+
+#>
+                .Required(<#= parameterName #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Required, ValidationResources.RES_Error_<#= errorName #>_Required)
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MinLength != null)
+        {
+
+#>
+                .MinLength(<#= parameterName #>, <#= parameter.ValidationRules.MinLength.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MaxLength != null)
+        {
+
+#>
+                .MaxLength(<#= parameterName #>, <#= parameter.ValidationRules.MaxLength.Value #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+
+        if (!string.IsNullOrEmpty(parameter.ValidationRules.RegularExpression))
+        {
+            string regularExpression = this.FindRegularExpression(parameter.ValidationRules.RegularExpression, parameter);
+
+#>
+                .RegularExpression(<#= parameterName #>, @"<#= regularExpression #>", ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Invalid, ValidationResources.RES_Error_<#= errorName #>_Invalid)
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionParameterValidationUrl
+
+public void WriteActionParameterValidationUrl(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Url)
+    {
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+        string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+
+#>
+                .Required(<#= parameterName #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Required, ValidationResources.RES_Error_<#= errorName #>_Required)
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionParameterValidationPhoneNumber
+
+public void WriteActionParameterValidationPhoneNumber(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.PhoneNumber)
+    {
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+        string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+
+#>
+                .Required(<#= parameterName #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Required, ValidationResources.RES_Error_<#= errorName #>_Required)
+<#+
+
+        }
+    }
+}
+
+// *** WriteActionParameterValidationGuid
+
+public void WriteActionParameterValidationGuid(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Guid)
+    {
+    }
+}
+
+// *** WriteActionParameterValidation (ControllerTypeActionModelParameter)
+
+public void WriteActionParameterValidation(ControllerTypeActionModelParameter parameter)
+{
+    if (parameter == null || parameter.ValidationRules == null)
+    {
+        return;
+    }
+
+    string parameterName = parameter.Name.Transform().ToCamelCase();
+    string errorName = "{0}_{1}".Format(parameter.ParentAction.Name, parameter.Name);
+
+    if (parameter.ValidationRules.IsRequired)
+    {
+
+#>
+                .Required(<#= parameterName #>, ErrorCodes.<#= errorName.Replace("_", string.Empty) #>Required, ValidationResources.RES_Error_<#= errorName #>_Required)
+<#+
+
+    }
+}
+
+// *** WriteBaseControllerLogger
+
+public void WriteBaseControllerLogger(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+    PropertyModel parentModel = model.ParentModelAs<PropertyModel>();
+    string controllerName = parentModel.Facets["ControllerName"] as string;
+
+#>
+            get
+            {
+                return this.HttpContext.RequestServices.GetRequiredService<ILogger<<#= controllerName #>ControllerBase>>();
+            }
+<#+
+
+}
+
+// *** FindRegularExpression
+
+private string FindRegularExpression(string name, ControllerTypeActionScalarParameter controllerTypeParameter)
+{
+    if (string.IsNullOrEmpty(name))
+    {
+        return "unknown";
+    }
+
+    if (controllerTypeParameter == null || controllerTypeParameter.ParentAction == null || controllerTypeParameter.ParentAction.ServiceModel == null)
+    {
+        return "unknown";
+    }
+
+    RegularExpression regularExpression = controllerTypeParameter.ParentAction.ServiceModel.RegularExpressions.FirstOrDefault(r => r.Name.EqualsNoCase(name));
+    if (regularExpression == null)
+    {
+        return "unknown";
+    }
+
+    return regularExpression.Value;
+}
+
+#>

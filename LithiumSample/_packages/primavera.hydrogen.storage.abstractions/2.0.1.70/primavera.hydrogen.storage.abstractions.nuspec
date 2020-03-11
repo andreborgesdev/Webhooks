@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Primavera.Hydrogen.Storage.Abstractions</id>
+    <version>2.0.1.70</version>
+    <authors>PRIMAVERA Business Software Solutions, S.A.</authors>
+    <owners>PRIMAVERA Business Software Solutions, S.A.</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Class library that contains types that define abstractions for generic storage services.</description>
+    <tags>PRIMAVERA Elevation Lithium Hydrogen</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Primavera.Hydrogen.Core" version="2.0.1.70" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

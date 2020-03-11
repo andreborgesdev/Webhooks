@@ -1,0 +1,29 @@
+﻿<#+
+
+public void WriteAttributes(ModelWriter modelWriter, ServiceModel model)
+{
+    string version = VersioningHelper.GetVersionString(model);
+
+#>
+using System.Reflection;
+using System.Resources;
+
+[assembly: AssemblyTitle("<#= model.Product #> <#= model.DisplayName #> Models Unit Tests")]
+[assembly: AssemblyDescription("Class library that provides unit tests.")]
+
+[assembly: AssemblyProduct("<#= model.Product #>")]
+
+[assembly: AssemblyCompany("<#= model.Company #>")]
+[assembly: AssemblyCopyright("<#= model.Copyright #>")]
+[assembly: AssemblyTrademark("<#= model.Trademark #>")]
+[assembly: NeutralResourcesLanguage("en-US")]
+
+[assembly: AssemblyVersion("<#= version #>")]
+[assembly: AssemblyFileVersion("<#= version #>")]
+
+[assembly: AssemblyInformationalVersion("*development*")]
+<#+
+
+}
+
+#>

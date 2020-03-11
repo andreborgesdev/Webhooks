@@ -1,0 +1,470 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Pipelines</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Pipelines.PipelineBuilderOptions">
+            <summary>
+            Defines configuration options for the pipeline builder.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.PipelineBuilderOptions.IgnoreDuplicates">
+            <summary>
+            Gets or sets a value indicating whether the creation of multiple pipelines
+            on the same context should be ignored.
+            The default value is true.
+            This setting is applicable only when the pipeline is built using dependency
+            injection.
+            </summary>
+            <remarks>
+            When this value is true, subsequent pipelines will simply be ignored and not
+            registered, meaning that, when the pipeline is requested from the service provider,
+            the first one will be returned always.
+            When this value is false, subsequent pipelines will result in a exception.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilderOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Pipelines.PipelineBuilderOptions"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.PipelinesServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type
+            that allow building pipelines.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelinesServiceCollectionExtensions.AddPipelineBuilder``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Creates a new pipeline builder.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.
+            </typeparam>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelinesServiceCollectionExtensions.AddPipeline``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Creates a new pipeline and adds it to the service collection using configuration defined
+            by <see cref="T:Primavera.Hydrogen.Pipelines.PipelineBuilderOptions"/>.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.
+            </typeparam>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1"/> instance that should be used
+            to setup the pipeline.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelinesServiceCollectionExtensions.AddPipeline``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.Pipelines.PipelineBuilderOptions})">
+            <summary>
+            Creates a new pipeline and adds it to the service collection using the
+            specified configuration options.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.
+            </typeparam>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1"/> instance that should be used
+            to setup the pipeline.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.PipelinesServiceProviderExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:System.IServiceProvider"/> type
+            that allow instantiating pipelines previously created with the
+            <see cref="T:Primavera.Hydrogen.Pipelines.PipelinesServiceCollectionExtensions"/> extension methods.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelinesServiceProviderExtensions.UsePipeline``1(System.IServiceProvider)">
+            <summary>
+            Returns an instance of the specified pipeline.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.
+            </typeparam>
+            <param name="serviceProvider">The service provider.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipeline`1"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.IPipeline`1">
+            <summary>
+            Defines the interface of a pipeline.
+            A pipeline allows sequential processing of data, stored in a context,
+            by a set of pipeline handlers previously configured using a pipeline builder.
+            See the Pipeline Design Pattern for more information.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline.
+            </typeparam>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipeline`1.InvokeAsync(`0)">
+            <summary>
+            Executes the pipeline asynchronously for the specified context instance.
+            </summary>
+            <param name="context">The context that holds the pipeline data.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipeline`1.Invoke(`0)">
+            <summary>
+            Executes the pipeline synchronously for the specified context instance.
+            </summary>
+            <param name="context">The context that holds the pipeline data.</param>
+            <remarks>
+            Beware when executing pipelines synchronously using this method. Since
+            the pipeline handlers are intrinsically asynchronous this may lead to
+            unexpected behavior, depending on the handlers implementation.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1">
+            <summary>
+            Defines the interface of a pipeline builder.
+            A pipeline builder allows to create pipelines by configuring
+            each pipeline handler and their sequence.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.
+            </typeparam>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1.Options">
+            <summary>
+            Gets the builder configuration options.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1.Use(System.Func{Primavera.Hydrogen.Pipelines.PipelineDelegate{`0},Primavera.Hydrogen.Pipelines.PipelineDelegate{`0}})">
+            <summary>
+            Adds the specified pipeline handler to the pipeline.
+            </summary>
+            <param name="handlerDelegate">
+            The pipeline handler that should be added.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1.Use(System.Func{`0,System.Func{System.Threading.Tasks.Task},System.Threading.Tasks.Task})">
+            <summary>
+            Adds the specified pipeline handler to the pipeline.
+            </summary>
+            <param name="handler">
+            The pipeline handler that should be added.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1.Use``1(System.Object[])">
+            <summary>
+            Adds a pipeline handler of the specified type to the pipeline.
+            </summary>
+            <typeparam name="TPipelineHandler">
+            The type of the pipeline handler.
+            </typeparam>
+            <param name="args">The arguments that should be passed to the pipeline handler constructor.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1"/> instance.
+            </returns>
+            <remarks>
+            <typeparamref name="TPipelineHandler"/> can be a type that:
+            (1) Implements <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineHandler`1"/>.
+            (2) Any public type that:
+            - Provides a public constructor that accepts a first argument of type
+            <see cref="T:Primavera.Hydrogen.Pipelines.PipelineDelegate`1"/>. It should also accept any arguments matching
+            the <paramref name="args"/> passed here.
+            - Contains a method called Invoke or InvokeAsync with the following
+            characteristics: returns a <see cref="T:System.Threading.Tasks.Task"/> and accepts a first argument of type
+            <typeparamref name="TContext"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1.Use(System.Type,System.Object[])">
+            <summary>
+            Adds a pipeline handler of the specified type to the pipeline.
+            </summary>
+            <param name="handlerType">The type of the pipeline handler.</param>
+            <param name="args">The arguments that should be passed to the pipeline handler constructor.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1"/> instance.
+            </returns>
+            <remarks>
+            <paramref name="handlerType"/> can be a type that:
+            (1) Implements <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineHandler`1"/>.
+            (2) Any public type that:
+            - Provides a public constructor that accepts a first argument of type
+            <see cref="T:Primavera.Hydrogen.Pipelines.PipelineDelegate`1"/>. It should also accept any arguments matching
+            the <paramref name="args"/> passed here.
+            - Contains a method called Invoke or InvokeAsync with the following
+            characteristics: returns a <see cref="T:System.Threading.Tasks.Task"/> and accepts a first argument of type
+            <typeparamref name="TContext"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1.Build(System.IServiceProvider)">
+            <summary>
+            Builds the pipeline instance.
+            </summary>
+            <param name="provider">
+            The services provider that should be used to revolve pipeline handlers dependencies.
+            </param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipeline`1"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.IPipelineHandler`1">
+            <summary>
+            Defines the interface of a pipeline handler.
+            A pipeline handler sits at a given stage of the pipeline, according
+            to the way the pipeline is composed, processes the pipeline data and
+            decides whether or not to delegate processing to the next handler in
+            the pipeline.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.
+            </typeparam>
+            <remarks>
+            A pipeline handler is not required to implement this interface, although
+            when it implements it, it will receive the reference to next handler
+            in the <see cref="M:Primavera.Hydrogen.Pipelines.IPipelineHandler`1.InvokeAsync(`0,Primavera.Hydrogen.Pipelines.PipelineDelegate{`0})"/>
+            method rather than in the constructor.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipelineHandler`1.InvokeAsync(`0,Primavera.Hydrogen.Pipelines.PipelineDelegate{`0})">
+            <summary>
+            Executes the pipeline handler to process the pipeline data.
+            </summary>
+            <param name="context">The context that holds the pipeline data.</param>
+            <param name="next">The next handler in the pipeline.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.IPipelineHandlerFactory`1">
+            <summary>
+            Defines the interface of a pipeline handler factory.
+            This factory is used to create pipeline handler instances when the pipeline
+            is being built.
+            </summary>
+            <typeparam name="TContext">The type of the context.</typeparam>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipelineHandlerFactory`1.Create(System.Type)">
+            <summary>
+            Creates an instance of a pipeline handler.
+            </summary>
+            <param name="handlerType">The type of the pipeline handler.</param>
+            <returns>
+            The pipeline handler instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.IPipelineHandlerFactory`1.Release(Primavera.Hydrogen.Pipelines.IPipelineHandler{`0})">
+            <summary>
+            Releases the specified pipeline handler after the pipeline is processed.
+            </summary>
+            <param name="handler">The pipeline handler instance.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.Pipeline`1">
+            <summary>
+            Defines a default implementation of <see cref="T:Primavera.Hydrogen.Pipelines.IPipeline`1"/>.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.
+            </typeparam>
+            <seealso cref="T:Primavera.Hydrogen.Pipelines.IPipeline`1" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Pipeline`1.FirstHandler">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.Pipeline`1.#ctor(Primavera.Hydrogen.Pipelines.PipelineDelegate{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Pipelines.Pipeline`1"/> class.
+            </summary>
+            <param name="firstHandler">
+            The first handler in the pipeline.
+            </param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.Pipeline`1.InvokeAsync(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.Pipeline`1.Invoke(`0)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.PipelineBuilder`1">
+            <summary>
+            Defines a default implementation of <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1"/>.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.Options">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.ServiceProvider">
+            <summary>
+            Gets or sets the service provider that should be used
+            to resolve pipeline handlers dependencies.
+            This is initialized only when <see cref="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.Build(System.IServiceProvider)"/>
+            is called.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Pipelines.PipelineBuilder`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.#ctor(Primavera.Hydrogen.Pipelines.PipelineBuilderOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Pipelines.PipelineBuilder`1"/> class.
+            </summary>
+            <param name="options">The configuration options.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Pipelines.PipelineBuilder`1"/> class.
+            </summary>
+            <param name="services">The services collection.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.Use(System.Func{Primavera.Hydrogen.Pipelines.PipelineDelegate{`0},Primavera.Hydrogen.Pipelines.PipelineDelegate{`0}})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.Use(System.Func{`0,System.Func{System.Threading.Tasks.Task},System.Threading.Tasks.Task})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.Use``1(System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.Use(System.Type,System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.Build(System.IServiceProvider)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineBuilder`1.UseHandlerInterface(System.Type,System.Object[])">
+            <summary>
+            Adds the specified pipeline handler to the pipeline.
+            <paramref name="handlerType"/> is known to implement the
+            <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineHandler`1"/> interface.
+            </summary>
+            <param name="handlerType">The type of the pipeline handler.</param>
+            <param name="args">The arguments that should be passed to the pipeline handler constructor.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineBuilder`1"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.PipelineDelegate`1">
+            <summary>
+            Defines the delegate that represents a pipeline handler in
+            a pipeline.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.
+            </typeparam>
+            <param name="context">The context that holds the pipeline data.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.PipelineHandlerFactory`1">
+            <summary>
+            Defines a default implementation of <see cref="T:Primavera.Hydrogen.Pipelines.IPipelineHandlerFactory`1"/>.
+            </summary>
+            <typeparam name="TContext">
+            The type of the context that holds the pipeline data.
+            </typeparam>
+            <seealso cref="T:Primavera.Hydrogen.Pipelines.IPipelineHandlerFactory`1" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineHandlerFactory`1.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Pipelines.PipelineHandlerFactory`1"/> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineHandlerFactory`1.Create(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Pipelines.PipelineHandlerFactory`1.Release(Primavera.Hydrogen.Pipelines.IPipelineHandler{`0})">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Pipelines.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_CouldNotCreatePipelineHandlerInstance">
+            <summary>
+              Looks up a localized string similar to Could not create instance of pipeline handler type &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_CouldNotResolveHandlerDependency">
+            <summary>
+              Looks up a localized string similar to Could not resolve service {0} required by pipeline handler {1}..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_CouldNotResolvePipelineHandlerFactory">
+            <summary>
+              Looks up a localized string similar to Could not resolve instance of IPipelineHandlerFactory&lt;TContext&gt;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_DuplicatePipeline">
+            <summary>
+              Looks up a localized string similar to A pipeline has already been added for context type {0}..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_IPipelineHandlerArgumentsNotSupported">
+            <summary>
+              Looks up a localized string similar to Since pipeline handler type {0} implements IPipelineHandler&lt;TContext&gt;, arguments are not supported..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_PipelineHanderInvokeFirstParameterMistmatch">
+            <summary>
+              Looks up a localized string similar to The pipeline handler {0} method first parameter must be of type {1}..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_PipelineHanderInvokeMultipleFound">
+            <summary>
+              Looks up a localized string similar to The pipeline handler includes more than one method called {0} or {1}..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_PipelineHanderInvokeMustHaveOneParameter">
+            <summary>
+              Looks up a localized string similar to The pipeline handler {0} method does not have parameters..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_PipelineHanderInvokeMustReturnTask">
+            <summary>
+              Looks up a localized string similar to The pipeline handler {0} method does not return Task..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_PipelineHanderInvokeNotFound">
+            <summary>
+              Looks up a localized string similar to The pipeline handler does not have any method called {0} or {1}..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_PipelineHandlerInvokeCannotHaveByRefArguments">
+            <summary>
+              Looks up a localized string similar to By ref arguments are not supported in the pipeline handler {0} method..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Pipelines.Properties.Resources.RES_Exception_PipelineHasNoHandlers">
+            <summary>
+              Looks up a localized string similar to Cannot execute pipeline. The pipeline has no handlers configured..
+            </summary>
+        </member>
+    </members>
+</doc>

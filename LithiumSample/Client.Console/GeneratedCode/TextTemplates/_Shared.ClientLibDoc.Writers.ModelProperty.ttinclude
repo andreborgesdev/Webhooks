@@ -1,0 +1,392 @@
+﻿<#+
+
+// *** WriteReferenceModelProperties
+
+public void WriteReferenceModelProperties(ModelWriter w, ModelType m)
+{
+    if (!m.HasCustomPropertiesClientLibrary && m.ChildProperties.Count == 0)
+    {
+        w.AppendLine("The model has no properties.");
+        w.AppendLine();
+        return;
+    }
+
+    if (m.ChildProperties.Count > 0)
+    {
+        w.AppendLine("| Property | Type | Description | Rules |");
+        w.AppendLine("| - | - | - | - |");
+    
+        foreach (ModelTypeProperty property in m.ChildProperties)
+        {
+            this.WriteReferenceModelProperty(w, property);
+        }
+
+        w.AppendLine();
+    }
+
+    if (m.HasCustomPropertiesClientLibrary)
+    {
+        w.AppendLine("> The model includes custom properties not described here.");
+        w.AppendLine();
+    }
+}
+
+// *** WriteReferenceModelProperty
+
+public void WriteReferenceModelProperty(ModelWriter w, ModelTypeProperty m)
+{
+    w.AppendLine("| `{0}` | `{1}` | {2} | {3} |", m.Name, m.ToCSharpType(false), m.Summary, this.GetPropertyRules(m));
+}
+
+
+// *** GetPropertyRules
+
+private string GetPropertyRules(ModelTypeProperty m)
+{
+    string result = null;
+
+    result = string.Concat(result, GetPropertyRules(m as ModelTypeScalarProperty));
+
+    result = string.Concat(result, GetPropertyRules(m as ModelTypeEnumProperty));
+
+    result = string.Concat(result, GetPropertyRules(m as ModelTypeModelProperty));
+
+    return result;
+}
+
+// *** GetPropertyRules
+
+private string GetPropertyRules(ModelTypeScalarProperty m)
+{
+    if (m == null)
+    {
+        return null;
+    }
+
+    string result = null;
+
+    if (m.IsReadOnly)
+    {
+        result = string.Concat(result, "Read-only. ");
+    }
+
+    this.GetPropertyRulesBoolean(m, ref result);
+    this.GetPropertyRulesByteArray(m, ref result);
+    this.GetPropertyRulesDateTime(m, ref result);
+    this.GetPropertyRulesDouble(m, ref result);
+    this.GetPropertyRulesLong(m, ref result);
+    this.GetPropertyRulesInteger(m, ref result);
+    this.GetPropertyRulesEmail(m, ref result);
+    this.GetPropertyRulesPassword(m, ref result);
+    this.GetPropertyRulesString(m, ref result);
+    this.GetPropertyRulesPhoneNumber(m, ref result);
+    this.GetPropertyRulesUrl(m, ref result);
+    this.GetPropertyRulesGuid(m, ref result);
+
+    return result;
+}
+
+// *** GetPropertyRulesBoolean
+
+private void GetPropertyRulesBoolean(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.Boolean)
+    {
+        return;
+    }
+}
+
+// *** GetPropertyRulesByteArray
+
+private void GetPropertyRulesByteArray(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.ByteArray)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+}
+
+// *** GetPropertyRulesDateTime
+
+private void GetPropertyRulesDateTime(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.DateTime)
+    {
+        return;
+    }
+}
+
+// *** GetPropertyRulesDouble
+
+private void GetPropertyRulesDouble(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.Double)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.LessThan != null)
+    {
+        result = string.Concat(result, "< {0}. ".Format(m.ValidationRules.LessThan.Value));
+    }
+}
+
+// *** GetPropertyRulesLong
+
+private void GetPropertyRulesLong(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.Long)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.LessThan != null)
+    {
+        result = string.Concat(result, "< {0}. ".Format(m.ValidationRules.LessThan.Value));
+    }
+}
+
+// *** GetPropertyRulesInteger
+
+private void GetPropertyRulesInteger(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.Integer)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.LessThan != null)
+    {
+        result = string.Concat(result, "< {0}. ".Format(m.ValidationRules.LessThan.Value));
+    }
+}
+
+// *** GetPropertyRulesEmail
+
+private void GetPropertyRulesEmail(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.Email)
+    {
+        return;
+    }
+
+    result = string.Concat(result, "Email. ");
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    if (m.ValidationRules.MinLength != null)
+    {
+        result = string.Concat(result, "MinLen({0}). ".Format(m.ValidationRules.MinLength.Value));
+    }
+
+    if (m.ValidationRules.MaxLength != null)
+    {
+         result = string.Concat(result, "MaxLen({0}). ".Format(m.ValidationRules.MaxLength.Value));
+    }
+
+    if (!string.IsNullOrEmpty(m.ValidationRules.RegularExpression))
+    {
+        string regExpression = this.GetRegularExpression(m.ParentModel.ServiceModel, m.ValidationRules.RegularExpression);
+        result = string.Concat(result, "RegEx({0}). ".Format(regExpression));
+    }
+}
+
+// *** GetPropertyRulesPassword
+
+private void GetPropertyRulesPassword(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.Password)
+    {
+        return;
+    }
+
+    result = string.Concat(result, "Password. ");
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    if (m.ValidationRules.MinLength != null)
+    {
+        result = string.Concat(result, "MinLen({0}). ".Format(m.ValidationRules.MinLength.Value));
+    }
+
+    if (m.ValidationRules.MaxLength != null)
+    {
+         result = string.Concat(result, "MaxLen({0}). ".Format(m.ValidationRules.MaxLength.Value));
+   }
+
+    if (!string.IsNullOrEmpty(m.ValidationRules.RegularExpression))
+    {
+        string regExpression = this.GetRegularExpression(m.ParentModel.ServiceModel, m.ValidationRules.RegularExpression);
+        result = string.Concat(result, "RegEx({0}). ".Format(regExpression));
+    }
+}
+
+// *** GetPropertyRulesString
+
+private void GetPropertyRulesString(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.String)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    if (m.ValidationRules.MinLength != null)
+    {
+        result = string.Concat(result, "MinLen({0}). ".Format(m.ValidationRules.MinLength.Value));
+    }
+
+    if (m.ValidationRules.MaxLength != null)
+    {
+         result = string.Concat(result, "MaxLen({0}). ".Format(m.ValidationRules.MaxLength.Value));
+   }
+
+    if (!string.IsNullOrEmpty(m.ValidationRules.RegularExpression))
+    {
+        string regExpression = this.GetRegularExpression(m.ParentModel.ServiceModel, m.ValidationRules.RegularExpression);
+        result = string.Concat(result, "RegEx({0}). ".Format(regExpression));
+    }
+}
+
+// *** GetPropertyRulesPhoneNumber
+
+private void GetPropertyRulesPhoneNumber(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.PhoneNumber)
+    {
+        return;
+    }
+
+    result = string.Concat(result, "Phone number. ");
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    if (m.ValidationRules.MinLength != null)
+    {
+        result = string.Concat(result, "MinLen({0}). ".Format(m.ValidationRules.MinLength.Value));
+    }
+
+    if (m.ValidationRules.MaxLength != null)
+    {
+         result = string.Concat(result, "MaxLen({0}). ".Format(m.ValidationRules.MaxLength.Value));
+   }
+
+    if (!string.IsNullOrEmpty(m.ValidationRules.RegularExpression))
+    {
+        string regExpression = this.GetRegularExpression(m.ParentModel.ServiceModel, m.ValidationRules.RegularExpression);
+        result = string.Concat(result, "RegEx({0}). ".Format(regExpression));
+    }
+}
+
+// *** GetPropertyRulesGuid
+
+private void GetPropertyRulesGuid(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.Guid)
+    {
+        return;
+    }
+}
+
+// *** GetPropertyRulesUrl
+
+private void GetPropertyRulesUrl(ModelTypeScalarProperty m, ref string result)
+{
+    if (m.Type != ModelTypeScalarPropertyType.Url)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+}
+
+// *** GetPropertyRules
+
+private string GetPropertyRules(ModelTypeModelProperty m)
+{
+    if (m == null)
+    {
+        return null;
+    }
+
+    string result = string.Empty;
+
+    if (m.ValidationRules.IsRequired)
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    return result;
+}
+
+// *** GetPropertyRules
+
+private string GetPropertyRules(ModelTypeEnumProperty m)
+{
+    if (m == null)
+    {
+        return null;
+    }
+
+    string result = string.Empty;
+
+    return result;
+}
+
+#>

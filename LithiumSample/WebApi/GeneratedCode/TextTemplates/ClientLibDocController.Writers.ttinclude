@@ -1,0 +1,16 @@
+﻿<#+
+
+// *** WriteDocumentation
+
+public void WriteDocumentation(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Show the view
+
+            return Task.FromResult<IActionResult>(
+                this.View("~/GeneratedCode/ClientLibDocView.gen.cshtml"));
+<#+
+}
+
+#>

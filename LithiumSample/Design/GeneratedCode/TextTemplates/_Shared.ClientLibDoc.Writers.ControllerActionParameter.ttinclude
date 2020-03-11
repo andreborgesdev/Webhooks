@@ -1,0 +1,380 @@
+﻿<#+
+
+// *** WriteReferenceControllerActionParameters
+
+public void WriteReferenceControllerActionParameters(ModelWriter w, ControllerTypeAction m)
+{
+    if (m.ChildParameters.Count == 0)
+    {
+        w.AppendLine("The operation has no parameters.");
+        w.AppendLine();
+        return;
+    }
+
+    w.AppendLine("| Parameter | Type | Description | Rules |");
+    w.AppendLine("| - | - | - | - |");
+    
+    foreach (ControllerTypeActionParameter parameter in m.ChildParameters)
+    {
+        this.WriteReferenceControllerActionParameter(w, parameter);
+    }
+
+    w.AppendLine();
+}
+
+// *** WriteReferenceControllerActionParameter
+
+public void WriteReferenceControllerActionParameter(ModelWriter w, ControllerTypeActionParameter m)
+{
+    w.AppendLine("| `{0}` | `{1}` | {2} | {3} |", m.Name.Transform().ToCamelCase(), m.ToCSharpType(false), m.Summary, this.GetParameterRules(m));
+}
+
+// *** GetParameterRules
+
+private string GetParameterRules(ControllerTypeActionParameter m)
+{
+    string result = GetParameterRules(m as ControllerTypeActionScalarParameter);
+    if (!string.IsNullOrEmpty(result))
+    {
+        return result;
+    }
+
+    result = GetParameterRules(m as ControllerTypeActionModelParameter);
+    if (!string.IsNullOrEmpty(result))
+    {
+        return result;
+    }
+
+    return result;
+}
+
+// *** GetParameterRules
+
+private string GetParameterRules(ControllerTypeActionScalarParameter m)
+{
+    if (m == null)
+    {
+        return null;
+    }
+
+    string result = null;
+
+    this.GetParameterRulesBoolean(m, ref result);
+    this.GetParameterRulesByteArray(m, ref result);
+    this.GetParameterRulesDateTime(m, ref result);
+    this.GetParameterRulesDouble(m, ref result);
+    this.GetParameterRulesLong(m, ref result);
+    this.GetParameterRulesInteger(m, ref result);
+    this.GetParameterRulesEmail(m, ref result);
+    this.GetParameterRulesPassword(m, ref result);
+    this.GetParameterRulesString(m, ref result);
+    this.GetParameterRulesPhoneNumber(m, ref result);
+    this.GetParameterRulesUrl(m, ref result);
+    this.GetParameterRulesGuid(m, ref result);
+
+    return result;
+}
+
+// *** GetParameterRulesBoolean
+
+private void GetParameterRulesBoolean(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.Boolean)
+    {
+        return;
+    }
+}
+
+// *** GetParameterRulesByteArray
+
+private void GetParameterRulesByteArray(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.ByteArray)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+}
+
+// *** GetParameterRulesDateTime
+
+private void GetParameterRulesDateTime(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.DateTime)
+    {
+        return;
+    }
+}
+
+// *** GetParameterRulesDouble
+
+private void GetParameterRulesDouble(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.Double)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.LessThan != null)
+    {
+        result = string.Concat(result, "< {0}. ".Format(m.ValidationRules.LessThan.Value));
+    }
+}
+
+// *** GetParameterRulesLong
+
+private void GetParameterRulesLong(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.Long)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.LessThan != null)
+    {
+        result = string.Concat(result, "< {0}. ".Format(m.ValidationRules.LessThan.Value));
+    }
+}
+
+// *** GetParameterRulesInteger
+
+private void GetParameterRulesInteger(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.Integer)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.LessThan != null)
+    {
+        result = string.Concat(result, "< {0}. ".Format(m.ValidationRules.LessThan.Value));
+    }
+}
+
+// *** GetParameterRulesEmail
+
+private void GetParameterRulesEmail(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.Email)
+    {
+        return;
+    }
+
+    result = string.Concat(result, "Email. ");
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    if (m.ValidationRules.MinLength != null)
+    {
+        result = string.Concat(result, "MinLen({0}). ".Format(m.ValidationRules.MinLength.Value));
+    }
+
+    if (m.ValidationRules.MaxLength != null)
+    {
+         result = string.Concat(result, "MaxLen({0}). ".Format(m.ValidationRules.MaxLength.Value));
+    }
+
+    if (!string.IsNullOrEmpty(m.ValidationRules.RegularExpression))
+    {
+        string regExpression = this.GetRegularExpression(m.ParentAction.ServiceModel, m.ValidationRules.RegularExpression);
+        result = string.Concat(result, "RegEx({0}). ".Format(regExpression));
+    }
+}
+
+// *** GetParameterRulesPassword
+
+private void GetParameterRulesPassword(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.Password)
+    {
+        return;
+    }
+
+    result = string.Concat(result, "Password. ");
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    if (m.ValidationRules.MinLength != null)
+    {
+        result = string.Concat(result, "MinLen({0}). ".Format(m.ValidationRules.MinLength.Value));
+    }
+
+    if (m.ValidationRules.MaxLength != null)
+    {
+         result = string.Concat(result, "MaxLen({0}). ".Format(m.ValidationRules.MaxLength.Value));
+   }
+
+    if (!string.IsNullOrEmpty(m.ValidationRules.RegularExpression))
+    {
+        string regExpression = this.GetRegularExpression(m.ParentAction.ServiceModel, m.ValidationRules.RegularExpression);
+        result = string.Concat(result, "RegEx({0}). ".Format(regExpression));
+    }
+}
+
+// *** GetParameterRulesString
+
+private void GetParameterRulesString(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.String)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    if (m.ValidationRules.MinLength != null)
+    {
+        result = string.Concat(result, "MinLen({0}). ".Format(m.ValidationRules.MinLength.Value));
+    }
+
+    if (m.ValidationRules.MaxLength != null)
+    {
+         result = string.Concat(result, "MaxLen({0}). ".Format(m.ValidationRules.MaxLength.Value));
+   }
+
+    if (!string.IsNullOrEmpty(m.ValidationRules.RegularExpression))
+    {
+        string regExpression = this.GetRegularExpression(m.ParentAction.ServiceModel, m.ValidationRules.RegularExpression);
+        result = string.Concat(result, "RegEx({0}). ".Format(regExpression));
+    }
+}
+
+// *** GetParameterRulesPhoneNumber
+
+private void GetParameterRulesPhoneNumber(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.PhoneNumber)
+    {
+        return;
+    }
+
+    result = string.Concat(result, "Phone number. ");
+
+    if (m.ValidationRules.GreaterThan != null)
+    {
+        result = string.Concat(result, "> {0}. ".Format(m.ValidationRules.GreaterThan.Value));
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    if (m.ValidationRules.MinLength != null)
+    {
+        result = string.Concat(result, "MinLen({0}). ".Format(m.ValidationRules.MinLength.Value));
+    }
+
+    if (m.ValidationRules.MaxLength != null)
+    {
+         result = string.Concat(result, "MaxLen({0}). ".Format(m.ValidationRules.MaxLength.Value));
+   }
+
+    if (!string.IsNullOrEmpty(m.ValidationRules.RegularExpression))
+    {
+        string regExpression = this.GetRegularExpression(m.ParentAction.ServiceModel, m.ValidationRules.RegularExpression);
+        result = string.Concat(result, "RegEx({0}). ".Format(regExpression));
+    }
+}
+
+// *** GetParameterRulesGuid
+
+private void GetParameterRulesGuid(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.Guid)
+    {
+        return;
+    }
+}
+
+// *** GetParameterRulesUrl
+
+private void GetParameterRulesUrl(ControllerTypeActionScalarParameter m, ref string result)
+{
+    if (m.Type != ControllerTypeActionScalarParameterType.Url)
+    {
+        return;
+    }
+
+    if (m.ValidationRules.IsRequired.GetValueOrDefault())
+    {
+        result = string.Concat(result, "Required. ");
+    }
+}
+
+// *** GetParameterRules
+
+private string GetParameterRules(ControllerTypeActionModelParameter m)
+{
+    if (m == null)
+    {
+        return null;
+    }
+
+    string result = string.Empty;
+
+    if (m.ValidationRules.IsRequired)
+    {
+        result = string.Concat(result, "Required. ");
+    }
+
+    return result;
+}
+
+// *** GetRegularExpression
+
+private string GetRegularExpression(ServiceModel m, string name)
+{
+    RegularExpression regularExpression = m.RegularExpressions.FirstOrDefault(n => n.Name.EqualsNoCase(name));
+    if (regularExpression != null)
+    {
+        return "`" + regularExpression.Value + "`";
+    }
+
+    return "`???`";
+}
+
+#>

@@ -1,0 +1,1399 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.AspNetCore</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Configuration.ConfigurationAnalyzerIEndpointRouteBuilderExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder"/> to configure the configuration analyzer.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Configuration.ConfigurationAnalyzerIEndpointRouteBuilderExtensions.MapConfigurationAnalyzer(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String)">
+            <summary>
+            Maps the specified configuration analyzer route.
+            The route will respond to <see cref="P:System.Net.Http.HttpMethod.Get"/> requests and return a JSON containing
+            all the configuration options active.
+            </summary>
+            <param name="builder">The endpoint route builder instance.</param>
+            <param name="route">The route that should be used.</param>
+            <returns>
+            The <see cref="T:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder"/> instance.
+            </returns>
+            <example>
+            This method should be invoked like this:
+            <code>
+            <![CDATA[
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    // (...)
+            
+                    endpoints.MapConfigurationAnalyzer();
+                });
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    // (...)
+            
+                    endpoints.MapConfigurationAnalyzer("/my-route");
+                });
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService">
+            <summary>
+            Defines the base class for a generic background service.
+            A background service should be registered, during application startup, as a <see cref="T:Microsoft.Extensions.Hosting.IHostedService"/>
+            using <see cref="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </summary>
+            <remarks>
+            For more information on hosted services in ASP.NET Core:
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0"/>.
+            </remarks>
+            <seealso cref="T:Microsoft.Extensions.Hosting.IHostedService" />
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.Name">
+            <summary>
+            Gets the name of the background service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.ServiceProvider">
+            <summary>
+            Gets the service provider.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            Starts the execution of the background service.
+            Triggered when the application host is ready to start the service.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            This method is automatically triggered when the application host is ready to start the service.
+            The default implementation ensures that <see cref="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.ExecuteAsync(System.Threading.CancellationToken)"/> is
+            immediately executed.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            Stops the execution of the background service.
+            Triggered when the application host is performing a graceful shutdown.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            This method is automatically triggered when the application host requests the service to be canceled.
+            The default implementation ensures that the execution task is canceled.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.ExecuteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes the background service.
+            </summary>
+            <param name="cancellationToken">The cancellation token. This token signals that the background service is being stopped.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            This method is automatically triggered after the background service is started.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServiceWithWorker`1">
+            <summary>
+            Defines the base class for a background service that uses a background worker to perform the actual work.
+            A background service should be registered, during application startup, as a <see cref="T:Microsoft.Extensions.Hosting.IHostedService"/>
+            using <see cref="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceWithWorker``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </summary>
+            <typeparam name="TWorker">The type of the background worker.</typeparam>
+            <remarks>
+            For more information on hosted services in ASP.NET Core:
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0"/>.
+            </remarks>
+            <seealso cref="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService" />
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServiceWithWorker`1.Worker">
+            <summary>
+            Gets the instance of the background worker that should executed
+            by the background service.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServiceWithWorker`1.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServiceWithWorker`1" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServiceWithWorker`1.ExecuteAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorker">
+            <summary>
+            Defines the base class for a background worker that performs work on behalf of a background service.
+            Background workers can be shared between different instances of <see cref="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServiceWithWorker`1"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorker.ServiceProvider">
+            <summary>
+            Gets the service provider.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorker.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorker.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorker" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorker.ExecuteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes the worker.
+            </summary>
+            <param name="cancellationToken">The cancellation token. This token signals that the background worker is being stopped.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorkQueue`1">
+            <summary>
+            Defines a background work queue.
+            This queue is used to initiate work items of behalf of background services.
+            </summary>
+            <typeparam name="TWorkItem">The type of work items stored in the queue.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.AspNetCore.Hosting.IBackgroundWorkQueue`1" />
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorkQueue`1.Count">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorkQueue`1.Enqueue(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorkQueue`1.DequeueAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorkQueue`1.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundWorkQueue`1.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type
+            that allow registering background services.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers a background service of the specified type.
+            </summary>
+            <typeparam name="TBackgroundService">The type of the background service that should be registered.</typeparam>
+            <param name="services">The service collection.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
+            <summary>
+            Registers a background service of the specified type.
+            </summary>
+            <typeparam name="TBackgroundService">The type of the background service that should be registered.</typeparam>
+            <param name="services">The service collection.</param>
+            <param name="implementationFactory">The factory function that should be used to create new instances of the background service.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceWithWorker``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers a background service of the specified type.
+            </summary>
+            <typeparam name="TBackgroundService">The type of the background service that should be registered.</typeparam>
+            <typeparam name="TBackgroundWorker">The type of the background worker associated with the background service.</typeparam>
+            <param name="services">The service collection.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceWithWorker``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
+            <summary>
+            Registers a background service of the specified type.
+            </summary>
+            <typeparam name="TBackgroundService">The type of the background service that should be registered.</typeparam>
+            <typeparam name="TBackgroundWorker">The type of the background worker associated with the background service.</typeparam>
+            <param name="services">The service collection.</param>
+            <param name="implementationFactory">The factory function that should be used to create new instances of the background service.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceTimed``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers a timed background service of the specified type.
+            </summary>
+            <typeparam name="TTimedBackgroundService">The type of the timed background service that should be registered.</typeparam>
+            <param name="services">The service collection.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceTimed``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
+            <summary>
+            Registers a timed background service of the specified type.
+            </summary>
+            <typeparam name="TTimedBackgroundService">The type of the timed background service that should be registered.</typeparam>
+            <param name="services">The service collection.</param>
+            <param name="implementationFactory">The factory function that should be used to create new instances of the background service.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceTimedWithWorker``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers a timed background service of the specified type.
+            </summary>
+            <typeparam name="TTimedBackgroundService">The type of the timed background service that should be registered.</typeparam>
+            <typeparam name="TBackgroundWorker">The type of the background worker associated with the background service.</typeparam>
+            <param name="services">The service collection.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceTimedWithWorker``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
+            <summary>
+            Registers a timed background service of the specified type.
+            </summary>
+            <typeparam name="TTimedBackgroundService">The type of the timed background service that should be registered.</typeparam>
+            <typeparam name="TBackgroundWorker">The type of the background worker associated with the background service.</typeparam>
+            <param name="services">The service collection.</param>
+            <param name="implementationFactory">The factory function that should be used to create new instances of the background service.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceQueued``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers a queued background service of the specified type.
+            </summary>
+            <typeparam name="TQueuedBackgroundService">The type of the queued background service that should be registered.</typeparam>
+            <typeparam name="TWorkItem">The type of the queue work items.</typeparam>
+            <param name="services">The service collection.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceQueued``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
+            <summary>
+            Registers a queued background service of the specified type.
+            </summary>
+            <typeparam name="TQueuedBackgroundService">The type of the queued background service that should be registered.</typeparam>
+            <typeparam name="TWorkItem">The type of the queue work items.</typeparam>
+            <param name="services">The service collection.</param>
+            <param name="implementationFactory">The factory function that should be used to create new instances of the background service.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceQueuedWithWorker``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers a timed background service of the specified type.
+            </summary>
+            <typeparam name="TQueuedBackgroundService">The type of the queued background service that should be registered.</typeparam>
+            <typeparam name="TBackgroundWorker">The type of the background worker associated with the background service.</typeparam>
+            <param name="services">The service collection.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceQueuedWithWorker``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
+            <summary>
+            Registers a timed background service of the specified type.
+            </summary>
+            <typeparam name="TQueuedBackgroundService">The type of the queued background service that should be registered.</typeparam>
+            <typeparam name="TBackgroundWorker">The type of the background worker associated with the background service.</typeparam>
+            <param name="services">The service collection.</param>
+            <param name="implementationFactory">The factory function that should be used to create new instances of the background service.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.IBackgroundWorkQueue`1">
+            <summary>
+            Defines the interface of a background work queue.
+            This queue is used to initiate work items of behalf of background services.
+            </summary>
+            <typeparam name="TWorkItem">The type of work items stored in the queue.</typeparam>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.IBackgroundWorkQueue`1.Count">
+            <summary>
+            Gets the number of work items contained in the queue.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.IBackgroundWorkQueue`1.Enqueue(`0)">
+            <summary>
+            Enqueues the execution of a work item.
+            </summary>
+            <param name="workItem">The work item that should be executed.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.IBackgroundWorkQueue`1.DequeueAsync(System.Threading.CancellationToken)">
+            <summary>
+            Dequeues the next work item set for execution.
+            Returns null if the operation is canceled.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The work item that should be executed.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundService`1">
+            <summary>
+            Defines the base class for a queued background service.
+            A queued background service executes repeatedly until it is canceled, waiting for a new work item
+            to become available in the queue.
+            It should be registered, during application startup, as a <see cref="T:Microsoft.Extensions.Hosting.IHostedService"/>
+            using <see cref="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceQueued``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </summary>
+            <typeparam name="TWorkItem">The type of the queue work items.</typeparam>
+            <remarks>
+            For more information on hosted services in ASP.NET Core:
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0"/>.
+            </remarks>
+            <seealso cref="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService" />
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundService`1.Queue">
+            <summary>
+            Gets the queue that triggers executions of work.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundService`1.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundService`1" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundService`1.ExecuteAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundService`1.ExecuteWorkAsync(`0,System.Threading.CancellationToken)">
+            <summary>
+            Executes the background service work.
+            </summary>
+            <param name="workItem">The work item.</param>
+            <param name="cancellationToken">The cancellation token. This token signals that the background service is being stopped.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            This method is automatically triggered when a new work item becomes available in the queue.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundServiceWithWorker`1">
+            <summary>
+            Defines the base class for a queued background service that uses a background worker to perform the actual work.
+            A queued background service executes repeatedly until it is canceled, waiting for a new work item
+            to become available in the queue.
+            It should be registered, during application startup, as a <see cref="T:Microsoft.Extensions.Hosting.IHostedService"/>
+            using <see cref="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceQueuedWithWorker``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </summary>
+            <typeparam name="TWorker">The type of the background worker.</typeparam>
+            <remarks>
+            For more information on hosted services in ASP.NET Core:
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0"/>.
+            </remarks>
+            <seealso cref="T:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundService`1" />
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundServiceWithWorker`1.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundServiceWithWorker`1" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.QueuedBackgroundServiceWithWorker`1.ExecuteWorkAsync(`0,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService">
+            <summary>
+            Defines the base class for a timed background service.
+            A timed background service executes repeatedly until it is canceled, waiting the specified
+            <see cref="P:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService.WaitPeriod"/> between executions.
+            It should be registered, during application startup, as a <see cref="T:Microsoft.Extensions.Hosting.IHostedService"/>
+            using <see cref="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceTimed``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </summary>
+            <remarks>
+            For more information on hosted services in ASP.NET Core:
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0"/>.
+            </remarks>
+            <seealso cref="T:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundService" />
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService.WaitPeriod">
+            <summary>
+            Gets the amount of time that the background service should wait before
+            consecutive executions of work.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService.ExecuteAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService.ExecuteWorkAsync(System.Threading.CancellationToken)">
+            <summary>
+            Executes the background service work.
+            </summary>
+            <param name="cancellationToken">The cancellation token. This token signals that the background service is being stopped.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            This method is automatically triggered after each <see cref="P:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService.WaitPeriod"/> ellapses.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundServiceWithWorker`1">
+            <summary>
+            Defines the base class for a timed background service that uses a background worker to perform the actual work.
+            A timed background service executes repeatedly until it is canceled, waiting the specified
+            <see cref="P:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService.WaitPeriod"/> between executions.
+            It should be registered, during application startup, as a <see cref="T:Microsoft.Extensions.Hosting.IHostedService"/>
+            using <see cref="M:Primavera.Hydrogen.AspNetCore.Hosting.BackgroundServicesServiceCollectionExtensions.AddBackgroundServiceTimedWithWorker``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </summary>
+            <typeparam name="TWorker">The type of the background worker.</typeparam>
+            <remarks>
+            For more information on hosted services in ASP.NET Core:
+            <see href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.0"/>.
+            </remarks>
+            <seealso cref="T:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundService" />
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundServiceWithWorker`1.Worker">
+            <summary>
+            Gets the instance of the background worker that should executed
+            by the background service.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundServiceWithWorker`1.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundServiceWithWorker`1" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Hosting.TimedBackgroundServiceWithWorker`1.ExecuteWorkAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Http.ClientIpHttpRequestExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.AspNetCore.Http.HttpRequest"/> type.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Http.ClientIpHttpRequestExtensions.GetClientIp(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Gets the originating IP address of the client connecting to the Web server,
+            considering headers that may specify it.
+            </summary>
+            <param name="request">The current HTTP request.</param>
+            <returns>
+            The originating IP address of the client connecting to the Web server.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Http.HeaderNames">
+            <summary>
+            Provides constants that specify header names.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.AspNetCore.Http.HeaderNames.XForwardedFor">
+            <summary>
+            The X-Forwarded-For header name. 
+            The de facto standard header for identifying the originating IP address of a client connecting to a web server through
+            an HTTP proxy or a load balancer.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase">
+            <summary>
+            Defines the base class for API controllers which should be used for any controller that is part of a Web API to ensure
+            standard behavior (see remarks).
+            </summary>
+            <remarks>
+            This base class ensures the following behaviors:
+            (1) Adds the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase"/> attribute to the controller, which in turns ensures things like attribute
+            routing.
+            (2) Provides an instance of <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> to validate the input of actions.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase.Validate">
+            <summary>
+            Initializes a new validator.
+            </summary>
+            <returns>The new <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> instance.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions">
+            <summary>
+            Defines the configuration options used to configure the API controllers by the
+            <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllersServiceCollectionExtensions.AddApiControllers(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
+            extension methods.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.UseVersioning">
+            <summary>
+            Gets or sets a value indicating whether the API should use versioning.
+            The default value is true.
+            </summary>
+            <remarks>
+            API versioning is enabled by the
+            <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion)"/>
+            extension methods.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.DefaultApiVersion">
+            <summary>
+            Gets or sets the default API version, meaningful only when <see cref="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.UseVersioning"/> is true.
+            The default value is 1.0.
+            </summary>
+            <remarks>
+            API versioning is enabled by the
+            <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion)"/>
+            extension methods.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.DisableModelInvalidResponse">
+            <summary>
+            Gets or sets a value indicating whether the automatic response from the MVC infrastructure when
+            the model state is invalid (on controller actions inputs) is disabled.
+            The default value is true.
+            </summary>
+            <remarks>
+            This behavior is configured by the
+            <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ValidationIMvcBuilderExtensions.ConfigureApiBehaviorOptionsWithoutModelInvalidResponse(Microsoft.Extensions.DependencyInjection.IMvcBuilder)"/>
+            extension methods.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.ConfigureMvcOptions">
+            <summary>
+            Gets or sets a delegate to configure <see cref="T:Microsoft.AspNetCore.Mvc.MvcOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.ConfigureJsonOptions">
+            <summary>
+            Gets or sets a delegate to configure <see cref="T:Microsoft.AspNetCore.Mvc.JsonOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.ConfigureApiBehaviorOptions">
+            <summary>
+            Gets or sets a delegate to configure <see cref="T:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions"/>.
+            This delegate will be used only when <see cref="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.DisableModelInvalidResponse"/> is true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.ConfigureApiVersioningOptions">
+            <summary>
+            Gets or sets a delegate to configure <see cref="T:Microsoft.AspNetCore.Mvc.Versioning.ApiVersioningOptions"/>.
+            This delegate will be used only when <see cref="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.UseVersioning"/> is true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.ConfigureApiExplorerOptions">
+            <summary>
+            Gets or sets a delegate to configure <see cref="T:Microsoft.AspNetCore.Mvc.ApiExplorer.ApiExplorerOptions"/>.
+            This delegate will be used only when <see cref="P:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.UseVersioning"/> is true.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions.Validate">
+            <summary>
+            Validates this instance.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">
+            The options are invalid.
+            </exception>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllersServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type
+            that allow configuring services for supporting API controllers.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllersServiceCollectionExtensions.AddApiControllers(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds services for API controllers to the specified service collection.
+            This method will configure MVC to correctly use the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase"/>
+            and <see cref="T:Microsoft.AspNetCore.Mvc.ApiControllerAttribute"/> features.
+            This method will not register services used by views or pages.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            The service configures the MVC services for the services used by API controllers.
+            It combines the effects of:
+            - <see cref="M:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllers(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Rest.RestApiMvcBuilderExtensions.AddApiJsonOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder)"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ValidationIMvcBuilderExtensions.ConfigureApiBehaviorOptionsWithoutModelInvalidResponse(Microsoft.Extensions.DependencyInjection.IMvcBuilder)"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion)"/>.
+            To add services for controllers with views call <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllersServiceCollectionExtensions.AddApiControllersWithViews(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllersServiceCollectionExtensions.AddApiControllers(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions})">
+            <summary>
+            Adds services for API controllers to the specified service collection using the specified action
+            to configure options.
+            This method will configure MVC to correctly use the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase"/>
+            and <see cref="T:Microsoft.AspNetCore.Mvc.ApiControllerAttribute"/> features.
+            This method will not register services used by views or pages.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            The service configures the MVC services for the services used by API controllers.
+            It combines the effects of:
+            - <see cref="M:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllers(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Mvc.MvcOptions})"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Rest.RestApiMvcBuilderExtensions.AddApiJsonOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNetCore.Mvc.JsonOptions})"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ValidationIMvcBuilderExtensions.ConfigureApiBehaviorOptionsWithoutModelInvalidResponse(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNetCore.Mvc.ApiBehaviorOptions})"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion,System.Action{Microsoft.AspNetCore.Mvc.Versioning.ApiVersioningOptions})"/>.
+            To add services for controllers with views call <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllersServiceCollectionExtensions.AddApiControllersWithViews(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllersServiceCollectionExtensions.AddApiControllersWithViews(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds services for API controllers and views to the specified service collection.
+            This method will configure MVC to correctly use the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase"/>
+            and <see cref="T:Microsoft.AspNetCore.Mvc.ApiControllerAttribute"/> features.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            The service configures the MVC services for the services used by API controllers.
+            It combines the effects of:
+            - <see cref="M:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Rest.RestApiMvcBuilderExtensions.AddApiJsonOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder)"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ValidationIMvcBuilderExtensions.ConfigureApiBehaviorOptionsWithoutModelInvalidResponse(Microsoft.Extensions.DependencyInjection.IMvcBuilder)"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllersServiceCollectionExtensions.AddApiControllersWithViews(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerOptions})">
+            <summary>
+            Adds services for API controllers and views to the specified service collection.
+            This method will configure MVC to correctly use the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase"/>
+            and <see cref="T:Microsoft.AspNetCore.Mvc.ApiControllerAttribute"/> features.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            The service configures the MVC services for the services used by API controllers.
+            It combines the effects of:
+            - <see cref="M:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Mvc.MvcOptions})"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Rest.RestApiMvcBuilderExtensions.AddApiJsonOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNetCore.Mvc.JsonOptions})"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ValidationIMvcBuilderExtensions.ConfigureApiBehaviorOptionsWithoutModelInvalidResponse(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNetCore.Mvc.ApiBehaviorOptions})"/>.
+            - <see cref="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion,System.Action{Microsoft.AspNetCore.Mvc.Versioning.ApiVersioningOptions})"/>.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Rest.RestApiMvcBuilderExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Rest.RestApiMvcBuilderExtensions.AddApiJsonOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder)">
+            <summary>
+            Configures the <see cref="T:Microsoft.AspNetCore.Mvc.JsonOptions"/> with custom serialization behavior required by Web API controllers.
+            </summary>
+            <param name="builder">The builder.</param>
+            <returns>>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Rest.RestApiMvcBuilderExtensions.AddApiJsonOptions(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNetCore.Mvc.JsonOptions})">
+            <summary>
+            Configures the <see cref="T:Microsoft.AspNetCore.Mvc.JsonOptions"/> with custom serialization behavior required by Web API controllers.
+            </summary>
+            <param name="builder">The builder.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>>The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/> instance.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Routing.IRouteAnalyzer">
+            <summary>
+            Defines the interface of a route analyzer.
+            A route analyzer allows parsing all the action descriptors configured in MVC.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Routing.IRouteAnalyzer.Analyze">
+            <summary>
+            Retrieves information about all the routes configured in MVC.
+            </summary>
+            <returns>
+            A list of the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo"/> instances retrieved from the action
+            descriptors configured in MVC for all routes.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteAnalyzer">
+            <summary>
+            Defines a default implementation of <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Routing.IRouteAnalyzer"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteAnalyzer.#ctor(Microsoft.AspNetCore.Mvc.Infrastructure.IActionDescriptorCollectionProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteAnalyzer"/> class.
+            </summary>
+            <param name="provider">The action descriptor collection provider.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteAnalyzer.Analyze">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteAnalyzerIEndpointRouteBuilderExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder"/> to configure the route analyzer.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteAnalyzerIEndpointRouteBuilderExtensions.MapRouteAnalyzer(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String)">
+            <summary>
+            Maps the specified route analyzer route.
+            The route will respond to <see cref="P:System.Net.Http.HttpMethod.Get"/> requests and return a JSON containing
+            a list of <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo"/> for all the routes configured in MVC.
+            </summary>
+            <param name="builder">The endpoint route builder instance.</param>
+            <param name="route">The route that should be used.</param>
+            <returns>
+            The <see cref="T:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder"/> instance.
+            </returns>
+            <example>
+            This method should be invoked like this:
+            <code>
+            <![CDATA[
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    // (...)
+            
+                    endpoints.MapRouteAnalyzer();
+                });
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    // (...)
+            
+                    endpoints.MapRouteAnalyzer("/my-route");
+                });
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo">
+            <summary>
+            Describes a route as parsed by the route analyzer.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo.Path">
+            <summary>
+            Gets or sets the route path.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo.HttpMethods">
+            <summary>
+            Gets or sets the HTTP methods.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo.AreaName">
+            <summary>
+            Gets or sets the route area name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo.ControllerName">
+            <summary>
+            Gets or sets the route controller name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo.ActionName">
+            <summary>
+            Gets or sets the route action name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo.PageName">
+            <summary>
+            Gets or sets the route page name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Routing.RouteInfo.DisplayName">
+            <summary>
+            Gets or sets the route display name.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator">
+            <summary>
+            Defines a validator that can be used in API controllers (<see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase"/>) to validate
+            the input arguments of actions.
+            </summary>
+            <remarks>This validator also considers the validation errors present in the model state.</remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.Errors">
+            <summary>
+            Gets the validation errors.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.#ctor(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> class.
+            </summary>
+            <param name="modelState">The controller model state.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.Required(System.String,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value"/> is specified.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.Required(System.Guid,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value"/> is specified.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.Required(System.Object,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is specified.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.Required``1(System.Collections.Generic.IList{``0},System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is specified.
+            </summary>
+            <typeparam name="T">The of the items in <paramref name="value"/>.</typeparam>
+            <param name="value">The value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.Required``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is specified.
+            </summary>
+            <typeparam name="T">The of the items in <paramref name="value"/>.</typeparam>
+            <param name="value">The value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.GreaterThan(System.Double,System.Double,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is greater than <paramref name="minValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="minValue">The minimum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.GreaterThan(System.Int64,System.Int64,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is greater than <paramref name="minValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="minValue">The minimum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.GreaterThan(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is greater than <paramref name="minValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="minValue">The minimum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.LessThan(System.Double,System.Double,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is less than <paramref name="maxValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="maxValue">The maximum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.LessThan(System.Int64,System.Int64,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is less than <paramref name="maxValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="maxValue">The maximum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.LessThan(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is less than <paramref name="maxValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="maxValue">The maximum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.GreaterThanOrEqualTo(System.Double,System.Double,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is greater than or equal to <paramref name="minValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="minValue">The minimum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.GreaterThanOrEqualTo(System.Int64,System.Int64,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is greater than or equal to <paramref name="minValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="minValue">The minimum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.GreaterThanOrEqualTo(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is greater than or equal to <paramref name="minValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="minValue">The minimum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.LessThanOrEqualTo(System.Double,System.Double,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is less than or equal to <paramref name="maxValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="maxValue">The maximum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.LessThanOrEqualTo(System.Int64,System.Int64,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is less than or equal to <paramref name="maxValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="maxValue">The maximum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.LessThanOrEqualTo(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is less than or equal to <paramref name="maxValue"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="maxValue">The maximum value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.RegularExpression(System.String,System.String,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> matches the specified regular expression.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="expression">The regular expression that should be matched.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.MinLength(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value"/> as at least <paramref name="length"/> characters.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="length">The minimum length.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.MaxLength(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value"/> as at most <paramref name="length"/> characters.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="length">The minimum length.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.EqualTo(System.String,System.String,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value"/> is equal to <paramref name="expected"/> (ignoring case).
+            </summary>
+            <param name="value">The value.</param>
+            <param name="expected">The expected value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.EqualTo(System.String,System.String,System.StringComparison,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is equal to <paramref name="expected" />.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="expected">The expected value.</param>
+            <param name="comparisonType">The type of comparison.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.NotEqualTo(System.String,System.String,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value"/> is not equal to <paramref name="expected"/> (ignoring case).
+            </summary>
+            <param name="value">The value.</param>
+            <param name="expected">The expected value.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.NotEqualTo(System.String,System.String,System.StringComparison,System.String,System.String)">
+            <summary>
+            Validates that <paramref name="value" /> is not equal to <paramref name="expected" />.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="expected">The expected value.</param>
+            <param name="comparisonType">The type of comparison.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.Check(System.Func{System.Boolean},System.String,System.String)">
+            <summary>
+            Validates that the specified <paramref name="function"/> returns true.
+            </summary>
+            <param name="function">The function that should be evaluated.</param>
+            <param name="errorCode">The code of the error that should be added if the validation fails.</param>
+            <param name="errorDescription">The description of the error that should be added if the validation fails.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator.Result(System.String,System.String,Primavera.Hydrogen.Rest.ServiceError@)">
+            <summary>
+            Returns the result of the validation.
+            </summary>
+            <param name="errorCode">The code of the main error that should be returned if there are validation errors.</param>
+            <param name="errorDescription">The description of the main error that should be returned if there are validation errors.</param>
+            <param name="serviceError">The resulting <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> that includes all the validation errors.</param>
+            <returns>
+            True if there are no errors (<paramref name="serviceError"/> is null).
+            False if there is at least one error (<paramref name="serviceError"/> describes the errors found).
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ModelStateValidationResult">
+            <summary>
+            Describes the model state validation result returned by a API controller (<see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase"/> and/or
+            <see cref="T:Microsoft.AspNetCore.Mvc.ApiControllerAttribute"/>) when the input model has validation errors.
+            </summary>
+            <remarks>
+            When a controller (<see cref="T:Microsoft.AspNetCore.Mvc.ControllerBase"/>) is annotated with the <see cref="T:Microsoft.AspNetCore.Mvc.ApiControllerAttribute"/>
+            (which is the case of all controllers that derive from <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.ApiControllerBase"/>) the MVC
+            infrastructure will automatically validate input models. When <see cref="P:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter"/> is false,
+            if any validation error is found, a <see cref="F:System.Net.HttpStatusCode.BadRequest"/> response is returned, including a JSON in the content
+            that describes the errors.
+            This class can be used to deserialize that response content as it is equivalent to <see cref="T:Microsoft.AspNetCore.Mvc.ValidationProblemDetails"/>.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ModelStateValidationResult.Type">
+            <summary>
+            Gets or sets the response type.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ModelStateValidationResult.Title">
+            <summary>
+            Gets or sets the title.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ModelStateValidationResult.Status">
+            <summary>
+            Gets or sets the status code.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ModelStateValidationResult.TraceId">
+            <summary>
+            Gets or sets the trace id.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ModelStateValidationResult.Errors">
+            <summary>
+            Gets or sets the errors.
+            This is dictionary where the key is the field that caused the error and
+            the value is a list containing the error messages.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ValidationIMvcBuilderExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/> type to configure
+            validation behaviors.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ValidationIMvcBuilderExtensions.ConfigureApiBehaviorOptionsWithoutModelInvalidResponse(Microsoft.Extensions.DependencyInjection.IMvcBuilder)">
+            <summary>
+            Configures <see cref="T:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions"/> with <see cref="P:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter"/> set
+            as true by default to prevent the API controller from returning <see cref="T:Microsoft.AspNetCore.Mvc.BadRequestObjectResult"/> when the model
+            state is invalid.
+            </summary>
+            <param name="builder">The MVC builder.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/> instance.
+            </returns>
+            <remarks>
+            This behavior is required so that <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> can be used to validate the actions input
+            arguments. Otherwise, a response will be returned before the action code executes.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ValidationIMvcBuilderExtensions.ConfigureApiBehaviorOptionsWithoutModelInvalidResponse(Microsoft.Extensions.DependencyInjection.IMvcBuilder,System.Action{Microsoft.AspNetCore.Mvc.ApiBehaviorOptions})">
+            <summary>
+            Configures <see cref="T:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions"/> with <see cref="P:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter"/> set
+            as true by default to prevent the API controller from returning <see cref="T:Microsoft.AspNetCore.Mvc.BadRequestObjectResult"/> when the model
+            state is invalid.
+            </summary>
+            <param name="builder">The MVC builder.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IMvcBuilder"/> instance.
+            </returns>
+            <remarks>
+            This behavior is required so that <see cref="T:Primavera.Hydrogen.AspNetCore.Mvc.Validation.ApiControllerValidator"/> can be used to validate the actions input
+            arguments. Otherwise, a response will be returned before the action code executes.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type to
+            configure API versioning services.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion)">
+            <summary>
+            Adds the API versioning service to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="defaultVersion">The API default version. This is the version that should be applied to the actions that do not specify an explicit API version.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            For more information about the API versioning service <see href="https://github.com/Microsoft/aspnet-api-versioning/"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion,System.Action{Microsoft.AspNetCore.Mvc.Versioning.ApiVersioningOptions})">
+            <summary>
+            Adds the API versioning service to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="defaultVersion">The API default version. This is the version that should be applied to the actions that do not specify an explicit API version.</param>
+            <param name="configureApiVersioningDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            For more information about the API versioning service <see href="https://github.com/Microsoft/aspnet-api-versioning/"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion,System.Action{Microsoft.AspNetCore.Mvc.ApiExplorer.ApiExplorerOptions})">
+            <summary>
+            Adds the API versioning service to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="defaultVersion">The API default version. This is the version that should be applied to the actions that do not specify an explicit API version.</param>
+            <param name="configureAplExplorerDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            For more information about the API versioning service <see href="https://github.com/Microsoft/aspnet-api-versioning/"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.ApiVersioningServiceCollectionExtensions.AddApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Mvc.ApiVersion,System.Action{Microsoft.AspNetCore.Mvc.Versioning.ApiVersioningOptions},System.Action{Microsoft.AspNetCore.Mvc.ApiExplorer.ApiExplorerOptions})">
+            <summary>
+            Adds the API versioning service to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="defaultVersion">The API default version. This is the version that should be applied to the actions that do not specify an explicit API version.</param>
+            <param name="configureApiVersioningDelegate">The API versioning configuration delegate.</param>
+            <param name="configureAplExplorerDelegate">The API explorer configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            For more information about the API versioning service <see href="https://github.com/Microsoft/aspnet-api-versioning/"/>.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.CustomErrorResponseProvider">
+            <summary>
+            Provides a custom <see cref="T:Microsoft.AspNetCore.Mvc.Versioning.IErrorResponseProvider"/>, used by the API versioning
+            middleware, to return <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> instances on errors.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Versioning.DefaultErrorResponseProvider" />
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Mvc.Versioning.CustomErrorResponseProvider.CreateErrorContent(Microsoft.AspNetCore.Mvc.Versioning.ErrorResponseContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.OpenApi.Schema.NoTitleFromDisplayNameOpenApiSchemaGenerator">
+            <summary>
+            Overrides the default behavior of <see cref="T:NSwag.Generation.OpenApiSchemaGenerator"/> by removing
+            the title property from each schema.
+            </summary>
+            <seealso cref="T:NSwag.Generation.OpenApiSchemaGenerator" />
+            <remarks>
+            The default schema generator uses the <see cref="T:System.ComponentModel.DataAnnotations.DisplayAttribute"/> in properties
+            to set the schema title. When this attribute is defined using resource types, this
+            results in the title being set to resource name, not the value. Is it better to
+            remove the title entirely.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.OpenApi.Schema.NoTitleFromDisplayNameOpenApiSchemaGenerator.#ctor(NJsonSchema.Generation.JsonSchemaGeneratorSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.OpenApi.Schema.NoTitleFromDisplayNameOpenApiSchemaGenerator"/> class.
+            </summary>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.OpenApi.Schema.NoTitleFromDisplayNameOpenApiSchemaGenerator.ApplyDataAnnotations(NJsonSchema.JsonSchema,NJsonSchema.Generation.JsonTypeDescription)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Properties.Resources.RES_Error_InputInvalid">
+            <summary>
+              Looks up a localized string similar to The input is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Properties.Resources.RES_Error_RouteAnalyzer_CouldNotAnalyzeConfiguration">
+            <summary>
+              Looks up a localized string similar to There was an error analyzing the configuration..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Properties.Resources.RES_Error_RouteAnalyzer_CouldNotAnalyzeRoutes">
+            <summary>
+              Looks up a localized string similar to There was an error analyzing the routes..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Properties.Resources.RES_Exception_BackgroundServiceQueueNotSet">
+            <summary>
+              Looks up a localized string similar to The queue instance is not set..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Properties.Resources.RES_Exception_BackgroundServiceWorkerNotSet">
+            <summary>
+              Looks up a localized string similar to The background worker instance is not set..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Properties.Resources.RES_Exception_InvalidApiControllerOptions_DefaultApiVersion_Required">
+            <summary>
+              Looks up a localized string similar to Since API versioning is enabled, the default API version is required..
+            </summary>
+        </member>
+    </members>
+</doc>

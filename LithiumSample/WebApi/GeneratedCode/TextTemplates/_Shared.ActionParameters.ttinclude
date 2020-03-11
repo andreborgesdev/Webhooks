@@ -1,0 +1,23 @@
+﻿<#+
+
+// *** NormalizeControllerActionParameterDefaultValue
+
+public string NormalizeControllerActionParameterDefaultValue(ControllerTypeActionParameter parameter)
+{
+    string defaultValue = parameter.DefaultValue;
+    if (!string.IsNullOrEmpty(defaultValue))
+    {
+        ControllerTypeActionScalarParameter scalarParameter = parameter as ControllerTypeActionScalarParameter;
+        if (scalarParameter != null && scalarParameter.Type == ControllerTypeActionScalarParameterType.String)
+        {
+            if (!defaultValue.StartsWith("\""))
+            {
+                defaultValue = "\"" + defaultValue + "\"";
+            }
+        }
+    }
+
+    return defaultValue;
+}
+
+#>

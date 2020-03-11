@@ -1,0 +1,346 @@
+﻿{
+    "info": {
+		"_postman_id": "6d4a300c-cc85-4e01-a9bd-65cb4efc56a1",
+		"name": "FATUR (Faturacao Service)",
+        "description": "Serviço de faturação da Primavera.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Monitoring",
+            "description": "Provides operations to monitor the service.",
+            "item": [
+                {
+                    "name": "Probe (Probe)",
+                    "request": {
+                        "description": "Probes the service.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/monitoring/probe",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"monitoring",
+								"probe"
+							]
+                        }
+                    }
+                },
+                {
+                    "name": "Diagnostics (Diagnostics)",
+                    "request": {
+                        "description": "Diagnoses the service.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/monitoring/diagnostics",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"monitoring",
+								"diagnostics"
+							]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Billing",
+            "description": "Billing Controller.",
+            "item": [
+                {
+                    "name": "CreateInvoice (Create Invoice)",
+                    "request": {
+                        "description": "Creates a new invoice.",
+                        "method": "POST",
+                        "header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/billing/{{amount}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"billing",
+								"{{amount}}"
+							]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GetInvoices (Get Invoices)",
+                    "request": {
+                        "description": "Get all the invoices.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/billing",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"billing"
+							]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Subscription",
+            "description": "Webhooks Subscripiton controller.",
+            "item": [
+                {
+                    "name": "GetWebhooksEventsForSubscription (GetWebhooksEventsForSubscription)",
+                    "request": {
+                        "description": "Gets WebooksEvents For Subscription.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/webhooks/subscription/{{subscription}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"webhooks",
+								"subscription",
+								"{{subscription}}"
+							]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GetWebhooksSubscriptions (GetWebhooksSubscriptions)",
+                    "request": {
+                        "description": "Gets all the webhooks subscriptions.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/webhooks/subscription",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"webhooks",
+								"subscription"
+							]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "SubscribeWebhooksEvent (SubscribeWebhooksEvent)",
+                    "request": {
+                        "description": "Subscribe WebhooksEvent.",
+                        "method": "POST",
+                        "header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+                        "body": {
+                            "mode": "raw",
+							"raw": "{\"Events\":\"\",\"Subscriber\":\"\",\"Product\":\"\",\"NotificationEndpoint\":\"\"}"
+                        },
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/webhooks/subscription",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"webhooks",
+								"subscription"
+							]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "UnsubscribeWebhooksEvent (UnsubscribeWebhooksEvent)",
+                    "request": {
+                        "description": "Unsubscribe WebhooksEvent.",
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/webhooks/subscription/{{webhooksEvent}}/{{subscription}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"webhooks",
+								"subscription",
+								"{{webhooksEvent}}",
+								"{{subscription}}"
+							]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Webhooks",
+            "description": "Webhooks controller.",
+            "item": [
+                {
+                    "name": "CreateWebhooksEvent (Create Webhooks Event)",
+                    "request": {
+                        "description": "Create Webhooks Event.",
+                        "method": "POST",
+                        "header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+                        "body": {
+                            "mode": "raw",
+							"raw": "{\"Event\":\"\",\"Product\":\"\",\"Description\":\"\",\"RequiredScope\":\"\"}"
+                        },
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/webhooks",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"webhooks"
+							]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DeleteWebhooksEvent (DeleteWebhooksEvent)",
+                    "request": {
+                        "description": "Deletes WebooksEvent.",
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/webhooks/{{product}}/{{webhooksEvent}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"webhooks",
+								"{{product}}",
+								"{{webhooksEvent}}"
+							]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GetWebhooksEvents (Get Webhooks Events)",
+                    "request": {
+                        "description": "Get Webhooks Events.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/webhooks",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"webhooks"
+							]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GetWebhooksEventsByProduct (GetWebhooksEventsByProduct)",
+                    "request": {
+                        "description": "Get WebooksEvents By product.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/webhooks/{{product}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"webhooks",
+								"{{product}}"
+							]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "id": "3483f3da-95f9-0c58-e539-53c7320c565c",
+			"key": "server",
+			"value": "https://localhost:20001",
+			"type": "string"
+        },
+        {
+            "id": "85b7bc52-baa6-050e-c863-0f3e547a97ac",
+			"key": "apiVersion",
+			"value": "1.0",
+			"type": "string"
+        },
+        {
+            "id": "39521f91-db11-b1a0-ac0f-de7047e03875",
+			"key": "tokenUrl",
+			"value": "https://stg-identity.primaverabss.com/connect/token",
+			"type": "string"
+        },
+        {
+            "id": "dd6e7d9a-3e4e-6147-7f5b-a787819410ef",
+			"key": "clientId",
+			"value": "lithium-faturacao-clientcredentials",
+			"type": "string"
+        },
+        {
+            "id": "afaba804-ba53-b82a-46a6-e01b9aa1243b",
+			"key": "clientSecret",
+			"value": "teste",
+			"type": "string"
+        }
+    ]
+}

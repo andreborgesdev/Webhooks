@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Lithium.Faturacao.Client.Console</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Lithium.Faturacao.Client.Console.Application">
+            <inheritdoc />
+            <summary>
+            Defines the type that implements the application.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.Application.PrintCustomMenuOptions">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.Application.HandleCustomMenuOptionsAsync(System.ConsoleKeyInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.Application.#ctor(Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Client.Console.Application"/> class.
+            </summary>
+            <param name="options">The application configuration options.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase">
+            <summary>
+            Defines the base class for the type that implements the application.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Hosting.IConsoleInteractiveApplication" />
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.Configuration">
+            <summary>
+            Gets the configuration.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.Client">
+            <summary>
+            Gets the service client.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.#ctor(Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase"/> class.
+            </summary>
+            <param name="options">The application configuration options.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.RunAsync(System.Threading.CancellationToken)">
+            <summary>
+            Runs the application.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            Override this method to implement the client application logic.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.GetServiceClient">
+            <summary>
+            Creates an instance of the service client.
+            </summary>
+            <returns>
+            The <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClient"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>True</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.DisposeServiceClient">
+            <summary>
+            Releases the service client.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.PrintCustomMenuOptions">
+            <summary>
+            Prints the custom menu options.
+            </summary>
+            <remarks>
+            This method needs to be overridden to build the application menu.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.HandleCustomMenuOptionsAsync(System.ConsoleKeyInfo)">
+            <summary>
+            Handles the custom menu options.
+            </summary>
+            <param name="key">The key pressed by the user.</param>
+            <remarks>
+            This method needs to be overridden to handle the custom application menu options.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteException(System.Exception)">
+            <summary>
+            Writes the specified exception to the console.
+            </summary>
+            <param name="ex">The exception.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteServiceException(Primavera.Hydrogen.Rest.Client.ServiceException,System.Boolean)">
+            <summary>
+            Writes the specified service exception to the console.
+            </summary>
+            <param name="ex">The exception.</param>
+            <param name="writeTitle">A value indicating whether the title should be written.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteServiceExceptionError(System.String,Primavera.Hydrogen.Rest.ServiceError)">
+            <summary>
+            Writes the specified service error to the console.
+            </summary>
+            <param name="spacing">The spacing.</param>
+            <param name="error">The service error.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteServiceExceptionErrorDetail(System.String,Primavera.Hydrogen.Rest.ServiceErrorDetail)">
+            <summary>
+            Writes the specified service error detail to the console.
+            </summary>
+            <param name="spacing">The spacing.</param>
+            <param name="error">The service error detail.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteServiceExceptionRequest(Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate)">
+            <summary>
+            Writes the specified request message to the console.
+            </summary>
+            <param name="request">The request message.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteServiceExceptionResponse(Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate)">
+            <summary>
+            Writes the specified response message to the console.
+            </summary>
+            <param name="response">The response message.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteServiceExceptionInner(System.Exception)">
+            <summary>
+            Writes the specified inner exception to the console.
+            </summary>
+            <param name="ex">The exception.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteHeaders(System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IEnumerable{System.String}})">
+            <summary>
+            Writes the specified headers to the console.
+            </summary>
+            <param name="headers">The headers.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.CheckConfiguration">
+            <summary>
+            Checks the configuration.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteConfiguration">
+            <summary>
+            Writes the configuration.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.ShowMonitoringMenuAsync">
+            <summary>
+            Handles the custom menu options.
+            </summary>
+            <returns>
+            A value indicating whether the user chose to quit the application.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.ProbeAsync">
+            <summary>
+            Executes the probe endpoint.
+            </summary>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.DiagnosticsAsync">
+            <summary>
+            Executes the diagnosis endpoint.
+            </summary>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.GetValueString(System.String,System.String)">
+            <summary>
+            Gets a string value from user input.
+            </summary>
+            <param name="name">The value name.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>
+            The string value specified by the user.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.GetValueString(System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Gets a string value from user input.
+            </summary>
+            <param name="name">The value name.</param>
+            <param name="required">A value indicating whether the value is required.</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="blankToStop">A value indicating whether a blank value equals stopping.</param>
+            <returns>
+            The string value specified by the user.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.GetValueBoolean(System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Gets a boolean value from user input.
+            </summary>
+            <param name="name">The value name.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>
+            The boolean value specified by the user.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.GetValueBoolean(System.String,System.Boolean,System.Nullable{System.Boolean},System.Boolean)">
+            <summary>
+            Gets a boolean value from user input.
+            </summary>
+            <param name="name">The value name.</param>
+            <param name="required">A value indicating whether the value is required.</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="blankToStop">A value indicating whether a blank value equals stopping.</param>
+            <returns>
+            The boolean value specified by the user.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.GetValueInteger(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Gets a integer value from user input.
+            </summary>
+            <param name="name">The value name.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>
+            The integer value specified by the user.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.GetValueInteger(System.String,System.Boolean,System.Nullable{System.Int32},System.Boolean)">
+            <summary>
+            Gets an integer value from user input.
+            </summary>
+            <param name="name">The value name.</param>
+            <param name="required">A value indicating whether the value is required.</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="blankToStop">A value indicating whether a blank value equals stopping.</param>
+            <returns>
+            The integer value specified by the user.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.GetValueDateTime(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Gets a date time value from user input.
+            </summary>
+            <param name="name">The value name.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>
+            The date time value specified by the user.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.GetValueDateTime(System.String,System.Boolean,System.Nullable{System.DateTime},System.Boolean)">
+            <summary>
+            Gets an date time value from user input.
+            </summary>
+            <param name="name">The value name.</param>
+            <param name="required">A value indicating whether the value is required.</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="blankToStop">A value indicating whether a blank value equals stopping.</param>
+            <returns>
+            The date time value specified by the user.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfigurationBase">
+            <summary>
+            Defines the base class for the configuration used by the application.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfigurationBase.ServiceBaseUri">
+            <summary>
+            Gets or sets the service Web API base URI.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfigurationBase.IdentityServerBaseUri">
+            <summary>
+            Gets or sets the Identity Server base URI.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfigurationBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfigurationBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfigurationBase.SetDefaultValues">
+            <summary>
+            Sets the default values.
+            </summary>
+            <remarks>
+            This method should be overridden to set the default values of properties.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfiguration">
+            <summary>
+            Defines the configuration used by the application.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfigurationBase" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Client.Console.Configuration.ApplicationConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Client.Console.Constants">
+            <summary>
+            Defines constants used by the application.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Client.Console.Constants.ClientId">
+            <summary>
+            The client identifier.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Client.Console.Constants.ClientSecret">
+            <summary>
+            The client secret.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Client.Console.IApplication">
+            <summary>
+            Defines the interface of the type that implements the application.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.IApplication.RunAsync">
+            <summary>
+            Runs the application.
+            </summary>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Client.Console.Program">
+            <summary>
+            Defines the starting point of the application.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.Program.Main(System.String[])">
+            <summary>
+            Executes the application.
+            </summary>
+            <param name="args">The command line arguments.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Client.Console.HostBuilderBase">
+            <summary>
+            Defines the base class for the host builder.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Client.Console.HostBuilderBase.UseDevelopmentSettings">
+            <summary>
+            Gets a value indicating whether development settings should be used regardless of the current environment. The default value is false.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.HostBuilderBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Client.Console.HostBuilderBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.HostBuilderBase.Build``1(System.String[])">
+            <summary>
+            Builds the <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHost" /> instance.
+            </summary>
+            <typeparam name="TApplication">The type of the console interactive application that should be automatically executed when the application starts.</typeparam>
+            <param name="args">The arguments.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHost" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.HostBuilderBase.ConfigureHostConfiguration(Microsoft.Extensions.Configuration.IConfigurationBuilder)">
+            <summary>
+            Configures the host configuration.
+            </summary>
+            <param name="builder">The configuration builder.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.HostBuilderBase.ConfigureAppConfiguration(Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.Configuration.IConfigurationBuilder,System.String[])">
+            <summary>
+            Configures the application configuration.
+            </summary>
+            <param name="context">The host builder context.</param>
+            <param name="builder">The configuration builder.</param>
+            <param name="args">The command line arguments.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.HostBuilderBase.ConfigureLogging(Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.Logging.ILoggingBuilder)">
+            <summary>
+            Configures logging.
+            </summary>
+            <param name="context">The host builder context.</param>
+            <param name="builder">The logging builder.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.HostBuilderBase.ConfigureServices(Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures services.
+            </summary>
+            <param name="context">The host builder context.</param>
+            <param name="services">The service collection.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Client.Console.HostBuilder">
+            <summary>
+            Defines the host builder.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.HostBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Client.Console.HostBuilder" /> class.
+            </summary>
+        </member>
+    </members>
+</doc>

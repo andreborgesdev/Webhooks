@@ -1,0 +1,185 @@
+﻿<#+
+
+// *** WriteMain
+
+public void WriteMain(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Create the host builder
+
+            HostBuilder builder = new HostBuilder();
+
+            // Build the host
+
+            IHost host = builder.Build(args);
+
+            // Run
+
+            host.Run();
+<#+
+
+}
+
+// *** WriteBuild
+
+public void WriteBuild(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Create the builder
+
+            IHostBuilder builder = Host.CreateDefaultBuilder(args)
+                .UseContentRoot(Directory.GetCurrentDirectory());
+
+            // Setup host configuration
+
+            builder = builder.ConfigureHostConfiguration(this.ConfigureHostConfiguration);
+
+            // Setup application configuration
+
+            builder = builder.ConfigureAppConfiguration(this.ConfigureAppConfiguration);
+
+            // Setup logging
+
+            builder = builder.ConfigureLogging(this.ConfigureLogging);
+
+            // Setup Web host defaults
+
+            builder = builder.ConfigureWebHostDefaults(this.ConfigureWebHostDefaults);
+
+            // Result
+
+            return builder.Build();
+<#+
+
+}
+
+// *** WriteConfigureAppConfiguration
+
+public void WriteConfigureAppConfiguration(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Environment
+
+            IHostEnvironment env = context.HostingEnvironment;
+
+            // Normalize environment name
+            // NOTE: File names are case sensitive in Linux
+
+            string environmentName = env.EnvironmentName.Transform().ToLowerCase();
+
+            // JSON configuration
+
+            builder
+                .AddJsonFile($"GeneratedCode/appsettings.gen.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"CustomCode/appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"GeneratedCode/appsettings-{environmentName}.gen.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"CustomCode/appsettings-{environmentName}.json", optional: true, reloadOnChange: true);
+
+            // Environment variables configuration
+
+            builder
+                .AddEnvironmentVariables();
+
+            // Secrets storage
+
+            builder
+                .AddAzureSecretsStorage();
+<#+
+
+}
+
+// *** WriteConfigureLogging
+
+public void WriteConfigureLogging(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Clear default providers
+
+            builder
+                .ClearProviders();
+
+            // Configuration
+
+            builder
+                .AddConfiguration(context.Configuration.GetSection("Logging"));
+
+            // Console and debug
+
+            bool useDevelopmentSettings = this.UseDevelopmentSettings || context.HostingEnvironment.IsDevelopment();
+
+            if (useDevelopmentSettings)
+            {
+                builder
+                    .AddConsole()
+                    .AddDebug();
+            }
+<#+
+
+}
+
+// *** WriteConfigureHostConfiguration
+
+public void WriteConfigureHostConfiguration(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+<#+
+
+}
+
+// *** WriteConfigureWebHostDefaults
+
+public void WriteConfigureWebHostDefaults(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Capture startup errors
+
+            if (this.CaptureStartupErrors)
+            {
+                builder
+                    .UseSetting("detailedErrors", "true")
+                    .CaptureStartupErrors(true);
+            }
+
+            // Startup
+
+            builder
+                .UseStartup<Startup>();
+<#+
+
+}
+
+// *** WriteCaptureStartupErrors
+
+public void WriteCaptureStartupErrors(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                return false;
+            }
+<#+
+
+}
+
+// *** WriteUseDevelopmentSettings
+
+public void WriteUseDevelopmentSettings(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                return false;
+            }
+<#+
+
+}
+
+#>

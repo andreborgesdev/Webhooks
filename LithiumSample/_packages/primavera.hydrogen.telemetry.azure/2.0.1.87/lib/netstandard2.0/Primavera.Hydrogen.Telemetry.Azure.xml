@@ -1,0 +1,775 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Telemetry.Azure</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService">
+            <summary>
+            Defines a implementation of the <see cref="T:Primavera.Hydrogen.Telemetry.ITelemetryClientService" /> that uses
+            the Azure Application Insights.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Telemetry.ITelemetryClientService" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService.Options">
+            <summary>
+            Gets the options.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService.#ctor(Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions,Microsoft.Extensions.Logging.ILogger{Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService" /> class.
+            </summary>
+            <param name="options">The options.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService.WriteTrace(Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService.WriteMetric(System.String,System.Double,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService.WriteEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Double})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService.WriteException(System.Exception,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Double})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService.Flush">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type
+            that allows configuring the <see cref="T:Primavera.Hydrogen.Telemetry.ITelemetryClientService"/> to use
+            Azure Application Insights.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientServiceCollectionExtensions.AddAzureInsightsTelemetryClient(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.Telemetry.ITelemetryClientService"/> using
+            configuration defined by <see cref="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions"/>. These services will
+            use Azure Application Insights.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientServiceCollectionExtensions.AddAzureInsightsTelemetryClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions})">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.Telemetry.ITelemetryClientService"/> using the
+            specified configuration options. These services will use Azure Application Insights.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions">
+            <summary>
+            Defines the options used to configure new <see cref="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryClientService"/> instances.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.InstrumentationKey">
+            <summary>
+            Gets or sets the instrumentation key.
+            Without the instrumentation key the telemetry will not be collected.
+            The default value is null.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.Enabled">
+            <summary>
+            Gets or sets a value indicating whether telemetry is enabled.
+            The default value is true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.IgnoreErrors">
+            <summary>
+            Gets or sets a value indicating whether any error raised by the telemetry features
+            should be ignored (not thrown).
+            Default value is true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.DeveloperMode">
+            <summary>
+            Gets or sets a value indicating whether telemetry should be collected in developer mode.
+            The default value is false.
+            When true the telemetry is expedited through the pipeline immediately.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.EnableAdaptiveSampling">
+            <summary>
+            Gets or sets a value indicating whether adaptive sampling is enabled.
+            The default value is false.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.DefaultProperties">
+            <summary>
+            Gets or sets a dictionary containing the properties that should be added to telemetry
+            requests.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.RequestTracking">
+            <summary>
+            Gets or sets additional request tracking options.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.TelemetryChannel">
+            <summary>
+            Gets or sets the concrete telemetry channel that should be used.
+            The default value is null.
+            If null, the default telemetry channel will be used.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type
+            that allows configuring the Azure Application Insights service.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.Telemetry.ITelemetryClientService"/> using
+            configuration defined by <see cref="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions"/>. These services will
+            use Azure Application Insights.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions})">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.Telemetry.ITelemetryClientService"/> using the
+            specified configuration options. These services will use Azure Application Insights.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.RequestTrackingOptions">
+            <summary>
+            Defines the request tracking options in <see cref="T:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.RequestTrackingOptions.TrackRequestHeaders">
+            <summary>
+            Gets or sets a value indicating whether the all the request headers for all
+            requests should be tracked.
+            The default value is false.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.RequestTrackingOptions.TrackResponseHeaders">
+            <summary>
+            Gets or sets a value indicating whether the all the response headers for all
+            requests should be tracked.
+            The default value is false.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.RequestTrackingOptions.IgnoreAvailabilityTestsRequests">
+            <summary>
+            Gets or sets a value indicating whether availability tests requests should be ignored
+            (not collected).
+            The default value is false.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.DefaultPropertiesTelemetryInitializer">
+            <summary>
+            Defines a telemetry initializer (see <see cref="T:Microsoft.ApplicationInsights.Extensibility.ITelemetryInitializer"/>)
+            that ensures the telemetry items context includes the global properties specified
+            in <see cref="P:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions.DefaultProperties"/>.
+            </summary>
+            <seealso cref="T:Microsoft.ApplicationInsights.Extensibility.ITelemetryInitializer" />
+            <remarks>
+            This type should be registered as a singleton before
+            <see cref="M:Microsoft.Extensions.DependencyInjection.ApplicationInsightsExtensions.AddApplicationInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            This telemetry initializer is configured by default in
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+            <example>
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryInitializer, DefaultPropertiesTelemetryInitializer>();
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.DefaultPropertiesTelemetryInitializer.#ctor(Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.DefaultPropertiesTelemetryInitializer"/> class.
+            </summary>
+            <param name="options">The telemetry options.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.DefaultPropertiesTelemetryInitializer.Initialize(Microsoft.ApplicationInsights.Channel.ITelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer">
+            <summary>
+            Defines the base class for request telemetry initializers (see <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer"/>)
+            that initialize properties based on the request or response headers.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer.Headers">
+            <summary>
+            Gets or sets how the initializer should track headers.
+            </summary>
+            <remarks>
+            If <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializerBehavior.None"/> the initializer will not track any header.
+            If <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializerBehavior.All"/> the initializer will track all headers.
+            If <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializerBehavior.Specified"/> the initializer will track only the headers
+            whose name match the specified <see cref="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer.HeaderNames"/>.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer.HeaderNames">
+            <summary>
+            Gets or sets the list of the names of the headers that the initializer should track.
+            The specified may path may use glob pattern matching (<see cref="M:Primavera.Hydrogen.StringExtensions.LikeNoCase(System.String,System.String)"/>).
+            </summary>
+            <remarks>
+            Only meaningful if <see cref="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer.Headers"/> is <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializerBehavior.Specified"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer"/> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer.ShouldInitialize(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializerBehavior">
+            <summary>
+            Defines the behavior of a <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializerBehavior.All">
+            <summary>
+            The initializer will track all headers.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializerBehavior.None">
+            <summary>
+            The initializer will not track any headers.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializerBehavior.Specified">
+            <summary>
+            The initializer will track only the headers whose
+            name match the specified header names.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestHeadersTelemetryInitializer">
+            <summary>
+            Defines a request telemetry initializer (see <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer"/>)
+            that allows collecting request headers.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer" />
+            <remarks>
+            This type should be registered as a singleton before
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            This telemetry initializer is configured by default, if <see cref="P:Primavera.Hydrogen.Telemetry.Azure.RequestTrackingOptions.TrackRequestHeaders"/> is true, in
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
+            to track all request headers for all requests.
+            </remarks>
+            <example>
+            To track all request headers for all requests:
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryInitializer, RequestHeadersTelemetryInitializer>();
+            ]]>
+            </code>
+            </example>
+            <example>
+            To track specific request headers only for all requests:
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryInitializer>(
+                (provider) =>
+                {
+                    return new RequestHeadersTelemetryInitializer()
+                    {
+                        Headers = HeadersTelemetryInitializerBehavior.Specified,
+                        HeaderNames = new List<string>()
+                        {
+                            "Header1",
+                            "Header2"
+                        }
+                    };
+                });
+            ]]>
+            </code>
+            </example>
+            <example>
+            To track specific request headers only for specific requests.
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryInitializer>(
+                (provider) =>
+                {
+                    return new RequestHeadersTelemetryInitializer(provider)
+                    {
+                        Requests = RequestTelemetryInitializerBehavior.Specified,
+                        RequestPaths = new List<string>()
+                        {
+                            "/api/*",
+                            "*/mycontroller/*"
+                        },
+                        Headers = HeadersTelemetryInitializerBehavior.Specified,
+                        HeaderNames = new List<string>()
+                        {
+                            "Header1",
+                            "Header2"
+                        }
+                    };
+                });
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestHeadersTelemetryInitializer.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestHeadersTelemetryInitializer" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestHeadersTelemetryInitializer.InitializeCore(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer">
+            <summary>
+            Defines the base class for telemetry initializers (see <see cref="T:Microsoft.ApplicationInsights.Extensibility.ITelemetryInitializer"/>)
+            that initialize properties for requests telemetry.
+            </summary>
+            <seealso cref="T:Microsoft.ApplicationInsights.Extensibility.ITelemetryInitializer" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.Requests">
+            <summary>
+            Gets or sets how the initializer should track requests.
+            </summary>
+            <remarks>
+            If <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializerBehavior.None"/> the initializer will not be executed for any request.
+            If <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializerBehavior.All"/> the initializer will be executed for all requests.
+            If <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializerBehavior.Specified"/> the initializer will be executed for the requests
+            whose path match the specified <see cref="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.RequestPaths"/>.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.RequestPaths">
+            <summary>
+            Gets or sets the list of request paths for which the initializer will be executed.
+            The specified may path may use glob pattern matching (<see cref="M:Primavera.Hydrogen.StringExtensions.LikeNoCase(System.String,System.String)"/>).
+            </summary>
+            <remarks>
+            Only meaningful if <see cref="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.Requests"/> is <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializerBehavior.Specified"/>.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.ServiceProvider">
+            <summary>
+            Gets the service provider.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.HttpContextAccessor">
+            <summary>
+            Gets the HTTP context accessor.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.HttpRequest">
+            <summary>
+            Gets the HTTP request.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.HttpResponse">
+            <summary>
+            Gets the HTTP response.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer"/> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.Initialize(Microsoft.ApplicationInsights.Channel.ITelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.ShouldInitialize(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <summary>
+            Determines whether the telemetry initializer should be executed for the specified
+            request telemetry.
+            </summary>
+            <param name="requestTelemetry">The request telemetry.</param>
+            <returns>
+            A value indicating whether the telemetry initializer should be executed for the specified
+            request telemetry.
+            </returns>
+            <remarks>
+            This method is called by <see cref="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.Initialize(Microsoft.ApplicationInsights.Channel.ITelemetry)"/> to determine
+            whether <see cref="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.InitializeCore(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)"/> should be called.
+            The default behavior is to check the request path only.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.InitializeCore(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <summary>
+            Executes the request initializer for the specified request telemetry.
+            </summary>
+            <param name="requestTelemetry">The request telemetry.</param>
+            <remarks>
+            This method is called by <see cref="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.Initialize(Microsoft.ApplicationInsights.Channel.ITelemetry)"/> if
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer.ShouldInitialize(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)"/> returns true.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializerBehavior">
+            <summary>
+            Defines the behavior of a <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializerBehavior.All">
+            <summary>
+            The initializer will be executed for all requests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializerBehavior.None">
+            <summary>
+            The initializer will not be executed for any requests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializerBehavior.Specified">
+            <summary>
+            The initializer will be executed only for the requests whose
+            path match the specified paths.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.ResponseHeadersTelemetryInitializer">
+            <summary>
+            Defines a request telemetry initializer (see <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer"/>)
+            that allows collecting response headers.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.HeadersTelemetryInitializer" />
+            <remarks>
+            This type should be registered as a singleton before
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            This telemetry initializer is configured by default if <see cref="P:Primavera.Hydrogen.Telemetry.Azure.RequestTrackingOptions.TrackResponseHeaders"/> is true, in
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
+            to track all response headers for all requests.
+            </remarks>
+            <example>
+            To track all response headers for all requests:
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryInitializer, ResponseHeadersTelemetryInitializer>();
+            ]]>
+            </code>
+            </example>
+            <example>
+            To track specific response headers only for all requests:
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryInitializer>(
+                (provider) =>
+                {
+                    return new ResponseHeadersTelemetryInitializer(provider)
+                    {
+                        Headers = HeadersTelemetryInitializerBehavior.Specified,
+                        HeaderNames = new List<string>()
+                        {
+                            "Header1",
+                            "Header2"
+                        }
+                    };
+                });
+            ]]>
+            </code>
+            </example>
+            <example>
+            To track specific response headers only for specific requests:
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryInitializer>(
+                (provider) =>
+                {
+                    return new ResponseHeadersTelemetryInitializer(provider)
+                    {
+                        Requests = RequestTelemetryInitializerBehavior.Specified,
+                        RequestPaths = new List<string>()
+                        {
+                            "/api/*",
+                            "*/mycontroller/*"
+                        },
+                        Headers = HeadersTelemetryInitializerBehavior.Specified,
+                        HeaderNames = new List<string>()
+                        {
+                            "Header1",
+                            "Header2"
+                        }
+                    };
+                });
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.ResponseHeadersTelemetryInitializer.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.ResponseHeadersTelemetryInitializer" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.ResponseHeadersTelemetryInitializer.ShouldInitialize(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.ResponseHeadersTelemetryInitializer.InitializeCore(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.StatusCodeTelemetryInitializer">
+            <summary>
+            Defines a request telemetry initializer (see <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer"/>)
+            that allows setting a request as success based on a given status code for a specific request path.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.RequestTelemetryInitializer" />
+            <remarks>
+            By default, Application Insights will treat 404 responses as failures and that may trigger alerts and other
+            healing mechanisms that will not be correct/effective when the application is expected to return those responses (like
+            is the case of Web API routes). Changing the request telemetry result (success/failure) based on the response status
+            code allows to change that behavior.
+            This type should be registered as a singleton before
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            This telemetry initializer is configured by default if <see cref="P:Primavera.Hydrogen.Telemetry.Azure.RequestTrackingOptions.TrackResponseHeaders"/> is true, in
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
+            to track all response headers for all requests.
+            </remarks>
+            <example>
+            To set all <see cref="F:System.Net.HttpStatusCode.NotFound"/> responses to success, regardless of the request path:
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryInitializer, StatusCodeTelemetryInitializer>();
+            ]]>
+            </code>
+            </example>
+            <example>
+            To set all <see cref="F:System.Net.HttpStatusCode.NotImplemented"/> responses to success for a specific request path:
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryInitializer>(
+                (provider) =>
+                {
+                    return new StatusCodeTelemetryInitializer(provider)
+                    {
+                        Requests = RequestTelemetryInitializerBehavior.Specified,
+                        RequestPaths = new List<string>()
+                        {
+                            "/api/*",
+                        },
+                        StatusCode = HttpStatusCode.NotImplemented
+                    };
+                });
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Initializers.StatusCodeTelemetryInitializer.StatusCode">
+            <summary>
+            Gets or sets the status code for which the requests will be set as success.
+            The default value is <see cref="F:System.Net.HttpStatusCode.NotFound"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.StatusCodeTelemetryInitializer.#ctor(System.IServiceProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Initializers.StatusCodeTelemetryInitializer"/> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.StatusCodeTelemetryInitializer.ShouldInitialize(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Initializers.StatusCodeTelemetryInitializer.InitializeCore(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Processors.IgnoreAvailabilityRequestTelemetryProcessor">
+            <summary>
+            Defines a request telemetry processor (see <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor"/>)
+            that prevents request telemetry resulting from availability tests from being collected.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor" />
+            <remarks>
+            This type should be registered AFTER
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            This telemetry initializer is configured by default if <see cref="P:Primavera.Hydrogen.Telemetry.Azure.RequestTrackingOptions.IgnoreAvailabilityTestsRequests"/> is true, in
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.AzureInsightsTelemetryServiceCollectionExtensions.AddAzureInsightsTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+            <example>
+            To ignore all availability tests requests, regardless of the request path:
+            <code>
+            <![CDATA[
+            services.AddApplicationInsightsTelemetryProcessor<IgnoreAvailabilityRequestTelemetryProcessor>();
+            ]]>
+            </code>
+            </example>
+            <example>
+            To ignore all availability tests requests for a specific request path:
+            <code>
+            <![CDATA[
+            services.AddSingleton<ITelemetryProcessorFactory>(
+                (provider) =>
+                {
+                    return new TelemetryProcessorFactory<IgnoreAvailabilityRequestTelemetryProcessor>(
+                        (next) =>
+                        {
+                            return new IgnoreAvailabilityRequestTelemetryProcessor(next)
+                            {
+                                Requests = RequestTelemetryProcessorBehavior.Specified,
+                                RequestPaths = new List<string>()
+                                {
+                                    "*/probe",
+                                }
+                            };
+                        }
+                });
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Processors.IgnoreAvailabilityRequestTelemetryProcessor.#ctor(Microsoft.ApplicationInsights.Extensibility.ITelemetryProcessor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Processors.IgnoreAvailabilityRequestTelemetryProcessor"/> class.
+            </summary>
+            <param name="next">The next processor in the pipeline. </param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Processors.IgnoreAvailabilityRequestTelemetryProcessor.ProcessCore(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor">
+            <summary>
+            Defines the base class for telemetry processors (see <see cref="T:Microsoft.ApplicationInsights.Extensibility.ITelemetryProcessor"/>)
+            that process requests telemetry.
+            </summary>
+            <seealso cref="T:Microsoft.ApplicationInsights.Extensibility.ITelemetryInitializer" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.Requests">
+            <summary>
+            Gets or sets how the initializer should track requests.
+            </summary>
+            <remarks>
+            If <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessorBehavior.None"/> the processor will not be executed for any request.
+            If <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessorBehavior.All"/> the processor will be executed for all requests.
+            If <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessorBehavior.Specified"/> the processor will be executed for the requests
+            whose path match the specified <see cref="P:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.RequestPaths"/>.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.RequestPaths">
+            <summary>
+            Gets or sets the list of request paths for which the processor will be executed.
+            The specified may path may use glob pattern matching (<see cref="M:Primavera.Hydrogen.StringExtensions.LikeNoCase(System.String,System.String)"/>).
+            </summary>
+            <remarks>
+            Only meaningful if <see cref="P:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.Requests"/> is <see cref="F:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessorBehavior.Specified"/>.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.Next">
+            <summary>
+            Gets the next processor in the pipeline. 
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.#ctor(Microsoft.ApplicationInsights.Extensibility.ITelemetryProcessor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor"/> class.
+            </summary>
+            <param name="next">The next processor in the pipeline. </param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.Process(Microsoft.ApplicationInsights.Channel.ITelemetry)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.ShouldProcess(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <summary>
+            Determines whether the telemetry initializer should be executed for the specified
+            request telemetry.
+            </summary>
+            <param name="requestTelemetry">The request telemetry.</param>
+            <returns>
+            A value indicating whether the telemetry initializer should be executed for the specified
+            request telemetry.
+            </returns>
+            <remarks>
+            This method is called by <see cref="M:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.Process(Microsoft.ApplicationInsights.Channel.ITelemetry)"/> to determine
+            whether <see cref="M:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.ProcessCore(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)"/> should be called.
+            The default behavior is to check the request path only.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.ProcessCore(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)">
+            <summary>
+            Process a collected request telemetry item.
+            </summary>
+            <param name="requestTelemetry">The collected request telemetry item.</param>
+            <remarks>
+            This method is called by <see cref="M:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.Process(Microsoft.ApplicationInsights.Channel.ITelemetry)"/> if
+            <see cref="M:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor.ShouldProcess(Microsoft.ApplicationInsights.DataContracts.RequestTelemetry)"/> returns true.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessorBehavior">
+            <summary>
+            Defines the behavior of a <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessor"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessorBehavior.All">
+            <summary>
+            The processor will be executed for all requests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessorBehavior.None">
+            <summary>
+            The processor will not be executed for any requests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.Azure.Processors.RequestTelemetryProcessorBehavior.Specified">
+            <summary>
+            The processor will be executed only for the requests whose
+            path match the specified paths.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.Processors.TelemetryProcessorFactory`1">
+            <summary>
+            Allows creating an instance of a telemetry processor by providing a function to
+            initialize it.
+            </summary>
+            <typeparam name="T">The type of the telemetry initializer.</typeparam>
+            <seealso cref="T:Microsoft.ApplicationInsights.AspNetCore.ITelemetryProcessorFactory" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Processors.TelemetryProcessorFactory`1.#ctor(System.Func{Microsoft.ApplicationInsights.Extensibility.ITelemetryProcessor,`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Telemetry.Azure.Processors.TelemetryProcessorFactory`1"/> class.
+            </summary>
+            <param name="creationDelegate">The delegate that should be used to create the telemetry processor instance.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.Processors.TelemetryProcessorFactory`1.Create(Microsoft.ApplicationInsights.Extensibility.ITelemetryProcessor)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.Azure.TelemetrySeverityLevelExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.Azure.TelemetrySeverityLevelExtensions.Translate(Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel)">
+            <summary>
+            Translates the value to <see cref="T:Microsoft.ApplicationInsights.DataContracts.SeverityLevel"/>.
+            </summary>
+            <param name="severity">The severity.</param>
+            <returns>The corresponding <see cref="T:Microsoft.ApplicationInsights.DataContracts.SeverityLevel"/> value.</returns>
+        </member>
+    </members>
+</doc>

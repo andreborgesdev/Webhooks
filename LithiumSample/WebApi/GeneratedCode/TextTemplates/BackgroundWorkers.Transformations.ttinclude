@@ -1,0 +1,89 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Diagnostics.CodeAnalysis"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Logging"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Hosting"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi.BackgroundServices");
+}
+
+// *** TransformBackgroundWorker
+
+public void TransformBackgroundWorker(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    BackgroundWorker sourceModel = sourceElement as BackgroundWorker;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    // Background worker base class
+
+    ClassModel baseClassModel = targetModel.Namespace
+        .AddClass(new ClassModel("{0}WorkerBase".Format(sourceModel.Name))
+        {
+            Modifiers = ClassModifiers.Internal | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Inheritance = "BackgroundWorker",
+            Documentation = new DocumentationModel("Defines the base class for the <see cref=\"{0}Worker\" /> background worker.".Format(sourceModel.Name))
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}WorkerBase\" /> class.".Format(sourceModel.Name)),
+                Inheritance = "base(serviceProvider, logger)"
+            })
+                .WithParameter(new MethodParameterModel("serviceProvider", "IServiceProvider")
+                {
+                    Documentation = new DocumentationModel("The service provider.")
+                })
+                .WithParameter(new MethodParameterModel("logger", "ILogger")
+                {
+                    Documentation = new DocumentationModel("The logger.")
+                })
+                .ParentModelAs<ClassModel>();
+
+    // Background worker class
+
+    ClassModel classModel = targetModel.Namespace
+        .AddClass(new ClassModel("{0}Worker".Format(sourceModel.Name))
+        {
+            Modifiers = ClassModifiers.Internal | ClassModifiers.Partial,
+            Inheritance = "{0}WorkerBase".Format(sourceModel.Name),
+            Documentation = new DocumentationModel(sourceModel.Summary)
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}Worker\" /> class.".Format(sourceModel.Name)),
+                Inheritance = "base(serviceProvider, logger)"
+            })
+                .WithParameter(new MethodParameterModel("serviceProvider", "IServiceProvider")
+                {
+                    Documentation = new DocumentationModel("The service provider.")
+                })
+                 .WithParameter(new MethodParameterModel("logger", "ILogger<{0}Worker>".Format(sourceModel.Name))
+                {
+                    Documentation = new DocumentationModel("The logger.")
+                })
+               .ParentModelAs<ClassModel>();
+
+    baseClassModel.Facets["BackgroundWorker"] = sourceModel;
+    classModel.Facets["BackgroundWorker"] = sourceModel;
+}
+
+#>

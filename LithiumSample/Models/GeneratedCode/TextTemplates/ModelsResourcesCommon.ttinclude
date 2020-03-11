@@ -1,0 +1,483 @@
+﻿<#+
+
+internal class ModelsResourcesTransformation : ServiceModelTransformation<ResourcesFileModel>
+{
+    // *** Overrides
+
+    public override bool CanTransform(DomainModelElement sourceElement, ResourcesFileModel targetModel)
+    {
+        return sourceElement is ModelType;
+    }
+
+    public override void Transform(DomainModelElement sourceElement, ResourcesFileModel targetModel)
+    {
+        if (targetModel == null)
+        {
+            return;
+        }
+
+        if (sourceElement is ModelType modelType)
+        {
+            foreach (ModelTypeProperty modelTypeProperty in modelType.ChildProperties.OrderBy(m => m.Name))
+            {
+                this.TransformModelTypePropertyDisplay(modelTypeProperty, targetModel);
+                this.TransformModelTypePropertyValidation(modelTypeProperty, targetModel);
+            }
+        }
+    }
+
+    // *** TransformModelTypePropertyDisplay
+
+    private void TransformModelTypePropertyDisplay(ModelTypeProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Display_{0}_{1}"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                modelTypeProperty.DisplayName));
+    }
+
+    // *** TransformModelTypePropertyValidation
+
+    private void TransformModelTypePropertyValidation(ModelTypeProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        this.TransformModelTypePropertyValidation(modelTypeProperty as ModelTypeScalarProperty, targetModel);
+        this.TransformModelTypePropertyValidation(modelTypeProperty as ModelTypeEnumProperty, targetModel);
+        this.TransformModelTypePropertyValidation(modelTypeProperty as ModelTypeModelProperty, targetModel);
+    }
+
+    // *** TransformModelTypePropertyValidation (Scalar)
+
+    private void TransformModelTypePropertyValidation(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty == null)
+        {
+            return;
+        }
+
+        this.TransformModelTypePropertyValidationBoolean(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationByteArray(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationDateTime(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationDouble(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationEmail(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationGuid(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationInteger(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationLong(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationPassword(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationString(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationUrl(modelTypeProperty, targetModel);
+        this.TransformModelTypePropertyValidationPhoneNumber(modelTypeProperty, targetModel);
+    }
+
+    // *** TransformModelTypePropertyValidationBoolean
+
+    private void TransformModelTypePropertyValidationBoolean(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.Boolean)
+        {
+            return;
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationByteArray
+
+    private void TransformModelTypePropertyValidationByteArray(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.ByteArray)
+        {
+            return;
+        }
+
+        if (modelTypeProperty.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddIsRequired(modelTypeProperty, targetModel);
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationDateTime
+
+    private void TransformModelTypePropertyValidationDateTime(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.DateTime)
+        {
+            return;
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationDouble
+
+    private void TransformModelTypePropertyValidationDouble(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.Double)
+        {
+            return;
+        }
+
+        if (modelTypeProperty.ValidationRules.LessThan != null)
+        {
+            this.AddLessThan(modelTypeProperty, targetModel);
+        }
+
+        if (modelTypeProperty.ValidationRules.GreaterThan != null)
+        {
+            this.AddGreaterThan(modelTypeProperty, targetModel);
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationEmail
+
+    private void TransformModelTypePropertyValidationEmail(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.Email)
+        {
+            return;
+        }
+
+        this.AddEmail(modelTypeProperty, targetModel);
+
+        if (modelTypeProperty.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddIsRequired(modelTypeProperty, targetModel);
+        }
+
+        if (modelTypeProperty.ValidationRules.MinLength != null)
+        {
+            this.AddMinLength(modelTypeProperty, targetModel);
+        }
+
+        if (modelTypeProperty.ValidationRules.MaxLength != null)
+        {
+            this.AddMaxLength(modelTypeProperty, targetModel);
+        }
+
+        if (!string.IsNullOrEmpty(modelTypeProperty.ValidationRules.RegularExpression))
+        {
+            this.AddRegularExpression(modelTypeProperty, targetModel);
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationGuid
+
+    private void TransformModelTypePropertyValidationGuid(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.Guid)
+        {
+            return;
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationInteger
+
+    private void TransformModelTypePropertyValidationInteger(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.Integer)
+        {
+            return;
+        }
+
+        if (modelTypeProperty.ValidationRules.LessThan != null)
+        {
+            this.AddLessThan(modelTypeProperty, targetModel);
+        }
+
+        if (modelTypeProperty.ValidationRules.GreaterThan != null)
+        {
+            this.AddGreaterThan(modelTypeProperty, targetModel);
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationLong
+
+    private void TransformModelTypePropertyValidationLong(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.Long)
+        {
+            return;
+        }
+
+        if (modelTypeProperty.ValidationRules.LessThan != null)
+        {
+            this.AddLessThan(modelTypeProperty, targetModel);
+        }
+
+        if (modelTypeProperty.ValidationRules.GreaterThan != null)
+        {
+            this.AddGreaterThan(modelTypeProperty, targetModel);
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationPassword
+
+    private void TransformModelTypePropertyValidationPassword(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.Password)
+        {
+            return;
+        }
+
+        if (modelTypeProperty.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddIsRequired(modelTypeProperty, targetModel);
+        }
+
+        if (modelTypeProperty.ValidationRules.MinLength != null)
+        {
+            this.AddMinLength(modelTypeProperty, targetModel);
+        }
+
+        if (modelTypeProperty.ValidationRules.MaxLength != null)
+        {
+            this.AddMaxLength(modelTypeProperty, targetModel);
+        }
+
+        if (!string.IsNullOrEmpty(modelTypeProperty.ValidationRules.RegularExpression))
+        {
+            this.AddRegularExpression(modelTypeProperty, targetModel);
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationString
+
+    private void TransformModelTypePropertyValidationString(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.String)
+        {
+            return;
+        }
+
+        if (modelTypeProperty.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddIsRequired(modelTypeProperty, targetModel);
+        }
+
+        if (modelTypeProperty.ValidationRules.MinLength != null)
+        {
+            this.AddMinLength(modelTypeProperty, targetModel);
+        }
+
+        if (modelTypeProperty.ValidationRules.MaxLength != null)
+        {
+            this.AddMaxLength(modelTypeProperty, targetModel);
+        }
+
+        if (!string.IsNullOrEmpty(modelTypeProperty.ValidationRules.RegularExpression))
+        {
+            this.AddRegularExpression(modelTypeProperty, targetModel);
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationUrl
+
+    private void TransformModelTypePropertyValidationUrl(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.Url)
+        {
+            return;
+        }
+
+        if (modelTypeProperty.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddIsRequired(modelTypeProperty, targetModel);
+        }
+    }
+
+    // *** TransformModelTypePropertyValidationPhoneNumber
+
+    private void TransformModelTypePropertyValidationPhoneNumber(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty.Type != ModelTypeScalarPropertyType.PhoneNumber)
+        {
+            return;
+        }
+
+        this.AddPhone(modelTypeProperty, targetModel);
+
+        if (modelTypeProperty.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddIsRequired(modelTypeProperty, targetModel);
+        }
+    }
+
+    // *** TransformModelTypePropertyValidation (Enum)
+
+    private void TransformModelTypePropertyValidation(ModelTypeEnumProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+    }
+
+    // *** TransformModelTypePropertyValidation (Model)
+
+    private void TransformModelTypePropertyValidation(ModelTypeModelProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        if (modelTypeProperty == null)
+        {
+            return;
+        }
+
+        if (modelTypeProperty.ValidationRules.IsRequired)
+        {
+            this.AddIsRequired(modelTypeProperty, targetModel);
+            if (modelTypeProperty.IsList)
+            {
+                this.AddNotEmpty(modelTypeProperty, targetModel);
+            }
+        }
+    }
+
+    // *** AddIsRequired (Scalar)
+
+    private void AddIsRequired(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_Required"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field is required."
+                    .Format(
+                        modelTypeProperty.DisplayName)));
+    }
+
+    // *** AddIsRequired (Model)
+
+    private void AddIsRequired(ModelTypeModelProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_Required"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field is required."
+                    .Format(
+                        modelTypeProperty.DisplayName)));
+    }
+
+    // *** AddNotEmpty
+
+    private void AddNotEmpty(ModelTypeModelProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_NotEmpty"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field cannot be empty."
+                    .Format(
+                        modelTypeProperty.DisplayName)));
+    }
+
+    // *** AddEmail
+
+    private void AddEmail(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_EmailInvalid"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field is not a valid email address."
+                    .Format(
+                        modelTypeProperty.DisplayName)));
+    }
+
+    // *** AddPhone
+
+    private void AddPhone(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_PhoneInvalid"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field is not a valid phone number."
+                    .Format(
+                        modelTypeProperty.DisplayName)));
+    }
+
+    // *** AddMinLength
+
+    private void AddMinLength(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_MinLength"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field must have at least {1} characters."
+                    .Format(
+                        modelTypeProperty.DisplayName,
+                        modelTypeProperty.ValidationRules.MinLength.Value)));
+    }
+
+    // *** AddMaxLength
+
+    private void AddMaxLength(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_MaxLength"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field cannot have more than {1} characters."
+                    .Format(
+                        modelTypeProperty.DisplayName,
+                        modelTypeProperty.ValidationRules.MaxLength.Value)));
+    }
+
+    // *** AddLessThan
+
+    private void AddLessThan(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_LessThan"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field value must be less than {1}."
+                    .Format(
+                        modelTypeProperty.DisplayName,
+                        modelTypeProperty.ValidationRules.LessThan.Value)));
+    }
+
+    // *** AddGreaterThan
+
+    private void AddGreaterThan(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_GreaterThan"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field value must be greater than {1}."
+                    .Format(
+                        modelTypeProperty.DisplayName,
+                        modelTypeProperty.ValidationRules.GreaterThan.Value)));
+    }
+
+    // *** AddRegularExpression
+
+    private void AddRegularExpression(ModelTypeScalarProperty modelTypeProperty, ResourcesFileModel targetModel)
+    {
+        targetModel.
+            WithResource(new ResourceModel(
+                "RES_Validation_{0}_{1}_RegularExpression"
+                    .Format(
+                        modelTypeProperty.ParentModel.Name,
+                        modelTypeProperty.Name),
+                "The {0} field value is invalid."
+                    .Format(
+                        modelTypeProperty.DisplayName)));
+    }
+}
+
+#>

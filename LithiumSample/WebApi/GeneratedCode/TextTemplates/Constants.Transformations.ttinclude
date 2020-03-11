@@ -1,0 +1,299 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Globalization"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi");
+
+    ClassModel classModel = targetModel.Namespace
+        .AddClass(new ClassModel("Constants")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Static,
+            Documentation = new DocumentationModel("Defines constants used by various types.")
+        })
+            .AddClass(new ClassModel("Controllers")
+            {
+                Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Static,
+                Documentation = new DocumentationModel("Defines constants used by MVC controllers.")
+            })
+                .AddClass(new ClassModel("Home")
+                {
+                    Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Static,
+                    Documentation = new DocumentationModel("Defines constants that specified by the Home MVC controller.")
+                })
+                    .WithConstant(new ConstantModel("Name", "string", "\"Home\"")
+                    {
+                        Modifiers = ConstantModifiers.Public,
+                        Documentation = new DocumentationModel("Defines the name of the controller.")
+                    })
+                    .AddClass(new ClassModel("Routes")
+                    {
+                        Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Static,
+                        Documentation = new DocumentationModel("Defines constants that specified the routes used in the Home MVC controller.")
+                    })
+                        .WithConstant(new ConstantModel("Index", "string", "\"\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route of the index action.")
+                        })
+                        .WithConstant(new ConstantModel("AccessDenied", "string", "\"/accessdenied\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route of the access denied action.")
+                        })
+                        .WithConstant(new ConstantModel("Error", "string", "\"/error\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route of the error action.")
+                        })
+                        .WithConstant(new ConstantModel("Signout", "string", "\"/signout\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route of the signout action.")
+                        })
+                        .ParentModelAs<ClassModel>()
+                    .AddClass(new ClassModel("Actions")
+                    {
+                        Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Static,
+                        Documentation = new DocumentationModel("Defines constants that specify the action names used the Home MVC controller.")
+                    })
+                        .WithConstant(new ConstantModel("Index", "string", "\"Home.Index\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the name of the index action.")
+                        })
+                        .WithConstant(new ConstantModel("AccessDenied", "string", "\"Home.AccessDenied\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route of the access denied action.")
+                        })
+                        .WithConstant(new ConstantModel("Error", "string", "\"Home.Error\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route of the error action.")
+                        })
+                        .WithConstant(new ConstantModel("Signout", "string", "\"Home.Signout\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route of the signout action.")
+                        })
+                        .ParentModelAs<ClassModel>()
+                    .ParentModelAs<ClassModel>()
+                .ParentModelAs<ClassModel>()
+            .AddClass(new ClassModel("Policies")
+            {
+                Modifiers = ClassModifiers.Internal | ClassModifiers.Partial | ClassModifiers.Static,
+                Documentation = new DocumentationModel("Defines constants used to identity authentication policies.")
+            })
+                .WithConstant(new ConstantModel(sourceModel.Name, "string", "\"" + sourceModel.Name.ToLowerInvariant() + "\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("Defines the name of the policy that applies the default scope.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddClass(new ClassModel("Documentation")
+            {
+                Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Static,
+                Documentation = new DocumentationModel("Defines constants used in the documentation.")
+            })
+                .WithConstant(new ConstantModel("WebApiBaseRoute", "string", "\"/.doc/webapi\"")
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("Defines the base route of the Web API documentation.")
+                })
+                .WithConstant(new ConstantModel("WebApiDocumentsRoute", "string", "\"/.doc/webapi/{documentName}/openapi.json\"")
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("Defines the route of the Web API documentation documents.")
+                })
+                .WithConstant(new ConstantModel("WebApiJavaScriptPath", "string", "\"OpenApiCustomScript.gen.js\"")
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("Defines the path of the custom script used to customize the UI.")
+                })
+                .WithConstant(new ConstantModel("WebApiStyleSheetPath", "string", "\"OpenApiCustomStyleSheet.gen.css\"")
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("Defines the path of the custom style sheet used to customize the UI.")
+                })
+                .WithConstant(new ConstantModel("ClientLibBaseRoute", "string", "\"/.doc/clientlib\"")
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("Defines the base route of the Client Library documentation.")
+                })
+                .WithConstant(new ConstantModel("ClientLibActionName", "string", "\"ClientLibDocumentation.Documentation\"")
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("Defines the action name of the Client Library documentation.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddClass(new ClassModel("LocalizationInstanceBase")
+            {
+                Modifiers = ClassModifiers.Abstract | ClassModifiers.Partial | ClassModifiers.Internal,
+                Documentation = new DocumentationModel("Defines the base class for the localization instance.")
+            })
+                .WithProperty(new PropertyModel("SupportedCulturesExtended", "IList<CultureInfo>")
+                {
+                    Modifiers = PropertyModifiers.Internal | PropertyModifiers.Virtual,
+                    Documentation = new DocumentationModel("Gets the list of the extended supported cultures."),
+                    GetAccessor = new PropertyGetAccessorModel()
+                })
+                .WithProperty(new PropertyModel("DefaultCultureString", "string")
+                {
+                    Modifiers = PropertyModifiers.Internal | PropertyModifiers.Virtual,
+                    Documentation = new DocumentationModel("Gets the default culture (as a string)."),
+                    GetAccessor = new PropertyGetAccessorModel()
+                })
+                .ParentModelAs<ClassModel>()
+            .AddClass(new ClassModel("LocalizationInstance")
+            {
+                Modifiers = ClassModifiers.Partial | ClassModifiers.Internal,
+                Documentation = new DocumentationModel("Defines settings used in request localization."),
+                Inheritance = "LocalizationInstanceBase"
+            })
+                .ParentModelAs<ClassModel>()
+            .AddClass(new ClassModel("Localization")
+            {
+                Modifiers = ClassModifiers.Internal | ClassModifiers.Partial | ClassModifiers.Static,
+                Documentation = new DocumentationModel("Defines settings used to in request localization.")
+            })
+                .WithField(new FieldModel("fieldInstance", "LocalizationInstance", "new LocalizationInstance()")
+                {
+                    Modifiers = FieldModifiers.Static
+                })
+                .WithConstant(new ConstantModel("PortugueseDefaultCultureString", "string", "\"pt\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Portuguese culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("PortugueseFromPortugalCultureString", "string", "\"pt-PT\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Portuguese (Portugal) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("EnglishDefaultCultureString", "string", "\"en\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The English culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("EnglishFromUnitedStatesCultureString", "string", "\"en-US\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The English (US) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("SpanishDefaultCultureString", "string", "\"es\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Spanish culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("SpanishFromSpainCultureString", "string", "\"es-ES\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Spanish (Spain) culture (as a string).")
+                })
+                .WithProperty(new PropertyModel("DefaultCulture", "CultureInfo")
+                {
+                    Modifiers = PropertyModifiers.Internal | PropertyModifiers.Static,
+                    Documentation = new DocumentationModel("Gets the default culture."),
+                    GetAccessor = new PropertyGetAccessorModel()
+                })
+                .WithProperty(new PropertyModel("DefaultCultureString", "string")
+                {
+                    Modifiers = PropertyModifiers.Internal | PropertyModifiers.Static,
+                    Documentation = new DocumentationModel("Gets the default culture (as a string)."),
+                    GetAccessor = new PropertyGetAccessorModel()
+                })
+                .WithProperty(new PropertyModel("SupportedCulturesExtended", "IList<CultureInfo>")
+                {
+                    Modifiers = PropertyModifiers.Internal | PropertyModifiers.Static,
+                    Documentation = new DocumentationModel("Gets the list of extended supported cultures."),
+                    GetAccessor = new PropertyGetAccessorModel()
+                })
+                .WithProperty(new PropertyModel("Instance", "LocalizationInstance")
+                {
+                    Modifiers = PropertyModifiers.Private | PropertyModifiers.Static,
+                    Documentation = new DocumentationModel("Gets the instance"),
+                    GetAccessor = new PropertyGetAccessorModel()
+                })
+                .ParentModelAs<ClassModel>();
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On && sourceModel.UseClientCredentialsClient)
+    {
+        ClassModel credentials = classModel
+            .AddClass(new ClassModel("Credentials")
+            {
+                Modifiers = ClassModifiers.Internal | ClassModifiers.Partial | ClassModifiers.Static,
+                Documentation = new DocumentationModel("Defines constants that specify credentials.")
+            })
+                .AddClass(new ClassModel("ClientCredentials")
+                {
+                    Modifiers = ClassModifiers.Internal | ClassModifiers.Partial | ClassModifiers.Static,
+                    Documentation = new DocumentationModel("Defines constants that specify the credentials used with the client credentials grant type.")
+                })
+                    .WithConstant(new ConstantModel("ClientId", "string", "\"" + sourceModel.ClientCredentialsClientId + "\"")
+                    {
+                        Modifiers = ConstantModifiers.Internal,
+                        Documentation = new DocumentationModel("The client identifier.")
+                    })
+                    .WithConstant(new ConstantModel("ClientSecret", "string", "\"" + sourceModel.ClientCredentialsClientSecret + "\"")
+                    {
+                        Modifiers = ConstantModifiers.Internal,
+                        Documentation = new DocumentationModel("The client secret.")
+                    })
+                .ParentModelAs<ClassModel>();
+
+        if (sourceModel.UseHybridClient)
+        {
+            credentials
+                .AddClass(new ClassModel("Hybrid")
+                {
+                    Modifiers = ClassModifiers.Internal | ClassModifiers.Partial | ClassModifiers.Static,
+                    Documentation = new DocumentationModel("Defines constants that specify the credentials used with the hybrid grant type.")
+                })
+                    .WithConstant(new ConstantModel("ClientId", "string", "\"" + sourceModel.HybridClientId + "\"")
+                    {
+                        Modifiers = ConstantModifiers.Internal,
+                        Documentation = new DocumentationModel("The client identifier.")
+                    })
+                    .WithConstant(new ConstantModel("ClientSecret", "string", "\"" + sourceModel.HybridClientSecret + "\"")
+                    {
+                        Modifiers = ConstantModifiers.Internal,
+                        Documentation = new DocumentationModel("The client secret.")
+                    });
+        }
+    }
+}
+
+// *** TransformAuthorizationScope
+
+public void TransformAuthorizationScope(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    AuthorizationScope sourceModel = sourceElement as AuthorizationScope;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    ClassModel classModel = targetModel.Namespace.Classes[0].Classes.FirstOrDefault(c => c.Name.EqualsNoCase("Policies"));
+
+    classModel    
+        .WithConstant(new ConstantModel(sourceModel.Name, "string", "\"" + sourceModel.Name.ToLowerInvariant() + "\"")
+        {
+            Modifiers = ConstantModifiers.Internal,
+            Documentation = new DocumentationModel("Defines the name of the policy that applies the {0} scope.".Format(sourceModel.DisplayName))
+        });
+}
+
+#>

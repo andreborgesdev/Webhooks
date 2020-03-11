@@ -1,0 +1,30 @@
+﻿<Project>
+
+    <!-- Assembly name and namespace -->
+
+    <PropertyGroup>
+        <RootNamespace>Primavera.Lithium.Faturacao</RootNamespace>
+        <AssemblyName>Primavera.Lithium.Faturacao</AssemblyName>
+    </PropertyGroup>
+
+    <!-- Output path and XML documentation file -->
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DocumentationFile>.\Bin\Primavera.Lithium.Faturacao.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DocumentationFile>.\Bin\Primavera.Lithium.Faturacao.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <!-- NuGet properties -->
+
+    <PropertyGroup>
+        <IsPackable>true</IsPackable>
+        <Authors>PRIMAVERA Business Software Solutions, S.A.</Authors>
+        <Description>Class library that provides the client library to access the Faturacao Service.</Description>
+        <Copyright>Copyright © 2018-2020 PRIMAVERA</Copyright>
+        <PackageTags>PRIMAVERA;Lithium</PackageTags>
+    </PropertyGroup>
+
+</Project>

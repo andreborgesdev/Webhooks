@@ -1,0 +1,373 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Lithium.Faturacao.Models</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.ApiVersions">
+            <summary>
+            Defines constants that specify the API versions used by the Web API actions.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.ApiVersions.Literals">
+            <summary>
+            Defines constants that specify the API versions used by the Web API actions.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.ApiVersions.Literals.DefaultVersionLiteral">
+            <summary>
+            The service default API version literal.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.ApiVersions.Literals.OneDotZeroLiteral">
+            <summary>
+            The 1.0 API version literal.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.ApiVersions.Values">
+            <summary>
+            Defines constants that specify the API versions used by the Web API actions.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.Metadata.ApiVersions.Values.DefaultVersion">
+            <summary>
+            The service default API version.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.Metadata.ApiVersions.Values.OneDotZero">
+            <summary>
+            The 1.0 API version.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.RoutesBase">
+            <summary>
+            Defines the base class for a class that defines constants that specify the routes used by the Web API actions.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.Metadata.RoutesBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Models.Metadata.RoutesBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.Metadata.RoutesBase.Resolve(System.Uri,System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
+            <summary>
+            Returns the full URI to access the specified route when the service is hosted in a given base URI.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="route">The route (as defined in <see cref="T:Primavera.Lithium.Faturacao.Models.Metadata.Routes" />).</param>
+            <param name="properties">The objects that should be formatted. The key of the dictionary specifies the property name.</param>
+            <returns>
+            The full URI to access the specified route.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.Routes">
+            <summary>
+            Defines constants that specify the routes used by the Web API actions.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Monitoring">
+            <summary>
+            Defines constants that specify the routes used by the Monitoring actions.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Monitoring.Probe">
+            <summary>
+            Defines the route for the action that probes the service. This action is used to perform dependencies tests on the service.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Monitoring.Diagnostics">
+            <summary>
+            Defines the route for the action that diagnoses the service. This action is used to perform functional tests on the service.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Billing">
+            <summary>
+            Defines constants that specify the routes used by the Billing actions.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Billing.CreateInvoice">
+            <summary>
+            Defines the route for the following action: Create Invoice.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Billing.GetInvoices">
+            <summary>
+            Defines the route for the following action: Get Invoices.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Webhooks">
+            <summary>
+            Defines constants that specify the routes used by the Webhooks actions.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Webhooks.CreateWebhooksEvent">
+            <summary>
+            Defines the route for the following action: Create Webhooks Event.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Webhooks.DeleteWebooksEvent">
+            <summary>
+            Defines the route for the following action: DeleteWebooksEvent.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Webhooks.GetWebhooksEvents">
+            <summary>
+            Defines the route for the following action: Get Webhooks Events.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Webhooks.GetWebooksEventsByPublisher">
+            <summary>
+            Defines the route for the following action: GetWebooksEventsByPublisher.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Subscription">
+            <summary>
+            Defines constants that specify the routes used by the Subscription actions.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Subscription.GetWebooksEventsForSubscription">
+            <summary>
+            Defines the route for the following action: GetWebooksEventsForSubscription.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Subscription.GetWebooksSubscriptions">
+            <summary>
+            Defines the route for the following action: GetWebooksSubscriptions.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Subscription.SubscribeWebhooksEvent">
+            <summary>
+            Defines the route for the following action: SubscribeWebhooksEvent.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Subscription.UnsubscribeWebhooksEvent">
+            <summary>
+            Defines the route for the following action: UnsubscribeWebhooksEvent.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Instance">
+            <summary>
+            Gets the instance
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.InvoiceBase">
+            <summary>
+            Defines the base class for <see cref="T:Primavera.Lithium.Faturacao.Models.Invoice"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.InvoiceBase.Amount">
+            <summary>
+            The amount to pay.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.InvoiceBase.Id">
+            <summary>
+            The ID of the invoice.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.InvoiceBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Models.InvoiceBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.InvoiceBase.SetDefaultValues">
+            <summary>
+            Sets the default values.
+            </summary>
+            <remarks>
+            This method should be overridden to set the default values of properties.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.Invoice">
+            <summary>
+            The Model for the Invoice.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.Invoice.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Models.Invoice"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.WebhooksEventBase">
+            <summary>
+            Defines the base class for <see cref="T:Primavera.Lithium.Faturacao.Models.WebhooksEvent"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.WebhooksEventBase.Event">
+            <summary>
+            Name of the webhook event.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.WebhooksEventBase.Publisher">
+            <summary>
+            Publisher of an event.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.WebhooksEventBase.RequiredScope">
+            <summary>
+            Required scope to subscribe the event.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.WebhooksEventBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Models.WebhooksEventBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.WebhooksEventBase.SetDefaultValues">
+            <summary>
+            Sets the default values.
+            </summary>
+            <remarks>
+            This method should be overridden to set the default values of properties.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.WebhooksEvent">
+            <summary>
+            Model for the Webhooks Events.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.WebhooksEvent.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Models.WebhooksEvent"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.WebhooksSubscriptionBase">
+            <summary>
+            Defines the base class for <see cref="T:Primavera.Lithium.Faturacao.Models.WebhooksSubscription"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.WebhooksSubscriptionBase.Event">
+            <summary>
+            ID of the event being subscribed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.WebhooksSubscriptionBase.NotificationEndpoint">
+            <summary>
+            Endpoint to where the notification is sent.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.WebhooksSubscriptionBase.Subscriber">
+            <summary>
+            ID of the Subscriber.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.WebhooksSubscriptionBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Models.WebhooksSubscriptionBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.WebhooksSubscriptionBase.SetDefaultValues">
+            <summary>
+            Sets the default values.
+            </summary>
+            <remarks>
+            This method should be overridden to set the default values of properties.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.WebhooksSubscription">
+            <summary>
+            Model for the webhooks subscriptions.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.WebhooksSubscription.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Models.WebhooksSubscription"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.Models.ModelsResources">
+            <summary>
+            Provides means to access resource strings.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Display_Invoice_Amount">
+            <summary>
+            Gets the RES_Display_Invoice_Amount resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Validation_Invoice_Amount_Required">
+            <summary>
+            Gets the RES_Validation_Invoice_Amount_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Display_Invoice_Id">
+            <summary>
+            Gets the RES_Display_Invoice_Id resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Display_WebhooksEvent_Event">
+            <summary>
+            Gets the RES_Display_WebhooksEvent_Event resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Validation_WebhooksEvent_Event_Required">
+            <summary>
+            Gets the RES_Validation_WebhooksEvent_Event_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Display_WebhooksEvent_Publisher">
+            <summary>
+            Gets the RES_Display_WebhooksEvent_Publisher resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Validation_WebhooksEvent_Publisher_Required">
+            <summary>
+            Gets the RES_Validation_WebhooksEvent_Publisher_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Display_WebhooksEvent_RequiredScope">
+            <summary>
+            Gets the RES_Display_WebhooksEvent_RequiredScope resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Validation_WebhooksEvent_RequiredScope_Required">
+            <summary>
+            Gets the RES_Validation_WebhooksEvent_RequiredScope_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Display_WebhooksSubscription_Event">
+            <summary>
+            Gets the RES_Display_WebhooksSubscription_Event resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Validation_WebhooksSubscription_Event_Required">
+            <summary>
+            Gets the RES_Validation_WebhooksSubscription_Event_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Display_WebhooksSubscription_NotificationEndpoint">
+            <summary>
+            Gets the RES_Display_WebhooksSubscription_NotificationEndpoint resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Validation_WebhooksSubscription_NotificationEndpoint_Required">
+            <summary>
+            Gets the RES_Validation_WebhooksSubscription_NotificationEndpoint_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Display_WebhooksSubscription_Subscriber">
+            <summary>
+            Gets the RES_Display_WebhooksSubscription_Subscriber resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.RES_Validation_WebhooksSubscription_Subscriber_Required">
+            <summary>
+            Gets the RES_Validation_WebhooksSubscription_Subscriber_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.ResourceManager">
+            <summary>
+            Gets the resource manager.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.Models.ModelsResources.Culture">
+            <summary>
+            Gets or sets the culture.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Models.ModelsResources.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.Models.ModelsResources"/> class.
+            </summary>
+        </member>
+    </members>
+</doc>

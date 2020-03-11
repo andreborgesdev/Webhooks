@@ -1,0 +1,50 @@
+﻿<#+
+
+internal class EnumerationsTransformation : ServiceModelTransformation<CSharpFileModel>
+{
+    #region Public Methods
+
+    public override bool CanTransform(DomainModelElement sourceElement, CSharpFileModel targetModel)
+    {
+        return sourceElement is EnumType;
+    }
+
+    public override void Transform(DomainModelElement sourceElement, CSharpFileModel targetModel)
+    {
+        if (targetModel == null)
+        {
+            return;
+        }
+
+        if (sourceElement is EnumType enumType)
+        {
+            EnumModel enumModel = new EnumModel(enumType.Name)
+            {
+                Modifiers = EnumModifiers.Public,
+                Documentation = new DocumentationModel()
+                {
+                    Summary = enumType.Summary
+                }
+            };
+
+            enumModel.Members = new ModelList<EnumMemberModel>(
+                enumModel,
+                enumType.ChildMembers
+                    .OrderBy(m => m.Value)
+                    .Select(
+                        m => new EnumMemberModel(m.Name, m.Value)
+                        {
+                            Documentation = new DocumentationModel()
+                            {
+                                Summary = m.Summary
+                            }
+                        }));
+
+            targetModel.Namespace.Enumerations.Add(enumModel);
+        }
+    }
+
+    #endregion
+}
+
+#>

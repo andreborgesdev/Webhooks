@@ -1,0 +1,142 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.IO"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Hosting"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Configuration"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Logging"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Hosting"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Security.Azure.Secrets"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi");
+
+    targetModel.Namespace
+        .AddClass(new ClassModel("HostBuilderBase")
+        {
+            Modifiers = ClassModifiers.Internal | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Documentation = new DocumentationModel("Defines the base class for the host builder.")
+        })
+            .WithProperty(new PropertyModel("CaptureStartupErrors", "bool")
+            {
+                Modifiers = PropertyModifiers.Protected | PropertyModifiers.Virtual,
+                Documentation = new DocumentationModel("Gets a value indicating whether startup errors should be captured. The default value is false."),
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("UseDevelopmentSettings", "bool")
+            {
+                Modifiers = PropertyModifiers.Protected | PropertyModifiers.Virtual,
+                Documentation = new DocumentationModel("Gets a value indicating whether development settings should be used regardless of the current environment. The default value is false."),
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"HostBuilderBase\" /> class.")
+            })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("Build", "IHost")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Builds the <see cref=\"IHost\" /> instance.")
+                {
+                    Returns = "The <see cref=\"IHost\" /> instance."
+                }
+            })
+                .WithParameter(new MethodParameterModel("args", "string[]")
+                {
+                    Documentation = new DocumentationModel("The arguments.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureAppConfiguration")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Configures the application configuration.")
+            })
+                .WithParameter(new MethodParameterModel("context", "HostBuilderContext")
+                {
+                    Documentation = new DocumentationModel("The host builder context.")
+                })
+                .WithParameter(new MethodParameterModel("builder", "IConfigurationBuilder")
+                {
+                    Documentation = new DocumentationModel("The configuration builder.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureLogging")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Configures logging.")
+            })
+                .WithParameter(new MethodParameterModel("context", "HostBuilderContext")
+                {
+                    Documentation = new DocumentationModel("The host builder context.")
+                })
+                .WithParameter(new MethodParameterModel("builder", "ILoggingBuilder")
+                {
+                    Documentation = new DocumentationModel("The logging builder.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureHostConfiguration")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Configures the host configuration.")
+            })
+                .WithParameter(new MethodParameterModel("builder", "IConfigurationBuilder")
+                {
+                    Documentation = new DocumentationModel("The configuration builder.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureWebHostDefaults")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Configures the Web host defaults.")
+            })
+                .WithParameter(new MethodParameterModel("builder", "IWebHostBuilder")
+                {
+                    Documentation = new DocumentationModel("The Web host builder.")
+                })
+                .ParentModelAs<ClassModel>();
+
+    targetModel.Namespace
+        .AddClass(new ClassModel("HostBuilder")
+        {
+            Modifiers = ClassModifiers.Internal | ClassModifiers.Partial,
+            Inheritance = "HostBuilderBase",
+            Documentation = new DocumentationModel("Defines the host builder.")
+        })
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base()",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"HostBuilder\" /> class.")
+            });
+
+    targetModel.Namespace
+        .AddClass(new ClassModel("Program")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Static,
+            Documentation = new DocumentationModel("Defines the starting point of the application.")
+        })
+            .AddMethod(new MethodModel("Main")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Static,
+                Documentation = new DocumentationModel("Executes the application.")
+            })
+                .WithParameter(new MethodParameterModel("args", "string[]")
+                {
+                    Documentation = new DocumentationModel("The arguments.")
+                });
+}
+
+#>

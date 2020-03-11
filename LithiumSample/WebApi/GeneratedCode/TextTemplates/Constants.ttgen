@@ -1,0 +1,107 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".gen.cs" #>
+<#@ ServiceDesigner processor="ServiceDesignerDirectiveProcessor" requires="FileName=''" #>
+<#
+
+// Build the transformations
+
+ServiceModelTransformations<CSharpFileModel> transformations = new ServiceModelTransformations<CSharpFileModel>(this.ServiceModel);
+
+transformations.Add(
+    (s, t) => true,
+    (s, t) => { return s is ServiceModel; },
+    this.TransformServiceModel);
+
+transformations.Add(
+    (s, t) => true,
+    (s, t) => { return s is AuthorizationScope; },
+    this.TransformAuthorizationScope);
+
+// Transform
+
+CSharpFileModel targetModel = new CSharpFileModel(this.ServiceModel);
+transformations.TransformTo(targetModel);
+
+// Create controller
+
+ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+// Add writers
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        return parentProperty.Name.EqualsNoCase("Instance");
+    }, 
+    this.WriteGetInstance);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        return parentProperty.Name.EqualsNoCase("DefaultCulture");
+    }, 
+    this.WriteGetDefaultCulture);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        if (parentProperty.Name.EqualsNoCase("SupportedCulturesExtended"))
+        {
+            ClassModel parentClass = parentProperty.ParentModelAs<ClassModel>();
+            return parentClass.Name.EqualsNoCase("Localization");
+        }
+        
+        return false;
+    }, 
+    this.WriteGetSupportedCulturesExtended);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        if (parentProperty.Name.EqualsNoCase("SupportedCulturesExtended"))
+        {
+            ClassModel parentClass = parentProperty.ParentModelAs<ClassModel>();
+            return parentClass.Name.EqualsNoCase("LocalizationInstanceBase");
+        }
+        
+        return false;
+    }, 
+    this.WriteGetSupportedCulturesExtendedBase);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        if (parentProperty.Name.EqualsNoCase("DefaultCultureString"))
+        {
+            ClassModel parentClass = parentProperty.ParentModelAs<ClassModel>();
+            return parentClass.Name.EqualsNoCase("Localization");
+        }
+        
+        return false;
+    }, 
+    this.WriteGetDefaultCultureString);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        if (parentProperty.Name.EqualsNoCase("DefaultCultureString"))
+        {
+            ClassModel parentClass = parentProperty.ParentModelAs<ClassModel>();
+            return parentClass.Name.EqualsNoCase("LocalizationInstanceBase");
+        }
+        
+        return false;
+    }, 
+    this.WriteGetDefaultCultureStringBase);
+
+// Generate code
+
+controller.Write(targetModel);
+
+#>

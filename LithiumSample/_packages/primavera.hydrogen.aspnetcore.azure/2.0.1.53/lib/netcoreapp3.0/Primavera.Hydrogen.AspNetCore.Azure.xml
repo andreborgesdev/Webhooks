@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.AspNetCore.Azure</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureBlobStorageDataProtectionOptions">
+            <summary>
+            Defines the configuration options used to configure the data protection services by the
+            <see cref="M:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureDataProtectionServiceCollectionExtensions.AddDataProtectionWithBlobStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
+            extension methods.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureBlobStorageDataProtectionOptions.UseBlobStorage">
+            <summary>
+            Gets or sets a value indicating whether the blob storage should be used.
+            The default value is true.
+            This setting allows, for example, to disable persisting the data protection keys in the blob
+            storage in development environments.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureBlobStorageDataProtectionOptions.ApplicationName">
+            <summary>
+            Gets or sets the name of the application.
+            This should be a unique name for the application on the servers where it will run, and should conform
+            to Azure Blob Storage naming rules because it will be used as the name of the blob that will store
+            the data protection keys.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureBlobStorageDataProtectionOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureBlobStorageDataProtectionOptions"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureDataProtectionServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type that allow
+            configuring data protection services.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureDataProtectionServiceCollectionExtensions.AddDataProtectionWithBlobStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds data protection services to the specified service collection, persisting the data protection
+            keys on Azure Blob Storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            Data protection keys will be stored in a blob on Azure Blob Storage (the blob name is specified by the
+            application name in <see cref="T:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureBlobStorageDataProtectionOptions"/>) so they can be shared between
+            different Web servers.
+            The <see cref="T:Primavera.Hydrogen.Storage.Blobs.IBlobStorageService"/> should be configured previously for Azure Blob Storage.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureDataProtectionServiceCollectionExtensions.AddDataProtectionWithBlobStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureBlobStorageDataProtectionOptions})">
+            <summary>
+            Adds data protection services to the specified service collection, persisting the data protection
+            keys on Azure Blob Storage.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            Data protection keys will be stored in a blob on Azure Blob Storage (the blob name is specified by the
+            application name in <see cref="T:Primavera.Hydrogen.AspNetCore.Azure.DataProtection.AzureBlobStorageDataProtectionOptions"/>) so they can be shared between
+            different Web servers.
+            The <see cref="T:Primavera.Hydrogen.Storage.Blobs.IBlobStorageService"/> should be configured previously for Azure Blob Storage.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.AspNetCore.Azure.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Azure.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Azure.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Azure.Properties.Resources.RES_Exception_DataProtection_ApplicationNameRequired">
+            <summary>
+              Looks up a localized string similar to The data protection application name is required. Make sure that the application name is defined in the application settings..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.AspNetCore.Azure.Properties.Resources.RES_Exception_DataProtection_BlobStorageNotConfiguredForAzure">
+            <summary>
+              Looks up a localized string similar to Could not initialize data protected on blob storage. The blob storage service is not configured correctly to use Azure Blob Storage..
+            </summary>
+        </member>
+    </members>
+</doc>

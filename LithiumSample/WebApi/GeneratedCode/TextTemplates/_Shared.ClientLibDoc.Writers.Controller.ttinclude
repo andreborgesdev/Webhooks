@@ -1,0 +1,68 @@
+﻿<#+
+
+// *** WriteReferenceControllers
+
+public void WriteReferenceControllers(ModelWriter w, ServiceModel m)
+{
+    IList<ControllerType> controllers = m.Controllers.OrderBy(i => i.Name).Where(i => i.IsVisible).ToList();
+
+    if (controllers.Count == 0)
+    {
+        return;
+    }
+
+    w.AppendLine("### Operations Classes");
+    w.AppendLine();
+
+    foreach (ControllerType controllerType in controllers)
+    {
+        this.WriteReferenceController(w, controllerType);
+    }
+}
+
+// *** WriteReferenceController
+
+public void WriteReferenceController(ModelWriter w, ControllerType m)
+{
+    w.AppendLine("#### <a name=\"{0}Operations\"></a>`{0}Operations`", m.Name);
+    w.AppendLine();
+    w.AppendLine(m.Summary);
+    w.AppendLine();
+    w.AppendLine("- Namespace: `{0}`", m.ServiceModel.Namespace);
+    w.AppendLine("- Inheritance: `{0}OperationsBase` (`I{0}Operations`)", m.Name);
+
+    if (m.ServiceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+        if (m.AuthorizationMode == AuthorizationMode.On)
+        {
+            if (m.Scope.EqualsNoCase("(default)"))
+            {
+                w.AppendLine("- Scope: `{0}`", m.ServiceModel.DefaultScope);
+            }
+            else
+            {
+                w.AppendLine("- Scope: `{0}`", this.GetScope(m.ServiceModel, m.Scope));
+            }
+        }
+    }
+
+    w.AppendLine();
+    w.AppendLine("##### Methods");
+    w.AppendLine();
+    this.WriteReferenceControllerActions(w, m);
+}
+
+// *** GetScope
+
+private string GetScope(ServiceModel m, string name)
+{
+    AuthorizationScope scope = m.AuthorizationScopes.FirstOrDefault(n => n.Name.EqualsNoCase(name));
+    if (scope != null)
+    {
+        return scope.Scope;
+    }
+
+    return "???";
+}
+
+#>

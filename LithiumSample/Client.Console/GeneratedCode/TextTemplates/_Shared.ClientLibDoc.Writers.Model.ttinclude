@@ -1,0 +1,50 @@
+﻿<#+
+
+// *** WriteReferenceModels
+
+public void WriteReferenceModels(ModelWriter w, ServiceModel m)
+{
+    IList<ModelType> models = m.Models.OrderBy(i => i.Name).Where(i => i.IsVisible).ToList();
+
+    if (models.Count == 0)
+    {
+        return;
+    }
+
+    w.AppendLine("### Models Classes");
+    w.AppendLine();
+
+    foreach (ModelType modelType in models)
+    {
+        this.WriteReferenceModel(w, modelType);
+    }
+}
+
+// *** WriteReferenceModel
+
+public void WriteReferenceModel(ModelWriter w, ModelType m)
+{
+    w.AppendLine("#### <a name=\"{0}\"></a>`{0}`", m.Name);
+    w.AppendLine();
+    w.AppendLine(m.Summary);
+    w.AppendLine();
+    w.AppendLine("- Namespace: `{0}.Models`", m.ServiceModel.Namespace);
+
+    if (m.BaseModel == null)
+    {
+        w.AppendLine("- Inheritance: `{0}Base`", m.Name);
+    }
+    else
+    {
+        w.AppendLine("- Inheritance: `{0}Base` (`{1}`)", m.Name, m.BaseModel.Name);
+    }
+
+    w.AppendLine();
+    w.AppendLine("##### Properties");
+    w.AppendLine();
+    this.WriteReferenceModelProperties(w, m);
+    w.AppendLine("[^ Back to top](#root)");
+    w.AppendLine();
+}
+
+#>

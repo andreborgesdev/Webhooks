@@ -1,0 +1,169 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Diagnostics.CodeAnalysis"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Globalization"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Reflection"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Reflection"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi.Configuration");
+
+    // Host configuration base class
+
+    ClassModel baseClass1 = targetModel.Namespace
+        .AddClass(new ClassModel("HostConfigurationBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Documentation = new DocumentationModel("Defines the base class for the configuration settings used by the service host.")
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .WithProperty(new PropertyModel("Information", "InformationConfiguration")
+            {
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel(),
+                Documentation = new DocumentationModel("Gets or sets information about the host.")
+            })
+            .AddProperty(new PropertyModel("IdentityServerBaseUri", "string")
+            {
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel(),
+                Documentation = new DocumentationModel("Gets or sets the identity server base URI.")
+            })
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Design\", \"CA1056:UriPropertiesShouldNotBeStrings\")"))
+                .ParentModelAs<ClassModel>()
+            .WithConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"HostConfigurationBase\"/> class.")
+            })
+            .WithMethod(new MethodModel("Initialize")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Initializes the configuration.")
+            });
+
+    // Information configuration base class
+
+    ClassModel baseClass2 = targetModel.Namespace
+        .AddClass(new ClassModel("InformationConfigurationBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Documentation = new DocumentationModel("Defines the base class for the type that provides information about the host.")
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .WithField(new FieldModel("fieldProductName", "string"))
+            .WithField(new FieldModel("fieldHostTitle", "string"))
+            .WithField(new FieldModel("fieldCompany", "string"))
+            .WithField(new FieldModel("fieldCopyright", "string"))
+            .WithField(new FieldModel("fieldVersion", "string"))
+            .WithField(new FieldModel("fieldInformationalVersion", "string"))
+            .AddProperty(new PropertyModel("ProductName", "string")
+            {
+                Modifiers = PropertyModifiers.Public,
+                GetAccessor = new PropertyGetAccessorModel(),
+                Documentation = new DocumentationModel("Gets the product name.")
+            })
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Performance\", \"CA1822:MarkMembersAsStatic\")"))
+                .ParentModelAs<ClassModel>()
+            .AddProperty(new PropertyModel("HostTitle", "string")
+            {
+                Modifiers = PropertyModifiers.Public,
+                GetAccessor = new PropertyGetAccessorModel(),
+                Documentation = new DocumentationModel("Gets the host title.")
+            })
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Performance\", \"CA1822:MarkMembersAsStatic\")"))
+                .ParentModelAs<ClassModel>()
+            .AddProperty(new PropertyModel("Company", "string")
+            {
+                Modifiers = PropertyModifiers.Public,
+                GetAccessor = new PropertyGetAccessorModel(),
+                Documentation = new DocumentationModel("Gets the company.")
+            })
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Performance\", \"CA1822:MarkMembersAsStatic\")"))
+                .ParentModelAs<ClassModel>()
+            .AddProperty(new PropertyModel("Copyright", "string")
+            {
+                Modifiers = PropertyModifiers.Public,
+                GetAccessor = new PropertyGetAccessorModel(),
+                Documentation = new DocumentationModel("Gets the copyright.")
+            })
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Performance\", \"CA1822:MarkMembersAsStatic\")"))
+                .ParentModelAs<ClassModel>()
+            .AddProperty(new PropertyModel("Version", "string")
+            {
+                Modifiers = PropertyModifiers.Public,
+                GetAccessor = new PropertyGetAccessorModel(),
+                Documentation = new DocumentationModel("Gets the version.")
+            })
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Performance\", \"CA1822:MarkMembersAsStatic\")"))
+                .ParentModelAs<ClassModel>()
+            .AddProperty(new PropertyModel("InformationalVersion", "string")
+            {
+                Modifiers = PropertyModifiers.Public,
+                GetAccessor = new PropertyGetAccessorModel(),
+                Documentation = new DocumentationModel("Gets the informational version.")
+            })
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Performance\", \"CA1822:MarkMembersAsStatic\")"))
+                .ParentModelAs<ClassModel>()
+            .WithConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"InformationConfigurationBase\"/> class.")
+            })
+            .WithMethod(new MethodModel("Initialize")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Initializes the configuration.")
+            });
+
+    // Host configuration class
+
+    ClassModel class1 = targetModel.Namespace
+        .AddClass(new ClassModel("HostConfiguration")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "HostConfigurationBase",
+            Documentation = new DocumentationModel("Defines the configuration settings used by the service host.")
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .WithConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base()",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"HostConfiguration\"/> class.")
+            });
+
+    // Information configuration class
+
+    ClassModel class2 = targetModel.Namespace
+        .AddClass(new ClassModel("InformationConfiguration")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "InformationConfigurationBase",
+            Documentation = new DocumentationModel("Provides information about the host.")
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .WithConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base()",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"InformationConfiguration\"/> class.")
+            });
+}
+
+#>

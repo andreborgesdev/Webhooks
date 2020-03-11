@@ -1,0 +1,286 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Web"))
+        .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".WebApi.Controllers"))
+        .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".WebApi.Configuration"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi.Models.Internal.ViewModels");
+
+    targetModel.Namespace
+        .AddClass(new ClassModel("ErrorMessageViewModelBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Documentation = new DocumentationModel("Defines the base class for the view model that represents an error message.")
+        })
+            .WithProperty(new PropertyModel("Error", "string")
+            {
+                Documentation = new DocumentationModel("Gets or sets the error."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("ErrorDescription", "string")
+            {
+                Documentation = new DocumentationModel("Gets or sets the error description."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("IsExpected", "bool")
+            {
+                Documentation = new DocumentationModel("Gets or sets a value indicating whether the error is expected."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel()
+            });
+
+    targetModel.Namespace
+        .AddClass(new ClassModel("ErrorMessageViewModel")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "ErrorMessageViewModelBase",
+            Documentation = new DocumentationModel("Defines the view model that represents an error message.")
+        });
+
+    ClassModel baseClassModel = targetModel.Namespace
+        .AddClass(new ClassModel("ErrorViewModelBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Documentation = new DocumentationModel("Defines the base class for the view model used by the error view.")
+        })
+            .WithProperty(new PropertyModel("IsStatusCodeError", "bool")
+            {
+                Documentation = new DocumentationModel("Gets a value indicating whether the error resulted from an error status code."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("ErrorStatusCode", "int")
+            {
+                Documentation = new DocumentationModel("Gets the error status code. Meaningful only if <see cref=\"IsStatusCodeError\"/> is true."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("ErrorOriginalPath", "string")
+            {
+                Documentation = new DocumentationModel("Gets the original path of the request that caused the error. Meaningful only if <see cref=\"IsStatusCodeError\"/> is true."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("ErrorOriginalQueryString", "string")
+            {
+                Documentation = new DocumentationModel("Gets the original query string of the request that caused the error. Meaningful only if <see cref=\"IsStatusCodeError\"/> is true."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("UserSignedIn", "bool")
+            {
+                Documentation = new DocumentationModel("Gets a value indicating whether the user is signed-in. Meaningful only if <see cref=\"IsStatusCodeError\"/> is true."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("UserEmail", "string")
+            {
+                Documentation = new DocumentationModel("Gets the email of the user that is signed-in (if any). Meaningful only if <see cref=\"IsStatusCodeError\"/> is true."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("ErrorId", "string")
+            {
+                Documentation = new DocumentationModel("Gets the error identifier. Meaningful only if <see cref=\"IsStatusCodeError\"/> is false."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("Message", "ErrorMessageViewModel")
+            {
+                Documentation = new DocumentationModel("Gets the error message. Meaningful only if <see cref=\"IsStatusCodeError\"/> is false."),
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel()
+            });
+
+    ConstructorModel baseConstructor1 = baseClassModel
+        .AddConstructor(new ConstructorModel()
+        {
+            Modifiers = ConstructorModifiers.Protected,
+            Inheritance = "base()",
+            Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"ErrorViewModelBase\" /> class.")
+        })
+            .WithParameter(new MethodParameterModel("statusCode", "int")
+            {
+                Documentation = new DocumentationModel("The error status code.")
+            })
+            .WithParameter(new MethodParameterModel("originalPath", "string")
+            {
+                Documentation = new DocumentationModel("The original path (if any).")
+            })
+            .WithParameter(new MethodParameterModel("originalQueryString", "string")
+            {
+                Documentation = new DocumentationModel("The original query string (if any).")
+            })
+            .WithParameter(new MethodParameterModel("userSignedIn", "bool")
+            {
+                Documentation = new DocumentationModel("A value indicating whether a user is signed-in.")
+            })
+            .WithParameter(new MethodParameterModel("userEmail", "string")
+            {
+                Documentation = new DocumentationModel("The signed-in user (if any).")
+            });
+
+    baseConstructor1.Facets["Index"] = "1";
+
+    ConstructorModel baseConstructor2 = baseClassModel
+        .AddConstructor(new ConstructorModel()
+        {
+            Modifiers = ConstructorModifiers.Protected,
+            Inheritance = "base()",
+            Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"ErrorViewModelBase\" /> class.")
+        })
+            .WithParameter(new MethodParameterModel("errorId", "string")
+            {
+                Documentation = new DocumentationModel("The error identifier.")
+            })
+            .WithParameter(new MethodParameterModel("message", "ErrorMessageViewModel")
+            {
+                Documentation = new DocumentationModel("The error message")
+            });
+
+    baseConstructor2.Facets["Index"] = "2";
+
+    ClassModel classModel = targetModel.Namespace
+        .AddClass(new ClassModel("ErrorViewModel")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "ErrorViewModelBase",
+            Documentation = new DocumentationModel("Defines the view model used by the error view.")
+        })
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(statusCode, originalPath, originalQueryString, userSignedIn, userEmail)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"ErrorViewModel\" /> class.")
+            })
+                .WithParameter(new MethodParameterModel("statusCode", "int")
+                {
+                    Documentation = new DocumentationModel("The error status code.")
+                })
+                .WithParameter(new MethodParameterModel("originalPath", "string")
+                {
+                    Documentation = new DocumentationModel("The original path (if any).")
+                })
+                .WithParameter(new MethodParameterModel("originalQueryString", "string")
+                {
+                    Documentation = new DocumentationModel("The original query string (if any).")
+                })
+                .WithParameter(new MethodParameterModel("userSignedIn", "bool")
+                {
+                    Documentation = new DocumentationModel("A value indicating whether a user is signed-in.")
+                })
+                .WithParameter(new MethodParameterModel("userEmail", "string")
+                {
+                    Documentation = new DocumentationModel("The signed-in user (if any).")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(errorId, message)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"ErrorViewModelBase\" /> class.")
+            })
+                .WithParameter(new MethodParameterModel("errorId", "string")
+                {
+                    Documentation = new DocumentationModel("The error identifier.")
+                })
+                .WithParameter(new MethodParameterModel("message", "ErrorMessageViewModel")
+                {
+                    Documentation = new DocumentationModel("The error message")
+                })
+                .ParentModelAs<ClassModel>();
+
+    classModel
+        .AddMethod(new MethodModel("GetPageTitle", "string")
+        {
+            Modifiers = MethodModifiers.Public | MethodModifiers.Static,
+            Documentation = new DocumentationModel("Gets the error page title.")
+            {
+                Returns = "The error page title."
+            }
+        })
+            .WithParameter(new MethodParameterModel("model", "ErrorViewModel")
+                {
+                    Documentation = new DocumentationModel("The view model.")
+                })
+             .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+           .ParentModelAs<ClassModel>()
+        .AddMethod(new MethodModel("GetTitle", "void")
+        {
+            Modifiers = MethodModifiers.Public | MethodModifiers.Static,
+            Documentation = new DocumentationModel("Gets the error title.")
+        })
+            .WithParameter(new MethodParameterModel("model", "ErrorViewModel")
+                {
+                    Documentation = new DocumentationModel("The view model.")
+                })
+             .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+            .WithParameter(new MethodParameterModel("title", "out string")
+                {
+                    Documentation = new DocumentationModel("The title.")
+                })
+            .ParentModelAs<ClassModel>()
+        .AddMethod(new MethodModel("GetDescriptionHtml", "void")
+        {
+            Modifiers = MethodModifiers.Public | MethodModifiers.Static,
+            Documentation = new DocumentationModel("Gets the error description HTML.")
+        })
+            .WithParameter(new MethodParameterModel("model", "ErrorViewModel")
+                {
+                    Documentation = new DocumentationModel("The view model.")
+                })
+            .WithParameter(new MethodParameterModel("description", "out string")
+                {
+                    Documentation = new DocumentationModel("The description.")
+                })
+            .WithParameter(new MethodParameterModel("additionalInformation", "out string")
+                {
+                    Documentation = new DocumentationModel("The additional information.")
+                })
+            .ParentModelAs<ClassModel>()
+        .AddMethod(new MethodModel("GetErrorIdHtml", "string")
+        {
+            Modifiers = MethodModifiers.Public | MethodModifiers.Static,
+            Documentation = new DocumentationModel("Gets the error id HTML.")
+            {
+                Returns = "The error id HTML."
+            }
+        })
+            .WithParameter(new MethodParameterModel("model", "ErrorViewModel")
+                {
+                    Documentation = new DocumentationModel("The view model.")
+                })
+            .ParentModelAs<ClassModel>()
+        .AddMethod(new MethodModel("GetAdditionalInformationSignedInUser", "string")
+        {
+            Modifiers = MethodModifiers.Private | MethodModifiers.Static
+        })
+            .WithParameter(new MethodParameterModel("model", "ErrorViewModel"))
+            .ParentModelAs<ClassModel>();
+}
+
+#>

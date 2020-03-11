@@ -1,0 +1,487 @@
+﻿<#+
+
+// *** WriteActionCancellationValidation
+
+public void WriteActionCancellationValidation(ControllerTypeAction sourceModel)
+{
+    foreach (ControllerTypeActionParameter parameter in sourceModel.ChildParameters)
+    {
+        this.WriteActionCancellationValidation(parameter);
+    }
+}
+
+// *** WriteActionCancellationValidation (ControllerTypeActionParameter)
+
+public void WriteActionCancellationValidation(ControllerTypeActionParameter parameter)
+{
+    this.WriteActionCancellationValidation(parameter as ControllerTypeActionScalarParameter);
+    this.WriteActionCancellationValidation(parameter as ControllerTypeActionModelParameter);
+}
+
+// *** WriteActionCancellationValidation (ControllerTypeActionScalarParameter)
+
+public void WriteActionCancellationValidation(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter == null)
+    {
+        return;
+    }
+
+    this.WriteActionCancellationValidationBoolean(parameter);
+    this.WriteActionCancellationValidationByteArray(parameter);
+    this.WriteActionCancellationValidationDateTime(parameter);
+    this.WriteActionCancellationValidationDouble(parameter);
+    this.WriteActionCancellationValidationLong(parameter);
+    this.WriteActionCancellationValidationInteger(parameter);
+    this.WriteActionCancellationValidationEmail(parameter);
+    this.WriteActionCancellationValidationPassword(parameter);
+    this.WriteActionCancellationValidationString(parameter);
+    this.WriteActionCancellationValidationPhoneNumber(parameter);
+    this.WriteActionCancellationValidationUrl(parameter);
+    this.WriteActionCancellationValidationGuid(parameter);
+}
+
+// *** WriteActionCancellationValidationBoolean
+
+public void WriteActionCancellationValidationBoolean(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Boolean)
+    {
+    }
+}
+
+// *** WriteActionCancellationValidationByteArray
+
+public void WriteActionCancellationValidationByteArray(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.ByteArray)
+    {
+        bool added = false;
+
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            added = true;
+
+#>
+            SmartGuard.NotNull(() => <#= parameterName #>, <#= parameterName #>);
+<#+
+
+        }
+
+        if (added)
+        {
+            this.GenerationEnvironment.AppendLine();
+        }
+    }
+}
+
+// *** WriteActionCancellationValidationDateTime
+
+public void WriteActionCancellationValidationDateTime(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.DateTime)
+    {
+    }
+}
+
+// *** WriteActionCancellationValidationDouble
+
+public void WriteActionCancellationValidationDouble(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Double)
+    {
+        bool added = false;
+
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+
+        if (parameter.ValidationRules.GreaterThan != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.GreaterThan(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.GreaterThan.Value #>);
+<#+
+
+        }
+
+        if (parameter.ValidationRules.LessThan != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.LessThan(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.LessThan.Value #>);
+<#+
+
+        }
+
+        if (added)
+        {
+            this.GenerationEnvironment.AppendLine();
+        }
+    }
+}
+
+// *** WriteActionCancellationValidationLong
+
+public void WriteActionCancellationValidationLong(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Long)
+    {
+        bool added = false;
+
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+
+        if (parameter.ValidationRules.GreaterThan != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.GreaterThan(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.GreaterThan.Value #>);
+<#+
+
+        }
+
+        if (parameter.ValidationRules.LessThan != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.LessThan(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.LessThan.Value #>);
+<#+
+
+        }
+
+        if (added)
+        {
+            this.GenerationEnvironment.AppendLine();
+        }
+    }
+}
+
+// *** WriteActionCancellationValidationInteger
+
+public void WriteActionCancellationValidationInteger(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Integer)
+    {
+        bool added = false;
+
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+
+        if (parameter.ValidationRules.GreaterThan != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.GreaterThan(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.GreaterThan.Value #>);
+<#+
+
+        }
+
+        if (parameter.ValidationRules.LessThan != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.LessThan(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.LessThan.Value #>);
+<#+
+
+        }
+
+        if (added)
+        {
+            this.GenerationEnvironment.AppendLine();
+        }
+    }
+}
+
+// *** WriteActionCancellationValidationEmail
+
+public void WriteActionCancellationValidationEmail(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Email)
+    {
+        bool added = false;
+
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            added = true;
+
+#>
+            SmartGuard.NotNullOrEmpty(() => <#= parameterName #>, <#= parameterName #>);
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MinLength != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.MinLength(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.MinLength.Value #>);
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MaxLength != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.MaxLength(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.MaxLength.Value #>);
+<#+
+
+        }
+
+        if (!string.IsNullOrEmpty(parameter.ValidationRules.RegularExpression))
+        {
+            added = true;
+            string regularExpression = this.FindRegularExpression(parameter.ValidationRules.RegularExpression, parameter);
+
+#>
+            SmartGuard.RegularExpression(() => <#= parameterName #>, <#= parameterName #>, @"<#= regularExpression #>");
+<#+
+
+        }
+
+        if (added)
+        {
+            this.GenerationEnvironment.AppendLine();
+        }
+    }
+}
+
+// *** WriteActionCancellationValidationPassword
+
+public void WriteActionCancellationValidationPassword(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Password)
+    {
+        bool added = false;
+
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            added = true;
+
+#>
+            SmartGuard.NotNullOrEmpty(() => <#= parameterName #>, <#= parameterName #>);
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MinLength != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.MinLength(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.MinLength.Value #>);
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MaxLength != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.MaxLength(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.MaxLength.Value #>);
+<#+
+
+        }
+
+        if (!string.IsNullOrEmpty(parameter.ValidationRules.RegularExpression))
+        {
+            added = true;
+            string regularExpression = this.FindRegularExpression(parameter.ValidationRules.RegularExpression, parameter);
+
+#>
+            SmartGuard.RegularExpression(() => <#= parameterName #>, <#= parameterName #>, @"<#= regularExpression #>");
+<#+
+
+        }
+
+        if (added)
+        {
+            this.GenerationEnvironment.AppendLine();
+        }
+    }
+}
+
+// *** WriteActionCancellationValidationString
+
+public void WriteActionCancellationValidationString(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.String)
+    {
+        bool added = false;
+
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            added = true;
+
+#>
+            SmartGuard.NotNullOrEmpty(() => <#= parameterName #>, <#= parameterName #>);
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MinLength != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.MinLength(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.MinLength.Value #>);
+<#+
+
+        }
+
+        if (parameter.ValidationRules.MaxLength != null)
+        {
+            added = true;
+
+#>
+            SmartGuard.MaxLength(() => <#= parameterName #>, <#= parameterName #>, <#= parameter.ValidationRules.MaxLength.Value #>);
+<#+
+
+        }
+
+        if (!string.IsNullOrEmpty(parameter.ValidationRules.RegularExpression))
+        {
+            added = true;
+            string regularExpression = this.FindRegularExpression(parameter.ValidationRules.RegularExpression, parameter);
+
+#>
+            SmartGuard.RegularExpression(() => <#= parameterName #>, <#= parameterName #>, @"<#= regularExpression #>");
+<#+
+
+        }
+
+        if (added)
+        {
+            this.GenerationEnvironment.AppendLine();
+        }
+    }
+}
+
+// *** WriteActionCancellationValidationPhoneNumber
+
+public void WriteActionCancellationValidationPhoneNumber(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.PhoneNumber)
+    {
+        bool added = false;
+
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            added = true;
+
+#>
+            SmartGuard.NotNull(() => <#= parameterName #>, <#= parameterName #>);
+<#+
+
+        }
+
+        if (added)
+        {
+            this.GenerationEnvironment.AppendLine();
+        }
+    }
+}
+
+// *** WriteActionCancellationValidationUrl
+
+public void WriteActionCancellationValidationUrl(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Url)
+    {
+        bool added = false;
+
+        string parameterName = parameter.Name.Transform().ToCamelCase();
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            added = true;
+
+#>
+            SmartGuard.NotNull(() => <#= parameterName #>, <#= parameterName #>);
+<#+
+
+        }
+
+        if (added)
+        {
+            this.GenerationEnvironment.AppendLine();
+        }
+    }
+}
+
+// *** WriteActionCancellationValidationGuid
+
+public void WriteActionCancellationValidationGuid(ControllerTypeActionScalarParameter parameter)
+{
+    if (parameter.Type == ControllerTypeActionScalarParameterType.Guid)
+    {
+    }
+}
+
+// *** WriteActionCancellationValidation (ControllerTypeActionModelParameter)
+
+public void WriteActionCancellationValidation(ControllerTypeActionModelParameter parameter)
+{
+    if (parameter == null)
+    {
+        return;
+    }
+
+    string parameterName = parameter.Name.Transform().ToCamelCase();
+
+    if (parameter.ValidationRules.IsRequired)
+    {
+
+#>
+            SmartGuard.NotNull(() => <#= parameterName #>, <#= parameterName #>);
+<#+
+
+    }
+
+#>
+            SmartGuard.IsValid(() => <#= parameterName #>, <#= parameterName #>);
+
+<#+
+
+}
+
+// *** FindRegularExpression
+
+private string FindRegularExpression(string name, ControllerTypeActionScalarParameter controllerTypeParameter)
+{
+    if (string.IsNullOrEmpty(name))
+    {
+        return "unknown";
+    }
+
+    if (controllerTypeParameter == null || controllerTypeParameter.ParentAction == null || controllerTypeParameter.ParentAction.ServiceModel == null)
+    {
+        return "unknown";
+    }
+
+    RegularExpression regularExpression = controllerTypeParameter.ParentAction.ServiceModel.RegularExpressions.FirstOrDefault(r => r.Name.EqualsNoCase(name));
+    if (regularExpression == null)
+    {
+        return "unknown";
+    }
+
+    return regularExpression.Value;
+}
+
+#>

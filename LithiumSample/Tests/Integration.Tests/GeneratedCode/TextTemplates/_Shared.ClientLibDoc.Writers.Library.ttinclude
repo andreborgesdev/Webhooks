@@ -1,0 +1,341 @@
+﻿<#+
+
+// *** WriteClientLibraryDocumentation
+
+public void WriteClientLibraryDocumentation(ModelWriter w, ServiceModel m)
+{
+    this.WriteClientLibraryTitle(w, m);
+    this.WriteClientLibraryDescription(w, m);
+    this.WriteServiceClient(w, m);
+    this.WriteOperations(w, m);
+    this.WriteModels(w, m);
+    this.WriteEnumerations(w, m);
+    this.WriteScopes(w, m);
+    this.WriteReference(w, m);
+}
+
+// *** WriteClientLibraryTitle
+
+public void WriteClientLibraryTitle(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine("# <a name=\"root\"></a>{0} {1} ({2}) Client Library", m.Product, m.DisplayName, m.GUID);
+    w.AppendLine();
+}
+
+// *** WriteClientLibraryDescription
+
+public void WriteClientLibraryDescription(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine(m.Summary);
+    w.AppendLine();
+}
+
+// *** WriteServiceClient
+
+public void WriteServiceClient(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine("## Service Client");
+    w.AppendLine();
+    w.AppendLine("| Class | Description |");
+    w.AppendLine("| - | - |");
+    w.AppendLine("| [`{0}Client`](#{0}Client) | The entry point of the {1} client library. |", m.Name, m.DisplayName);
+    w.AppendLine();
+}
+
+// *** WriteOperations
+
+public void WriteOperations(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine("## Operations");
+    w.AppendLine();
+
+    IList<ControllerType> controllers = m.Controllers.OrderBy(i => i.Name).Where(i => i.IsVisible).ToList();
+    
+    if (!m.HasCustomControllersClientLibrary && controllers.Count == 0)
+    {
+        w.AppendLine("The client library has no operations.");
+        w.AppendLine();
+        return;
+    }
+    
+    if (controllers.Count > 0)
+    {
+        w.AppendLine("| Class | Name | Description |");
+        w.AppendLine("| - | - | - |");
+
+        foreach (ControllerType controllerType in controllers)
+        {
+            w.AppendLine("| [`{0}`](#{0}Operations) | {1} | {2} |", controllerType.Name, controllerType.DisplayName, controllerType.Summary);
+        }
+
+        w.AppendLine();
+    }
+
+    if (m.HasCustomControllersClientLibrary)
+    {
+        w.AppendLine("> The service includes custom operations not described here.");
+        w.AppendLine();
+    }
+}
+
+// *** WriteModels
+
+public void WriteModels(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine("## Models");
+    w.AppendLine();
+
+    IList<ModelType> models = m.Models.OrderBy(i => i.Name).Where(i => i.IsVisible).ToList();
+    
+    if (!m.HasCustomModelsClientLibrary && models.Count == 0)
+    {
+        w.AppendLine("The client library has no models.");
+        w.AppendLine();
+        return;
+    }
+    
+    if (models.Count > 0)
+    {
+        w.AppendLine("| Class | Name | Description |");
+        w.AppendLine("| - | - | - |");
+    
+        foreach (ModelType modelType in models.OrderBy(c => c.Name))
+        {
+            w.AppendLine("| [`{0}`](#{0}) | {1} | {2} |", modelType.Name, modelType.DisplayName, modelType.Summary);
+        }
+
+        w.AppendLine();
+    }
+
+    if (m.HasCustomModelsClientLibrary)
+    {
+        w.AppendLine("> The service includes custom models not described here.");
+        w.AppendLine();
+    }
+}
+
+// *** WriteEnumerations
+
+public void WriteEnumerations(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine("## Enumerations");
+    w.AppendLine();
+
+    IList<EnumType> enums = m.Enumerations.OrderBy(i => i.Name).ToList();
+    
+    if (!m.HasCustomEnumerationsClientLibrary && enums.Count == 0)
+    {
+        w.AppendLine("The client library has no enumerations.");
+        w.AppendLine();
+        return;
+    }
+    
+    if (enums.Count > 0)
+    {
+        w.AppendLine("| Class | Name | Description |");
+        w.AppendLine("| - | - | - |");
+
+        foreach (EnumType enumType in enums)
+        {
+            w.AppendLine("| [`{0}`](#{0}) | {1} | {2} |", enumType.Name, enumType.DisplayName, enumType.Summary);
+        }
+
+        w.AppendLine();
+    }
+
+    if (m.HasCustomEnumerationsClientLibrary)
+    {
+        w.AppendLine("> The service includes custom enumerations not described here.");
+        w.AppendLine();
+    }
+}
+
+// *** WriteScopes
+
+public void WriteScopes(ModelWriter w, ServiceModel m)
+{
+    if (m.AuthorizationMode == AuthorizationMode.Off)
+    {
+        return;
+    }
+
+    w.AppendLine("## Authorization Scopes");
+    w.AppendLine();
+    w.AppendLine("| Scope | Description |");
+    w.AppendLine("| - | - |");
+
+    IList<AuthorizationScope> scopes = m.AuthorizationScopes.OrderBy(i => i.Scope).ToList();
+
+    string defaultScopeSummary = "Allows accessing all the service endpoints.";
+    if (scopes.Count > 0)
+    {
+        defaultScopeSummary = "The service default scope.";
+    }
+
+    w.AppendLine("| `{0}` | {1} |", m.DefaultScope, defaultScopeSummary);
+    
+    foreach (AuthorizationScope scope in scopes)
+    {
+        w.AppendLine("| `{0}` | {1} |", scope.Scope, scope.Summary);
+    }
+
+    w.AppendLine();
+}
+
+// *** WriteReference
+
+public void WriteReference(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine("## Reference");
+    w.AppendLine();
+    this.WriteReferenceServiceClient(w, m);
+    this.WriteReferenceControllers(w, m);
+    this.WriteReferenceModels(w, m);
+    this.WriteReferenceEnumerations(w, m);
+}
+
+// *** WriteReferenceServiceClient
+
+public void WriteReferenceServiceClient(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine("### Service Client Classes");
+    w.AppendLine();
+    w.AppendLine("#### <a name=\"{0}Client\"></a>`{0}Client`", m.Name);
+    w.AppendLine();
+    w.AppendLine("- Namespace: `{0}`", m.Namespace);
+    w.AppendLine("- Inheritance: `{0}ClientBase` (`ServiceClient<{0}ClientBase>`)", m.Name);
+    w.AppendLine();
+    w.AppendLine("##### Constructors");
+    w.AppendLine();
+    w.AppendLine("###### {0}Client(Uri, ServiceClientCredentials)", m.Name);
+    w.AppendLine();
+    w.AppendLine("| Parameter | Type | Description |");
+    w.AppendLine("| - | - | - |");
+    w.AppendLine("| `baseUri` | `Uri` | The base URI of the service. |");
+    w.AppendLine("| `credentials` | `ServiceClientCredentials` | The credentials that should be used to access the service. |");
+    w.AppendLine();
+    w.AppendLine("###### {0}Client(Uri, ServiceClientCredentials, HttpMessageHandler)", m.Name);
+    w.AppendLine();
+    w.AppendLine("| Parameter | Type | Description |");
+    w.AppendLine("| - | - | - |");
+    w.AppendLine("| `baseUri` | `Uri` | The base URI of the service. |");
+    w.AppendLine("| `credentials` | `ServiceClientCredentials` | The credentials that should be used to access the service. |");
+    w.AppendLine("| `handler` | `HttpMessageHandler` | The root message handler. |");
+    w.AppendLine();
+    w.AppendLine("###### {0}Client(Uri, ServiceClientCredentials, HttpMessageHandler, bool)", m.Name);
+    w.AppendLine();
+    w.AppendLine("| Parameter | Type | Description |");
+    w.AppendLine("| - | - | - |");
+    w.AppendLine("| `baseUri` | `Uri` | The base URI of the service. |");
+    w.AppendLine("| `credentials` | `ServiceClientCredentials` | The credentials that should be used to access the service. |");
+    w.AppendLine("| `handler` | `HttpMessageHandler` | The root message handler. |");
+    w.AppendLine("| `disposeHandler` | `bool` | True if the inner handler should be disposed of, false if the inner handler is intended to be reused. |");
+    w.AppendLine();
+    w.AppendLine("###### {0}Client(Uri, AuthenticationCallback)", m.Name);
+    w.AppendLine();
+    w.AppendLine("| Parameter | Type | Description |");
+    w.AppendLine("| - | - | - |");
+    w.AppendLine("| `baseUri` | `Uri` | The base URI of the service. |");
+    w.AppendLine("| `callback` | `AuthenticationCallback` | The callback that will be invoked during authentication to get the access token. |");
+    w.AppendLine();
+    w.AppendLine("###### {0}Client(Uri, AuthenticationCallback, HttpMessageHandler)", m.Name);
+    w.AppendLine();
+    w.AppendLine("| Parameter | Type | Description |");
+    w.AppendLine("| - | - | - |");
+    w.AppendLine("| `baseUri` | `Uri` | The base URI of the service. |");
+    w.AppendLine("| `callback` | `AuthenticationCallback` | The callback that will be invoked during authentication to get the access token. |");
+    w.AppendLine("| `handler` | `HttpMessageHandler` | The root message handler. |");
+    w.AppendLine();
+    w.AppendLine("###### {0}Client(Uri, AuthenticationCallback, HttpMessageHandler, bool)", m.Name);
+    w.AppendLine();
+    w.AppendLine("| Parameter | Type | Description |");
+    w.AppendLine("| - | - | - |");
+    w.AppendLine("| `baseUri` | `Uri` | The base URI of the service. |");
+    w.AppendLine("| `callback` | `AuthenticationCallback` | The callback that will be invoked during authentication to get the access token. |");
+    w.AppendLine("| `handler` | `HttpMessageHandler` | The root message handler. |");
+    w.AppendLine("| `disposeHandler` | `bool` | True if the inner handler should be disposed of, false if the inner handler is intended to be reused. |");
+    w.AppendLine();
+    w.AppendLine("##### Properties");
+    w.AppendLine();
+    w.AppendLine("| Property | Type | Description |");
+    w.AppendLine("| - | - | - |");
+    w.AppendLine("| `AcceptLanguage` | `string` | Gets or sets the preferred language for the response. |");
+    w.AppendLine();
+    w.AppendLine("##### Methods");
+    w.AppendLine();
+    w.AppendLine("###### SetRetryPolicy(RetryPolicy");
+    w.AppendLine();
+    w.AppendLine("Sets the retry policy.");
+    w.AppendLine();
+    w.AppendLine("| Parameter | Type | Description |");
+    w.AppendLine("| - | - | - |");
+    w.AppendLine("| `retryPolicy` | `RetryPolicy` | The new retry policy. |");
+    w.AppendLine();
+    w.AppendLine("###### SetUserAgent(string, string, string");
+    w.AppendLine();
+    w.AppendLine("Sets the user agent header when making requests to the service.");
+    w.AppendLine();
+    w.AppendLine("| Parameter | Type | Description |");
+    w.AppendLine("| - | - | - |");
+    w.AppendLine("| `productName` | `string` | The product name. |");
+    w.AppendLine("| `version` | `string` | The version. |");
+    w.AppendLine("| `info` | `string` | Additional information. |");
+    w.AppendLine();
+    w.AppendLine("##### Example");
+    w.AppendLine();
+
+    if (m.AuthorizationMode == AuthorizationMode.On)
+    {
+        this.WriteReferenceServiceClientWithAuth(w, m);
+    }
+    else
+    {
+        this.WriteReferenceServiceClientWithoutAuth(w, m);
+    }
+
+    w.AppendLine("[^ Back to top](#root)");
+    w.AppendLine();
+}
+
+// *** WriteReferenceServiceClientWithAuth
+
+public void WriteReferenceServiceClientWithAuth(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine("```csharp");
+    w.AppendLine("Uri address = new Uri(\"[service-address]\");");
+    w.AppendLine("string clientId = \"[client-id]\"");
+    w.AppendLine("string clientSecret = \"[client-secret]\"");
+    w.AppendLine();
+    w.AppendLine("using {0}Client client = new {0}Client(", m.Name);
+    w.AppendLine("    new Uri(address),");
+    w.AppendLine("    async (args) =>");
+    w.AppendLine("    {");
+    w.AppendLine("        string accessToken = await ClientCredentials");
+    w.AppendLine("            .ForAllScopes(");
+    w.AppendLine("                new Uri(args.Authority),");
+    w.AppendLine("                clientId,");
+    w.AppendLine("                clientSecret)");
+    w.AppendLine("            .RetrieveAccessTokenAsync()");
+    w.AppendLine("            .ConfigureAwait(false);");
+    w.AppendLine();
+    w.AppendLine("        return accessToken;");
+    w.AppendLine("    });");
+    w.AppendLine("```");
+    w.AppendLine();
+}
+
+// *** WriteReferenceServiceClientWithoutAuth
+
+public void WriteReferenceServiceClientWithoutAuth(ModelWriter w, ServiceModel m)
+{
+    w.AppendLine("```csharp");
+    w.AppendLine("Uri address = new Uri(\"[service-address]\");");
+    w.AppendLine();
+    w.AppendLine("using {0}Client client = new {0}Client(", m.Name);
+    w.AppendLine("    new Uri(address),");
+    w.AppendLine("    ClientCredentials.NoCredentials);");
+    w.AppendLine("```");
+    w.AppendLine();
+}
+
+#>

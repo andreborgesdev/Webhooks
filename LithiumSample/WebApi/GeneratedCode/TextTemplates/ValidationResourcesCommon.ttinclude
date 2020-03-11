@@ -1,0 +1,336 @@
+﻿<#+
+
+// *** ServiceModelTransformation
+
+internal class ServiceModelTransformation : ServiceModelTransformation<ResourcesFileModel>
+{
+    // *** Overrides
+
+    public override bool CanTransform(DomainModelElement sourceElement, ResourcesFileModel targetModel)
+    {
+        return sourceElement is ServiceModel;
+    }
+
+    public override void Transform(DomainModelElement sourceElement, ResourcesFileModel targetModel)
+    {
+        if (targetModel == null)
+        {
+            return;
+        }
+
+        targetModel.WithResource(new ResourceModel("RES_Error_RequestArgsInvalid", "The request arguments are invalid."));
+    }
+}
+
+// *** ControllersTransformation
+
+internal class ControllersTransformation : ServiceModelTransformation<ResourcesFileModel>
+{
+    // *** Overrides
+
+    public override bool CanTransform(DomainModelElement sourceElement, ResourcesFileModel targetModel)
+    {
+        return sourceElement is ControllerType;
+    }
+
+    public override void Transform(DomainModelElement sourceElement, ResourcesFileModel targetModel)
+    {
+        if (targetModel == null)
+        {
+            return;
+        }
+
+        if (sourceElement is ControllerType controllerType)
+        {
+            foreach (ControllerTypeAction controllerTypeAction in controllerType.ChildActions.OrderBy(n => n.Name))
+            {
+                foreach (ControllerTypeActionParameter parameter in controllerTypeAction.ChildParameters.OrderBy(n => n.Name))
+                {
+                    this.Transform(parameter, targetModel);
+                }
+            }            
+        }
+    }
+
+    // *** Transform (ControllerTypeActionParameter)
+
+    private void Transform(ControllerTypeActionParameter parameter, ResourcesFileModel targetModel)
+    {
+        this.Transform(parameter as ControllerTypeActionScalarParameter, targetModel);
+        this.Transform(parameter as ControllerTypeActionModelParameter, targetModel);
+    }
+
+    // *** Transform (ControllerTypeActionScalarParameter)
+
+    private void Transform(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter == null)
+        {
+            return;
+        }
+
+        this.TransformBoolean(parameter, targetModel);
+        this.TransformByteArray(parameter, targetModel);
+        this.TransformDateTime(parameter, targetModel);
+        this.TransformDouble(parameter, targetModel);
+        this.TransformEmail(parameter, targetModel);
+        this.TransformGuid(parameter, targetModel);
+        this.TransformInteger(parameter, targetModel);
+        this.TransformLong(parameter, targetModel);
+        this.TransformPassword(parameter, targetModel);
+        this.TransformString(parameter, targetModel);
+        this.TransformUrl(parameter, targetModel);
+        this.TransformPhoneNumber(parameter, targetModel);
+    }
+
+    // *** TransformBoolean
+
+    private void TransformBoolean(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.Boolean)
+        {
+            return;
+        }
+    }
+
+    // *** TransformByteArray
+
+    private void TransformByteArray(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.ByteArray)
+        {
+            return;
+        }
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddValidationResourceRequired(parameter, targetModel);
+        }
+    }
+
+    // *** TransformDateTime
+
+    private void TransformDateTime(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.DateTime)
+        {
+            return;
+        }
+    }
+
+    // *** TransformDouble
+
+    private void TransformDouble(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.Double)
+        {
+            return;
+        }
+ 
+        if (parameter.ValidationRules.LessThan != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+        else if (parameter.ValidationRules.GreaterThan != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+   }
+
+    // *** TransformEmail
+
+    private void TransformEmail(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.Email)
+        {
+            return;
+        }
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddValidationResourceRequired(parameter, targetModel);
+        }
+
+        if (parameter.ValidationRules.MinLength != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+        else if (parameter.ValidationRules.MaxLength != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+        else if (!string.IsNullOrEmpty(parameter.ValidationRules.RegularExpression))
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+    }
+
+    // *** TransformGuid
+
+    private void TransformGuid(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.Guid)
+        {
+            return;
+        }
+    }
+
+    // *** TransformInteger
+
+    private void TransformInteger(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.Integer)
+        {
+            return;
+        }
+  
+        if (parameter.ValidationRules.LessThan != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+        else if (parameter.ValidationRules.GreaterThan != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+  }
+
+    // *** TransformLong
+
+    private void TransformLong(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.Long)
+        {
+            return;
+        }
+  
+        if (parameter.ValidationRules.LessThan != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+        else if (parameter.ValidationRules.GreaterThan != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+ }
+
+    // *** TransformPassword
+
+    private void TransformPassword(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.Password)
+        {
+            return;
+        }
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddValidationResourceRequired(parameter, targetModel);
+        }
+
+        if (parameter.ValidationRules.MinLength != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+        else if (parameter.ValidationRules.MaxLength != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+        else if (!string.IsNullOrEmpty(parameter.ValidationRules.RegularExpression))
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+    }
+
+    // *** TransformString
+
+    private void TransformString(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.String)
+        {
+            return;
+        }
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddValidationResourceRequired(parameter, targetModel);
+        }
+
+        if (parameter.ValidationRules.MinLength != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+        else if (parameter.ValidationRules.MaxLength != null)
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+        else if (!string.IsNullOrEmpty(parameter.ValidationRules.RegularExpression))
+        {
+            this.AddValidationResourceInvalid(parameter, targetModel);
+        }
+    }
+
+    // *** TransformUrl
+
+    private void TransformUrl(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.Url)
+        {
+            return;
+        }
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddValidationResourceRequired(parameter, targetModel);
+        }
+    }
+
+    // *** TransformPhoneNumber
+
+    private void TransformPhoneNumber(ControllerTypeActionScalarParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter.Type != ControllerTypeActionScalarParameterType.PhoneNumber)
+        {
+            return;
+        }
+
+        if (parameter.ValidationRules.IsRequired.GetValueOrDefault())
+        {
+            this.AddValidationResourceRequired(parameter, targetModel);
+        }
+    }
+
+    // *** Transform (ControllerTypeActionModelParameter)
+
+    private void Transform(ControllerTypeActionModelParameter parameter, ResourcesFileModel targetModel)
+    {
+        if (parameter == null || parameter.ValidationRules == null)
+        {
+            return;
+        }
+
+        if (parameter.ValidationRules.IsRequired)
+        {
+            this.AddValidationResourceRequired(parameter, targetModel);
+        }
+    }
+
+    // *** AddValidationResourceRequired
+
+    private void AddValidationResourceRequired(ControllerTypeActionParameter parameter, ResourcesFileModel targetModel)
+    {
+        string name = "RES_Error_{0}_{1}_Required".Format(parameter.ParentAction.Name, parameter.Name);
+
+        targetModel.WithResource(new ResourceModel(name, "The {0} field is required.".Format(parameter.DisplayName)));
+    }
+
+    // *** AddValidationResourceInvalid
+
+    private void AddValidationResourceInvalid(ControllerTypeActionParameter parameter, ResourcesFileModel targetModel)
+    {
+        string name = "RES_Error_{0}_{1}_Invalid".Format(parameter.ParentAction.Name, parameter.Name);
+
+        targetModel.WithResource(new ResourceModel(name, "The {0} field is invalid.".Format(parameter.DisplayName)));
+    }
+}
+
+#>

@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DefaultItemExcludes>$(DefaultItemExcludes);GeneratedCode\TextTemplates\*</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <Import Project="GeneratedCode\Project.gen.props" Condition="Exists('GeneratedCode\Project.gen.props')" />
+
+  <ItemGroup>
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.25" PrivateAssets="All" />
+    <PackageReference Include="Primavera.Hydrogen.Rest.Client" version="2.0.1.87" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Template.info">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Template.lsmx</DependentUpon>
+    </None>
+    <None Update="Template.lsmx">
+      <Generator>ServiceDesignerCodeGenerator</Generator>
+      <LastGenOutput>Template.info</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <Target Name="EnsureImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references a missing project file. Please transform the text templates to generate it. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('GeneratedCode\Project.gen.props')" Text="$([System.String]::Format('$(ErrorText)', 'GeneratedCode\Project.gen.props'))" />
+  </Target>
+
+</Project>

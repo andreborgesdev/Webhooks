@@ -1,0 +1,97 @@
+﻿<#+
+
+// *** WriteBaseConstructor
+
+public void WriteBaseConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+    ConstructorModel parentConstructor = model.ParentModelAs<ConstructorModel>();
+    ModelType sourceModel = parentConstructor.GetFacet<ModelType>("ModelType");
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    // Initialize list properties
+
+    IEnumerable<ModelTypeProperty> listProperties = sourceModel.ChildProperties.Where(p => p.IsList).OrderBy(p => p.Name);
+
+    if (listProperties.Count() > 0)
+    {
+
+#>
+            // Initialize list properties
+
+<#+
+
+        foreach (ModelTypeProperty property in listProperties)
+        {
+
+#>
+            this.<#= property.Name #> = new List<<#= property.ToCSharpType() #>>();
+
+<#+
+
+        }
+    }
+
+#>
+            // Initialize default values
+
+            this.SetDefaultValues();
+<#+
+
+}
+
+
+// *** WriteSetDefaultValues
+
+public void WriteSetDefaultValues(ModelWriter modelWriter, MethodBodyModel model)
+{
+    MethodModel parentMethod = model.ParentModelAs<MethodModel>();
+    ModelType sourceModel = parentMethod.GetFacet<ModelType>("ModelType");
+
+    bool addSpace = false;
+
+    if (sourceModel != null && sourceModel.BaseModel != null)
+    {
+        addSpace = true;
+
+#>
+            // Default behavior
+
+            base.SetDefaultValues();
+<#+
+
+    }
+
+    bool first = true;
+
+    foreach (ModelTypeProperty property in sourceModel.ChildProperties.OrderBy(p => p.Name))
+    {
+        if (!string.IsNullOrEmpty(property.DefaultValue))
+        {
+            if (first)
+            {
+                first = false;
+
+                if (addSpace)
+                {
+                    modelWriter.AppendLine();
+                }
+
+#>
+            // Default values
+
+<#+
+
+            }
+
+#>
+            this.<#= property.Name #> = <#= property.DefaultValue #>;
+<#+
+
+        }
+    }
+}
+
+#>

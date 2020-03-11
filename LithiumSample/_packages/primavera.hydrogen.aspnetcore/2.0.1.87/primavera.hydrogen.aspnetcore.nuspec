@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Primavera.Hydrogen.AspNetCore</id>
+    <version>2.0.1.87</version>
+    <authors>PRIMAVERA Business Software Solutions, S.A.</authors>
+    <owners>PRIMAVERA Business Software Solutions, S.A.</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Class library that contains types that support the development of Web applications with ASP.NET Core.</description>
+    <tags>PRIMAVERA Elevation Lithium Hydrogen</tags>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="Primavera.Hydrogen.Caching.Distributed" version="2.0.1.87" exclude="Build,Analyzers" />
+        <dependency id="Primavera.Hydrogen.IdentityModel" version="2.0.1.87" exclude="Build,Analyzers" />
+        <dependency id="Primavera.Hydrogen.Rest" version="2.0.1.87" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Versioning" version="4.1.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" version="4.1.1" exclude="Build,Analyzers" />
+        <dependency id="NSwag.AspNetCore" version="13.2.3" exclude="Build,Analyzers" />
+        <dependency id="Westwind.AspNetCore.Markdown" version="3.3.6" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.1">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+</package>

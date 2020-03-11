@@ -1,0 +1,118 @@
+﻿<#+
+
+internal class ServiceModelTransformation : ServiceModelTransformation<CSharpFileModel>
+{
+    // *** Overrides
+
+    public override bool CanTransform(DomainModelElement sourceElement, CSharpFileModel targetModel)
+    {
+        return sourceElement is ServiceModel;
+    }
+
+    public override void Transform(DomainModelElement sourceElement, CSharpFileModel targetModel)
+    {
+        ServiceModel serviceModel = sourceElement as ServiceModel;
+        if (serviceModel == null)
+        {
+            return;
+        }
+
+        Version serviceVersion = VersioningHelper.GetApiVersion(serviceModel);
+        string serviceVersionString = VersioningHelper.GetApiVersionString(serviceModel);
+        string serviceVersionStringConstant = VersioningHelper.ToWords(serviceVersionString);
+
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("System"))
+            .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"));
+
+        targetModel.Namespace = new NamespaceModel(serviceModel.Namespace + ".Models.Metadata");
+
+        ClassModel apiVersionsClass = targetModel.Namespace
+            .AddClass(new ClassModel("ApiVersions")
+            {
+                Modifiers = ClassModifiers.Public | ClassModifiers.Static | ClassModifiers.Partial,
+                Documentation = new DocumentationModel("Defines constants that specify the API versions used by the Web API actions.")
+            });
+
+        ClassModel literalsClass = apiVersionsClass
+            .AddClass(new ClassModel("Literals")
+            {
+                Modifiers = ClassModifiers.Public | ClassModifiers.Static | ClassModifiers.Partial,
+                Documentation = new DocumentationModel("Defines constants that specify the API versions used by the Web API actions.")
+            })
+                .WithConstant(new ConstantModel("DefaultVersionLiteral", "string", serviceVersionStringConstant + "Literal")
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("The service default API version literal.")
+                })
+                .WithConstant(new ConstantModel(serviceVersionStringConstant + "Literal", "string", "\"" + serviceVersionString + "\"")
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("The {0} API version literal.".Format(serviceVersionString))
+                });
+
+        ClassModel valuesClass = apiVersionsClass
+            .AddClass(new ClassModel("Values")
+            {
+                Modifiers = ClassModifiers.Public | ClassModifiers.Static | ClassModifiers.Partial,
+                Documentation = new DocumentationModel("Defines constants that specify the API versions used by the Web API actions.")
+            })
+                .WithProperty(new PropertyModel("DefaultVersion", "Version")
+                {
+                    Modifiers = PropertyModifiers.Public | PropertyModifiers.Static,
+                    Documentation = new DocumentationModel("The service default API version."),
+                    GetAccessor = new PropertyGetAccessorModel()
+                    {
+                        Body = new PropertyAccessorBodyModel(
+                            new string[]
+                            {
+                                "return {0};".Format(serviceVersionStringConstant)
+                            })
+                    }
+                })
+                .WithProperty(new PropertyModel(serviceVersionStringConstant, "Version")
+                {
+                    Modifiers = PropertyModifiers.Public | PropertyModifiers.Static,
+                    Documentation = new DocumentationModel("The {0} API version.".Format(serviceVersionString)),
+                    GetAccessor = new PropertyGetAccessorModel()
+                    {
+                        Body = new PropertyAccessorBodyModel(
+                            new string[]
+                            {
+                                "return new Version(\"{0}\");".Format(serviceVersionString)
+                            })
+                    }
+                });
+
+        foreach (ApiVersion apiVersion in serviceModel.ApiVersions.OrderBy(a => a.NameProvider))
+        {
+            Version apiVersionVersion = VersioningHelper.GetApiVersion(apiVersion);
+            string apiVersionVersionString = VersioningHelper.GetApiVersionString(apiVersion);
+            string apiVersionVersionStringConstant = VersioningHelper.ToWords(apiVersionVersionString);
+
+            literalsClass
+                .WithConstant(new ConstantModel(apiVersionVersionStringConstant + "Literal", "string", "\"" + apiVersionVersionString + "\"")
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("The {0} API version literal.".Format(apiVersionVersionString))
+                });
+
+            valuesClass
+                .WithProperty(new PropertyModel(apiVersionVersionStringConstant, "Version")
+                {
+                    Modifiers = PropertyModifiers.Public | PropertyModifiers.Static,
+                    Documentation = new DocumentationModel("The {0} API version.".Format(apiVersionVersionString)),
+                    GetAccessor = new PropertyGetAccessorModel()
+                    {
+                        Body = new PropertyAccessorBodyModel(
+                            new string[]
+                            {
+                                "return new Version(\"{0}\");".Format(apiVersionVersionString)
+                            })
+                    }
+                });
+        }
+    }
+}
+
+#>

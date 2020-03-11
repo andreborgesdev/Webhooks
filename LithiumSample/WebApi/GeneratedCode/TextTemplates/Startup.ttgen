@@ -1,0 +1,416 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".gen.cs" #>
+<#@ ServiceDesigner processor="ServiceDesignerDirectiveProcessor" requires="FileName=''" #>
+<#
+
+// Build the transformations
+
+ServiceModelTransformations<CSharpFileModel> transformations = new ServiceModelTransformations<CSharpFileModel>(this.ServiceModel);
+
+transformations.Add(
+    (s, t) => true,
+    (s, t) => { return s is ServiceModel; },
+    this.TransformServiceModel);
+
+// Transform
+
+CSharpFileModel targetModel = new CSharpFileModel(this.ServiceModel);
+transformations.TransformTo(targetModel);
+
+// Create controller
+
+ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+// Add writers
+
+controller.AddModelWriter<ConstructorBodyModel>(
+    (w, m) =>
+    {
+        ConstructorModel parentConstructor = m.ParentModelAs<ConstructorModel>();
+        ClassModel parentClass = parentConstructor.ParentModelAs<ClassModel>();
+        return parentClass.Name.EndsWith("StartupBase");
+    }, 
+    this.WriteConstructor);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        return parentProperty.Name.EqualsNoCase("UseDevelopmentSettings");
+    }, 
+    this.WriteUseDevelopmentSettings);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("ConfigureServices");
+    }, 
+    this.WriteConfigureServices);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("Configure");
+    }, 
+    this.WriteConfigure);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddDistributedCache");
+    }, 
+    this.WriteAddDistributedCache);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddDataProtection");
+    }, 
+    this.WriteAddDataProtection);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddIsolatedStorage");
+    }, 
+    this.WriteAddIsolatedStorage);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddSecretsStorage");
+    }, 
+    this.WriteAddSecretsStorage);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddAzureTableStorage");
+    }, 
+    this.WriteAddAzureTableStorage);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddAzureBlobStorage");
+    }, 
+    this.WriteAddAzureBlobStorage);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddAzureSearch");
+    }, 
+    this.WriteAddAzureSearch);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddConfiguration");
+    }, 
+    this.WriteAddConfiguration);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddDependencies");
+    }, 
+    this.WriteAddDependencies);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddAdditionalServices");
+    }, 
+    this.WriteAddAdditionalServices);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddOpenApiDocumentation");
+    }, 
+    this.WriteAddOpenApiDocumentation);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddClientLibraryDocumentation");
+    }, 
+    this.WriteAddClientLibraryDocumentation);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseClientLibraryDocumentation");
+    }, 
+    this.WriteUseClientLibraryDocumentation);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddTelemetry");
+    }, 
+    this.WriteAddTelemetry);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddMvc");
+    }, 
+    this.WriteAddMvc);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddAuthorization");
+    }, 
+    this.WriteAddAuthorization);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddAuthorizationPolicies");
+    }, 
+    this.WriteAddAuthorizationPolicies);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddAuthentication");
+    }, 
+    this.WriteAddAuthentication);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddJwtBearer");
+    }, 
+    this.WriteAddJwtBearer);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddBackgroundServices");
+    }, 
+    this.WriteAddBackgroundServices);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseErrorHandling");
+    }, 
+    this.WriteUseErrorHandling);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseHttps");
+    }, 
+    this.WriteUseHttps);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseAuthentication");
+    }, 
+    this.WriteUseAuthentication);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseAuthorization");
+    }, 
+    this.WriteUseAuthorization);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseRouting");
+    }, 
+    this.WriteUseRouting);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseEndpoints");
+    }, 
+    this.WriteUseEndpoints);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseOpenApiDocumentation");
+    }, 
+    this.WriteUseOpenApiDocumentation);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseStaticFiles");
+    }, 
+    this.WriteUseStaticFiles);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseRequestLocalization");
+    }, 
+    this.WriteUseRequestLocalization);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnJwtBearerAuthenticationFailed");
+    }, 
+    this.WriteOnJwtBearerAuthenticationFailed);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnJwtBearerForbidden");
+    }, 
+    this.WriteOnJwtBearerForbidden);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnJwtBearerMessageReceived");
+    }, 
+    this.WriteOnJwtBearerMessageReceived);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnJwtBearerTokenValidated");
+    }, 
+    this.WriteOnJwtBearerTokenValidated);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnJwtBearerChallenge");
+    }, 
+    this.WriteOnJwtBearerChallenge);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("ConfigureApiVersioningOptions");
+    }, 
+    this.WriteConfigureApiVersioningOptions);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddCookiePolicy");
+    }, 
+    this.WriteAddCookiePolicy);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("UseCookiePolicy");
+    }, 
+    this.WriteUseCookiePolicy);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("CheckCookiesSameSite");
+    }, 
+    this.WriteCheckCookiesSameSite);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("DisallowsCookiesSameSiteNone");
+    }, 
+    this.WriteDisallowsCookiesSameSiteNone);
+
+// Generate code
+
+controller.Write(targetModel);
+
+#>

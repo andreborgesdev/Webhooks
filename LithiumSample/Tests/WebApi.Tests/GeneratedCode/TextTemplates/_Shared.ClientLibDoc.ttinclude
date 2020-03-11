@@ -1,0 +1,18 @@
+﻿<#+
+
+public void TransformClientLibDoc()
+{
+    // Create controller
+
+    ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+    // Add writers
+
+    controller.AddModelWriter<ServiceModel>((w, m) => this.WriteClientLibrary(w, m));
+
+    // Generate code
+
+    controller.Write(this.ServiceModel);
+}
+
+#>

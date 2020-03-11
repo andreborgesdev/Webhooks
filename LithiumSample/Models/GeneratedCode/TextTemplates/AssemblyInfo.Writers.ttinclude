@@ -1,0 +1,45 @@
+﻿<#+
+
+public void WriteAttributes(ModelWriter modelWriter, ServiceModel model)
+{
+    string version = VersioningHelper.GetVersionString(model);
+
+#>
+using System.Reflection;
+using System.Resources;
+using System.Runtime.CompilerServices;
+
+[assembly: AssemblyTitle("<#= model.Product #> <#= model.DisplayName #> Models")]
+[assembly: AssemblyDescription("Class library that includes the types that define the models used by the <#= model.DisplayName #>.")]
+
+[assembly: AssemblyProduct("<#= model.Product #>")]
+
+[assembly: AssemblyCompany("<#= model.Company #>")]
+[assembly: AssemblyCopyright("<#= model.Copyright #>")]
+[assembly: AssemblyTrademark("<#= model.Trademark #>")]
+[assembly: NeutralResourcesLanguage("en-US")]
+
+[assembly: AssemblyVersion("<#= version #>")]
+[assembly: AssemblyFileVersion("<#= version #>")]
+
+[assembly: AssemblyInformationalVersion("*development*")]
+
+[assembly: InternalsVisibleTo(
+    "<#= model.Namespace #>.WebApi, PublicKey="
+    + "0024000004800000940000000602000000240000525341310004000001000100bfbbcfcfa45d34"
+    + "9492d7a837b93e972950a9754029e1973b2f8cf38fabffba0b2380c15581b3a76d1626e4606f4c"
+    + "88ef2f03a0cc245e9390cd884545cf4021b6a177b6a0acef89d296adf0e2c631300b60bca05d38"
+    + "dcfb7318dbbcac767fd905dfdfcc05aea91a5aef718c4f9b5f2cc427671c6a4520f104f51da60f"
+    + "0c68e6c7", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo(
+    "<#= model.Namespace #>.Models.Tests, PublicKey="
+    + "0024000004800000940000000602000000240000525341310004000001000100bfbbcfcfa45d34"
+    + "9492d7a837b93e972950a9754029e1973b2f8cf38fabffba0b2380c15581b3a76d1626e4606f4c"
+    + "88ef2f03a0cc245e9390cd884545cf4021b6a177b6a0acef89d296adf0e2c631300b60bca05d38"
+    + "dcfb7318dbbcac767fd905dfdfcc05aea91a5aef718c4f9b5f2cc427671c6a4520f104f51da60f"
+    + "0c68e6c7", AllInternalsVisible = true)]
+<#+
+
+}
+
+#>

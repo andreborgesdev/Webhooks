@@ -1,0 +1,1806 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.IdentityModel.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.ActiveDirectory.Azure.Messages.AzureClientCredentialsTokenRequest">
+            <summary>
+            Describes the protocol request to the OpenID Connect token endpoint for the
+            client credentials grant type on a Azure Active Directory authority server.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientCredentialsTokenRequest" />
+            <remarks>
+            Typically Azure Active Directory uses resources to validate authorization.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.ActiveDirectory.Azure.Messages.AzureClientCredentialsTokenRequest.Resource">
+            <summary>
+            Gets or sets the resource.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.ActiveDirectory.Azure.Messages.AzureClientCredentialsTokenRequest.CacheKey">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.ActiveDirectory.Azure.Messages.AzureClientCredentialsTokenRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.ActiveDirectory.Azure.Messages.AzureClientCredentialsTokenRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.ActiveDirectory.Azure.Messages.AzureClientCredentialsTokenRequest.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.ActiveDirectory.Azure.Messages.AzureClientCredentialsTokenRequest"/> class.
+            </summary>
+            <param name="address">The token endpoint address.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.ActiveDirectory.Azure.Messages.AzureClientCredentialsTokenRequest.Prepare(System.Net.Http.HttpRequestMessage)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationHeaderStyle">
+            <summary>
+            Describes the encoding style of the basic authentication header.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationHeaderStyle.Rfc6749">
+            <summary>
+            Recommended. Uses the encoding as described in the OAuth 2.0 spec.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationHeaderStyle.Rfc2617">
+            <summary>
+            Uses the encoding as described in the original basic authentication spec.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationHeaderValue">
+            <summary>
+            Defines a HTTP Basic Authentication authorization header.
+            </summary>
+            <seealso cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationHeaderValue.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationHeaderValue"/> class.
+            </summary>
+            <param name="userName">The user name.</param>
+            <param name="password">The user password.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationHeaderValue.EncodeCredential(System.String,System.String)">
+            <summary>
+            Encodes the credential.
+            </summary>
+            <param name="userName">The user name.</param>
+            <param name="password">The user password.</param>
+            <returns>
+            The encoded credential.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationOAuthHeaderValue">
+            <summary>
+            Defines a HTTP Basic Authentication authorization header for RFC6749 client authentication.
+            </summary>
+            <seealso cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationOAuthHeaderValue.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationOAuthHeaderValue"/> class.
+            </summary>
+            <param name="userName">The user name.</param>
+            <param name="password">The user password.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationOAuthHeaderValue.EncodeCredential(System.String,System.String)">
+            <summary>
+            Encodes the credential.
+            </summary>
+            <param name="userName">The user name.</param>
+            <param name="password">The user password.</param>
+            <returns>
+            The encoded credential.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Caching.DiscoveryCache">
+            <summary>
+            Defines a default discovery cache that uses <see cref="P:Primavera.Hydrogen.IdentityModel.Client.Caching.DiscoveryCache.MemoryCache" />.
+            Only successful responses are cached and they expire, by default,
+            after 1 day.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Caching.IDiscoveryCache" />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.DiscoveryCache.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Caching.DiscoveryCache" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.DiscoveryCache.#ctor(System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Caching.DiscoveryCache" /> class.
+            </summary>
+            <param name="absoluteDurationRelativeToNow">The time span after which the cache items should expire.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.DiscoveryCache.GetResponseAsync(Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.DiscoveryCache.SetResponseAsync(Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint,Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Caching.IDiscoveryCache">
+            <summary>
+            Defines the interface of the discovery cache.
+            The discovery cache allows caching responses from <see cref="T:Primavera.Hydrogen.IdentityModel.Client.IDiscoveryClient" />.
+            The discovery cache can be set on <see cref="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest.Cache" />.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.IDiscoveryCache.GetResponseAsync(Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint)">
+            <summary>
+            Gets the response obtained from the specified endpoint from the cache.
+            </summary>
+            <param name="endpoint">The discovery endpoint.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The discovery document response retrieved from the cache. Null it is not in cache.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.IDiscoveryCache.SetResponseAsync(Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint,Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse)">
+            <summary>
+            Sets the response obtained from the specified endpoint in the cache.
+            </summary>
+            <param name="endpoint">The discovery endpoint.</param>
+            <param name="response">The discovery document response.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Caching.ITokenCache">
+            <summary>
+            Defines the interface of the token cache.
+            The token cache allows caching responses from <see cref="T:Primavera.Hydrogen.IdentityModel.Client.ITokenClient" />.
+            The token cache can be set on <see cref="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.Cache" />.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.ITokenCache.GetResponseAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest)">
+            <summary>
+            Gets the response obtained with the specified request from the cache.
+            </summary>
+            <param name="request">The token request.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The token response retrieved from the cache. Null it is not in cache.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.ITokenCache.SetResponseAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest,Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse)">
+            <summary>
+            Sets the response obtained with the specified request in the cache.
+            </summary>
+            <param name="request">The token request.</param>
+            <param name="response">The token response.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Caching.TokenCache">
+            <summary>
+            Defines a default token cache that uses <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Caching.ITokenCache" />.
+            Only successful responses are cached and they expire, by default,
+            after 12 hours or when the access token is itself expired.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Caching.ITokenCache" />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.TokenCache.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Caching.TokenCache" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.TokenCache.#ctor(System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Caching.TokenCache" /> class.
+            </summary>
+            <param name="absoluteDurationRelativeToNow">The time span after which the cache items should expire.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.TokenCache.GetResponseAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Caching.TokenCache.SetResponseAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest,Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.ClientCredentialStyle">
+            <summary>
+            Describes how a client will transmit the client identifier and the client secret.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.IdentityModel.Client.ClientCredentialStyle.AuthorizationHeader">
+            <summary>
+            HTTP basic authentication.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.IdentityModel.Client.ClientCredentialStyle.PostBody">
+            <summary>
+            Post values in body.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.ClientOptions">
+            <summary>
+            Defines the base class for the options used
+            to set the client of protocol requests.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.ClientOptions.ClientId">
+            <summary>
+            Gets or sets the client identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.ClientOptions.ClientSecret">
+            <summary>
+            Gets or sets the client secret.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.ClientOptions.ClientAssertion">
+            <summary>
+            Gets or sets the client assertion.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.ClientOptions.ClientCredentialStyle">
+            <summary>
+            Gets or sets the client credential style.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.ClientOptions.AuthorizationHeaderStyle">
+            <summary>
+            Gets or sets the basic authentication header style.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.ClientOptions.Parameters">
+            <summary>
+            Gets or sets additional request parameters (must not conflict with locally set parameters).
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.ClientOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.ClientOptions"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient">
+            <summary>
+            Defines a client that allows retrieving OpenID Connect discovery documents.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.IDiscoveryClient" />
+            <example>
+            <code>
+            <![CDATA[
+            using (IDiscoveryClient client = new DiscoveryClient())
+            {
+                DiscoveryDocumentResponse response = await client.GetDocumentAsync("https://server.io").ConfigureAwait(false);
+                if (!response.IsError)
+                {
+                    string tokenEndpoint = response.TokenEndpoint;
+                }
+            }
+            ]]>
+            </code>
+            </example>
+            <remarks>
+            Discovery client supports the customization of the validation policy and changing the default
+            cache used through the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest"/> type.
+            <code>
+            <![CDATA[
+            using (IDiscoveryClient client = new DiscoveryClient())
+            {
+                DiscoveryDocumentResponse response = await client.GetDocumentAsync(
+                    new DiscoveryDocumentRequest("https://server.io")
+                    {
+                        Policy = new MyCustomPolicy(),
+                        Cache = new MyCustomCache()
+                    }).ConfigureAwait(false);
+                if (!response.IsError)
+                {
+                    string tokenEndpoint = response.TokenEndpoint;
+                }
+            }
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient.Timeout">
+            <summary>
+            Gets or sets the timeout for communication with the authority server.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient.HttpMessageHandler">
+            <summary>
+            Gets the HTTP message handler.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient.#ctor(System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient" /> class.
+            </summary>
+            <param name="innerHandler">The inner HTTP message handler.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient.#ctor(System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient" /> class.
+            </summary>
+            <param name="innerHandler">The inner HTTP message handler.</param>
+            <param name="disposeHandler">True if the inner handler should be disposed, false the inner handler is intended to be reused.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient.GetDocumentAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient.GetDocumentAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint">
+            <summary>
+            Describes a discovery endpoint.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint.AuthorityServer">
+            <summary>
+            Gets the authority server.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint.EndpointUrl">
+            <summary>
+            Gets the URL of the endpoint.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint"/> class.
+            </summary>
+            <param name="address">The address from which the discovery endpoint should be determined.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint.IsSecureScheme(Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy)">
+            <summary>
+            Determines whether the discovery endpoint URL is secure based on the specified policy.
+            </summary>
+            <param name="policy">The policy.</param>
+            <returns>
+            A value indicating whether the discovery endpoint URL is secure based on the specified policy.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint.IsSecureScheme(System.Uri,Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy)">
+            <summary>
+            Determines whether the specified URL is secure based on the specified policy.
+            </summary>
+            <param name="url">The URL that should be checked.</param>
+            <param name="policy">The policy.</param>
+            <returns>
+            A value indicating whether the specified URL is secure based on the specified policy.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Endpoints.DiscoveryEndpoint.IsValidScheme(System.Uri)">
+            <summary>
+            Determines whether the specified URL scheme is valid for a discovery URL.
+            </summary>
+            <param name="url">The discovery URL.</param>
+            <returns>
+            A value indicating whether the specified URL scheme is valid for a discovery URL.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Endpoints.TokenEndpoint">
+            <summary>
+            Describes a token endpoint.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Endpoints.TokenEndpoint.AuthorityServer">
+            <summary>
+            Gets the authority server.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Endpoints.TokenEndpoint.EndpointUrl">
+            <summary>
+            Gets the URL of the endpoint.
+            If null it means that the provided address is the authority server base address
+            and discovery should be triggered to determine the token endpoint on that server.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Endpoints.TokenEndpoint.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Endpoints.TokenEndpoint"/> class.
+            </summary>
+            <param name="address">The address from which the token endpoint should be determined.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.HttpRequestMessageExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:System.Net.Http.HttpRequestMessage"/> type.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.HttpRequestMessageExtensions.SetBasicAuthentication(System.Net.Http.HttpRequestMessage,System.String,System.String)">
+            <summary>
+            Sets a basic authentication header.
+            </summary>
+            <param name="request">The HTTP request message.</param>
+            <param name="userName">Name of the user.</param>
+            <param name="password">The password.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.HttpRequestMessageExtensions.SetBasicAuthenticationOAuth(System.Net.Http.HttpRequestMessage,System.String,System.String)">
+            <summary>
+            Sets a basic authentication header for RFC6749 client authentication.
+            </summary>
+            <param name="request">The HTTP request message.</param>
+            <param name="userName">Name of the user.</param>
+            <param name="password">The password.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.IDiscoveryClient">
+            <summary>
+            Defines the interface of a discovery client.
+            A discovery client allows retrieving OpenID Connect discovery documents.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+            <example>
+            <code>
+            <![CDATA[
+            using (IDiscoveryClient client = new DiscoveryClient())
+            {
+                DiscoveryDocumentResponse response = await client.GetDocumentAsync("https://server.io").ConfigureAwait(false);
+                if (!response.IsError)
+                {
+                    string tokenEndpoint = response.TokenEndpoint;
+                }
+            }
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.IDiscoveryClient.GetDocumentAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the discovery document.
+            </summary>
+            <param name="authorityServer">The authority server.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The discovery document response.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.IDiscoveryClient.GetDocumentAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest,System.Threading.CancellationToken)">
+            <summary>
+            Gets the discovery document.
+            </summary>
+            <param name="discoveryRequest">The discovery document request.</param>
+            <param name="cancellationToken">The cancellation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The discovery document response.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.ITokenClient">
+            <summary>
+            Defines the interface of a token client.
+            A token client allows retrieving OpenID Connect tokens.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+            <example>
+            <code>
+            <![CDATA[
+            using (ITokenClient client = new ITokenClient())
+            {
+                TokenClientOptions = new TokenClientOptions()
+                {
+                    ClientId = "myclient",
+                    ClientSecret = "mysecret"
+                };
+                
+                TokenResponse response = await client.GetClientCredentialsTokenAsync("https://server.io/connect/token", options, "myscope").ConfigureAwait(false);
+                if (!response.IsError)
+                {
+                    string accessToken = response.AccessToken;
+                }
+            }
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.ITokenClient.GetClientCredentialsTokenAsync(System.String,Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Requests a token for the client credentials grant type from the specified token endpoint.
+            </summary>
+            <param name="address">
+            The token endpoint address.
+            If the address points to the authority server base address, discovery will be triggered
+            to determine the actual token endpoint address.
+            </param>
+            <param name="options">
+            The options that should be used by the client, including the client identifier and
+            client secret.
+            </param>
+            <param name="scope">The scope requested. Optional.</param>
+            <param name="parameters">The additional request parameters. Optional.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The token response.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.ITokenClient.GetPasswordTokenAsync(System.String,Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions,System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Requests a token for the password grant type from the specified token endpoint.
+            </summary>
+            <param name="address">
+            The token endpoint address.
+            If the address points to the authority server base address, discovery will be triggered
+            to determine the actual token endpoint address.
+            </param>
+            <param name="options">
+            The options that should be used by the client, including the client identifier and
+            client secret.
+            </param>
+            <param name="userName">The user name. Required.</param>
+            <param name="password">The user password. Optional.</param>
+            <param name="scope">The scope requested. Optional.</param>
+            <param name="parameters">The additional request parameters. Optional.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The token response.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.ITokenClient.GetAuthorizationCodeTokenAsync(System.String,Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions,System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Requests a token for the authorization code grant type from the specified token endpoint.
+            </summary>
+            <param name="address">
+            The token endpoint address.
+            If the address points to the authority server base address, discovery will be triggered
+            to determine the actual token endpoint address.
+            </param>
+            <param name="options">
+            The options that should be used by the client, including the client identifier and
+            client secret.
+            </param>
+            <param name="code">The code. Required.</param>
+            <param name="redirectUri">The redirect URI. Required.</param>
+            <param name="codeVerifier">The code verifier. Optional.</param>
+            <param name="parameters">The additional request parameters. Optional.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The token response.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.ITokenClient.GetRefreshTokenAsync(System.String,Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <summary>
+            Requests a token for the refresh token grant type from the specified token endpoint.
+            </summary>
+            <param name="address">
+            The token endpoint address.
+            If the address points to the authority server base address, discovery will be triggered
+            to determine the actual token endpoint address.
+            </param>
+            <param name="options">
+            The options that should be used by the client, including the client identifier and
+            client secret.
+            </param>
+            <param name="refreshToken">The refresh token. Required.</param>
+            <param name="scope">The scope. Optional.</param>
+            <param name="parameters">The additional request parameters. Optional.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The token response.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.ITokenClient.GetTokenAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest,System.Threading.CancellationToken)">
+            <summary>
+            Requests a token using the specified request.
+            </summary>
+            <param name="tokenRequest">The token request.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The token response.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest">
+            <summary>
+            Describes the protocol request to the OpenID Connect token endpoint for the
+            authorization code grant type.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest.Code">
+            <summary>
+            Gets or sets the code.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest.RedirectUri">
+            <summary>
+            Gets or sets the redirect URI.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest.CodeVerifier">
+            <summary>
+            Gets or sets the code verifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest.CacheKey">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest"/> class.
+            </summary>
+            <param name="address">The token endpoint address.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.AuthorizationCodeTokenRequest.Prepare(System.Net.Http.HttpRequestMessage)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientAssertion">
+            <summary>
+            Describes a client assertion.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientAssertion.Type">
+            <summary>
+            Gets or sets the client assertion type.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientAssertion.Value">
+            <summary>
+            Gets or sets the client assertion value.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientCredentialsTokenRequest">
+            <summary>
+            Describes the protocol request to the OpenID Connect token endpoint for the
+            client credentials grant type.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientCredentialsTokenRequest.Scope">
+            <summary>
+            Gets or sets the scope.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientCredentialsTokenRequest.CacheKey">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientCredentialsTokenRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientCredentialsTokenRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientCredentialsTokenRequest.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientCredentialsTokenRequest"/> class.
+            </summary>
+            <param name="address">The token endpoint address.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ClientCredentialsTokenRequest.Prepare(System.Net.Http.HttpRequestMessage)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.DictionaryExtensions">
+            <summary>
+            Provides extension methods for dictionaries.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.DictionaryExtensions.AddOptional(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.String)">
+            <summary>
+            Adds an optional item.
+            </summary>
+            <param name="dictionary">The dictionary.</param>
+            <param name="key">The item key.</param>
+            <param name="value">The item value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.DictionaryExtensions.AddRequired(System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a required item.
+            </summary>
+            <param name="dictionary">The dictionary.</param>
+            <param name="key">The item key.</param>
+            <param name="value">The item value.</param>
+            <param name="allowEmpty">A value indicating whether the value can be empty.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest">
+            <summary>
+            Describes the protocol request to the OpenID Connect discovery endpoint.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolRequest" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest.AuthorityServer">
+            <summary>
+            Gets the authority server.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest.Policy">
+            <summary>
+            Gets or sets the policy that should be used. Required.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest.Cache">
+            <summary>
+            Gets or sets the cache. Optional.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest" /> class.
+            </summary>
+            <param name="authorityServer">The authority server.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse">
+            <summary>
+            Describes the protocol response from the OpenID Connect discovery endpoint.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.Issuer">
+            <summary>
+            Gets the issuer.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.AuthorizeEndpoint">
+            <summary>
+            Gets the authorize endpoint.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.TokenEndpoint">
+            <summary>
+            Gets the token endpoint.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.UserInfoEndpoint">
+            <summary>
+            Gets the user information endpoint.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.IntrospectionEndpoint">
+            <summary>
+            Gets the introspection endpoint.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.RevocationEndpoint">
+            <summary>
+            Gets the revocation endpoint.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.KeySet">
+            <summary>
+            Gets or sets the JSON web key set.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.JwksUri">
+            <summary>
+            Gets the JWKS URI.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.EndSessionEndpoint">
+            <summary>
+            Gets the end session endpoint.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.CheckSessionIframe">
+            <summary>
+            Gets the check session IFRAME.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.RegistrationEndpoint">
+            <summary>
+            Gets the registration endpoint.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.FrontChannelLogoutSupported">
+            <summary>
+            Gets a value indicating whether front channel logout is supported.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.FrontChannelLogoutSessionSupported">
+            <summary>
+            Gets a value indicating whether front channel logout session is supported.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.GrantTypesSupported">
+            <summary>
+            Gets the grant types supported.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.CodeChallengeMethodsSupported">
+            <summary>
+            Gets the code challenge methods supported.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.ScopesSupported">
+            <summary>
+            Gets the scopes supported.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.SubjectTypesSupported">
+            <summary>
+            Gets the subject types supported.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.ResponseModesSupported">
+            <summary>
+            Gets the response modes supported.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.ResponseTypesSupported">
+            <summary>
+            Gets the response types supported.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.ClaimsSupported">
+            <summary>
+            Gets the claims supported.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.TokenEndpointAuthenticationMethodsSupported">
+            <summary>
+            Gets the token endpoint authentication methods supported.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentResponse.InitializeAsync(System.Net.Http.HttpResponseMessage,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.JsonWebKeySetRequest">
+            <summary>
+            Describes the protocol request to the JWKS endpoint.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolRequest" />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.JsonWebKeySetResponse">
+            <summary>
+            Describes the protocol response from the JWKS endpoint.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.JsonWebKeySetResponse.KeySet">
+            <summary>
+            Gets the key set.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.JsonWebKeySetResponse.InitializeAsync(System.Net.Http.HttpResponseMessage,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest">
+            <summary>
+            Describes the protocol request to the OpenID Connect token endpoint for the
+            password grant type.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest.UserName">
+            <summary>
+            Gets or sets the user name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest.Password">
+            <summary>
+            Gets or sets the user password.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest.Scope">
+            <summary>
+            Gets or sets the scope.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest.CacheKey">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest"/> class.
+            </summary>
+            <param name="address">The token endpoint address.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.PasswordTokenRequest.Prepare(System.Net.Http.HttpRequestMessage)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolRequest">
+            <summary>
+            Defines the base class for all protocol request messages.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolRequest.Parameters">
+            <summary>
+            Gets or sets the additional protocol parameters.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolRequest.Clone``1">
+            <summary>
+            Clones this instance and returns a <typeparamref name="TRequest"/> instance.
+            </summary>
+            <typeparam name="TRequest">The type of the result.</typeparam>
+            <returns>
+            The <typeparamref name="TRequest"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolRequest.Prepare(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Prepares the specified <see cref="T:System.Net.Http.HttpRequestMessage" />.
+            </summary>
+            <param name="request">The request.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse">
+            <summary>
+            Defines the base class for all protocol response messages.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.Raw">
+            <summary>
+            Gets or sets the raw response (if any).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.IsError">
+            <summary>
+            Gets a value indicating whether the response describes an error.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.Error">
+            <summary>
+            Gets the error (if <see cref="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.IsError"/> is true).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.ErrorType">
+            <summary>
+            Gets or sets the type of the error (if <see cref="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.IsError"/> is true).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.HttpStatusCode">
+            <summary>
+            Gets or sets the HTTP status code.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.HttpReasonPhrase">
+            <summary>
+            Gets or sets the HTTP reason phrase (if any).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.Exception">
+            <summary>
+            Gets or sets the exception (if <see cref="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.ErrorType"/> is <see cref="F:Primavera.Hydrogen.IdentityModel.Client.Messages.ResponseErrorType.Exception"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.Json">
+            <summary>
+            Gets or sets the JSON response (if any).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.ErrorMessage">
+            <summary>
+            Gets or sets the explicit error message (if any).
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.FromHttpResponseAsync``1(System.Net.Http.HttpResponseMessage,System.Object)">
+            <summary>
+            Returns a protocol response of type <typeparamref name="TResponse"/> from the specified response message.
+            </summary>
+            <typeparam name="TResponse">The type of the protocol response.</typeparam>
+            <param name="response">The HTTP response message.</param>
+            <param name="data">Additional initialization data. Optional.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <typeparamref name="TResponse"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.FromException``1(System.Exception,System.String)">
+            <summary>
+            Returns a protocol response of type <typeparamref name="TResponse"/> from the specified exception.
+            </summary>
+            <typeparam name="TResponse">The type of the protocol response.</typeparam>
+            <param name="exception">The exception.</param>
+            <param name="errorMessage">The explicit error message. Optional.</param>
+            <returns>
+            The <typeparamref name="TResponse"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.Clone``1">
+            <summary>
+            Clones this instance and returns a <typeparamref name="TResponse"/> instance.
+            </summary>
+            <typeparam name="TResponse">The type of the result.</typeparam>
+            <returns>
+            The <typeparamref name="TResponse"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.InitializeAsync(System.Net.Http.HttpResponseMessage,System.Object)">
+            <summary>
+            Performs additional initialization using the specified data.
+            </summary>
+            <param name="response">The HTTP response message.</param>
+            <param name="data">The initialization data.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.TryGetValue(System.String)">
+            <summary>
+            Tries to get the specified value.
+            </summary>
+            <param name="name">The value name.</param>
+            <returns>
+            The specified value.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.TryGetString(System.String)">
+            <summary>
+            Tries to get the specified value as a string.
+            </summary>
+            <param name="name">The value name.</param>
+            <returns>
+            The specified value.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.TryGetInteger(System.String)">
+            <summary>
+            Tries to get the specified value as an integer.
+            </summary>
+            <param name="name">The value name.</param>
+            <returns>
+            The specified value.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.TryGetBoolean(System.String)">
+            <summary>
+            Tries to get the specified value as a boolean.
+            </summary>
+            <param name="name">The value name.</param>
+            <returns>
+            The specified value.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse.TryGetStringArray(System.String)">
+            <summary>
+            Tries to get the specified value as an enumerable of strings.
+            </summary>
+            <param name="name">The value name.</param>
+            <returns>
+            The specified value.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.RefreshTokenRequest">
+            <summary>
+            Describes the protocol request to the OpenID Connect token endpoint for the
+            refresh token grant type.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.RefreshTokenRequest.RefreshToken">
+            <summary>
+            Gets or sets the refresh token.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.RefreshTokenRequest.Scope">
+            <summary>
+            Gets or sets the scope.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.RefreshTokenRequest.CacheKey">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.RefreshTokenRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.RefreshTokenRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.RefreshTokenRequest.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.RefreshTokenRequest"/> class.
+            </summary>
+            <param name="address">The token endpoint address.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.RefreshTokenRequest.Prepare(System.Net.Http.HttpRequestMessage)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ResponseErrorType">
+            <summary>
+            Defines the type of error received from a protocol endpoint.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.IdentityModel.Client.Messages.ResponseErrorType.None">
+            <summary>
+            No error.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.IdentityModel.Client.Messages.ResponseErrorType.Protocol">
+            <summary>
+            The response is valid but there was a protocol level error.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.IdentityModel.Client.Messages.ResponseErrorType.Http">
+            <summary>
+            HTTP error (e.g. 404).
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.IdentityModel.Client.Messages.ResponseErrorType.Exception">
+            <summary>
+            An exception occurred.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.IdentityModel.Client.Messages.ResponseErrorType.PolicyViolation">
+            <summary>
+            A configured policy was violated.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest">
+            <summary>
+            Defines the base for protocol requests to the OpenID Connect token endpoint.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolRequest" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.GrantType">
+            <summary>
+            Gets or sets the grant type.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.Address">
+            <summary>
+            Gets or sets the address that should be used to retrieve the token.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.AddressIsAuthority">
+            <summary>
+            Gets or sets a value indicating whether <see cref="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.Address"/> describes
+            the authority base address, meaning that the discovery document should
+            be retrieved from that address to determine the actual token endpoint.
+            The default value is false.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.ClientId">
+            <summary>
+            Gets or sets the client identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.ClientSecret">
+            <summary>
+            Gets or sets the client secret.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.ClientAssertion">
+            <summary>
+            Gets or sets the client assertion.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.ClientCredentialStyle">
+            <summary>
+            Gets or sets the client credential style.
+            The default value is <see cref="F:Primavera.Hydrogen.IdentityModel.Client.ClientCredentialStyle.PostBody"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.AuthorizationHeaderStyle">
+            <summary>
+            Gets or sets the basic authorization header style.
+            The default value is <see cref="F:Primavera.Hydrogen.IdentityModel.Client.BasicAuthenticationHeaderStyle.Rfc6749"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.DiscoveryPolicy">
+            <summary>
+            Gets or sets the policy that should be used.
+            If null the default policy of <see cref="T:Primavera.Hydrogen.IdentityModel.Client.IDiscoveryClient"/> will be used.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.Cache">
+            <summary>
+            Gets or sets the cache. Optional.
+            The default value is an instance of <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Caching.TokenCache"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.CacheKey">
+            <summary>
+            Gets the unique key for the request to store it in the cache.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.Clone``1">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest.Prepare(System.Net.Http.HttpRequestMessage)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse">
+            <summary>
+            Describes the protocol response from the OpenID Connect token endpoint.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.ProtocolResponse" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse.AccessToken">
+            <summary>
+            Gets the access token.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse.IdentityToken">
+            <summary>
+            Gets the identity token.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse.TokenType">
+            <summary>
+            Gets the type of the token.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse.RefreshToken">
+            <summary>
+            Gets the refresh token.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse.ErrorDescription">
+            <summary>
+            Gets the error description.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse.ExpiresIn">
+            <summary>
+            Gets the moment when the token expires.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenResponse.Error">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult">
+            <summary>
+            Describes the result of a validation in a <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.IAuthorityValidationStrategy"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.IsSuccess">
+            <summary>
+            Gets a value indicating whether the validation succeeded.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.IsFailure">
+            <summary>
+            Gets a value indicating whether the validation failed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.ErrorMessage">
+            <summary>
+            Gets the error message, only if <see cref="P:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.IsFailure"/> is true.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.Success">
+            <summary>
+            Creates a new instance of <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult"/> that indicates that the validation succeeded.
+            </summary>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.Failure(System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult" /> that indicates that the validation failed.
+            </summary>
+            <param name="errorMessage">The error message.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.Equals(Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult)">
+            <summary>
+            Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+            true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object" />, is equal to this instance.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object" /> to compare with this instance.</param>
+            <returns>
+              <c>true</c> if the specified <see cref="T:System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>
+            A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.op_Equality(Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult,Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult)">
+            <summary>
+            Implements the operator ==.
+            </summary>
+            <param name="first">The first <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult"/>.</param>
+            <param name="second">The second <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult"/>.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.op_Inequality(Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult,Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult)">
+            <summary>
+            Implements the operator !=.
+            </summary>
+            <param name="first">The first <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult"/>.</param>
+            <param name="second">The second <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult"/>.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult.op_Implicit(Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult)~System.Boolean">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationResult"/> to <see cref="T:System.Boolean"/>.
+            </summary>
+            <param name="result">The result.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationStrategy">
+            <summary>
+            Defines a default authority validation strategy.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.IAuthorityValidationStrategy" />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationStrategy.IsIssuerNameValid(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.AuthorityValidationStrategy.IsEndpointValid(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy">
+            <summary>
+            Defines a default discovery policy.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.AuthorityServer">
+            <summary>
+            Gets or sets the authority against which the policy validation should be performed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.AuthorityValidationStrategy">
+            <summary>
+            Gets or sets the authority validation strategy that should be used.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.ValidateIssuerName">
+            <summary>
+            Gets or sets a value indicating whether the issuer name should be same as the authority.
+            Defaults to true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.ValidateEndpoints">
+            <summary>
+            Gets or sets a value indicating whether all endpoints should be validated checked to belong to the authority.
+            Defaults to true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.RequireHttps">
+            <summary>
+            Gets or sets a value indicating whether HTTPS is required on all endpoints.
+            Defaults to true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.AllowHttpOnLoopback">
+            <summary>
+            Gets or sets a value indicating whether HTTP is allowed on loop-back addresses.
+            Defaults to true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.RequireKeySet">
+            <summary>
+            Gets or sets a value indicating whether a key set is required.
+            Defaults to true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.AdditionalEndpointBaseAddresses">
+            <summary>
+            Gets or sets a list of additional base addresses that should be allowed for endpoints.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.EndpointValidationExcludeList">
+            <summary>
+            Gets or sets a list of endpoints that should be excluded from validation.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.LoopbackAddresses">
+            <summary>
+            Gets or sets the list of valid loop-back addresses.
+            Defaults to localhost and 127.0.0.1.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy"/> class.
+            </summary>
+            <param name="authorityServer">The authority against which the policy validation should be performed.</param>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.Primavera#Hydrogen#IdentityModel#Client#Policies#IDiscoveryPolicy#AdditionalEndpointBaseAddresses">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.Primavera#Hydrogen#IdentityModel#Client#Policies#IDiscoveryPolicy#EndpointValidationExcludeList">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.DiscoveryPolicy.Primavera#Hydrogen#IdentityModel#Client#Policies#IDiscoveryPolicy#LoopbackAddresses">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Policies.IAuthorityValidationStrategy">
+            <summary>
+            Defines the interface of an authority validation strategy.
+            The authority validation strategy implements the validation of a discovery
+            document issuer and endpoints depending on the expected authority server.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.IAuthorityValidationStrategy.IsIssuerNameValid(System.String,System.String)">
+            <summary>
+            Determines whether the issuer name is valid for the specified authority server.
+            </summary>
+            <param name="issuerName">The issuer name.</param>
+            <param name="expectedAuthority">The expected authority server.</param>
+            <returns>
+            The validation result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.Policies.IAuthorityValidationStrategy.IsEndpointValid(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Determines whether the endpoint address is valid for the specified authority server(s).
+            </summary>
+            <param name="endpoint">The endpoint address.</param>
+            <param name="expectedAuthorities">The expected authority servers.</param>
+            <returns>
+            The validation result.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy">
+            <summary>
+            Defines the interface of a discovery policy.
+            A discovery policy defines policy used by <see cref="T:Primavera.Hydrogen.IdentityModel.Client.IDiscoveryClient"/> to
+            retrieve documents.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.AuthorityServer">
+            <summary>
+            Gets or sets the authority server against which the policy validation should be performed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.AuthorityValidationStrategy">
+            <summary>
+            Gets the authority validation strategy that should be used.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.ValidateIssuerName">
+            <summary>
+            Gets a value indicating whether the issuer name should be same as the authority.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.ValidateEndpoints">
+            <summary>
+            Gets a value indicating whether all endpoints should be validated checked to belong to the authority.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.RequireHttps">
+            <summary>
+            Gets a value indicating whether HTTPS is required on all endpoints.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.AllowHttpOnLoopback">
+            <summary>
+            Gets a value indicating whether HTTP is allowed on loop-back addresses.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.RequireKeySet">
+            <summary>
+            Gets a value indicating whether a key set is required.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.AdditionalEndpointBaseAddresses">
+            <summary>
+            Gets a list of additional base addresses that should be allowed for endpoints.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.EndpointValidationExcludeList">
+            <summary>
+            Gets a list of endpoints that should be excluded from validation.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Policies.IDiscoveryPolicy.LoopbackAddresses">
+            <summary>
+            Gets the list of valid loop-back addresses.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_EndpointBelongsToDifferentAuthority">
+            <summary>
+              Looks up a localized string similar to The endpoint &apos;{0}&apos; belongs to different authority..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_EndpointDoesNotUseHttp">
+            <summary>
+              Looks up a localized string similar to The endpoint &apos;{0}&apos; does not use HTTPS..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_EndpointEmpty">
+            <summary>
+              Looks up a localized string similar to The endpoint is empty..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_EndpointNotAbsoluteUri">
+            <summary>
+              Looks up a localized string similar to The endpoint &apos;{0}&apos; is not an absolute URL..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_EndpointNotInAuthorityHost">
+            <summary>
+              Looks up a localized string similar to The endpoint &apos;{0}&apos; is on a different host than authority &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_ErrorConnectingToUrl">
+            <summary>
+              Looks up a localized string similar to Error connecting to URL &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_ErrorConnectingToUrlWithReason">
+            <summary>
+              Looks up a localized string similar to Error connecting to URL &apos;{0}&apos;: {1}..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_IssuerDoesNotMatchAuthority">
+            <summary>
+              Looks up a localized string similar to The issuer name &apos;{0}&apos; does not match authority &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_IssuerNameMissing">
+            <summary>
+              Looks up a localized string similar to The issuer name is missing..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_IssuerNameNotAbsoluteUri">
+            <summary>
+              Looks up a localized string similar to The issuer name &apos;{0}&apos; is not an absolute URL..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_KeySetMissing">
+            <summary>
+              Looks up a localized string similar to The key set is missing..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_MalformedEndpoint">
+            <summary>
+              Looks up a localized string similar to The endpoint &apos;{0}&apos; is malformed..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Error_PolicyAuthorityServerMissing">
+            <summary>
+              Looks up a localized string similar to The policy authority server is missing..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Exception_AuthorityMustBeAbsoluteUri">
+            <summary>
+              Looks up a localized string similar to The authority must be an absolute URL..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Exception_BasicAuthenticationHeaderTypeUnsupported">
+            <summary>
+              Looks up a localized string similar to Unsupported basic authentication header style..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Exception_ClientCredentialStyleUnsupported">
+            <summary>
+              Looks up a localized string similar to Unsupported client credential style..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Exception_HttpsRequired">
+            <summary>
+              Looks up a localized string similar to HTTPS required..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.Properties.Resources.RES_Exception_MalformedUrl">
+            <summary>
+              Looks up a localized string similar to The URL &apos;{0}&apos; is malformed..
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.TokenClient">
+            <summary>
+            Defines a client that allows retrieving OpenID Connect tokens.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.ITokenClient" />
+            <example>
+            <code>
+            <![CDATA[
+            using (ITokenClient client = new ITokenClient())
+            {
+                TokenClientOptions = new TokenClientOptions()
+                {
+                    ClientId = "myclient",
+                    ClientSecret = "mysecret"
+                };
+                
+                TokenResponse response = await client.GetClientCredentialsTokenAsync("https://server.io/connect/token", options, "myscope").ConfigureAwait(false);
+                if (!response.IsError)
+                {
+                    string accessToken = response.AccessToken;
+                }
+            }
+            ]]>
+            </code>
+            </example>
+            <remarks>
+            Token client uses <see cref="T:Primavera.Hydrogen.IdentityModel.Client.DiscoveryClient"/> to determine the token endpoint when the addresses
+            passed in requests reference base addresses (like: http://localhost/ or https://identity.server.com).
+            Token client supports the default cache used through the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest"/> type.
+            <code>
+            <![CDATA[
+            using (ITokenClient client = new TokenClient())
+            {
+                TokenResponse response = await client.GetClientCredentialsTokenAsync(
+                    new ClientCredentialsTokenRequest("https://server.io")
+                    {
+                        ClientId = "myclient",
+                        ClientSecret = "mysecret",
+                        Scope = "myscope",
+                        Cache = new MyCustomCache()
+                    }).ConfigureAwait(false);
+                if (!response.IsError)
+                {
+                    string accessToken = response.AccessToken;
+                }
+            }
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.TokenClient.Timeout">
+            <summary>
+            Gets or sets the timeout for communication with the authority server.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.TokenClient.HttpMessageHandler">
+            <summary>
+            Gets the HTTP message handler.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.TokenClient" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.#ctor(System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.TokenClient" /> class.
+            </summary>
+            <param name="innerHandler">The inner HTTP message handler.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.#ctor(System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.IdentityModel.Client.TokenClient" /> class.
+            </summary>
+            <param name="innerHandler">The inner HTTP message handler.</param>
+            <param name="disposeHandler">True if the inner handler should be disposed, false the inner handler is intended to be reused.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.GetClientCredentialsTokenAsync(System.String,Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.GetPasswordTokenAsync(System.String,Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions,System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.GetAuthorizationCodeTokenAsync(System.String,Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions,System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.GetRefreshTokenAsync(System.String,Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.GetTokenAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.ApplyRequestParameters(Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest,Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Applies the parameters to the specified request.
+            </summary>
+            <param name="request">The request.</param>
+            <param name="options">The options.</param>
+            <param name="parameters">The parameters.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.ParseTokenEndpointAddress(Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest,System.String@,System.String@,System.Boolean@)">
+            <summary>
+            Parses the address in the token request to determine the token endpoint address.
+            </summary>
+            <param name="tokenRequest">The token request.</param>
+            <param name="authorityServer">The authority server address.</param>
+            <param name="endpointAddress">The endpoint address. Null if <paramref name="discoveryRequired"/>.</param>
+            <param name="discoveryRequired">
+            A value indicating whether the discovery document should be retrieved from the authority server
+            to determine the token endpoint address.
+            </param>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.GetDiscoveryDocumentAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.DiscoveryDocumentRequest,System.Threading.CancellationToken)">
+            <summary>
+            Gets the discovery document.
+            </summary>
+            <param name="discoveryRequest">The discovery request.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The discovery document endpoint response.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.IdentityModel.Client.TokenClient.GetTokenResponseAsync(Primavera.Hydrogen.IdentityModel.Client.Messages.TokenRequest,System.Uri,System.Threading.CancellationToken)">
+            <summary>
+            Executes the specified request on the token endpoint (concrete address is specified by <paramref name="url"/>).
+            </summary>
+            <param name="tokenRequest">The token request.</param>
+            <param name="url">The URL of the token endpoint.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The token endpoint response.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions">
+            <summary>
+            Defines the options used by <see cref="T:Primavera.Hydrogen.IdentityModel.Client.ITokenClient"/>
+            to set the client of the protocol request.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.IdentityModel.Client.ClientOptions" />
+        </member>
+        <member name="P:Primavera.Hydrogen.IdentityModel.Client.TokenClientOptions.AddressIsAuthority">
+            <summary>
+            Gets or sets a value indicating whether the address provided in the
+            request describes the authority base address, meaning that the discovery
+            document should be retrieved from that address to determine the actual
+            token endpoint.
+            The default value is false.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,1621 @@
+﻿<#+
+
+// *** WriteConstructor
+
+public void WriteConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => env, env);
+            SmartGuard.NotNull(() => configuration, configuration);
+
+            // Set properties
+
+            this.CurrentEnvironment = env;
+            this.Configuration = configuration;
+<#+
+
+}
+
+// *** WriteUseDevelopmentSettings
+
+public void WriteUseDevelopmentSettings(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                return false;
+            }
+<#+
+
+}
+
+// *** WriteConfigureServices
+
+public void WriteConfigureServices(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // Configuration
+
+            HostConfiguration hostConfiguration = this.AddConfiguration(services);
+
+            // Validate host configuration
+
+            this.ValidateConfiguration(hostConfiguration);
+
+            // Add cookie policy
+
+            this.AddCookiePolicy(services, hostConfiguration);
+
+            // MVC
+
+            this.AddMvc(services, hostConfiguration);
+
+<#+
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+
+#>
+            // Authorization
+
+            this.AddAuthorization(services, hostConfiguration);
+
+            // Authentication
+
+            this.AddAuthentication(services, hostConfiguration);
+
+<#+
+
+    }
+
+#>
+            // Telemetry
+
+            this.AddTelemetry(services, hostConfiguration);
+
+            // Background services
+
+            this.AddBackgroundServices(services, hostConfiguration);
+
+            // Dependencies
+
+            this.AddDependencies(services, hostConfiguration);
+
+            // OpenAPI documentation
+
+            this.AddOpenApiDocumentation(services, hostConfiguration);
+
+<#+
+
+    if (sourceModel.GenerateClientLibrary)
+    {
+
+#>
+            // Client Library documentation
+
+            this.AddClientLibraryDocumentation(services, hostConfiguration);
+
+<#+
+    
+    }
+
+#>
+            // Additional (custom) services
+
+            this.AddAdditionalServices(services, hostConfiguration);
+<#+
+
+}
+
+// *** WriteConfigure
+
+public void WriteConfigure(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+            SmartGuard.NotNull(() => logger, logger);
+
+            // Logger
+
+            this.Logger = logger;
+
+            // Start
+
+            this.Logger.LogDebug("Application configuration starting...");
+
+            // Validate host configuration
+
+            this.ValidateConfiguration(app, hostConfiguration);
+
+            // Error handling
+
+            this.UseErrorHandling(app, hostConfiguration);
+
+            // HTTPS
+
+            this.UseHttps(app, hostConfiguration);
+
+            // Cookie policy
+
+            this.UseCookiePolicy(app, hostConfiguration);
+
+            // Request localization
+
+            this.UseRequestLocalization(app, hostConfiguration);
+
+            // Static files
+
+            this.UseStaticFiles(app, hostConfiguration);
+
+            // Routing
+
+            this.UseRouting(app, hostConfiguration);
+
+<#+
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+
+#>
+            // Authentication
+
+            this.UseAuthentication(app, hostConfiguration);
+
+            // Authorization
+
+            this.UseAuthorization(app, hostConfiguration);
+
+<#+
+
+    }
+
+#>
+            // Endpoint routing
+
+            this.UseEndpoints(app, hostConfiguration);
+
+            // OpenAPI documentation
+
+            this.UseOpenApiDocumentation(app, hostConfiguration);
+
+<#+
+
+    if (sourceModel.GenerateClientLibrary)
+    {
+
+#>
+            // Client Library documentation
+
+            this.UseClientLibraryDocumentation(app, hostConfiguration);
+
+<#+
+
+    }
+
+#>
+            // Additional application configurations
+
+            this.AdditionalAppConfigurations(app, hostConfiguration);
+
+            // End
+
+            this.Logger.LogDebug("Application configuration ended.");
+<#+
+
+}
+
+// *** WriteAddDistributedCache
+
+public void WriteAddDistributedCache(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // REDIS cache (resilient)
+
+            services.AddRedisCache();
+            services.AddResilientDistributedCache();
+<#+
+
+}
+
+// *** WriteAddDataProtection
+
+public void WriteAddDataProtection(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // Data protection
+
+            services.AddDataProtectionWithBlobStorage();
+<#+
+
+}
+
+// *** WriteAddIsolatedStorage
+
+public void WriteAddIsolatedStorage(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // Data protection
+
+            services.AddFilesIsolatedStorage();
+<#+
+
+}
+
+// *** WriteAddSecretsStorage
+
+public void WriteAddSecretsStorage(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // SecretsStorage
+
+            services.AddAzureSecretsStorage();
+<#+
+
+}
+
+// *** WriteAddAzureTableStorage
+
+public void WriteAddAzureTableStorage(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // Azure table storage
+
+            services.AddAzureTableStorage();
+<#+
+
+}
+
+// *** WriteAddAzureBlobStorage
+
+public void WriteAddAzureBlobStorage(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // Azure table storage
+
+            services.AddAzureBlobStorage();
+<#+
+
+}
+
+// *** WriteAddAzureSearch
+
+public void WriteAddAzureSearch(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // Azure table storage
+
+            services.AddAzureSearch();
+<#+
+
+}
+
+// *** WriteAddConfiguration
+
+public void WriteAddConfiguration(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Common options
+
+            services
+                .AddOptions()
+                .Configure<HostConfiguration>(
+                    this.Configuration.GetSection(nameof(HostConfiguration)))
+                .Configure<AzureInsightsTelemetryOptions>(
+                    this.Configuration.GetSection(nameof(AzureInsightsTelemetryOptions)));
+<#+
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))
+    {
+
+#>
+
+            // REDIS cache options
+
+            services
+                .Configure<RedisCacheOptions>(
+                    this.Configuration.GetSection(nameof(RedisCacheOptions)))
+                .Configure<RedisCacheOptions>(
+                    this.Configuration.GetSection(nameof(ResilientCacheOptions)));
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.TableStorage))
+    {
+
+#>
+
+            // Table storage options
+
+            services
+                .Configure<AzureTableStorageOptions>(
+                    this.Configuration.GetSection(nameof(AzureTableStorageOptions)));
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.BlobStorage))
+    {
+
+#>
+
+            // Blob storage options
+
+            services
+                .Configure<AzureBlobStorageOptions>(
+                    this.Configuration.GetSection(nameof(AzureBlobStorageOptions)));
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.Search))
+    {
+
+#>
+
+            // Search options
+
+            services
+                .Configure<AzureSearchOptions>(
+                    this.Configuration.GetSection(nameof(AzureSearchOptions)));
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DataProtection))
+    {
+
+#>
+
+            // Data protection options
+
+            services
+                .Configure<AzureBlobStorageDataProtectionOptions>(
+                    this.Configuration.GetSection(nameof(AzureBlobStorageDataProtectionOptions)));
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.SecretsStorage))
+    {
+
+#>
+
+            // Secrets storage options
+
+            services
+                .Configure<AzureKeyVaultSecretsStorageOptions>(
+                    this.Configuration.GetSection(nameof(AzureKeyVaultSecretsStorageOptions)));
+<#+
+
+    }
+
+#>
+
+            // Host configuration snapshot
+
+            services
+                .AddOptionsSnapshot<HostConfiguration>();
+
+            // Resolve the host configuration instance
+
+            IServiceProvider provider = services.BuildServiceProvider();
+            return provider.GetRequiredService<HostConfiguration>();
+<#+
+
+}
+
+// *** WriteAddDependencies
+
+public void WriteAddDependencies(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Add dependencies
+<#+
+
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))
+    {
+
+#>
+
+            // Distributed cache
+
+            this.AddDistributedCache(services, hostConfiguration);
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.TableStorage))
+    {
+
+#>
+
+            // Table storage
+
+            this.AddAzureTableStorage(services, hostConfiguration);
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.BlobStorage))
+    {
+
+#>
+
+            // Blob storage
+
+            this.AddAzureBlobStorage(services, hostConfiguration);
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.Search))
+    {
+
+#>
+
+            // Search
+
+            this.AddAzureSearch(services, hostConfiguration);
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.Pipelines))
+    {
+
+#>
+
+            // Pipelines
+
+            this.AddPipelines(services, hostConfiguration);
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DataProtection))
+    {
+
+#>
+
+            // Data protection
+            // NOTE: Must be after blob storage
+
+            this.AddDataProtection(services, hostConfiguration);
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.IsolatedStorage))
+    {
+
+#>
+
+            // Isolated storage
+
+            this.AddIsolatedStorage(services, hostConfiguration);
+<#+
+
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.SecretsStorage))
+    {
+
+#>
+
+            // Secrets Storage
+
+            this.AddSecretsStorage(services, hostConfiguration);
+<#+
+
+    }
+}
+
+// *** WriteAddAdditionalServices
+
+public void WriteAddAdditionalServices(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Add HttpClient
+
+            services
+                .AddHttpClient();
+<#+
+
+}
+
+// *** WriteAddOpenApiDocumentation
+
+public void WriteAddOpenApiDocumentation(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Default version
+
+            services.AddOpenApiDocument(
+                (options) =>
+                {
+                    options.DocumentName = "<#= sourceModel.Version #>";
+                    options.Title = "<#= sourceModel.Product #> <#= sourceModel.DisplayName #> (<#= sourceModel.GUID #>) Web API";
+                    options.Description = "<#= sourceModel.Summary #>";
+                    options.Version = "<#= sourceModel.Version #>";
+                    
+                    options.ApiGroupNames = new string[] { "<#= sourceModel.Version #>" };
+
+                    options.FlattenInheritanceHierarchy = true;
+                    options.IgnoreObsoleteProperties = true;
+
+                    options.SchemaGenerator = new NoTitleFromDisplayNameOpenApiSchemaGenerator(
+                        options.SchemaGenerator.Settings);
+                });
+<#+
+
+    foreach (ApiVersion apiVersion in sourceModel.ApiVersions.OrderBy(a => a.Version))
+    {
+
+#>
+
+            // Version <#= apiVersion.Version #>
+
+            services.AddOpenApiDocument(
+                (options) =>
+                {
+                    options.DocumentName = "<#= apiVersion.Version #>";
+                    options.Title = "<#= sourceModel.Product #> <#= sourceModel.DisplayName #> (<#= sourceModel.GUID #>) Web API";
+                    options.Description = "<#= sourceModel.Summary #>";
+                    options.Version = "<#= apiVersion.Version #>";
+                    
+                    options.ApiGroupNames = new string[] { "<#= apiVersion.Version #>" };
+
+                    options.FlattenInheritanceHierarchy = true;
+                    options.IgnoreObsoleteProperties = true;
+
+                    options.SchemaGenerator = new NoTitleFromDisplayNameOpenApiSchemaGenerator(
+                        options.SchemaGenerator.Settings);
+                });
+<#+
+
+    }
+
+}
+
+// *** WriteAddTelemetry
+
+public void WriteAddTelemetry(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Add Azure Insights telemetry
+
+            services
+                .AddAzureInsightsTelemetryClient()
+                .AddAzureInsightsTelemetry();
+<#+
+
+}
+
+// *** WriteAddMvc
+
+public void WriteAddMvc(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // API controllers with views
+            
+            IMvcBuilder builder = services
+                .AddApiControllersWithViews(
+                    (options) =>
+                    {
+                        // API versioning
+
+                        options.UseVersioning = true;
+                        options.DefaultApiVersion = new ApiVersion(
+                            <#= sourceModel.Namespace #>.Models.Metadata.ApiVersions.Values.DefaultVersion.Major,
+                            <#= sourceModel.Namespace #>.Models.Metadata.ApiVersions.Values.DefaultVersion.Minor);
+
+                        options.ConfigureApiVersioningOptions = this.ConfigureApiVersioningOptions;
+                    });
+
+            // Custom configuration
+
+            this.ConfigureMvc(services, builder, hostConfiguration);
+<#+
+
+}
+
+// *** WriteAddAuthorization
+
+public void WriteAddAuthorization(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+
+#>
+            // Add authorization and authorization policies
+
+            services
+                .AddAuthorization(
+                    (options) =>
+                    {
+                        this.AddAuthorizationPolicies(options, hostConfiguration);
+                    });
+<#+
+
+    }
+}
+
+// *** WriteAddAuthorizationPolicies
+
+public void WriteAddAuthorizationPolicies(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+        foreach (AuthorizationScope scope in sourceModel.AuthorizationScopes.OrderBy(n => n.Name))
+        {
+
+#>
+            options.AddPolicy(
+                Constants.Policies.<#= scope.Name #>,
+                (policy) =>
+                {
+                    policy.AuthenticationSchemes = new List<string> 
+                    { 
+                        OidcConstants.AuthenticationSchemes.Bearer 
+                    };
+                    
+                    policy.RequireClaim(JwtClaimTypes.Scope, <#= sourceModel.Namespace #>.Models.Metadata.Scopes.<#= scope.Name #>);
+                });
+<#+
+
+        }
+
+#>
+            options.AddPolicy(
+                Constants.Policies.<#= sourceModel.Name #>,
+                (policy) =>
+                {
+                    policy.AuthenticationSchemes = new List<string> 
+                    { 
+                        OidcConstants.AuthenticationSchemes.Bearer 
+                    };
+
+                    policy.RequireClaim(JwtClaimTypes.Scope, <#= sourceModel.Namespace #>.Models.Metadata.Scopes.<#= sourceModel.Name #>);
+                });
+<#+
+
+    }
+}
+
+// *** WriteAddAuthentication
+
+public void WriteAddAuthentication(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // Add authentication
+
+            AuthenticationBuilder builder = services
+                .AddAuthentication(OidcConstants.AuthenticationSchemes.Bearer);
+
+            // Add JWT bearer
+
+            this.AddJwtBearer(services, builder, hostConfiguration);
+<#+
+
+}
+
+// *** WriteAddJwtBearer
+
+public void WriteAddJwtBearer(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => builder, builder);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Add
+
+            builder
+                .AddJwtBearer(
+                    (options) =>
+                    {
+                        // Standard configuration
+
+                        options.Authority = hostConfiguration.IdentityServerBaseUri?.Trim();
+                        options.Audience = Scopes.<#= sourceModel.Name #>;
+                        options.RequireHttpsMetadata = false;
+                        options.IncludeErrorDetails = true;
+                        options.RefreshOnIssuerKeyNotFound = true;
+                        options.SaveToken = true;
+                        options.Events = new HttpBearerChallengeEvents()
+                        {
+                            OnAuthenticationFailed = this.OnJwtBearerAuthenticationFailed,
+                            OnForbidden = this.OnJwtBearerForbidden,
+                            OnMessageReceived = this.OnJwtBearerMessageReceived,
+                            OnTokenValidated = this.OnJwtBearerTokenValidated,
+                            OnChallenge = this.OnJwtBearerChallenge
+                        };
+
+                        // Custom configuration
+
+                        this.ConfigureJwtBearerOptions(services, builder, options, hostConfiguration);
+                    });
+<#+
+
+}
+
+// *** WriteAddBackgroundServices
+
+public void WriteAddBackgroundServices(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+    if (!sourceModel.BackgroundServices.Any())
+    {
+        return;
+    }
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // Add queues
+
+<#+
+            List<string> workerNames = new List<string>();
+
+            foreach (QueueBackgroundService queueBackgroundService in sourceModel.BackgroundServices.OfType<QueueBackgroundService>().Where(b => b.UseWorker))
+            {
+                string workerName = queueBackgroundService.ReferencedBackgroundWorker != null ? queueBackgroundService.ReferencedBackgroundWorker.Name + "Worker" : "unknown";
+                if (!workerNames.Contains(workerName))
+                {
+                    workerNames.Add(workerName);
+                }
+            }
+
+            foreach (string workerName in workerNames.OrderBy(s => s))
+            {
+
+#>
+            services.AddSingleton<IBackgroundWorkQueue<<#= workerName #>>, BackgroundWorkQueue<<#= workerName #>>>();
+<#+
+
+            }
+
+#>
+
+            // Add background services
+
+<#+
+
+    foreach (BackgroundService backgroundService in sourceModel.BackgroundServices)
+    {
+        string workerName = backgroundService.ReferencedBackgroundWorker != null ? backgroundService.ReferencedBackgroundWorker.Name + "Worker" : "unknown";
+
+        TimedBackgroundService timedBackgroundService = backgroundService as TimedBackgroundService;
+        if (timedBackgroundService != null)
+        {
+            if (timedBackgroundService.UseWorker)
+            {
+
+#>
+            services.AddBackgroundServiceTimedWithWorker<<#= backgroundService.Name #>Service, <#= workerName #>>();
+<#+
+
+            }
+            else
+            {
+
+#>
+            services.AddBackgroundServiceTimed<<#= backgroundService.Name #>Service>();
+<#+
+
+            }
+
+            continue;
+        }
+
+        QueueBackgroundService queueBackgroundService = backgroundService as QueueBackgroundService;
+        if (queueBackgroundService != null)
+        {
+            if (queueBackgroundService.UseWorker)
+            {
+
+#>
+            services.AddBackgroundServiceQueuedWithWorker<<#= backgroundService.Name #>Service, <#= workerName #>>();
+<#+
+
+            }
+            else
+            {
+
+#>
+            services.AddBackgroundServiceQueued<<#= backgroundService.Name #>Service, object>();
+<#+
+
+            }
+
+            continue;
+        }
+
+        if (backgroundService.UseWorker)
+        {
+
+#>
+            services.AddBackgroundServiceWithWorker<<#= backgroundService.Name #>Service, <#= workerName #>>();
+<#+
+
+        }
+        else
+        {
+
+#>
+            services.AddBackgroundService<<#= backgroundService.Name #>Service>();
+<#+
+
+        }
+    }
+
+}
+
+// *** WriteUseErrorHandling
+
+public void WriteUseErrorHandling(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating error handling...");
+
+            // Error route
+
+            string errorRoute = Constants.Controllers.Home.Routes.Error;
+
+            // Middleware to process unhandled exceptions
+
+            // NOTE:
+            // When in development all exceptions' details will be sent to the client: 
+            // ... In the browser when on MVC routes.
+            // ... In the response body when on API routes.
+            // Exceptions on MVC routes will be processed by the exception handler bellow
+            // to "redirect" the user to the error route to show him a friendly error view.
+            // Content routes and API routes are not handled at all here.
+            // The Telemetry middleware (added elsewhere) ensures that all unhandled
+            // exceptions are collected.
+
+            bool useDevelopmentSettings = this.UseDevelopmentSettings || this.CurrentEnvironment.IsDevelopment();
+
+            if (useDevelopmentSettings)
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseWhen(
+                    context =>
+                    {
+                        return context.Request.PathIsNotApi() && context.Request.PathIsNotContent();
+                    },
+                    builder =>
+                    {
+                        builder.UseExceptionHandler(errorRoute);
+                    });
+            }
+
+            // Middleware to process status code errors
+            
+            // NOTE:
+            // All other status code errors (e.g 404) (not 500) are handled by this middleware to
+            // "redirect" the user to the same friendly error view.
+            // Content routes and API routes are not handled at all here because we do not want
+            // to return HTML when these errors occur.
+
+            app.UseWhen(
+                (context) =>
+                {
+                    return context.Request.PathIsNotApi() && context.Request.PathIsNotContent();
+                },
+                builder =>
+                {
+                    builder.UseStatusCodePagesWithReExecute(errorRoute, "?statusCode={0}");
+                });
+<#+
+
+}
+
+// *** WriteUseHttps
+
+public void WriteUseHttps(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating HTTPS...");
+
+            // Not for development...
+
+            bool useDevelopmentSettings = this.UseDevelopmentSettings || this.CurrentEnvironment.IsDevelopment();
+
+            if (!useDevelopmentSettings)
+            {
+                // HSTS
+
+                app.UseHsts();
+            }
+
+            // HTTPS redirection
+
+            app.UseHttpsRedirection();
+<#+
+
+}
+
+// *** WriteUseAuthentication
+
+public void WriteUseAuthentication(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating authentication...");
+
+            // Add middleware
+
+            app.UseAuthentication();
+<#+
+
+}
+
+// *** WriteUseAuthorization
+
+public void WriteUseAuthorization(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating authorization...");
+
+            // Add middleware
+
+            app.UseAuthorization();
+<#+
+
+}
+
+// *** WriteUseRouting
+
+public void WriteUseRouting(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating routing...");
+
+            // Add middleware
+
+            app.UseRouting();
+<#+
+
+}
+
+// *** WriteUseEndpoints
+
+public void WriteUseEndpoints(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating endpoint routing...");
+
+            // Add middleware
+
+            app.UseEndpoints(endpoints =>
+            {
+                // Map default controller route
+
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
+                // On Development environment
+
+                if (this.CurrentEnvironment.IsDevelopment())
+                {
+                    // Map route analyzer
+
+                    endpoints.MapRouteAnalyzer();
+
+                    // Map configuration analyzer
+
+                    endpoints.MapConfigurationAnalyzer();
+                }
+            });
+<#+
+
+}
+
+// *** WriteUseOpenApiDocumentation
+
+public void WriteUseOpenApiDocumentation(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Ignore Spelling: favicon
+            // Ignore Spelling: img
+
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating OpenAPI documentation...");
+
+            // Add middleware to generate the schema
+
+            app.UseOpenApi(
+                (options) =>
+                {
+                    options.Path = Constants.Documentation.WebApiDocumentsRoute;
+                });
+
+            // Add middleware to customize the UI
+
+            app.UseWhen(
+                context =>
+                {
+                    return context.Request.PathIsWebApiDocumentationCustomization();
+                },
+                builder =>
+                {
+                    builder.UseFileServer(
+                        new FileServerOptions()
+                        {
+                            FileProvider = new EmbeddedFileProvider(typeof(StartupBase).Assembly, "<#= sourceModel.Namespace #>.WebApi.GeneratedCode")
+                        });
+                });
+
+            app.UseWhen(
+                context =>
+                {
+                    return context.Request.PathIsWebApiDocumentation();
+                },
+                builder =>
+                {
+                    builder.Use(
+                        async (context, next) =>
+                        {
+                            if (context.Request.Path.StartsWithSegments(Constants.Documentation.WebApiBaseRoute + "/favicon-32x32.png") || context.Request.Path.StartsWithSegments(Constants.Documentation.WebApiBaseRoute + "/favicon-16x16.png"))
+                            {
+                                context.Response.Redirect("/img/favicon.png");
+                                return;
+                            }
+
+                            await next.Invoke().ConfigureAwait(false);
+                        });
+                });
+
+            // Add middleware to build the UI
+
+            app.UseSwaggerUi3(
+                (options) =>
+                {
+                    options.Path = Constants.Documentation.WebApiBaseRoute;
+                    options.DocumentPath = Constants.Documentation.WebApiDocumentsRoute;
+                    options.DocExpansion = "list";
+                    options.EnableTryItOut = false;
+                    options.CustomJavaScriptPath = Constants.Documentation.WebApiJavaScriptPath;
+                    options.CustomStylesheetPath = Constants.Documentation.WebApiStyleSheetPath;
+                });
+<#+
+
+}
+
+// *** WriteUseStaticFiles
+
+public void WriteUseStaticFiles(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating static files...");
+
+            // Add middleware
+
+            app.UseStaticFiles();
+<#+
+
+}
+
+// *** WriteUseRequestLocalization
+
+public void WriteUseRequestLocalization(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating request localization...");
+
+            // Options
+
+            RequestLocalizationOptions options = new RequestLocalizationOptions()
+            {
+                DefaultRequestCulture = new RequestCulture(Constants.Localization.DefaultCulture),
+                SupportedCultures = Constants.Localization.SupportedCulturesExtended,
+                SupportedUICultures = Constants.Localization.SupportedCulturesExtended
+            };
+
+            // Add middleware
+
+            app.UseRequestLocalization(options);
+<#+
+
+}
+
+// *** WriteOnJwtBearerAuthenticationFailed
+
+public void WriteOnJwtBearerAuthenticationFailed(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Get exception
+
+            Exception exception = context?.Exception;
+
+            // Get access token used
+
+            string accessToken = context?.Request?.Headers?["Authorization"];
+
+            // Logging
+
+            if (exception != null)
+            {
+                this.Logger.LogWarning(exception, $"Bearer authentication failed. See exception for more info on the cause. Access token used follows...");
+            }
+            else
+            {
+                this.Logger.LogWarning($"Bearer authentication failed. No exception was raised. Access token used follows...");
+            }
+
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                this.Logger.LogWarning($"Access token was '{accessToken}'.");
+            }
+
+            // Done
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnJwtBearerForbidden
+
+public void WriteOnJwtBearerForbidden(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Done
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnJwtBearerMessageReceived
+
+public void WriteOnJwtBearerMessageReceived(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Done
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnJwtBearerTokenValidated
+
+public void WriteOnJwtBearerTokenValidated(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Get access token used
+
+            string accessToken = context?.Request?.Headers?["Authorization"];
+
+            // Logging
+
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                this.Logger.LogInformation($"Bearer authentication succeeded. Access token used follows...");
+                this.Logger.LogInformation($"Access token was '{accessToken}'.");
+            }
+
+            // Done
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnJwtBearerChallenge
+
+public void WriteOnJwtBearerChallenge(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Done
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteConfigureApiVersioningOptions
+
+public void WriteConfigureApiVersioningOptions(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Default API version
+
+            ApiVersion defaultVersion = new ApiVersion(
+                <#= sourceModel.Namespace #>.Models.Metadata.ApiVersions.Values.DefaultVersion.Major,
+                <#= sourceModel.Namespace #>.Models.Metadata.ApiVersions.Values.DefaultVersion.Minor);
+<#+
+
+    foreach (ApiVersion apiVersion in sourceModel.ApiVersions.OrderBy(a => a.NameProvider))
+    {
+
+#>
+            ApiVersion <#= apiVersion.NameProvider.Transform().ToCamelCase() #>Version = new ApiVersion(
+                ApiVersions.Values.<#= apiVersion.NameProvider #>.Major,
+                ApiVersions.Values.<#= apiVersion.NameProvider #>.Minor);
+<#+
+
+    }
+
+#>
+
+            // Monitoring
+
+            options.Conventions.Controller<MonitoringController>().AdvertisesApiVersion(defaultVersion);
+            options.Conventions.Controller<MonitoringController>().HasApiVersion(defaultVersion);
+<#+
+
+    foreach (ApiVersion apiVersion in sourceModel.ApiVersions.OrderBy(a => a.NameProvider))
+    {
+
+#>
+            options.Conventions.Controller<MonitoringController>().HasApiVersion(<#= apiVersion.NameProvider.Transform().ToCamelCase() #>Version);
+<#+
+
+    }
+
+    foreach (ControllerType controllerType in sourceModel.Controllers.OrderBy(c => c.Name))
+    {
+
+#>
+
+            // <#= controllerType.Name #>
+
+            options.Conventions.Controller<<#= controllerType.Name #>Controller>().AdvertisesApiVersion(defaultVersion);
+            options.Conventions.Controller<<#= controllerType.Name #>Controller>().HasApiVersion(defaultVersion);
+<#+
+
+        foreach (ApiVersion apiVersion in sourceModel.ApiVersions.OrderBy(a => a.NameProvider))
+        {
+
+#>
+            options.Conventions.Controller<<#= controllerType.Name #>Controller>().HasApiVersion(<#= apiVersion.NameProvider.Transform().ToCamelCase() #>Version);
+<#+
+
+        }
+
+    }
+
+}
+
+// *** WriteAddClientLibraryDocumentation
+
+public void WriteAddClientLibraryDocumentation(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Add markdown
+
+            services.AddMarkdown();
+<#+
+
+}
+
+// *** WriteUseClientLibraryDocumentation
+
+public void WriteUseClientLibraryDocumentation(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Configure middleware
+
+            app.UseMarkdown();
+<#+
+
+}
+
+// *** WriteAddCookiePolicy
+
+public void WriteAddCookiePolicy(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Add cookie policy
+
+            services
+                .Configure<CookiePolicyOptions>(
+                    (options) =>
+                    {
+                        options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
+
+                        options.OnAppendCookie = 
+                            cookieContext => this.CheckCookiesSameSite(cookieContext.Context, cookieContext.CookieOptions, true);
+                        options.OnDeleteCookie =
+                            cookieContext => this.CheckCookiesSameSite(cookieContext.Context, cookieContext.CookieOptions, false);
+                    });
+<#+
+
+}
+
+// *** WriteUseCookiePolicy
+
+public void WriteUseCookiePolicy(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => app, app);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Logging
+
+            this.Logger.LogDebug($"Activating cookie policy...");
+
+            // Add middleware
+
+            app.UseCookiePolicy();
+<#+
+
+}
+
+// *** WriteCheckCookiesSameSite
+
+public void WriteCheckCookiesSameSite(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => httpContext, httpContext);
+            SmartGuard.NotNull(() => options, options);
+
+            // Cookie settings
+
+            string domain = options.Domain;
+            string path = options.Path;
+            SameSiteMode sameSiteMode = options.SameSite;
+            bool secure = options.Secure;
+
+            // Logging
+
+            this.Logger?.LogDebug($"Checking cookie same site mode (domain = {domain}, path = {path}, mode = {sameSiteMode}, secure = {secure}, append = {appending})...");
+
+            // Mode is none?
+
+            if (sameSiteMode == SameSiteMode.None)
+            {
+                // Analyze user agent
+
+                string userAgent = httpContext.Request?.Headers["User-Agent"].ToString();
+
+                // User agent does not allow same site none?
+
+                if (this.DisallowsCookiesSameSiteNone(userAgent))
+                {
+                    // Logging
+
+                    this.Logger?.LogDebug($"Cookie same site mode set to unspecified because user agent does not support none.");
+
+                    // Change to unspecified
+
+                    options.SameSite = SameSiteMode.Unspecified;
+                }
+            }
+<#+
+
+}
+
+// *** WriteDisallowsCookiesSameSiteNone
+
+public void WriteDisallowsCookiesSameSiteNone(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // User agent defined?
+
+            if (string.IsNullOrEmpty(userAgent))
+            {
+                return false;
+            }
+
+            // All iOS based browsers
+
+            if (userAgent.Contains("CPU iPhone OS 12") || userAgent.Contains("iPad; CPU OS 12"))
+            {
+                return true;
+            }
+
+            // Mac OS X based browsers that use the Mac OS networking stack
+
+            if (userAgent.Contains("Safari") && userAgent.Contains("Macintosh; Intel Mac OS X 10_14") && userAgent.Contains("Version/"))
+            {
+                return true;
+            }
+
+            // Chrome 50-69
+
+            if (userAgent.Contains("Chrome/5") || userAgent.Contains("Chrome/6"))
+            {
+                return true;
+            }
+
+            // All others
+
+            return false;
+<#+
+
+}
+
+#>

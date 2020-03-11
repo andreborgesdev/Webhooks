@@ -1,0 +1,124 @@
+﻿<#+
+
+public void WriteHomeView(ModelWriter modelWriter, ServiceModel model)
+{
+    if (model == null)
+    {
+        return;
+    }
+
+#>
+@using Microsoft.Extensions.DependencyInjection
+@using <#= model.Namespace #>.WebApi
+@using <#= model.Namespace #>.WebApi.Configuration
+@using <#= model.Namespace #>.WebApi.Controllers
+@{
+    // Layout
+
+    this.Layout = null;
+
+    // Configuration
+
+    HostConfiguration configuration = this.Context.RequestServices.GetRequiredService<HostConfiguration>();
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="msapplication-TileImage" content="~/img/favicon.png" />
+    <link rel="icon" href="/img/favicon.png" sizes="64x64" />
+    <link rel="apple-touch-icon-precomposed" href="/img/favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <title>@configuration.Information.HostTitle</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        html {
+            display: table;
+        }
+        body {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #1e1e1e;
+            margin: 50px;
+            background-color: white;
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
+        }
+        h1 {
+            color: #135CAB;
+            font-size: 36px;
+            margin-bottom: 100px;
+            font-weight: 600;
+        }
+        .links-docs {
+            width: 100%;
+            margin-top: 100px;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 150%;
+        }
+        .info-content {
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            width: 100%;
+            margin-top: 30px;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 150%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>
+        @configuration.Information.HostTitle
+    </h1>
+    <div>
+        @Html.Raw(ViewsResources.RES_NoFeaturesForWebBrowsers)
+    </div>
+    <div class="links-docs">
+<#+
+
+    if (model.GenerateClientLibrary)
+    {
+
+#>
+        <a href="@Constants.Documentation.ClientLibBaseRoute" target="_blank">@ViewsResources.RES_ClientLibraryDocumentation</a> |  <a href="@Constants.Documentation.WebApiBaseRoute" target="_blank">@ViewsResources.RES_WebApiDocumentation</a>
+<#+
+
+    }
+    else
+    {
+
+#>
+        <a href="@Constants.Documentation.WebApiBaseRoute" target="_blank">@ViewsResources.RES_WebApiDocumentation</a>
+<#+
+
+    }
+
+#>
+    </div>
+    <div class="info-content">
+        <span>@Html.Raw(configuration.Information.Company)</span>
+        <span>@Html.Raw(configuration.Information.Copyright)</span>
+        <span>@Html.Raw(configuration.Information.Version)</span>
+        <span>@Html.Raw(configuration.Information.InformationalVersion)</span>
+    </div>
+</body>
+
+</html>
+<#+
+
+}
+
+#>

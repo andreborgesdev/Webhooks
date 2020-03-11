@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.DesignTime.UnitTesting</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler">
+            <summary>
+            Defines a <see cref="T:System.Net.Http.HttpMessageHandler"/> that allows mocking responses from a server.
+            </summary>
+            <seealso cref="T:System.Net.Http.HttpMessageHandler" />
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler.RequestBody">
+            <summary>
+            Gets the request body.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler.Throw(System.Exception)">
+            <summary>
+            Creates a new instance of <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> that raises the specified
+            exception.
+            </summary>
+            <param name="exception">The exception that should be raised.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler.ReturnError(System.Net.HttpStatusCode,System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> that returns the specified error
+            status code.
+            </summary>
+            <param name="statusCode">The status code that should be returned.</param>
+            <param name="reason">The reason associated with the status code.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler.ReturnContents(System.Net.HttpStatusCode,System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> that returns the specified status
+            code and contents in the response.
+            </summary>
+            <param name="statusCode">The status code that should be returned.</param>
+            <param name="contents">The contents that should be returned in the response.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler.ReturnContents(System.Net.HttpStatusCode,System.Func{System.Net.Http.HttpRequestMessage,System.String})">
+            <summary>
+            Creates a new instance of <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> that returns the specified status
+            code and contents provided by the specified contents selector.
+            </summary>
+            <param name="statusCode">The status code that should be returned.</param>
+            <param name="contentsSelector">The contents selector that should be used to set the response contents.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler.ReturnContents(System.Func{System.Net.Http.HttpRequestMessage,System.Net.HttpStatusCode},System.Func{System.Net.Http.HttpRequestMessage,System.String})">
+            <summary>
+            Creates a new instance of <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> that returns the specified status
+            code and contents provided by the specified contents selector.
+            </summary>
+            <param name="statusCodeSelector">The status code selector that should be used to set the response status code.</param>
+            <param name="contentsSelector">The contents selector that should be used to set the response contents.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Mocks.Http.MockHttpMessageHandler.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Services.DependencyInjectionService">
+            <summary>
+            Defines a service that allows manipulating dependency injection in tests.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.DependencyInjectionService.BuildServiceCollection">
+            <summary>
+            Builds a service collection with default testing services.
+            </summary>
+            <returns>The service collection instance.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Services.EmbeddedResourcesService">
+            <summary>
+            Defines a service that allows manipulating embedded resources in tests.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.EmbeddedResourcesService.ReadText``1(System.String)">
+            <summary>
+            Gets the contents of the specified embedded resource file as text.
+            </summary>
+            <typeparam name="T">
+            The type of the class that calls this method.
+            This is required to find the embedded resource.
+            </typeparam>
+            <param name="path">The path to the embedded resource file in the assembly that contains <typeparamref name="T"/>.</param>
+            <returns>
+            The contents of the specified embedded resource file.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.EmbeddedResourcesService.ReadBytes``1(System.String)">
+            <summary>
+            Gets the contents of the specified embedded resource file as bytes.
+            </summary>
+            <typeparam name="T">
+            The type of the class that calls this method.
+            This is required to find the embedded resource.
+            </typeparam>
+            <param name="path">The path to the embedded resource file in the assembly that contains <typeparamref name="T"/>.</param>
+            <returns>
+            The contents of the specified embedded resource file.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Services.FilesService">
+            <summary>
+            Defines a service that allows manipulating files in tests.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.FilesService.ReadFileAs``1(System.String)">
+            <summary>
+            Reads and deserializes the JSON file into the specified type.
+            </summary>
+            <typeparam name="T">The deserialization type.</typeparam>
+            <param name="fileName">The file name.</param>
+            <returns>The JSON file as <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.FilesService.ReadFileAsText(System.String)">
+            <summary>
+            Reads the file as text.
+            </summary>
+            <param name="fileName">The file name.</param>
+            <returns>The file content as text.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Services.LoggingService">
+            <summary>
+            Defines a service that allows manipulating logging in tests.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.LoggingService.BuildNullLogger``1">
+            <summary>
+            Builds a null logger of specified type.
+            </summary>
+            <typeparam name="T">The type of the logger.</typeparam>
+            <returns>The instance of.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Services.LoggingServiceCollectionExtensions">
+            <summary>
+            Defines extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type
+            that allow manipulating logging in tests.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.LoggingServiceCollectionExtensions.AddNullLogger``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the logger to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <typeparam name="T">The type of the logger.</typeparam>
+            <param name="services">The services collection.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.LoggingServiceCollectionExtensions.AddTestLogging(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the test logging to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">The services collection.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Services.MocksService">
+            <summary>
+            Defines a service that allows creating mock objects.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.MocksService.BuildMockObjectOf``1">
+            <summary>
+            Builds a mock object of the specified type.
+            </summary>
+            <typeparam name="T">The type of mock.</typeparam>
+            <returns>The mock object.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.MocksService.BuildMockOf``1">
+            <summary>
+            Builds a mock handler for the specified type.
+            </summary>
+            <typeparam name="T">The type of mock.</typeparam>
+            <returns>The mock handler.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Services.MocksServiceCollectionExtensions">
+            <summary>
+            Defines extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type
+            that allow creating mock objects.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.MocksServiceCollectionExtensions.AddMockObjectOf``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the mock object of type to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <typeparam name="T">The type of the mock.</typeparam>
+            <param name="services">The services collection.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.MocksServiceCollectionExtensions.AddMockOf``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the mock of type to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <typeparam name="T">The type of the mock.</typeparam>
+            <param name="services">The services collection.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Services.TestService">
+            <summary>
+            Provides a common test service for all unit tests.
+            </summary>
+            <remarks>
+            This class provides, for instance, the most required service builders.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.TestService.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Services.TestService"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Services.TestService.BuildServiceCollection">
+            <summary>
+            Builds a service collection with default testing services.
+            </summary>
+            <returns>The service collection object.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.CultureSpecificTestClass">
+            <summary>
+            Defines a base class for xUnit test classes that ensures that all tests
+            run with a specific culture. This base class defines a test context that
+            will be initialized for every test method in the text class.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.CultureSpecificTestClass.SpecificCulture">
+            <summary>
+            Gets the specific culture used by the test class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.CultureSpecificTestClass.#ctor(System.Globalization.CultureInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.CultureSpecificTestClass"/> class.
+            </summary>
+            <param name="culture">The specific culture that should be used by the test class.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.CultureSpecificTestClass.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.CultureSpecificTestClass.SetSpecificCulture">
+            <summary>
+            Sets the specific culture.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.CultureSpecificTestClass.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>True</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.EnglishCultureTestClass">
+            <summary>
+            Defines a base class for xUnit test classes that ensures that all tests
+            run with the en-US culture. This base class defines a test context that
+            will be initialized for every test method in the text class.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.CultureSpecificTestClass" />
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.EnglishCultureTestClass.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.EnglishCultureTestClass"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.FactDebugOnlyAttribute">
+            <summary>
+            Defines an extension to <see cref="T:Xunit.FactAttribute"/> that allows
+            enabling tests only in debug builds.
+            </summary>
+            <seealso cref="T:Xunit.FactAttribute" />
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.FactDebugOnlyAttribute.DebugOnly">
+            <summary>
+            Gets a value indicating whether the test should be executed only in debug builds.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.FactDebugOnlyAttribute.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.DesignTime.UnitTesting.Xunit.FactDebugOnlyAttribute" /> class.
+            </summary>
+            <param name="debugOnly">A value indicating whether the test should be executed only in debug builds.</param>
+        </member>
+    </members>
+</doc>

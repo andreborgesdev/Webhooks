@@ -1,0 +1,548 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.EventBus.InMemory</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1">
+            <summary>
+            Defines the interface of an event bus channel.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1.ReadAsync(System.String,System.Func{System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{`0},System.Threading.Tasks.ValueTask})">
+            <summary>
+            Asynchronously reads an <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> from the channel.
+            </summary>
+            <param name="key">The subscription key.</param>
+            <param name="receiver">The handler used to receive and process the event.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1.WriteAsync(Primavera.Hydrogen.EventBus.IEventBusEvent{`0})">
+            <summary>
+            Asynchronously writes an <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> to the channel.
+            </summary>
+            <param name="eventBusEvent">The event bus service event.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/> that represents the operation.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannelManager">
+            <summary>
+            Defines the interface of an event bus channel manager.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannelManager.CreateAsync``1(System.String,System.Func{System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0},System.Threading.Tasks.ValueTask},Primavera.Hydrogen.EventBus.InMemory.IEventBusEventStore)">
+            <summary>
+            Asynchronously creates an <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="key">The subscription key.</param>
+            <param name="receiver">The handler used to receive and process the event.</param>
+            <param name="eventStore">The event store of unprocessed events.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannelManager.GetChannel``1(System.String)">
+            <summary>
+            Gets an instance of <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/> from channels collection.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="key">The subscription key.</param>
+            <returns>The instance of <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannelManager.GetChannels``1">
+            <summary>
+            Gets a collection of all <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <returns>A collection of <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannelManager.RemoveChannel``1(System.String,System.Boolean)">
+            <summary>
+            Removes the specified channel from the channels collection.
+            </summary>
+            <typeparam name="T">
+            The event bus service event type to be removed from the channels collection.
+            </typeparam>
+            <param name="key">The subscription key.</param>
+            <param name="hasFilters">
+            A boolean indicating whether filters were provided for this subscription.
+            </param>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusEventStore">
+            <summary>
+            Defines the interface of an event bus event store that will store events for later processing.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusEventStore.AddEventToStore``1(Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Adds the specified <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> to the store.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="eventBusEvent">The event bus event.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusEventStore.AddEventToStore``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Adds the specified <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> to the store.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventBusEvent">The event bus event.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusEventStore.GetEventsFromStore``1(System.String)">
+            <summary>
+            Gets a queue of unprocessed events from the store.
+            </summary>
+            <param name="path">The event bus service path.</param>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <returns>A queue of unprocessed events.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusSubscriptionManager">
+            <summary>
+            Defines the interface of an event bus subscription manager.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusSubscriptionManager.AddSubscription``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0},System.Boolean)">
+            <summary>
+            Adds the specifed subscription to the subscription collection.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="key">The subscription key.</param>
+            <param name="eventBusEventHandler">The event bus event handler.</param>
+            <param name="hasFilters">
+            A boolean indicating whether filters were provided for this subscription.
+            </param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusSubscriptionManager.GetHandlerForEvent(System.String)">
+            <summary>
+            Gets the corresponding handler for the specified event from the subscription collection.
+            </summary>
+            <param name="key">The subscription key.</param>
+            <returns>An object representing the Event Bus event handler for the specified event.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.IEventBusSubscriptionManager.RemoveSubscription``1(System.String,System.Boolean)">
+            <summary>
+            Removes the specified subscription from the subscription collection.
+            </summary>
+            <typeparam name="T">
+            The event bus service event type to be removed from the subscriptions collection.
+            </typeparam>
+            <param name="key">The subscription key.</param>
+            <param name="hasFilters">
+            A boolean indicating whether filters were provided for this subscription.
+            </param>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEvent`1">
+            <summary>
+            Defines an implementation of the <see cref="T:Primavera.Hydrogen.EventBus.EventBusEventBase`1"/>..
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.EventBus.EventBusEventBase`1"/>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEvent`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEvent`1"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventFilters`1">
+            <summary>
+            Defines an in-memory implementation of <see cref="T:Primavera.Hydrogen.EventBus.EventBusEventFiltersBase`1"/>.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.EventBus.EventBusEventFiltersBase`1"/>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventFilters`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventFilters`1"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus">
+            <summary>
+            Defines an in-memory implementation of a disposable <see cref="T:Primavera.Hydrogen.EventBus.EventBusBase"/> service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.ChannelManager">
+            <summary>
+            Gets or sets the channels manager.
+            </summary>
+            <value>The channels manager.</value>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.EventStore">
+            <summary>
+            Gets or sets the event store.
+            </summary>
+            <value>The event store.</value>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.SubscriptionManager">
+            <summary>
+            Gets or sets the subscription manager.
+            </summary>
+            <value>The subscription manager.</value>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.Publish``1(Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Publishes the specified <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> as a
+            broadcast to all the paths of an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to be published.</typeparam>
+            <param name="eventBusEvent">The event bus service event.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.Publish``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Publishes the specified <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> as a
+            unicast to the specified path of an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to be published.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventBusEvent">The event bus service event.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.PublishAsync``1(Primavera.Hydrogen.EventBus.IEventBusEvent{``0},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously publishes the specified <see
+            cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> as a broadcast to all the paths
+            of an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to be published.</typeparam>
+            <param name="eventBusEvent">The event bus service event.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.PublishAsync``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously publishes the specified <see
+            cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> as a unicast to the specified
+            path of an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to be published.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventBusEvent">The event bus service event.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.Subscribe``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0})">
+            <summary>
+            Subscribes to the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to subscribed.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.Subscribe``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0},Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Subscribes to the specified path in an event bus service instance. The subscription is
+            constrained by the specified filters.
+            </summary>
+            <typeparam name="T">The event bus service event type to subscribed.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+            <param name="eventFilters">The event bus service event filters to subscribe.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.SubscribeAsync``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0})">
+            <summary>
+            Asynchronously subscribes to the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to subscribe.</typeparam>
+            <param name="path">The event bus service path to subscribe.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.SubscribeAsync``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0},Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Asynchronously subscribes to the specified path in an event bus service instance. The
+            subscription is constrained by the specified filters.
+            </summary>
+            <typeparam name="T">The event bus service event type to subscribe.</typeparam>
+            <param name="path">The event bus service path to subscribe.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+            <param name="eventFilters">The event bus service event filters to subscribe.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.Unsubscribe``1(System.String)">
+            <summary>
+            Unsubscribes from the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to unsubscribe.</typeparam>
+            <param name="path">The event bus service path to unsubscribe.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.Unsubscribe``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Unsubscribes from the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to unsubscribe.</typeparam>
+            <param name="path">The event bus service path to unsubscribe.</param>
+            <param name="eventFilters">The event bus event filters to unsubscribe.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.UnsubscribeAsync``1(System.String)">
+            <summary>
+            Asynchronously unsubscribes from the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to unsubscribe.</typeparam>
+            <param name="path">The event bus service path to unsubscribe.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.UnsubscribeAsync``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Asynchronously unsubscribes from the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to unsubscribe.</typeparam>
+            <param name="path">The event bus service path to unsubscribe.</param>
+            <param name="eventFilters">The event bus event filters to unsubscribe.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.ProcessEventAsync``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Handles received events and process them.
+            </summary>
+            <param name="path">The event bus service path.</param>
+            <param name="eventBusEvent">The event bus event.</param>
+            <returns><see cref="T:System.Threading.Tasks.ValueTask"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBus.UnsubscribeAsync``1(System.String,System.String,System.Boolean)">
+            <summary>
+            Asynchronously unsubscribes from an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to be unsubscribed.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="subscriptionIdentifier">The subscription identifier.</param>
+            <param name="hasFilters">
+            A boolean indicating whether filters were provided for this subscription.
+            </param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_SubscriptionAlreadyExists">
+            <summary>
+              Looks up a localized string similar to A subscription for the event type &apos;{0}&apos; in the specified path already exists..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_SubscriptionNotFound">
+            <summary>
+              Looks up a localized string similar to A subscription for the event type &apos;{0}&apos; in the specified path was not found..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_SubscriptionWithFiltersAlreadyExists">
+            <summary>
+              Looks up a localized string similar to A subscription for the event type &apos;{0}&apos; with the provided filters and path already exists..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_SubscriptionWithFiltersNotFound">
+            <summary>
+              Looks up a localized string similar to A subscription for the event type &apos;{0}&apos; with the provided filters and path was not found..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_UnableToGenerateStoreHash">
+            <summary>
+              Looks up a localized string similar to Unable to generate store hash for event type &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_UnableToRemoveChannel">
+            <summary>
+              Looks up a localized string similar to Unable to remove the specified channel..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_UnableToRemoveSubscription">
+            <summary>
+              Looks up a localized string similar to Unable to remove the specified subscription..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_UnexpectedErrorWhilePublishing">
+            <summary>
+              Looks up a localized string similar to An unexpected error has occurred while publishing event type &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_UnexpectedErrorWhileSubscribing">
+            <summary>
+              Looks up a localized string similar to An unexpected error has occurred while subscribing event type &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.Properties.Resources.RES_Exception_InMemoryEventBus_UnexpectedErrorWhileUnsubscribing">
+            <summary>
+              Looks up a localized string similar to An unexpected error has occurred while unsubscribing event type &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventStore">
+            <summary>
+            Defines an in-memory implementation of an <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusEventStore"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventStore.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventStore"/> class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventStore.Store">
+            <summary>
+            Gets or sets the event store.
+            </summary>
+            <value>The event store.</value>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventStore.AddEventToStore``1(Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Adds the specified <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> to the store.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="eventBusEvent">The event bus event.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventStore.AddEventToStore``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Adds the specified <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> to the store.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventBusEvent">The event bus event.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusEventStore.GetEventsFromStore``1(System.String)">
+            <summary>
+            Gets a queue of unprocessed events from the store.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <returns>A queue of unprocessed events.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusSubscriptionManager">
+            <summary>
+            Provides an in-memory implementation of <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusSubscriptionManager"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusSubscriptionManager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusSubscriptionManager"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusSubscriptionManager.AddSubscription``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0},System.Boolean)">
+            <summary>
+            Adds the specifed subscription to the subscription collection.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="key">The subscription key.</param>
+            <param name="eventBusEventHandler">The event bus event handler.</param>
+            <param name="hasFilters">
+            A boolean indicating whether filters were provided for this subscription.
+            </param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusSubscriptionManager.GetHandlerForEvent(System.String)">
+            <summary>
+            Gets the corresponding handler for the specified event from the subscription collection.
+            </summary>
+            <param name="key">The subscription key.</param>
+            <returns>An object representing the Event Bus event handler for the specified event.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusSubscriptionManager.RemoveSubscription``1(System.String,System.Boolean)">
+            <summary>
+            Removes the specified subscription from the subscription collection.
+            </summary>
+            <typeparam name="T">
+            The event bus service event type to be removed from the subscriptions collection.
+            </typeparam>
+            <param name="key">The subscription key.</param>
+            <param name="hasFilters">
+            A boolean indicating whether filters were provided for this subscription.
+            </param>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusChannelManager">
+            <summary>
+            Defines an in-memory implementation of <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannelManager"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusChannelManager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusChannelManager"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusChannelManager.CreateAsync``1(System.String,System.Func{System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0},System.Threading.Tasks.ValueTask},Primavera.Hydrogen.EventBus.InMemory.IEventBusEventStore)">
+            <summary>
+            Asynchronously creates an <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="key">The subscription key.</param>
+            <param name="receiver">The handler used to receive and process the event.</param>
+            <param name="eventStore">The event store of unprocessed events.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusChannelManager.GetChannel``1(System.String)">
+            <summary>
+            Gets an instance of <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/> from channels collection.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="key">The subscription key.</param>
+            <returns>The instance of <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusChannelManager.GetChannels``1">
+            <summary>
+            Gets a collection of all <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <returns>A collection of <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusChannelManager.RemoveChannel``1(System.String,System.Boolean)">
+            <summary>
+            Removes the specified channel from the channels collection.
+            </summary>
+            <typeparam name="T">
+            The event bus service event type to be removed from the channels collection.
+            </typeparam>
+            <param name="key">The subscription key.</param>
+            <param name="hasFilters">
+            A boolean indicating whether filters were provided for this subscription.
+            </param>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusThreadChannel`1">
+            <summary>
+            Defines an in-memory implementation of <see cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.EventBus.InMemory.IEventBusChannel`1"/>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusThreadChannel`1.#ctor(System.Threading.Channels.Channel{Primavera.Hydrogen.EventBus.IEventBusEvent{`0}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusThreadChannel`1"/> class.
+            </summary>
+            <param name="channel">The channel used to read and write elements.</param>
+            <exception cref="T:System.ArgumentNullException">Raised when argument is null.</exception>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusThreadChannel`1.ReadAsync(System.String,System.Func{System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{`0},System.Threading.Tasks.ValueTask})">
+            <summary>
+            Asynchronously reads an <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> from the channel.
+            </summary>
+            <param name="key">The subscription key.</param>
+            <param name="receiver">The handler used to receive and process the event.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusThreadChannel`1.WriteAsync(Primavera.Hydrogen.EventBus.IEventBusEvent{`0})">
+            <summary>
+            Asynchronously writes an <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> to the channel.
+            </summary>
+            <param name="eventBusEvent">The event bus service event.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/> that represents the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.InMemory.InMemoryEventBusThreadChannel`1.WriteAsync(System.Collections.Concurrent.ConcurrentQueue{System.Object},System.Boolean)">
+            <summary>
+            Asynchronously writes multiple <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> to the channel.
+            </summary>
+            <param name="eventBusEvents">A queue of events.</param>
+            <param name="dequeueMode">
+            A boolean representing if this call should dequeue items instead of iterate them.
+            </param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/> that represents the operation.</returns>
+            <exception cref="T:System.ArgumentNullException">Raised when argument is null.</exception>
+        </member>
+    </members>
+</doc>

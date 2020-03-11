@@ -1,0 +1,128 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".gen.cs" #>
+<#@ ServiceDesigner processor="ServiceDesignerDirectiveProcessor" requires="FileName=''" #>
+<#
+
+// Build the transformations
+
+ServiceModelTransformations<CSharpFileModel> transformations = new ServiceModelTransformations<CSharpFileModel>(this.ServiceModel);
+
+transformations.Add(new RoutesTransformation());
+
+transformations.Add(
+    (s, t) => true,
+    (s, t) => { return s is ServiceModel; },
+    (s, t) =>
+    {
+        if (s is ServiceModel source)
+        {
+            if (!source.GenerateWebApi)
+            {
+                t.WithComment("This file is empty because the service model does not generate a Web API.");
+                return;
+            }
+
+            t
+                .WithNamespaceImport(new NamespaceImportModel("System"))
+                .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+                .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
+                .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
+                .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Routing"));
+
+            t.Namespace = new NamespaceModel(source.Namespace + ".Models.Metadata");
+
+            t.Namespace
+                .AddClass(new ClassModel("RoutesBase")
+                {
+                    Modifiers = ClassModifiers.Public | ClassModifiers.Abstract | ClassModifiers.Partial,
+                    Documentation = new DocumentationModel("Defines the base class for a class that defines constants that specify the routes used by the Web API actions.")
+                })
+                    .AddConstructor(new ConstructorModel()
+                    {
+                        Modifiers = ConstructorModifiers.Protected,
+                        Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"RoutesBase\"/> class.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                    .AddMethod(new MethodModel("Resolve", "Uri")
+                    {
+                        Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                        Documentation = new DocumentationModel("Returns the full URI to access the specified route when the service is hosted in a given base URI.")
+                        {
+                            Returns = "The full URI to access the specified route."
+                        }
+                    })
+                        .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                        {
+                            Documentation = new DocumentationModel("The base URI of the service.")
+                        })
+                        .WithParameter(new MethodParameterModel("route", "string")
+                        {
+                            Documentation = new DocumentationModel("The route (as defined in <see cref=\"Routes\" />).")
+                        })
+                        .WithParameter(new MethodParameterModel("properties", "IReadOnlyDictionary<string, object>")
+                        {
+                            Documentation = new DocumentationModel("The objects that should be formatted. The key of the dictionary specifies the property name.")
+                        });
+
+            t.Namespace
+                .AddClass(new ClassModel("Routes")
+                {
+                    Modifiers = ClassModifiers.Public | ClassModifiers.Sealed | ClassModifiers.Partial,
+                    Inheritance = "RoutesBase",
+                    Documentation = new DocumentationModel("Defines constants that specify the routes used by the Web API actions.")
+                })
+                    .AddConstructor(new ConstructorModel()
+                    {
+                        Modifiers = ConstructorModifiers.Private,
+                        Inheritance = "base()"
+                    })
+                    .ParentModelAs<ClassModel>()
+                    .AddField(new FieldModel("fieldInstance", "Routes")
+                    {
+                        Modifiers = FieldModifiers.Static
+                    })
+                    .ParentModelAs<ClassModel>()
+                    .AddProperty(new PropertyModel("Instance", "Routes")
+                    {
+                        Modifiers = PropertyModifiers.Public | PropertyModifiers.Static,
+                        Documentation = new DocumentationModel("Gets the instance"),
+                        GetAccessor = new PropertyGetAccessorModel()
+                    })
+                    .ParentModelAs<ClassModel>()
+                    .AddClass(new ClassModel("Monitoring")
+                    {
+                        Modifiers = ClassModifiers.Public | ClassModifiers.Static | ClassModifiers.Partial,
+                        Documentation = new DocumentationModel("Defines constants that specify the routes used by the Monitoring actions.")
+                    })
+                        .WithConstant(new ConstantModel("Probe", "string", "\"api/v{version:apiVersion}/monitoring/probe\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route for the action that probes the service. This action is used to perform dependencies tests on the service.")
+                        })
+                        .WithConstant(new ConstantModel("Diagnostics", "string", "\"api/v{version:apiVersion}/monitoring/diagnostics\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route for the action that diagnoses the service. This action is used to perform functional tests on the service.")
+                        });
+        }
+    });
+
+// Transform
+
+CSharpFileModel targetModel = new CSharpFileModel();
+transformations.TransformTo(targetModel);
+
+// Create controller
+
+ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+// Add writers
+
+controller.AddModelWriter<MethodBodyModel>(this.WriteResolve);
+controller.AddModelWriter<PropertyGetAccessorModel>(this.WriteGetInstance);
+
+// Generate code
+
+controller.Write(targetModel);
+
+#>

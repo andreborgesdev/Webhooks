@@ -1,0 +1,32 @@
+﻿<#+
+
+// *** WriteClientLibrary
+
+public void WriteClientLibrary(ModelWriter modelWriter, ServiceModel model)
+{
+    if (model == null)
+    {
+        return;
+    }
+
+    if (!model.GenerateClientLibrary)
+    {
+        this.WriteNoClientLibDocumentation();
+        return;
+    }
+
+    this.WriteClientLibraryDocumentation(modelWriter, model);
+}
+
+// *** WriteNoDocumentation
+
+public void WriteNoClientLibDocumentation()
+{
+
+#>
+*This service does not include a client library. Documentation is not available.*
+<#+
+
+}
+
+#>

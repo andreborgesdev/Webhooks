@@ -1,0 +1,16 @@
+﻿###################################################################################################
+# Lithium TFS Ignore Files List
+# Version 0.1, September 2019
+#
+# This file was imported by the Primavera.Hydrogen.DesignTime.Configuration package.
+# DO NOT EDIT MANUALLY!
+#
+# More info:
+# https://docs.microsoft.com/en-us/azure/devops/repos/tfvc/add-files-server
+###################################################################################################
+
+# Ignore .tfignore
+.tfignore
+
+# Ignore .editorconfig
+.editorconfig

@@ -1,0 +1,79 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    if (!sourceModel.GenerateClientLibrary)
+    {
+        targetModel.WithComment("This file is empty because the service model does not generate a client library.");
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Diagnostics.CodeAnalysis"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Mvc"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi.Controllers");
+
+    // Base class
+
+    ClassModel baseClass = targetModel.Namespace
+        .AddClass(new ClassModel("ClientLibDocumentationControllerBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Abstract,
+            Inheritance = "Controller",
+            Documentation = new DocumentationModel("Defines the base class for the controller that provides the client library documentation.")
+            {
+                Remarks = "This is the base class of the MVC controller."
+            }
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .WithConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base()",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"ClientLibDocumentationControllerBase\" /> class.")
+            })
+            .AddMethod(new MethodModel("Documentation", "Task<IActionResult>")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Executes the action that shows the client library documentation.")
+                {
+                    Returns = "The action result."
+                }
+            })
+                .WithAttribute(new AttributeModel("HttpGet(Constants.Documentation.ClientLibBaseRoute)"))
+                .WithAttribute(new AttributeModel("ActionName(Constants.Documentation.ClientLibActionName)"))
+                .ParentModelAs<ClassModel>();
+
+    // Class
+
+    targetModel.Namespace
+        .AddClass(new ClassModel("ClientLibDocumentationController")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "ClientLibDocumentationControllerBase",
+            Documentation = new DocumentationModel("Defines the controller that provides the client library documentation.")
+            {
+                Remarks = "This is the MVC controller."
+            }
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"ClientLibDocumentationController\" /> class.")
+            })
+                .ParentModelAs<ClassModel>();
+}
+
+#>

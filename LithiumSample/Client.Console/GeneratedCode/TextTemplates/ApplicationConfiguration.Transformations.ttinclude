@@ -1,0 +1,74 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Diagnostics.CodeAnalysis"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".Client.Console.Configuration");
+
+    targetModel.Namespace
+        .AddClass(new ClassModel("ApplicationConfigurationBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Abstract,
+            Documentation = new DocumentationModel("Defines the base class for the configuration used by the application.")
+        })
+            .AddProperty(new PropertyModel("ServiceBaseUri", "string")
+            {
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel(),
+                Documentation = new DocumentationModel("Gets or sets the service Web API base URI.")
+            })
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Design\", \"CA1056:UriPropertiesShouldNotBeStrings\")"))
+                .ParentModelAs<ClassModel>()
+            .AddProperty(new PropertyModel("IdentityServerBaseUri", "string")
+            {
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel(),
+                Documentation = new DocumentationModel("Gets or sets the Identity Server base URI.")
+            })
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Design\", \"CA1056:UriPropertiesShouldNotBeStrings\")"))
+                .ParentModelAs<ClassModel>()
+            .WithConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"ApplicationConfigurationBase\"/> class.")
+            })
+            .WithMethod(new MethodModel("SetDefaultValues")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Sets the default values.")
+                {
+                    Remarks = "This method should be overridden to set the default values of properties."
+                }
+            })
+            .ParentModelAs<NamespaceModel>()
+        .AddClass(new ClassModel("ApplicationConfiguration")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "ApplicationConfigurationBase",
+            Documentation = new DocumentationModel("Defines the configuration used by the application.")
+            {
+                SeeAlso = new string[] { "ApplicationConfigurationBase" }
+            }
+        })
+            .WithConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base()",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"ApplicationConfiguration\"/> class.")
+            });
+}
+
+#>

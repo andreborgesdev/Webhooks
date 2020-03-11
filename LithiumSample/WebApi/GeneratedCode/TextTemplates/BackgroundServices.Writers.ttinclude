@@ -1,0 +1,46 @@
+﻿<#+
+
+// *** WriteWorkerBaseConstructor
+
+public void WriteWorkerBaseConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+    ConstructorModel parentConstructor = model.ParentModelAs<ConstructorModel>();
+    ClassModel parentClass = parentConstructor.ParentModelAs<ClassModel>();
+    BackgroundService sourceModel = parentClass.GetFacet<BackgroundService>("BackgroundService");
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => serviceProvider, serviceProvider);
+            SmartGuard.NotNull(() => logger, logger);
+
+            // Set properties
+
+            this.ServiceProvider = serviceProvider;
+            this.Logger = logger;
+<#+
+}
+
+// *** WriteGetName
+
+public void WriteGetName(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+    PropertyModel parentProperty = model.ParentModelAs<PropertyModel>();
+    ClassModel parentClass = parentProperty.ParentModelAs<ClassModel>();
+
+    BackgroundService backgroundService = parentClass.GetFacet<BackgroundService>("BackgroundService");
+    if (backgroundService == null)
+    {
+        return;
+    }
+
+#>
+            get
+            {
+                return "<#= backgroundService.DisplayName #>";
+            }
+<#+
+
+}
+
+#>

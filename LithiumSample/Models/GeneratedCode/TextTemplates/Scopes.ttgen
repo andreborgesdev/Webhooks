@@ -1,0 +1,59 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".gen.cs" #>
+<#@ ServiceDesigner processor="ServiceDesignerDirectiveProcessor" requires="FileName=''" #>
+<#
+
+// Build the transformations
+
+ServiceModelTransformations<CSharpFileModel> transformations = new ServiceModelTransformations<CSharpFileModel>(this.ServiceModel);
+
+transformations.Add(new ScopesTransformation());
+
+transformations.Add(
+    (s, t) => true,
+    (s, t) => { return s is ServiceModel; },
+    (s, t) =>
+    {
+        if (s is ServiceModel source)
+        {
+            if (source.AuthorizationMode == AuthorizationMode.Off)
+            {
+                t.WithComment("This file is empty because the service model does not include any scopes.");
+                return;
+            }
+
+            t.WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"));
+
+            t.Namespace = new NamespaceModel(source.Namespace + ".Models.Metadata")
+                .WithClass(new ClassModel("Scopes")
+                {
+                    Modifiers = ClassModifiers.Public | ClassModifiers.Static | ClassModifiers.Partial,
+                    Documentation = new DocumentationModel("Defines constants that specify the scopes used by the Web API actions.")
+                });
+
+            if (source.AuthorizationMode == AuthorizationMode.On)
+            {
+                t.Namespace.Classes[0].WithConstant(new ConstantModel(source.Name, "string", "\"{0}\"".Format(source.DefaultScope.ToLowerInvariant()))
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel(
+                        "Defines the name of the default scope used by the routes in the {0}.".Format(source.DisplayName))
+                });
+            }
+        }
+    });
+
+// Transform
+
+CSharpFileModel targetModel = new CSharpFileModel();
+transformations.TransformTo(targetModel);
+
+// Create controller
+
+ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+// Generate code
+
+controller.Write(targetModel);
+
+#>

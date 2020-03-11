@@ -1,0 +1,178 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".gen.cs" #>
+<#@ ServiceDesigner processor="ServiceDesignerDirectiveProcessor" requires="FileName='..'" #>
+<#
+
+// Build the transformations
+
+ServiceModelTransformations<CSharpFileModel> transformations = new ServiceModelTransformations<CSharpFileModel>(this.ServiceModel);
+
+transformations.Add(
+    (s, t) => true,
+    (s, t) => { return s is ServiceModel; },
+    this.TransformServiceModel);
+
+// Transform
+
+CSharpFileModel targetModel = new CSharpFileModel(this.ServiceModel);
+transformations.TransformTo(targetModel);
+
+// Create controller
+
+ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+// Add writers
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) => m.ParentModelAs<PropertyModel>().Name.EqualsNoCase("Client"),
+    this.WriteGetClient);
+
+controller.AddModelWriter<ConstructorBodyModel>(
+    (w, m) =>
+    {
+        ConstructorModel parentConstructor = m.ParentModelAs<ConstructorModel>();
+        return parentConstructor.ParentModelAs<ClassModel>().Name.EqualsNoCase("ApplicationBase");
+    }, 
+    this.WriteConstructor);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("RunAsync"),
+    this.WriteRunAsync);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("Dispose") && parentMethod.Modifiers.HasFlag(MethodModifiers.Protected);
+    }, 
+    this.WriteDisposeProtected);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("GetServiceClient"),
+    this.WriteGetServiceClient);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("ShowMonitoringMenuAsync"),
+    this.WriteShowMonitoringMenuAsync);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("ProbeAsync"),
+    this.WriteProbeAsync);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("DiagnosticsAsync"),
+    this.WriteDiagnosticsAsync);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteException"),
+    this.WriteWriteException);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteServiceException"),
+    this.WriteWriteServiceException);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteServiceExceptionError"),
+    this.WriteWriteServiceExceptionError);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteServiceExceptionErrorDetail"),
+    this.WriteWriteServiceExceptionErrorDetail);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteServiceExceptionRequest"),
+    this.WriteWriteServiceExceptionRequest);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteServiceExceptionResponse"),
+    this.WriteWriteServiceExceptionResponse);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteServiceExceptionInner"),
+    this.WriteWriteServiceExceptionInner);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteHeaders"),
+    this.WriteWriteHeaders);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("CheckConfiguration"),
+    this.WriteCheckConfiguration);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteConfiguration"),
+    this.WriteWriteConfiguration);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.GetFacet<string>("GetValueKind").EqualsNoCase("String1");
+    }, 
+    this.WriteGetString1);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.GetFacet<string>("GetValueKind").EqualsNoCase("String2");
+    }, 
+    this.WriteGetString2);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.GetFacet<string>("GetValueKind").EqualsNoCase("Boolean1");
+    }, 
+    this.WriteGetBoolean1);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.GetFacet<string>("GetValueKind").EqualsNoCase("Boolean2");
+    }, 
+    this.WriteGetBoolean2);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.GetFacet<string>("GetValueKind").EqualsNoCase("Integer1");
+    }, 
+    this.WriteGetInteger1);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.GetFacet<string>("GetValueKind").EqualsNoCase("Integer2");
+    }, 
+    this.WriteGetInteger2);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.GetFacet<string>("GetValueKind").EqualsNoCase("DateTime1");
+    }, 
+    this.WriteGetDateTime1);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.GetFacet<string>("GetValueKind").EqualsNoCase("DateTime2");
+    }, 
+    this.WriteGetDateTime2);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("DisposeServiceClient"),
+    this.WriteDisposeServiceClient);
+
+// Generate code
+
+controller.Write(targetModel);
+
+#>

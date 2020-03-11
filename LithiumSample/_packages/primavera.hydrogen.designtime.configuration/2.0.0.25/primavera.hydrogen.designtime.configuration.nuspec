@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Primavera.Hydrogen.DesignTime.Configuration</id>
+    <version>2.0.0.25</version>
+    <title>PRIMAVERA Hydrogen DesignTime Configuration</title>
+    <authors>PRIMAVERA</authors>
+    <owners>PRIMAVERA</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <developmentDependency>true</developmentDependency>
+    <description>This package includes default design-time configurations that should be used on .NET Core and .NET Standard projects.</description>
+    <copyright>Copyright © 2017-2020 PRIMAVERA</copyright>
+    <tags>PRIMAVERA Lithium Hydrogen</tags>
+  </metadata>
+</package>

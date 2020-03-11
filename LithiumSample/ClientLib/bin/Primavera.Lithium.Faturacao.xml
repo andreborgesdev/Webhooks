@@ -1,0 +1,571 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Lithium.Faturacao</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Lithium.Faturacao.MonitoringOperationsBase">
+            <summary>
+            Defines the base class for the type that provides monitoring operations on the service.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.IMonitoringOperations" />
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.MonitoringOperationsBase.Client">
+            <summary>
+            Gets or sets the service client.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.MonitoringOperationsBase.Actions">
+            <summary>
+            Gets or sets the service client actions.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.#ctor(Primavera.Lithium.Faturacao.FaturacaoClientBase,Primavera.Hydrogen.Rest.Client.ServiceClientActions{Primavera.Lithium.Faturacao.FaturacaoClientBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.MonitoringOperationsBase" /> class.
+            </summary>
+            <param name="client">The service client.</param>
+            <param name="actions">The service client actions.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.ProbeAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.DiagnosticsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.Initialize">
+            <summary>
+            Performs additional initialization.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.MonitoringOperations">
+            <summary>
+            Provides monitoring operations on the service.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.MonitoringOperationsBase" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.MonitoringOperations.#ctor(Primavera.Lithium.Faturacao.FaturacaoClientBase,Primavera.Hydrogen.Rest.Client.ServiceClientActions{Primavera.Lithium.Faturacao.FaturacaoClientBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.MonitoringOperations" /> class.
+            </summary>
+            <param name="client">The service client.</param>
+            <param name="actions">The service client actions.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.BillingOperationsBase">
+            <summary>
+            Billing Controller.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.IBillingOperations" />
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.BillingOperationsBase.Client">
+            <summary>
+            Gets or sets the service client.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.BillingOperationsBase.Actions">
+            <summary>
+            Gets or sets the service client actions.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.BillingOperationsBase.#ctor(Primavera.Lithium.Faturacao.FaturacaoClientBase,Primavera.Hydrogen.Rest.Client.ServiceClientActions{Primavera.Lithium.Faturacao.FaturacaoClientBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.BillingOperationsBase" /> class.
+            </summary>
+            <param name="client">The service client.</param>
+            <param name="actions">The service client actions.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.BillingOperationsBase.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.BillingOperationsBase.CreateInvoiceAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.BillingOperationsBase.GetInvoicesAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.BillingOperationsBase.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.BillingOperationsBase.Initialize">
+            <summary>
+            Performs additional initialization.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.BillingOperations">
+            <summary>
+            Billing Controller.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.BillingOperationsBase" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.BillingOperations.#ctor(Primavera.Lithium.Faturacao.FaturacaoClientBase,Primavera.Hydrogen.Rest.Client.ServiceClientActions{Primavera.Lithium.Faturacao.FaturacaoClientBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.BillingOperations" /> class.
+            </summary>
+            <param name="client">The service client.</param>
+            <param name="actions">The service client actions.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebhooksOperationsBase">
+            <summary>
+            Webhooks controller.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.IWebhooksOperations" />
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebhooksOperationsBase.Client">
+            <summary>
+            Gets or sets the service client.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebhooksOperationsBase.Actions">
+            <summary>
+            Gets or sets the service client actions.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebhooksOperationsBase.#ctor(Primavera.Lithium.Faturacao.FaturacaoClientBase,Primavera.Hydrogen.Rest.Client.ServiceClientActions{Primavera.Lithium.Faturacao.FaturacaoClientBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebhooksOperationsBase" /> class.
+            </summary>
+            <param name="client">The service client.</param>
+            <param name="actions">The service client actions.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebhooksOperationsBase.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebhooksOperationsBase.CreateWebhooksEventAsync(Primavera.Lithium.Faturacao.Models.WebhooksEvent,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebhooksOperationsBase.DeleteWebhooksEventAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebhooksOperationsBase.GetWebhooksEventsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebhooksOperationsBase.GetWebhooksEventsByProductAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebhooksOperationsBase.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebhooksOperationsBase.Initialize">
+            <summary>
+            Performs additional initialization.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebhooksOperations">
+            <summary>
+            Webhooks controller.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.WebhooksOperationsBase" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebhooksOperations.#ctor(Primavera.Lithium.Faturacao.FaturacaoClientBase,Primavera.Hydrogen.Rest.Client.ServiceClientActions{Primavera.Lithium.Faturacao.FaturacaoClientBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebhooksOperations" /> class.
+            </summary>
+            <param name="client">The service client.</param>
+            <param name="actions">The service client actions.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.SubscriptionOperationsBase">
+            <summary>
+            Webhooks Subscripiton controller.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.ISubscriptionOperations" />
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.Client">
+            <summary>
+            Gets or sets the service client.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.Actions">
+            <summary>
+            Gets or sets the service client actions.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.#ctor(Primavera.Lithium.Faturacao.FaturacaoClientBase,Primavera.Hydrogen.Rest.Client.ServiceClientActions{Primavera.Lithium.Faturacao.FaturacaoClientBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.SubscriptionOperationsBase" /> class.
+            </summary>
+            <param name="client">The service client.</param>
+            <param name="actions">The service client actions.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.GetWebhooksEventsForSubscriptionAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.GetWebhooksSubscriptionsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.SubscribeWebhooksEventAsync(Primavera.Lithium.Faturacao.Models.WebhooksSubscriptionDto,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.UnsubscribeWebhooksEventAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.SubscriptionOperationsBase.Initialize">
+            <summary>
+            Performs additional initialization.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.SubscriptionOperations">
+            <summary>
+            Webhooks Subscripiton controller.
+            </summary>
+            <seealso cref="T:Primavera.Lithium.Faturacao.SubscriptionOperationsBase" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.SubscriptionOperations.#ctor(Primavera.Lithium.Faturacao.FaturacaoClientBase,Primavera.Hydrogen.Rest.Client.ServiceClientActions{Primavera.Lithium.Faturacao.FaturacaoClientBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.SubscriptionOperations" /> class.
+            </summary>
+            <param name="client">The service client.</param>
+            <param name="actions">The service client actions.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.IMonitoringOperations">
+            <summary>
+            Provides monitoring operations on the service.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IMonitoringOperations.ProbeAsync(System.Threading.CancellationToken)">
+            <summary>
+            Probes the service.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IMonitoringOperations.DiagnosticsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Diagnoses the service.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.IBillingOperations">
+            <summary>
+            Billing Controller.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IBillingOperations.CreateInvoiceAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new invoice.
+            </summary>
+            <param name="amount">Invoice amount.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IBillingOperations.GetInvoicesAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get all the invoices.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.IWebhooksOperations">
+            <summary>
+            Webhooks controller.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IWebhooksOperations.CreateWebhooksEventAsync(Primavera.Lithium.Faturacao.Models.WebhooksEvent,System.Threading.CancellationToken)">
+            <summary>
+            Create Webhooks Event.
+            </summary>
+            <param name="webhooksEvent">Webhook event being created.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IWebhooksOperations.DeleteWebhooksEventAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes WebooksEvent.
+            </summary>
+            <param name="product">The name of the product.</param>
+            <param name="webhooksEvent">Name of the WebhooksEvent.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IWebhooksOperations.GetWebhooksEventsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Get Webhooks Events.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IWebhooksOperations.GetWebhooksEventsByProductAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get WebooksEvents By product.
+            </summary>
+            <param name="product">The name of the product.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.ISubscriptionOperations">
+            <summary>
+            Webhooks Subscripiton controller.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.ISubscriptionOperations.GetWebhooksEventsForSubscriptionAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets WebooksEvents For Subscription.
+            </summary>
+            <param name="subscription">Name of the Subscription.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.ISubscriptionOperations.GetWebhooksSubscriptionsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets all the webhooks subscriptions.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.ISubscriptionOperations.SubscribeWebhooksEventAsync(Primavera.Lithium.Faturacao.Models.WebhooksSubscriptionDto,System.Threading.CancellationToken)">
+            <summary>
+            Subscribe WebhooksEvent.
+            </summary>
+            <param name="webhooksSubscription">Webhooks Subscription.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.ISubscriptionOperations.UnsubscribeWebhooksEventAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Unsubscribe WebhooksEvent.
+            </summary>
+            <param name="webhooksEvent">Name of the WebhooksEvent.</param>
+            <param name="subscription">The event subscription.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.IFaturacaoClient">
+            <summary>
+            Defines the interface of the service client that allows accessing the Faturacao Service Web API.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.IFaturacaoClient.Monitoring">
+            <summary>
+            Provides monitoring operations on the service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.IFaturacaoClient.Billing">
+            <summary>
+            Billing Controller.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.IFaturacaoClient.Webhooks">
+            <summary>
+            Webhooks controller.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.IFaturacaoClient.Subscription">
+            <summary>
+            Webhooks Subscripiton controller.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.FaturacaoClientBase">
+            <summary>
+            Defines the base class for the service client that allows accessing the Faturacao Service API.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.FaturacaoClientBase.Monitoring">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.FaturacaoClientBase.Billing">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.FaturacaoClientBase.Webhooks">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.FaturacaoClientBase.Subscription">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClientBase.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClientBase" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="credentials">The credentials that should be used to access the service.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClientBase.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials,System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClientBase" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="credentials">The credentials that should be used to access the service.</param>
+            <param name="handler">The root message handler.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClientBase.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials,System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClientBase" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="credentials">The credentials that should be used to access the service.</param>
+            <param name="handler">The root message handler.</param>
+            <param name="disposeHandler">True if the inner handler should be disposed of, false if the inner handler is intended to be reused.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClientBase.#ctor(System.Uri,System.Func{Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs,System.Threading.Tasks.Task{System.String}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClientBase" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="callback">The callback that will be invoked during authentication to get the access token.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClientBase.#ctor(System.Uri,System.Func{Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs,System.Threading.Tasks.Task{System.String}},System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClientBase" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="callback">The callback that will be invoked during authentication to get the access token.</param>
+            <param name="handler">The root message handler.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClientBase.#ctor(System.Uri,System.Func{Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs,System.Threading.Tasks.Task{System.String}},System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClientBase" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="callback">The callback that will be invoked during authentication to get the access token.</param>
+            <param name="handler">The root message handler.</param>
+            <param name="disposeHandler">True if the inner handler should be disposed of, false if the inner handler is intended to be reused.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClientBase.InitializeApiVersion">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClientBase.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.FaturacaoClient">
+            <summary>
+            Defines the service client that allows accessing the Faturacao Service API.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClient.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClient" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="credentials">The credentials that should be used to access the service.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClient.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials,System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClient" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="credentials">The credentials that should be used to access the service.</param>
+            <param name="handler">The root message handler.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClient.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials,System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClient" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="credentials">The credentials that should be used to access the service.</param>
+            <param name="handler">The root message handler.</param>
+            <param name="disposeHandler">True if the inner handler should be disposed of, false if the inner handler is intended to be reused.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClient.#ctor(System.Uri,System.Func{Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs,System.Threading.Tasks.Task{System.String}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClient" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="callback">The callback that will be invoked during authentication to get the access token.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClient.#ctor(System.Uri,System.Func{Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs,System.Threading.Tasks.Task{System.String}},System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClient" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="callback">The callback that will be invoked during authentication to get the access token.</param>
+            <param name="handler">The root message handler.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.FaturacaoClient.#ctor(System.Uri,System.Func{Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs,System.Threading.Tasks.Task{System.String}},System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.FaturacaoClient" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="callback">The callback that will be invoked during authentication to get the access token.</param>
+            <param name="handler">The root message handler.</param>
+            <param name="disposeHandler">True if the inner handler should be disposed of, false if the inner handler is intended to be reused.</param>
+        </member>
+    </members>
+</doc>

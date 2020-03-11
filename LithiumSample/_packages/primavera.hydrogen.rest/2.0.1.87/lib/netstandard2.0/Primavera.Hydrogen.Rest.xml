@@ -1,0 +1,1381 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Rest</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Rest.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RoutePatternParser_InfiniteLoop">
+            <summary>
+              Looks up a localized string similar to Infinite loop detected in the parser..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_CannotHaveCatchAllInMultiSegment">
+            <summary>
+              Looks up a localized string similar to A path segment that contains more than one section, such as a literal section or a parameter, cannot contain a catch-all parameter..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_CannotHaveConsecutiveParameters">
+            <summary>
+              Looks up a localized string similar to A path segment cannot contain two consecutive parameters. They must be separated by a &apos;/&apos; or by a literal string..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_CannotHaveConsecutiveSeparators">
+            <summary>
+              Looks up a localized string similar to The route template separator character &apos;/&apos; cannot appear consecutively. It must be separated by either a parameter or a literal value..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_CannotHaveDefaultValueSpecifiedInlineAndExplicitly">
+            <summary>
+              Looks up a localized string similar to The route parameter &apos;{0}&apos; has both an inline default value and an explicit default value specified. A route parameter cannot contain an inline default value when a default value is specified explicitly. Consider removing one of them..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_CatchAllCannotBeOptional">
+            <summary>
+              Looks up a localized string similar to A catch-all parameter cannot be marked optional..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_CatchAllMustBeLast">
+            <summary>
+              Looks up a localized string similar to A catch-all parameter can only appear as the last segment of the route template..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_Invalid">
+            <summary>
+              Looks up a localized string similar to The route template cannot start with a &apos;~&apos; character unless followed by a &apos;/&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_InvalidConstraintReference">
+            <summary>
+              Looks up a localized string similar to Invalid constraint &apos;{0}&apos;. A constraint must be of type &apos;string&apos; or &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_InvalidLiteral">
+            <summary>
+              Looks up a localized string similar to The literal section &apos;{0}&apos; is invalid. Literal sections cannot contain the &apos;?&apos; character..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_InvalidParameterName">
+            <summary>
+              Looks up a localized string similar to The route parameter name &apos;{0}&apos; is invalid. Route parameter names must be non-empty and cannot contain these characters: &apos;{{&apos;, &apos;}}&apos;, &apos;/&apos;. The &apos;?&apos; character marks a parameter as optional, and can occur only at the end of the parameter. The &apos;*&apos; character marks a parameter as catch-all, and can occur only at the start of the parameter..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_MaxAllowedSegmentsExceeded">
+            <summary>
+              Looks up a localized string similar to Route exceeds the maximum number of allowed segments of 28 and is unable to be processed..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_MismatchedParameter">
+            <summary>
+              Looks up a localized string similar to There is an incomplete parameter in the route template. Check that each &apos;{&apos; character has a matching &apos;}&apos; character..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_OptionalCannotHaveDefaultValue">
+            <summary>
+              Looks up a localized string similar to An optional parameter cannot have default value..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_OptionalParameterCanbBePrecededByPeriod">
+            <summary>
+              Looks up a localized string similar to In the segment &apos;{0}&apos;, the optional parameter &apos;{1}&apos; is preceded by an invalid segment &apos;{2}&apos;. Only a period (.) can precede an optional parameter..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_OptionalParameterHasToBeTheLast">
+            <summary>
+              Looks up a localized string similar to An optional parameter must be at the end of the segment. In the segment &apos;{0}&apos;, optional parameter &apos;{1}&apos; is followed by &apos;{2}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_ParameterOrDefaultValueNotFoundForRequiredValue">
+            <summary>
+              Looks up a localized string similar to No corresponding parameter or default value could be found for the required value &apos;{0}={1}&apos;. A non-null required value must correspond to a route parameter or the route pattern must have a matching default value..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_RepeatedParameter">
+            <summary>
+              Looks up a localized string similar to The route parameter name &apos;{0}&apos; appears more than one time in the route template..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplate_UnescapedBrace">
+            <summary>
+              Looks up a localized string similar to In a route parameter, &apos;{&apos; and &apos;}&apos; must be escaped with &apos;{{&apos; and &apos;}}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_RouteTemplateResolver_InvalidRouteTemplate">
+            <summary>
+              Looks up a localized string similar to The specified route template is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_Exception_ServiceError_SpecifiedOperationResultIsNotAnError">
+            <summary>
+              Looks up a localized string similar to The specified operation result does not describe an error..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_RouteValueDictionary_DuplicateKey">
+            <summary>
+              Looks up a localized string similar to An element with the key &apos;{0}&apos; already exists in the {1}..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_RouteValueDictionary_DuplicatePropertyName">
+            <summary>
+              Looks up a localized string similar to The type &apos;{0}&apos; defines properties &apos;{1}&apos; and &apos;{2}&apos; which differ only by casing. This is not supported by {3} which uses case-insensitive comparisons..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_RouteValueDictionary_InvalidArrayIndex">
+            <summary>
+              Looks up a localized string similar to The specified array index is invalid..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Properties.Resources.RES_ServiceError_Unspecified">
+            <summary>
+              Looks up a localized string similar to Unspecified error..
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.RestException">
+            <summary>
+            Describes a generic error raised from a REST service.
+            </summary>
+            <seealso cref="T:System.Exception" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.RestException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.RestException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.RestException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.RestException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.RestException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.RestException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1">
+            <summary>
+            Allows building arrays while avoiding allocations.
+            </summary>
+            <typeparam name="T">The element type.</typeparam>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.Capacity">
+            <summary>
+            Gets the number of items this instance can store without re-allocating,
+            or 0 if the backing array is <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.Buffer">
+            <summary>
+            Gets the current underlying array.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.Count">
+            <summary>
+            Gets the number of items in the array currently in use.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the item at a certain index in the array.
+            </summary>
+            <param name="index">The index into the array.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1"/> struct.
+            </summary>
+            <param name="capacity">The capacity of the array to allocate.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.Add(`0)">
+            <summary>
+            Adds an item to the backing array, resizing it if necessary.
+            </summary>
+            <param name="item">The item to add.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.First">
+            <summary>
+            Gets the first item in this builder.
+            </summary>
+            <returns>
+            The first item in this builder.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.Last">
+            <summary>
+            Gets the last item in this builder.
+            </summary>
+            <returns>
+            The last item in this builder.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.ToArray">
+            <summary>
+            Creates an array from the contents of this builder.
+            </summary>
+            <returns>
+            The new array.
+            </returns>
+            <remarks>
+            Do not call this method twice on the same builder.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1.UncheckedAdd(`0)">
+            <summary>
+            Adds an item to the backing array, without checking if there is room.
+            </summary>
+            <param name="item">The item to add.</param>
+            <remarks>
+            Use this method if you know there is enough space in the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.ArrayBuilder`1"/>
+            for another item, and you are writing performance-sensitive code.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.IParameterPolicy">
+            <summary>
+            Defines the interface of a parameter policy as used in <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/>.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.IRouteConstraint">
+            <summary>
+            Defines the contract that a type must implement in order to check whether a URL parameter
+            value is valid for a constraint.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.IRouteConstraint.Match(System.String,Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary)">
+            <summary>
+            Determines whether the URL parameter contains a valid value for this constraint.
+            </summary>
+            <param name="routeKey">The name of the parameter that is being checked.</param>
+            <param name="values">A dictionary that contains the parameters for the URL.</param>
+            <returns><c>True</c> if the URL parameter contains a valid value; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RegexRouteConstraint">
+            <summary>
+            Describes a route constraint that uses a regular expression.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RegexRouteConstraint.Constraint">
+            <summary>
+            Gets the regular expression used in the constraint.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RegexRouteConstraint.#ctor(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RegexRouteConstraint"/> class.
+            </summary>
+            <param name="regex">The constraint regular expression.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RegexRouteConstraint.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RegexRouteConstraint"/> class.
+            </summary>
+            <param name="regexPattern">The constraint regular expression pattern.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RegexRouteConstraint.Match(System.String,Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteParameterParser">
+            <summary>
+            Allows parsing route parameters.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteParameterParser.ParseRouteParameter(System.String)">
+            <summary>
+            Parses the specified route parameter.
+            </summary>
+            <param name="parameter">The parameter that should be parsed.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern">
+            <summary>
+            Represents a parsed route template with default values and constraints.
+            Use <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory"/> to create <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/>
+            instances. Instances of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/> are immutable.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.Defaults">
+            <summary>
+            Gets the set of default values for the route pattern.
+            The keys of <see cref="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.Defaults"/> are the route parameter names.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.ParameterPolicies">
+            <summary>
+            Gets the set of parameter policy references for the route pattern.
+            The keys of <see cref="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.ParameterPolicies"/> are the route parameter names.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.RequiredValues">
+            <summary>
+            Gets a collection of route values that must be provided for this route pattern to be considered
+            applicable.
+            </summary>
+            <remarks>
+            <para>
+            <see cref="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.RequiredValues"/> allows a framework to substitute route values into a parameterized template
+            so that the same route template specification can be used to create multiple route patterns.
+            <example>
+            This example shows how a route template can be used with required values to substitute known
+            route values for parameters.
+            <code>
+            Route Template: "{controller=Home}/{action=Index}/{id?}"
+            Route Values: { controller = "Store", action = "Index" }
+            </code>
+            A route pattern produced in this way will match and generate URL paths like: <c>/Store</c>, 
+            <c>/Store/Index</c>, and <c>/Store/Index/17</c>.
+            </example>
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.InboundPrecedence">
+            <summary>
+            Gets the precedence value of the route pattern for URL matching.
+            </summary>
+            <remarks>
+            Precedence is a computed value based on the structure of the route pattern
+            used for building URL matching data structures.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.OutboundPrecedence">
+            <summary>
+            Gets the precedence value of the route pattern for URL generation.
+            </summary>
+            <remarks>
+            Precedence is a computed value based on the structure of the route pattern
+            used for building URL generation data structures.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.RawText">
+            <summary>
+            Gets the raw text supplied when parsing the route pattern. May be null.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.Parameters">
+            <summary>
+            Gets the list of route parameters.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.PathSegments">
+            <summary>
+            Gets the list of path segments.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.#ctor(System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.Collections.Generic.IReadOnlyList{Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart},System.Collections.Generic.IReadOnlyList{Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/> class.
+            </summary>
+            <param name="rawText">The raw text supplied when parsing the route pattern. May be null.</param>
+            <param name="defaults">The default values for the route pattern.</param>
+            <param name="parameterPolicies">The set of parameter policy references for the route pattern.</param>
+            <param name="requiredValues">A collection of route values that must be provided for this route pattern to be considered
+            applicable.</param>
+            <param name="parameters">The list of route parameters.</param>
+            <param name="pathSegments">The list of path segments.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.GetParameter(System.String)">
+            <summary>
+            Gets the parameter that matches the specified name.
+            </summary>
+            <param name="name">The name of the parameter.</param>
+            <returns>
+            The parameter. Null if no parameter matches the specified name.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern.DebuggerToString">
+            <summary>
+            Returns a string representing this instance (for debugger display).
+            </summary>
+            <returns>A string representing this instance (for debugger display).</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException">
+            <summary>
+            Describes exceptions raised while constructing a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException.Pattern">
+            <summary>
+            Gets the route pattern associated with this exception.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException"/> class.
+            </summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException"/> class.
+            </summary>
+            <param name="message">The exception message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException"/> class.
+            </summary>
+            <param name="pattern">The route pattern associated with this exception.</param>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException.#ctor(System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternException"/> class.
+            </summary>
+            <param name="pattern">The route pattern associated with this exception.</param>
+            <param name="message">The exception message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory">
+            <summary>
+            Provides factory methods for creating <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/> instances.
+            Use <see cref="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory.Parse(System.String)"/> to parse a route pattern in
+            string format.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory.Parse(System.String)">
+            <summary>
+            Creates a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/> from its string representation.
+            </summary>
+            <param name="pattern">The route pattern string to parse.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory.ParameterPolicy(Primavera.Hydrogen.Rest.Routing.Internal.IParameterPolicy)">
+            <summary>
+            Creates a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/> from the provided object.
+            </summary>
+            <param name="parameterPolicy">
+            The parameter policy object.
+            </param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory.ParameterPolicy(System.String)">
+            <summary>
+            Creates a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/> from the provided object.
+            </summary>
+            <param name="parameterPolicy">
+            The parameter policy text.
+            </param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory.LiteralPart(System.String)">
+            <summary>
+            Creates a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternLiteralPart"/> from the provided text
+            content.
+            </summary>
+            <param name="content">The text content.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternLiteralPart"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory.SeparatorPart(System.String)">
+            <summary>
+            Creates a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternSeparatorPart"/> from the provided text
+            content.
+            </summary>
+            <param name="content">The text content.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternSeparatorPart"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory.Pattern(System.String,System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment})">
+            <summary>
+            Creates a new instance of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/> from a collection of segments.
+            </summary>
+            <param name="rawText">The raw text to associate with the route pattern. May be null.</param>
+            <param name="segments">The collection of segments.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory.Constraint(System.Object)">
+            <summary>
+            Creates a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/> from the provided contraint.
+            </summary>
+            <param name="constraint">
+            The constraint object, which must be of type <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.IRouteConstraint"/>
+            or <see cref="T:System.String"/>. If the constraint object is a <see cref="T:System.String"/>
+            then it will be tranformed into an instance of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RegexRouteConstraint"/>.
+            </param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternFactory.Constraint(Primavera.Hydrogen.Rest.Routing.Internal.IRouteConstraint)">
+            <summary>
+            Creates a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/> from the provided constraint.
+            </summary>
+            <param name="constraint">
+            The constraint object.
+            </param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/>.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternLiteralPart">
+            <summary>
+            Represents a literal text part of a route pattern.
+            Instances of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternLiteralPart"/> are immutable.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternLiteralPart.Content">
+            <summary>
+            Gets the text content.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternLiteralPart.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternLiteralPart"/> class.
+            </summary>
+            <param name="content">The text content.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternLiteralPart.DebuggerToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind">
+            <summary>
+            Defines the kinds of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart"/> instances.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind.Standard">
+            <summary>
+            The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind"/> of a standard parameter
+            without optional or catch all behavior.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind.Optional">
+            <summary>
+            The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind"/> of an optional parameter.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind.CatchAll">
+            <summary>
+            The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind"/> of a catch-all parameter.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart">
+            <summary>
+            Describes a parameter part in a route pattern.
+            Instances of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart"/> are immutable.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.ParameterPolicies">
+            <summary>
+            Gets the list of parameter policies associated with this parameter.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.EncodeSlashes">
+            <summary>
+            Gets a value indicating whether slashes in current parameter's value should be encoded.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.Default">
+            <summary>
+            Gets the default value of this route parameter. May be null.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.IsCatchAll">
+            <summary>
+            Gets a value indicating whether this part is a catch-all parameter.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.IsOptional">
+            <summary>
+            Gets a value indicating whether this part is an optional parameter.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.ParameterKind">
+            <summary>
+            Gets the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind"/> of this parameter.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.Name">
+            <summary>
+            Gets the parameter name.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.#ctor(System.String,System.Object,Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind,Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart"/> class.
+            </summary>
+            <param name="parameterName">The parameter name.</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="parameterKind">The parameter kind.</param>
+            <param name="parameterPolicies">The parameter policies.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.#ctor(System.String,System.Object,Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterKind,Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference[],System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart"/> class.
+            </summary>
+            <param name="parameterName">The parameter name.</param>
+            <param name="defaultValue">The default value.</param>
+            <param name="parameterKind">The parameter kind.</param>
+            <param name="parameterPolicies">The parameter policies.</param>
+            <param name="encodeSlashes">A value indicating whether slashes in current parameter's value should be encoded.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart.DebuggerToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference">
+            <summary>
+            Describes the parsed representation of a policy in a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/> parameter. Instances
+            of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/> are immutable.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference.Content">
+            <summary>
+            Gets the constraint text.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference.ParameterPolicy">
+            <summary>
+            Gets a pre-existing <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.IParameterPolicy"/> that was used to construct this reference.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/> class.
+            </summary>
+            <param name="content">The constraint text.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference.#ctor(Primavera.Hydrogen.Rest.Routing.Internal.IParameterPolicy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPolicyReference"/> class.
+            </summary>
+            <param name="parameterPolicy">A pre-existing <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.IParameterPolicy"/> that should be used to construct this reference.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParser">
+            <summary>
+            Allows parsing route patterns.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParser.InvalidParameterNameChars">
+            <summary>
+            Returns an array containing all the characters that are invalid in parameter names.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParser.Parse(System.String)">
+            <summary>
+            Parses the specified route pattern.
+            </summary>
+            <param name="pattern">
+            The route pattern that should be parsed.
+            </param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart">
+            <summary>
+            Defines the base class for a part of a route pattern.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart.PartKind">
+            <summary>
+            Gets the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind"/> of this part.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart.IsLiteral">
+            <summary>
+            Gets a value indicating whether this part is literal text. Otherwise returns <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart.IsParameter">
+            <summary>
+            Gets a value indicating whether this part is a route parameter. Otherwise returns <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart.IsSeparator">
+            <summary>
+            Gets a value indicating whether this part is an optional separator. Otherwise returns <c>false</c>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart.#ctor(Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart"/> class.
+            </summary>
+            <param name="partKind">The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind"/> of this part.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart.DebuggerToString">
+            <summary>
+            Returns a string representing this instance (for debugger display).
+            </summary>
+            <returns>A string representing this instance (for debugger display).</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind">
+            <summary>
+            Defines the kinds of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart"/> instances.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind.Literal">
+            <summary>
+            The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind"/> of a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternLiteralPart"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind.Parameter">
+            <summary>
+            The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind"/> of a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternParameterPart"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind.Separator">
+            <summary>
+            The <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPartKind"/> of a <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternSeparatorPart"/>.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment">
+            <summary>
+            Represents a path segment in a route pattern.
+            Instances of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment"/> are immutable.
+            </summary>
+            <remarks>
+            Route patterns are made up of URL path segments, delimited by <c>/</c>. A
+            <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment"/> contains a group of 
+            <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart"/> that represent the structure of a segment
+            in a route pattern.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment.IsSimple">
+            <summary>
+            Gets a value indicating whether the segment contains a single part.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment.Parts">
+            <summary>
+            Gets the list of parts in this segment.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment.#ctor(System.Collections.Generic.IReadOnlyList{Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment"/> class.
+            </summary>
+            <param name="parts">The list of parts in this segment.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment.DebuggerToString">
+            <summary>
+            Returns a string representing this instance (for debugger display).
+            </summary>
+            <returns>A string representing this instance (for debugger display).</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPathSegment.DebuggerToString(System.Collections.Generic.IReadOnlyList{Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternPart})">
+            <summary>
+            Returns a string representing the specified parts (for debugger display).
+            </summary>
+            <param name="parts">The parts.</param>
+            <returns>A string representing the specified parts (for debugger display).</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternSeparatorPart">
+            <summary>
+            Represents an optional separator part of a route pattern. Instances of <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternSeparatorPart"/>
+            are immutable.
+            </summary>
+            <remarks>
+            <para>
+            An optional separator is a literal text delimiter that appears between
+            two parameter parts in the last segment of a route pattern. The only separator
+            that is recognized is <c>.</c>.
+            </para>
+            <para>
+            <example>
+            In the route pattern <c>/{controller}/{action}/{id?}.{extension?}</c>
+            the <c>.</c> character is an optional separator.
+            </example>
+            </para>
+            <para>
+            An optional separator character does not need to present in the URL path
+            of a request for the route pattern to match.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternSeparatorPart.Content">
+            <summary>
+            Gets the text content of the part.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternSeparatorPart.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternSeparatorPart"/> class.
+            </summary>
+            <param name="content">The text content.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePatternSeparatorPart.DebuggerToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RoutePrecedence">
+            <summary>
+            Computes precedence for a route template.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePrecedence.ComputeInbound(Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern)">
+            <summary>
+            Compute the precedence of the specified route pattern for matching a provided URL.
+            </summary>
+            <param name="routePattern">The route pattern that should be evaluated.</param>
+            <returns>
+            The precedence.
+            </returns>
+            <example>
+            <![CDATA[
+            /api/template          == 1.1
+            /api/template/{id}     == 1.13
+            /api/{id:int}          == 1.2
+            /api/template/{id:int} == 1.12
+            ]]>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RoutePrecedence.ComputeOutbound(Primavera.Hydrogen.Rest.Routing.Internal.RoutePattern)">
+            <summary>
+            Compute the precedence of the specified route pattern for generating a URL.
+            </summary>
+            <param name="routePattern">The route pattern that should be evaluated.</param>
+            <returns>
+            The precedence.
+            </returns>
+            <example>
+            <![CDATA[
+            /api/template          == 5.5
+            /api/template/{id}     == 5.53
+            /api/{id:int}          == 5.4
+            /api/template/{id:int} == 5.54
+            ]]>
+            </example>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary">
+            <summary>
+            Defines a <see cref="T:System.Collections.Generic.IDictionary`2"/> for route values.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Enumerator">
+            <summary>
+            Defines the dictionary enumerator.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Enumerator.Current">
+            <summary>
+            Gets the current item.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Enumerator.System#Collections#IEnumerator#Current">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Enumerator.#ctor(Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Enumerator"/> structure.
+            </summary>
+            <param name="dictionary">The dictionary.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Enumerator.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Enumerator.Reset">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Enumerator.MoveNext">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.PropertyStorage">
+            <summary>
+            Defines a storage for a property.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.PropertyStorage.Value">
+            <summary>
+            Gets the value.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.PropertyStorage.Properties">
+            <summary>
+            Gets the properties.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.PropertyStorage.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.PropertyStorage"/> class.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Item(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Count">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,System#Object}}#IsReadOnly">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Keys">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.System#Collections#Generic#IReadOnlyDictionary{System#String,System#Object}#Keys">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Values">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.System#Collections#Generic#IReadOnlyDictionary{System#String,System#Object}#Values">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary"/> class.
+            </summary>
+            <param name="values">An object to initialize the dictionary. The value can be of type
+            <see cref="T:System.Collections.Generic.IDictionary`2"/> or <see cref="T:System.Collections.Generic.IReadOnlyDictionary`2"/>
+            or an object with public properties as key-value pairs.
+            </param>
+            <remarks>
+            If the value is a dictionary or other <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:System.Collections.Generic.KeyValuePair`2"/>,
+            then its entries are copied. Otherwise the object is interpreted as a set of key-value pairs where the
+            property names are keys, and property values are the values, and copied into the dictionary.
+            Only public instance non-index properties are considered.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.FromArray(System.Collections.Generic.KeyValuePair{System.String,System.Object}[])">
+            <summary>
+            Creates a new <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary"/> from the provided array.
+            The new instance will take ownership of the array, and may mutate it.
+            </summary>
+            <param name="items">The items array.</param>
+            <returns>A new <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary"/>.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,System#Object}}#Add(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Add(System.String,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Clear">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,System#Object}}#Contains(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.ContainsKey(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,System#Object}}#CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.Object}[],System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{System#String,System#Object}}#GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,System#Object}}#Remove(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Remove(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.Remove(System.String,System.Object@)">
+            <summary>
+            Attempts to remove and return the value that has the specified key from the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary"/>.
+            </summary>
+            <param name="key">The key of the element to remove and return.</param>
+            <param name="value">When this method returns, contains the object removed from the <see cref="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary"/>, or <c>null</c> if key does not exist.</param>
+            <returns>
+            <c>true</c> if the object was removed successfully; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.TryAdd(System.String,System.Object)">
+            <summary>
+            Attempts to the add the provided <paramref name="key"/> and <paramref name="value"/> to the dictionary.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <returns>Returns <c>true</c> if the value was added. Returns <c>false</c> if the key was already present.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueDictionary.TryGetValue(System.String,System.Object@)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueEqualityComparer">
+            <summary>
+            Defines an <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> implementation that compares objects as-if
+            they were route value strings.
+            </summary>
+            <remarks>
+            Values that are are not strings are converted to strings using
+            <c>Convert.ToString(x, CultureInfo.InvariantCulture)</c>. <c>null</c> values are converted
+            to the empty string.
+            strings are compared using <see cref="F:System.StringComparison.OrdinalIgnoreCase"/>.
+            </remarks>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueEqualityComparer.Default">
+            <summary>
+            Returns a default instance.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueEqualityComparer.Equals(System.Object,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.Internal.RouteValueEqualityComparer.GetHashCode(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.RouteTemplateException">
+            <summary>
+            Represents errors that can occur while parsing and/or resolving route templates.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.RouteTemplateException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.RouteTemplateException" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.RouteTemplateException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.RouteTemplateException" /> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.RouteTemplateException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Routing.RouteTemplateException" /> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Routing.RouteTemplateResolver">
+            <summary>
+            Allows resolving routes from route templates and route values.
+            The route templates should follow the MVC rules but routes with query strings,
+            such as those used to perform requests, will also be resolved.
+            </summary>
+            <example>
+            A route can be resolved as in the following example:
+            <code>
+            <![CDATA[
+            string requestUri = RouteTemplatesResolver.Resolve(
+                "/api/v{version:apiVersion/files/{category=rh}/{path?}?pageIndex={pageIndex}&pageSize={pageSize}",
+                new
+                {
+                    Version = 4,
+                    Category = "accounting",
+                    PageIndex = 2,
+                    PageSize = 50
+                });
+            ]]>
+            </code>
+            The result would be:
+            <code>
+            <![CDATA[
+            "/api/v4/files/accounting?pageIndex=2&pageSize=50"
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.RouteTemplateResolver.Resolve(System.String)">
+            <summary>
+            Resolves the specified route template considering optional arguments and arguments default
+            values.
+            </summary>
+            <param name="routeTemplate">The route template.</param>
+            <returns>
+            The resolved route.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.RouteTemplateResolver.Resolve(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Resolves the specified route template by applying the route values.
+            </summary>
+            <param name="routeTemplate">The route template.</param>
+            <param name="routeValues">The route values.</param>
+            <returns>
+            The resolved route.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.RouteTemplateResolver.Resolve(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Resolves the specified route template by applying the route values.
+            </summary>
+            <param name="routeTemplate">The route template.</param>
+            <param name="routeValues">The route values.</param>
+            <returns>
+            The resolved route.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Routing.RouteTemplateResolver.Resolve(System.String,System.Object)">
+            <summary>
+            Resolves the specified route template by applying the route values.
+            </summary>
+            <param name="routeTemplate">The route template.</param>
+            <param name="routeValues">The route values.</param>
+            <returns>
+            The resolved route.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Serialization.Iso8601TimeSpanConverter">
+            <summary>
+            Defines a JSON converter to convert <see cref="T:System.TimeSpan"/> values to the ISO8601 format.
+            </summary>
+            <seealso cref="T:System.Text.Json.Serialization.JsonConverter`1" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Serialization.Iso8601TimeSpanConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Serialization.Iso8601TimeSpanConverter.Write(System.Text.Json.Utf8JsonWriter,System.TimeSpan,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Serialization.Iso8601TimeSpanNullableConverter">
+            <summary>
+            Defines a JSON converter to convert <see cref="T:System.TimeSpan"/> nullable values to the ISO8601 format.
+            </summary>
+            <seealso cref="T:System.Text.Json.Serialization.JsonConverter`1" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Serialization.Iso8601TimeSpanNullableConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Serialization.Iso8601TimeSpanNullableConverter.Write(System.Text.Json.Utf8JsonWriter,System.Nullable{System.TimeSpan},System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Serialization.SerializationException">
+            <summary>
+            Describes an error raised during serialization or deserialization of the requests
+            and/or responses of REST services.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.RestException" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Serialization.SerializationException.Content">
+            <summary>
+            Gets or sets the content caused the serialization to fail.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Serialization.SerializationException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Serialization.SerializationException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Serialization.SerializationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Serialization.SerializationException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Serialization.SerializationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Serialization.SerializationException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Serialization.SerializationException.#ctor(System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Serialization.SerializationException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="content">The content caused the serialization to fail.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.ServiceError">
+            <summary>
+            Provides additional information about an error returned by a REST service operation.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.ServiceError.Code">
+            <summary>
+            Gets or sets the error code.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.ServiceError.Message">
+            <summary>
+            Gets or sets the error message.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.ServiceError.Details">
+            <summary>
+            Gets or sets the details for the error (if any).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.ServiceError.IsUnspecified">
+            <summary>
+            Gets a value indicating whether this error describes an unspecified error.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> class.
+            </summary>
+            <param name="code">The error code.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> class.
+            </summary>
+            <param name="code">The error code.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.#ctor(System.String,System.String,System.Collections.Generic.IList{Primavera.Hydrogen.Rest.ServiceErrorDetail})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.ServiceError" /> class.
+            </summary>
+            <param name="code">The error code.</param>
+            <param name="message">The error message.</param>
+            <param name="details">The details.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.FromOperationResult(Primavera.Hydrogen.OperationResult)">
+            <summary>
+            Returns a <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> instance that is equivalent to the specified operation result.
+            </summary>
+            <param name="operationResult">The <see cref="T:Primavera.Hydrogen.OperationResult"/> instance.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.FromOperationResult``1(Primavera.Hydrogen.OperationResult{``0})">
+            <summary>
+            Returns a <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> instance that is equivalent to the specified operation result.
+            </summary>
+            <typeparam name="T">The type of the additional data stored in the operation result.</typeparam>
+            <param name="operationResult">The <see cref="T:Primavera.Hydrogen.OperationResult"/> instance.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.ToString">
+            <summary>
+            Converts to string.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.op_Equality(Primavera.Hydrogen.Rest.ServiceError,Primavera.Hydrogen.Rest.ServiceError)">
+            <summary>
+            Implements the operator ==.
+            </summary>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceError.op_Inequality(Primavera.Hydrogen.Rest.ServiceError,Primavera.Hydrogen.Rest.ServiceError)">
+            <summary>
+            Implements the operator !=.
+            </summary>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.ServiceErrorCodes">
+            <summary>
+            Defines constants the identify well known <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/> codes.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.ServiceErrorCodes.Unspecified">
+            <summary>
+            Unspecified error.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.ServiceErrorCodes.ApiVersioningFailure">
+            <summary>
+            The API versioning middleware rejected the request.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.ServiceErrorDetail">
+            <summary>
+            Describes a detail in a <see cref="T:Primavera.Hydrogen.Rest.ServiceError"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.ServiceErrorDetail.Code">
+            <summary>
+            Gets or sets the error code.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.ServiceErrorDetail.Description">
+            <summary>
+            Gets or sets the error description.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.ServiceErrorDetail" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.ServiceErrorDetail" /> class.
+            </summary>
+            <param name="code">The error code.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.ServiceErrorDetail" /> class.
+            </summary>
+            <param name="code">The error code.</param>
+            <param name="description">The error description.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.FromOperationResult(Primavera.Hydrogen.OperationResult)">
+            <summary>
+            Returns a <see cref="T:Primavera.Hydrogen.Rest.ServiceErrorDetail"/> instance that is equivalent to the specified operation result.
+            </summary>
+            <param name="operationResult">The <see cref="T:Primavera.Hydrogen.OperationResult"/> instance.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.ServiceErrorDetail"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.FromOperationResult``1(Primavera.Hydrogen.OperationResult{``0})">
+            <summary>
+            Returns a <see cref="T:Primavera.Hydrogen.Rest.ServiceErrorDetail"/> instance that is equivalent to the specified operation result.
+            </summary>
+            <typeparam name="T">The type of the additional data stored in the operation result.</typeparam>
+            <param name="operationResult">The <see cref="T:Primavera.Hydrogen.OperationResult"/> instance.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.ServiceErrorDetail"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.op_Equality(Primavera.Hydrogen.Rest.ServiceErrorDetail,Primavera.Hydrogen.Rest.ServiceErrorDetail)">
+            <summary>
+            Implements the operator ==.
+            </summary>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.ServiceErrorDetail.op_Inequality(Primavera.Hydrogen.Rest.ServiceErrorDetail,Primavera.Hydrogen.Rest.ServiceErrorDetail)">
+            <summary>
+            Implements the operator !=.
+            </summary>
+            <param name="x">The x.</param>
+            <param name="y">The y.</param>
+            <returns>
+            The result of the operator.
+            </returns>
+        </member>
+    </members>
+</doc>

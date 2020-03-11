@@ -1,0 +1,23 @@
+﻿<#+
+
+public void WriteSettings(ModelWriter modelWriter, ServiceModel model)
+{
+    if (model == null)
+    {
+        return;
+    }
+
+    // Get application settings specs
+
+    IList<AppSettingSpec> specs = GetAppSettings(model);
+
+    // Serialize
+
+    string json = AppSettingSpecSerializer.Serialize(specs, (s) => s.Value.Staging);
+
+    // Write
+
+    modelWriter.Append(json);
+}
+
+#>

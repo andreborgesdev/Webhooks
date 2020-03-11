@@ -1,0 +1,903 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Console</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.ConsoleHelper">
+            <summary>
+            Provides helper methods that extend <see cref="T:System.Console"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.ReadKey">
+            <summary>
+            Obtains the next character or function key pressed by the user.
+            The pressed key is displayed in the console window.
+            </summary>
+            <returns>The key information.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.ReadKey(System.Boolean)">
+            <summary>
+            Obtains the next character or function key pressed by the user.
+            </summary>
+            <param name="intercept">
+            Determines whether to display the pressed key in the console window.
+            True to not display the pressed key; otherwise, false.
+            </param>
+            <returns>
+            The key information.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.ReadKey(System.String)">
+            <summary>
+            Obtains the next character or function key pressed by the user.
+            The pressed key is displayed in the console window.
+            </summary>
+            <param name="text">
+            A text to output to the console before reading the key.
+            </param>
+            <returns>
+            The key information.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.ReadKey(System.String,System.Boolean)">
+            <summary>
+            Obtains the next character or function key pressed by the user.
+            </summary>
+            <param name="text">
+            A text to output to the console before reading the key.
+            </param>
+            <param name="intercept">
+            Determines whether to display the pressed key in the console window.
+            True to not display the pressed key; otherwise, false.
+            </param>
+            <returns>The key information.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.ReadLine">
+            <summary>
+            Reads the next line of characters.
+            </summary>
+            <returns>The next line of characters from the input stream.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.ReadLine(System.String)">
+            <summary>
+            Reads the next line of characters.
+            </summary>
+            <param name="text">
+            A text to output to the console before reading the line.
+            </param>
+            <returns>The next line of characters from the input stream.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.Write(System.Object)">
+            <summary>
+            Writes the specified object to the console.
+            </summary>
+            <param name="value">The object to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.Write(System.String)">
+            <summary>
+            Writes the specified text to the console.
+            </summary>
+            <param name="value">The text to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.Write(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted text to the console.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.Write(System.ConsoleColor,System.Object)">
+            <summary>
+            Writes the specified object to the console.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="value">The object to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.Write(System.ConsoleColor,System.String)">
+            <summary>
+            Writes the specified text to the console.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="value">The text to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.Write(System.ConsoleColor,System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted text to the console.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWithTime(System.Object)">
+            <summary>
+            Writes the specified object to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The object to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWithTime(System.String)">
+            <summary>
+            Writes the specified text to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The text to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWithTime(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWithTime(System.ConsoleColor,System.Object)">
+            <summary>
+            Writes the specified object to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="value">The object to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWithTime(System.ConsoleColor,System.String)">
+            <summary>
+            Writes the specified text to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="value">The text to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWithTime(System.ConsoleColor,System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteError(System.Object)">
+            <summary>
+            Writes the specified error object to the console.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteError(System.String)">
+            <summary>
+            Writes the specified error text to the console.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteError(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted error text to the console.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteErrorWithTime(System.Object)">
+            <summary>
+            Writes the specified error object to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteErrorWithTime(System.String)">
+            <summary>
+            Writes the specified error text to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteErrorWithTime(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted error text to the console.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarning(System.Object)">
+            <summary>
+            Writes the specified warning object to the console.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarning(System.String)">
+            <summary>
+            Writes the specified warning text to the console.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarning(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted warning text to the console.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarningWithTime(System.Object)">
+            <summary>
+            Writes the specified warning object to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarningWithTime(System.String)">
+            <summary>
+            Writes the specified warning text to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarningWithTime(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted warning text to the console.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformation(System.Object)">
+            <summary>
+            Writes the specified information object to the console.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformation(System.String)">
+            <summary>
+            Writes the specified information text to the console.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformation(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted information text to the console.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformationWithTime(System.Object)">
+            <summary>
+            Writes the specified information object to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformationWithTime(System.String)">
+            <summary>
+            Writes the specified information text to the console.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformationWithTime(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted information text to the console.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLine">
+            <summary>
+            Writes a line to the console.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLine(System.Object)">
+            <summary>
+            Writes the specified object to the console and adds a new line.
+            </summary>
+            <param name="value">The object to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLine(System.String)">
+            <summary>
+            Writes the specified text to the console and adds a new line.
+            </summary>
+            <param name="value">The text to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLine(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted text to the console and adds a new line.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLine(System.ConsoleColor,System.Object)">
+            <summary>
+            Writes the specified object to the console and adds a new line.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="value">The object to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLine(System.ConsoleColor,System.String)">
+            <summary>
+            Writes the specified text to the console and adds a new line.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="value">The text to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLine(System.ConsoleColor,System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted text to the console and adds a new line.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLineWithTime(System.Object)">
+            <summary>
+            Writes the specified object to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The object to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLineWithTime(System.String)">
+            <summary>
+            Writes the specified text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The text to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLineWithTime(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLineWithTime(System.ConsoleColor,System.Object)">
+            <summary>
+            Writes the specified object to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="value">The object to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLineWithTime(System.ConsoleColor,System.String)">
+            <summary>
+            Writes the specified text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="value">The text to write.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteLineWithTime(System.ConsoleColor,System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="foregroundColor">The foreground color.</param>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteErrorLine(System.Object)">
+            <summary>
+            Writes the specified error object to the console and adds a new line.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteErrorLine(System.String)">
+            <summary>
+            Writes the specified error text to the console and adds a new line.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteErrorLine(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted error text to the console and adds a new line.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteErrorLineWithTime(System.Object)">
+            <summary>
+            Writes the specified error object to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteErrorLineWithTime(System.String)">
+            <summary>
+            Writes the specified error text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteErrorLineWithTime(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted error text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in red.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarningLine(System.Object)">
+            <summary>
+            Writes the specified warning object to the console and adds a new line.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarningLine(System.String)">
+            <summary>
+            Writes the specified warning text to the console and adds a new line.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarningLine(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted warning text to the console and adds a new line.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarningLineWithTime(System.Object)">
+            <summary>
+            Writes the specified object text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarningLineWithTime(System.String)">
+            <summary>
+            Writes the specified warning text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteWarningLineWithTime(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted warning text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in yellow.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformationLine(System.Object)">
+            <summary>
+            Writes the specified information object to the console and adds a new line.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformationLine(System.String)">
+            <summary>
+            Writes the specified information text to the console and adds a new line.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformationLine(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted information text to the console and adds a new line.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformationLineWithTime(System.Object)">
+            <summary>
+            Writes the specified information object to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The object to write.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformationLineWithTime(System.String)">
+            <summary>
+            Writes the specified information text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="value"/>.
+            </summary>
+            <param name="value">The text to write.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.ConsoleHelper.WriteInformationLineWithTime(System.String,System.Object[])">
+            <summary>
+            Writes the specified formatted information text to the console and adds a new line.
+            A prefix indicating the current time is added to <paramref name="format"/>.
+            </summary>
+            <param name="format">The text format.</param>
+            <param name="args">The format arguments.</param>
+            <remarks>The text will be written in green.</remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.Hosting.ConsoleHostBuilder">
+            <summary>
+            Provides an abstraction to initialize
+            console applications with dependency injection, configuration, logging, etc.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Hosting.ConsoleHostBuilder"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.ConfigureHostConfiguration(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.ConfigureAppConfiguration(System.Action{Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.ConfigureAppConfiguration(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.ConfigureServices(System.Action{Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.ConfigureServices(System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.ConfigureLogging(System.Action{Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.ConfigureLogging(System.Action{Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.Build">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.Build(Microsoft.Extensions.Hosting.ConsoleLifetimeOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.Build``1">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.ConsoleHostBuilder.Build``1(Microsoft.Extensions.Hosting.ConsoleLifetimeOptions)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Hosting.IConsoleHost">
+            <summary>
+            Defines the interface of the console host.
+            The console host provides an abstraction to execute console applications with support
+            for dependency injection, configuration, logging, hosted services, etc.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Hosting.IConsoleHost.Services">
+            <summary>
+            Gets the program services.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHost.Start">
+            <summary>
+            Starts the application.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHost.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            Starts the application.
+            </summary>
+            <param name="cancellationToken">The cancellation token, used to abort application start.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether a <see cref="T:Primavera.Hydrogen.Hosting.IConsoleInteractiveApplication"/> was started.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHost.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            Attempts to gracefully stop the application.
+            </summary>
+            <param name="cancellationToken">The cancellation token, used to indicate when stop should no longer be graceful.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHost.StopAsync(System.TimeSpan)">
+            <summary>
+            Attempts to gracefully stop the application with the specified timeout.
+            </summary>
+            <param name="timeout">
+            The timeout for stopping gracefully. Once expired the
+            host may terminate any remaining active connections.
+            </param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHost.WaitForShutdown">
+            <summary>
+            Blocks the calling thread until shutdown is triggered via Ctrl+C or SIGTERM.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHost.WaitForShutdownAsync(System.Threading.CancellationToken)">
+            <summary>
+            Blocks the calling thread until shutdown is triggered via Ctrl+C or SIGTERM or the specified cancellation token.
+            </summary>
+            <param name="cancellationToken">The cancellation token, used to trigger shutdown.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder">
+            <summary>
+            Defines the interface of the console host builder.
+            This builder provides an abstraction to initialize console applications with
+            dependency injection, configuration, logging, hosted services, etc.
+            </summary>
+            <remarks>
+            This implementation extends <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder"/> with the support
+            for interactive logic with the console.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.ConfigureHostConfiguration(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <summary>
+            Sets up the configuration for the host builder.
+            This is used to initialize <see cref="T:Microsoft.Extensions.Hosting.IHostingEnvironment"/> to be used during the build process.
+            </summary>
+            <param name="configure">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder"/> instance.
+            </returns>
+            <remarks>
+            This method can be called multiple times (the result is additive).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.ConfigureAppConfiguration(System.Action{Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <summary>
+            Sets up the configuration for the application.
+            </summary>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder"/> instance.
+            </returns>
+            <remarks>
+            This method can be called multiple times (the result is additive).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.ConfigureAppConfiguration(System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
+            <summary>
+            Sets up the configuration for the application.
+            </summary>
+            <param name="configure">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder"/> instance.
+            </returns>
+            <remarks>
+            This method can be called multiple times (the result is additive).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.ConfigureServices(System.Action{Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+            <summary>
+            Configures the services for dependency injection.
+            </summary>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder"/> instance.
+            </returns>
+            <remarks>
+            This method can be called multiple times (the result is additive).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.ConfigureServices(System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+            <summary>
+            Configures the services for dependency injection.
+            </summary>
+            <param name="configure">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder"/> instance.
+            </returns>
+            <remarks>
+            This method can be called multiple times (the result is additive).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.ConfigureLogging(System.Action{Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            Configures logging.
+            </summary>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder"/> instance.
+            </returns>
+            <remarks>
+            This method can be called multiple times (the result is additive).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.ConfigureLogging(System.Action{Microsoft.Extensions.Logging.ILoggingBuilder})">
+            <summary>
+            Configures logging.
+            </summary>
+            <param name="configure">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder"/> instance.
+            </returns>
+            <remarks>
+            This method can be called multiple times (the result is additive).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.Build">
+            <summary>
+            Builds and initializes the console host.
+            </summary>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHost"/> instance.
+            </returns>
+            <remarks>
+            This method can only be called once.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.Build(Microsoft.Extensions.Hosting.ConsoleLifetimeOptions)">
+            <summary>
+            Builds and initializes the console host.
+            </summary>
+            <param name="consoleLifetimeOptions">The console lifetime options.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHost" /> instance.
+            </returns>
+            <remarks>
+            This method can only be called once.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.Build``1">
+            <summary>
+            Builds and initializes the console host.
+            </summary>
+            <typeparam name="TConsoleInteractiveApplication">
+            The type of the console interactive application that should be automatically
+            executed when the application starts.
+            </typeparam>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHost"/> instance.
+            </returns>
+            <remarks>
+            This method can only be called once.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostBuilder.Build``1(Microsoft.Extensions.Hosting.ConsoleLifetimeOptions)">
+            <summary>
+            Builds and initializes the console host.
+            </summary>
+            <typeparam name="TConsoleInteractiveApplication">
+            The type of the console interactive application that should be automatically
+            executed when the application starts.
+            </typeparam>
+            <param name="consoleLifetimeOptions">The console lifetime options.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHost" /> instance.
+            </returns>
+            <remarks>
+            This method can only be called once.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.Hosting.IConsoleHostExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHost"/> type.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostExtensions.Run(Primavera.Hydrogen.Hosting.IConsoleHost)">
+            <summary>
+            Runs the application.
+            </summary>
+            <param name="host">The host.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleHostExtensions.RunAsync(Primavera.Hydrogen.Hosting.IConsoleHost,System.Threading.CancellationToken)">
+            <summary>
+            Runs the application that only completes when the token is
+            triggered or shutdown is triggered.
+            </summary>
+            <param name="host">The host.</param>
+            <param name="cancellationToken">The cancellation token, used to trigger shutdown.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Hosting.IConsoleInteractiveApplication">
+            <summary>
+            Defines the interface of a console interactive application.
+            This provides an abstraction to console application that interacts with the
+            user and automatically initialized and executed by <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHostBuilder"/>
+            when the console application starts.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.IConsoleInteractiveApplication.RunAsync(System.Threading.CancellationToken)">
+            <summary>
+            Runs the application.
+            </summary>
+            <param name="cancellationToken">The cancellation token, used to trigger shutdown.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Hosting.Internal.ConsoleHost">
+            <summary>
+            Defines the default implementation of <see cref="T:Primavera.Hydrogen.Hosting.IConsoleHost"/>.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Hosting.IConsoleHost" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.Services">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.#ctor(Microsoft.Extensions.Hosting.IHost,Microsoft.Extensions.Logging.ILogger{Primavera.Hydrogen.Hosting.Internal.ConsoleHost})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Hosting.Internal.ConsoleHost" /> class.
+            </summary>
+            <param name="innerHost">The <see cref="T:Microsoft.Extensions.Hosting.IHost" /> instance.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.Start">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.StartAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.StopAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.StopAsync(System.TimeSpan)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.WaitForShutdown">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.WaitForShutdownAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.StartInteractiveApplicationAsync(System.Threading.CancellationToken)">
+            <summary>
+            Starts the interactive console application if there was one registered in the host.
+            </summary>
+            <param name="cancellationToken">The cancellation token, used to abort application start.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the interactive console application was started.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Hosting.Internal.ConsoleHost.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Properties.Resources.RES_Exception_ConsoleHostAlreadyBuilt">
+            <summary>
+              Looks up a localized string similar to The console host was already built..
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,358 @@
+﻿<#+
+
+// *** WriteServiceSpec
+
+public void WriteServiceSpec(ModelWriter modelWriter, ServiceModel model)
+{
+    if (model == null)
+    {
+        return;
+    }
+
+    // Spec
+
+    ServiceSpec spec = new ServiceSpec();
+
+    // Description
+
+    this.AddDescription(spec, model);
+
+    // API Versions
+
+    this.AddApiVersions(spec, model);
+
+    // Dependencies
+
+    this.AddDependencies(spec, model);
+
+    // Background Services
+
+    this.AddBackgroundServices(spec, model);
+
+    // Application Settings
+
+    this.AddAppSettings(spec, model);
+
+    // API Resource
+
+    this.AddApiResource(spec, model);
+
+    // Clients
+
+    this.AddClients(spec, model);
+
+    // Endpoints
+
+    this.AddEndpoints(spec, model);
+
+    // Features
+
+    this.AddFeatures(spec, model);
+
+    // Serialize
+
+    string json = spec.ToJson();
+
+    // Write
+
+    modelWriter.Append(json);
+}
+
+// *** AddDescription
+
+public void AddDescription(ServiceSpec spec, ServiceModel model)
+{
+    spec.Description = new ServiceDescriptionSpec()
+    {
+        Id = model.GUID,
+        Name = model.Name,
+        DisplayName = model.DisplayName,
+        Summary = model.Summary
+    };
+}
+
+// *** AddApiVersions
+
+public void AddApiVersions(ServiceSpec spec, ServiceModel model)
+{
+    ApiVersionSpec defaultApiVersionSpec = new ApiVersionSpec(model.Version, true);
+    spec.ApiVersions.Add(defaultApiVersionSpec);
+
+    foreach (ApiVersion apiVersion in model.ApiVersions.OrderBy(a => a.NameProvider))
+    {
+        ApiVersionSpec apiVersionSpec = new ApiVersionSpec(apiVersion.Version);
+        spec.ApiVersions.Add(apiVersionSpec);
+    }
+}
+
+// *** AddDependencies
+
+public void AddDependencies(ServiceSpec spec, ServiceModel model)
+{
+    if (model.Dependencies.Count > 0)
+    {
+        foreach (Dependency dependency in model.Dependencies)
+        {
+            spec.Dependencies.Add(dependency.Kind.ToString());
+        }
+    }
+}
+
+// *** AddBackgroundServices
+
+public void AddBackgroundServices(ServiceSpec spec, ServiceModel model)
+{
+    if (model.BackgroundServices.Count > 0)
+    {
+        foreach (BackgroundService service in model.BackgroundServices)
+        {
+            spec.BackgroundServices.Add(
+                new BackgroundServiceSpec()
+                {
+                    Name = service.Name,
+                    DisplayName = service.DisplayName,
+                    Summary = service.Summary
+                });
+        }
+    }
+}
+
+// *** AddAppSettings
+
+public void AddAppSettings(ServiceSpec spec, ServiceModel model)
+{
+    IList<AppSettingSpec> standard = GetAppSettings(model);
+
+    spec.AppSettings.Standard = standard;
+}
+
+// *** AddApiResource
+
+public void AddApiResource(ServiceSpec spec, ServiceModel model)
+{
+    if (model.AuthorizationMode == AuthorizationMode.On)
+    {
+        List<ApiResourceScopeSpec> scopes = new List<ApiResourceScopeSpec>();
+
+        scopes.Add(
+            new ApiResourceScopeSpec()
+            {
+                Name = model.DefaultScope,
+                DisplayName = "{0} Web API".Format(model.DisplayName),
+                Summary = "The default scope.",
+                IsRequired = true
+            });
+
+        if (model.AuthorizationScopes != null)
+        {
+            foreach (AuthorizationScope scope in model.AuthorizationScopes)
+            {
+                scopes.Add(
+                    new ApiResourceScopeSpec()
+                    {
+                        Name = scope.Scope,
+                        DisplayName = "{0} Web API ({1})".Format(model.DisplayName, scope.DisplayName),
+                        Summary = scope.Summary,
+                        IsRequired = false
+                    });
+            }
+        }
+
+        spec.ApiResource = new ApiResourceSpec()
+        {
+            Name = model.DefaultScope,
+            DisplayName = "{0} Web API".Format(model.DisplayName),
+            Scopes = scopes
+        };
+    }
+}
+
+// *** AddClients
+
+public void AddClients(ServiceSpec spec, ServiceModel model)
+{
+    if (model.AuthorizationMode == AuthorizationMode.On)
+    {
+        List<string> scopes = new List<string>()
+        {
+            model.DefaultScope
+        };
+
+        if (model.AuthorizationScopes != null)
+        {
+            foreach (AuthorizationScope scope in model.AuthorizationScopes)
+            {
+                scopes.Add(scope.Scope);
+            }
+        }
+
+        if (model.UseClientCredentialsClient)
+        {
+            spec.Clients.Add(
+                new ClientSpec()
+                {
+                    ClientId = model.ClientCredentialsClientId,
+                    Name = "{0} Client Credentials".Format(model.DisplayName),
+                    Summary = "Allows accessing the {0} Web API using the client credentials grant type.".Format(model.DisplayName),
+                    IsSecretRequired = true,
+                    IsConsentRequired = false,
+                    IsOfflineAccessAllowed = false,
+                    IncludeUserClaims = true,
+                    GrantTypes = new List<string>()
+                    {
+                        "ClientCredentials"
+                    },
+                    Scopes = scopes,
+                    Secrets = new List<ClientSecretSpec>()
+                    {
+                        new ClientSecretSpec()
+                        {
+                            Description = "DefaultSecret",
+                            Kind = "SharedSecret",
+                            Value = model.ClientCredentialsClientSecret
+                        }
+                    }
+                });
+        }
+
+        if (model.UseHybridClient)
+        {
+            spec.Clients.Add(
+                new ClientSpec()
+                {
+                    ClientId = model.HybridClientId,
+                    Name = "{0} Hybrid".Format(model.DisplayName),
+                    Summary = "Allows accessing the {0} Web API using the hybrid grant type.".Format(model.DisplayName),
+                    IsSecretRequired = true,
+                    IsConsentRequired = false,
+                    IsOfflineAccessAllowed = false,
+                    IncludeUserClaims = true,
+                    GrantTypes = new List<string>()
+                    {
+                        "Hybrid"
+                    },
+                    Scopes = scopes,
+                    Secrets = new List<ClientSecretSpec>()
+                    {
+                        new ClientSecretSpec()
+                        {
+                            Description = "Default Secret",
+                            Kind = "SharedSecret",
+                            Value = model.HybridClientSecret
+                        }
+                    }
+                });
+        }
+    }
+}
+
+// *** AddEndpoints
+
+public void AddEndpoints(ServiceSpec spec, ServiceModel model)
+{
+    // Monitoring
+
+    EndpointSpec probeEndpoint = new EndpointSpec()
+    {
+        Controller = "Monitoring",
+        Name = "Probe",
+        Route = "GET api/v{version:apiVersion}/monitoring/probe",
+        Summary = "Allows probing the health of the service."
+    };
+
+    this.AddEndpointApiVersions(probeEndpoint, model);
+
+    EndpointSpec diagnosticsEndpoint = new EndpointSpec()
+    {
+        Controller = "Monitoring",
+        Name = "Diagnostics",
+        Route = "GET api/v{version:apiVersion}/monitoring/diagnostics",
+        Summary = "Allows diagnosing the health of the service."
+    };
+
+    this.AddEndpointApiVersions(diagnosticsEndpoint, model);
+
+    spec.Endpoints.Add(probeEndpoint);
+    spec.Endpoints.Add(diagnosticsEndpoint);
+
+    // Controllers
+
+    foreach (ControllerType controllerType in model.Controllers.OrderBy(c => c.Name))
+    {
+        foreach (ControllerTypeAction controllerTypeAction in controllerType.ChildActions.OrderBy(a => a.Name))
+        {
+            EndpointSpec actionEndpoint = new EndpointSpec()
+            {
+                Controller = controllerType.Name,
+                Name = controllerTypeAction.Name,
+                Route = controllerTypeAction.Route,
+                Summary = "Allows diagnosing the health of the service."
+            };
+
+            this.AddEndpointApiVersions(actionEndpoint, model);
+
+            spec.Endpoints.Add(actionEndpoint);
+        }
+    }
+}
+
+// *** AddEndpointApiVersions
+
+public void AddEndpointApiVersions(EndpointSpec spec, ServiceModel model)
+{
+    ApiVersionSpec defaultApiVersionSpec = new ApiVersionSpec(model.Version, true);
+    spec.ApiVersions.Add(defaultApiVersionSpec);
+
+    foreach (ApiVersion apiVersion in model.ApiVersions.OrderBy(a => a.NameProvider))
+    {
+        ApiVersionSpec apiVersionSpec = new ApiVersionSpec(apiVersion.Version);
+        spec.ApiVersions.Add(apiVersionSpec);
+    }
+}
+
+// *** AddFeatures
+
+public void AddFeatures(ServiceSpec spec, ServiceModel model)
+{
+    // Has client library?
+
+    spec.Features.Add(
+        new FeatureSpec()
+        {
+            Name = "ClientLibCSharp",
+            Summary = "Provides a C# client library to consume the service Web API.",
+            IsAvailable = model.GenerateClientLibrary
+        });
+
+    // Has Web API?
+
+    spec.Features.Add(
+        new FeatureSpec()
+        {
+            Name = "WebApi",
+            Summary = "Provides a Web API.",
+            IsAvailable = model.GenerateWebApi
+        });
+
+    // Has Web API versioning?
+
+    spec.Features.Add(
+        new FeatureSpec()
+        {
+            Name = "WebApiVersioning",
+            Summary = "Uses versioning in the Web API.",
+            IsAvailable = model.GenerateWebApi
+        });
+
+    // Has background services?
+
+    spec.Features.Add(
+        new FeatureSpec()
+        {
+            Name = "BackgroundServices",
+            Summary = "Includes background services has hosted services.",
+            IsAvailable = model.BackgroundServices.Count > 0
+        });
+}
+
+#>

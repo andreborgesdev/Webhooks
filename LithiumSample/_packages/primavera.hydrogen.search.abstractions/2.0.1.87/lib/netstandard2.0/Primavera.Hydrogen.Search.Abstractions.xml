@@ -1,0 +1,1028 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Search.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Search.ISearchDataSourceOperations">
+            <summary>
+            Defines operations that can be performed on search data sources.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.Create(Primavera.Hydrogen.Search.SearchDataSource)">
+            <summary>
+            Creates the specified data source.
+            </summary>
+            <param name="dataSource">The data source.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.CreateAsync(Primavera.Hydrogen.Search.SearchDataSource,System.Threading.CancellationToken)">
+            <summary>
+            Creates the specified data source.
+            </summary>
+            <param name="dataSource">The data source.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.CreateIfNotExists(Primavera.Hydrogen.Search.SearchDataSource)">
+            <summary>
+            Creates the specified data source.
+            </summary>
+            <param name="dataSource">The data source.</param>
+            <returns>
+            A value indicating whether the data source was created.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.CreateIfNotExistsAsync(Primavera.Hydrogen.Search.SearchDataSource,System.Threading.CancellationToken)">
+            <summary>
+            Creates the specified data source.
+            </summary>
+            <param name="dataSource">The data source.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> object that represents the asynchronous operation.
+            A value indicating whether the data source was created.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.Exists(System.String)">
+            <summary>
+            Determines whether the specified data source exists.
+            </summary>
+            <param name="dataSourceName">The data source name.</param>
+            <returns>
+            A value indicating whether the data source exists.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.ExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Determines whether the specified data source exists.
+            </summary>
+            <param name="dataSourceName">The data source name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> object that represents the asynchronous operation.
+            A value indicating whether the data source exists.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.Delete(System.String)">
+            <summary>
+            Deletes the specified data source.
+            </summary>
+            <param name="dataSourceName">The data source name.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.DeleteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified data source.
+            </summary>
+            <param name="dataSourceName">The data source name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.DeleteIfExists(System.String)">
+            <summary>
+            Deletes the specified data source if it exists.
+            </summary>
+            <param name="dataSourceName">The data source name.</param>
+            <returns>
+            A value indicating whether the data source was deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDataSourceOperations.DeleteIfExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified data source if it exists.
+            </summary>
+            <param name="dataSourceName">The data source name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> object that represents the asynchronous operation.
+            A value indicating whether the data source was deleted.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.ISearchDocumentsOperations">
+            <summary>
+            Defines operations that can be performed on search documents.
+            Search documents are the output produced by searches.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDocumentsOperations.Search(System.String)">
+            <summary>
+            Searches the specified text in the index.
+            </summary>
+            <param name="searchText">The search text.</param>
+            <returns>
+            The search results.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchDocumentsOperations.SearchAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Searches the specified text in the index.
+            </summary>
+            <param name="searchText">The search text.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> object that represents the asynchronous operation.
+            The search results.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.ISearchIndexerOperations">
+            <summary>
+            Defines operations that can be performed on search indexers.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.Create(Primavera.Hydrogen.Search.SearchIndexer)">
+            <summary>
+            Creates the specified indexer.
+            </summary>
+            <param name="indexer">The indexer.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.CreateAsync(Primavera.Hydrogen.Search.SearchIndexer,System.Threading.CancellationToken)">
+            <summary>
+            Creates the specified indexer.
+            </summary>
+            <param name="indexer">The indexer.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.CreateIfNotExists(Primavera.Hydrogen.Search.SearchIndexer)">
+            <summary>
+            Creates the specified indexer.
+            </summary>
+            <param name="indexer">The indexer.</param>
+            <returns>
+            A value indicating whether the indexer was created.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.CreateIfNotExistsAsync(Primavera.Hydrogen.Search.SearchIndexer,System.Threading.CancellationToken)">
+            <summary>
+            Creates the specified indexer.
+            </summary>
+            <param name="indexer">The indexer.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> object that represents the asynchronous operation.
+            A value indicating whether the indexer was created.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.Exists(System.String)">
+            <summary>
+            Determines whether the specified indexer exists.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+            <returns>A value indicating whether the indexer exists.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.ExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Determines whether the specified indexer exists.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> object that represents the asynchronous operation.
+            A value indicating whether the indexer exists.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.Delete(System.String)">
+            <summary>
+            Deletes the specified indexer.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.DeleteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified indexer.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.DeleteIfExists(System.String)">
+            <summary>
+            Deletes the specified indexer if it exists.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+            <returns>
+            A value indicating whether the indexer was deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.DeleteIfExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified indexer if it exists.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> object that represents the asynchronous operation.
+            A value indicating whether the indexer was deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.GetStatus(System.String)">
+            <summary>
+            Gets the current status and execution history of the specified indexer.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+            <returns>
+            The current status and execution history of the specified indexer.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.GetStatusAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the current status and execution history of the specified indexer.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> object that represents the asynchronous operation.
+            The current status and execution history of the specified indexer.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.Run(System.String)">
+            <summary>
+            Runs the specified indexer on demand.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexerOperations.RunAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Runs the specified indexer on demand.
+            </summary>
+            <param name="indexerName">The indexer name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.ISearchIndexOperations">
+            <summary>
+            Defines operations that can be performed on search indexes.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.Create(Primavera.Hydrogen.Search.SearchIndex)">
+            <summary>
+            Creates the specified search index.
+            </summary>
+            <param name="index">The search index.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.CreateAsync(Primavera.Hydrogen.Search.SearchIndex,System.Threading.CancellationToken)">
+            <summary>
+            Creates the specified search index.
+            </summary>
+            <param name="index">The search index.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.CreateIfNotExists(Primavera.Hydrogen.Search.SearchIndex)">
+            <summary>
+            Creates the specified search index.
+            </summary>
+            <param name="index">The search index.</param>
+            <returns>
+            A value indicating whether the index was created.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.CreateIfNotExistsAsync(Primavera.Hydrogen.Search.SearchIndex,System.Threading.CancellationToken)">
+            <summary>
+            Creates the specified search index.
+            </summary>
+            <param name="index">The search index.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous operation.
+            A value indicating whether the index was created.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.Exists(System.String)">
+            <summary>
+            Determines whether the specified index exists.
+            </summary>
+            <param name="indexName">The index name.</param>
+            <returns>A value indicating whether the index exists.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.ExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Determines whether the specified index exists.
+            </summary>
+            <param name="indexName">The index name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> object that represents the asynchronous operation.
+            A value indicating whether the index exists.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.Delete(System.String)">
+            <summary>
+            Deletes the specified index.
+            </summary>
+            <param name="indexName">The index name.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.DeleteAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified index.
+            </summary>
+            <param name="indexName">The index name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> object that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.DeleteIfExists(System.String)">
+            <summary>
+            Deletes the specified index if it exists.
+            </summary>
+            <param name="indexName">The index name.</param>
+            <returns>
+            A value indicating whether the index was deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.DeleteIfExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified index if it exists.
+            </summary>
+            <param name="indexName">The index name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> object that represents the asynchronous operation.
+            A value indicating whether the index was deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.ISearchIndexOperations.GetClient(System.String)">
+            <summary>
+            Gets an adapter that allows performing operations on the specified index.
+            </summary>
+            <param name="indexName">The index name.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Search.ISearchServiceIndexClient"/> instance.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.ISearchService">
+            <summary>
+            Defines the interface of the search service.
+            The search service provides generic search operations on indexes stored in the cloud.
+            New instances of the service should be resolved via dependency injection to realize
+            the concrete implementation.
+            </summary>
+            <remarks>
+            ATTENTION:
+            Beware that the services will communicate via a REST API to the actual search service used.
+            Each instance of the service returned will maintain its own instance of the API client,
+            even if the configuration used is exactly the same.
+            Correctly managing the instances of the services in use will impact the application
+            performance.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.ISearchService.Indexes">
+            <summary>
+            Gets an adapter that allows performing operations on search indexes.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.ISearchService.DataSources">
+            <summary>
+            Gets an adapter that allows performing operations on search data sources.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.ISearchService.Indexers">
+            <summary>
+            Gets an adapter that allows performing operations on search indexers.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.ISearchServiceIndexClient">
+            <summary>
+            Defines operations that can be performed on a specific search index.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.ISearchServiceIndexClient.Documents">
+            <summary>
+            Gets an adapter that allows performing operations on search documents.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchDataContainer">
+            <summary>
+            Defines information about the data that will be indexed by the search service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchDataContainer.Name">
+            <summary>
+            Gets or sets the name of the "entity" that will be indexed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchDataContainer.Query">
+            <summary>
+            Gets or sets the query that should be applied to the data container.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDataContainer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchDataContainer"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDataContainer.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchDataContainer"/> class.
+            </summary>
+            <param name="name">The name of the "entity" that will be indexed.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDataContainer.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchDataContainer"/> class.
+            </summary>
+            <param name="name">The name of the "entity" that will be indexed.</param>
+            <param name="query">The query that should be applied to the data container.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchDataSource">
+            <summary>
+            Defines a data source used in the search service to build an index.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchDataSource.Name">
+            <summary>
+            Gets or sets the data source name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchDataSource.Type">
+            <summary>
+            Gets or sets the data source type.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchDataSource.Credentials">
+            <summary>
+            Gets or sets the credentials that should be used to connect to the data source.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchDataSource.Container">
+            <summary>
+            Gets or sets the data container.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchDataSource.DataDeletionDetectionPolicy">
+            <summary>
+            Gets or sets the data deletion detection policy for the data source.
+            The actual object that should be passed in this property depends on the kind of search service
+            and of data source are in use.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchDataSourceCredentials">
+            <summary>
+            Defines the credentials used to connect to a search data source.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchDataSourceCredentials.ConnectionString">
+            <summary>
+            Gets or sets the connection string that should be used to connect to the data source.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDataSourceCredentials.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchDataSourceCredentials"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDataSourceCredentials.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchDataSourceCredentials"/> class.
+            </summary>
+            <param name="connectionString">The connection string that should be used to connect to the data source.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchDataSourceType">
+            <summary>
+            Defines the types of <see cref="T:Primavera.Hydrogen.Search.SearchDataSource"/> supported.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchDataSourceType.Sql">
+            <summary>
+            SQL data source.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchDataSourceType.DocumentDb">
+            <summary>
+            DocumentDB data source.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchDataSourceType.Blob">
+            <summary>
+            Blob data source.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchDataSourceType.Table">
+            <summary>
+            Table data source.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchDocument">
+            <summary>
+            Describes a search document, stored in a search index.
+            The document is represented by a dictionary of document properties.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDocument.GetPropertyValueOrDefault(System.String,System.String)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>The value of the specified property or the specified default value if the property does not exist.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDocument.GetPropertyValueOrDefault(System.String,System.Int32)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>The value of the specified property or the specified default value if the property does not exist.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDocument.GetPropertyValueOrDefault(System.String,System.Int64)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>The value of the specified property or the specified default value if the property does not exist.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDocument.GetPropertyValueOrDefault(System.String,System.Double)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>The value of the specified property or the specified default value if the property does not exist.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDocument.GetPropertyValueOrDefault(System.String,System.Boolean)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>The value of the specified property or the specified default value if the property does not exist.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchDocument.GetPropertyValueOrDefault(System.String,System.DateTimeOffset)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>The value of the specified property or the specified default value if the property does not exist.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchIndex">
+            <summary>
+            Defines an index used in the search service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndex.Name">
+            <summary>
+            Gets or sets the search index name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndex.Fields">
+            <summary>
+            Gets or sets the search index fields.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchIndex.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchIndex"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchIndexer">
+            <summary>
+            Defines an indexer used in the search service to build an index.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexer.Name">
+            <summary>
+            Gets or sets the search indexer name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexer.Description">
+            <summary>
+            Gets or sets the search indexer name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexer.DataSourceName">
+            <summary>
+            Gets or sets the search data source name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexer.TargetIndexName">
+            <summary>
+            Gets or sets the target search index name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexer.Schedule">
+            <summary>
+            Gets or sets the search indexer schedule.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchIndexerExecutionResult">
+            <summary>
+            Describes the result of the execution of a search indexer.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.State">
+            <summary>
+            Gets or sets the outcome of the indexer execution.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.ErrorMessage">
+            <summary>
+            Gets or sets the error message indicating the top-level error, if any.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.StartTime">
+            <summary>
+            Gets or sets the start time of the indexer execution.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.EndTime">
+            <summary>
+            Gets or sets the end time of the indexer execution, if the execution has already completed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.Errors">
+            <summary>
+            Gets or sets the item-level indexing errors.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.ItemCount">
+            <summary>
+            Gets or sets the number of items that were processed during this indexer execution. This
+            includes both successfully processed items and items where indexing was attempted
+            but failed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.FailedItemCount">
+            <summary>
+            Gets or sets the number of items that failed to be indexed during this indexer execution.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.InitialTrackingState">
+            <summary>
+            Gets or sets the change tracking state with which an indexer execution started.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.FinalTrackingState">
+            <summary>
+            Gets or sets the change tracking state with which an indexer execution finished.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchIndexerExecutionResult.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchIndexerExecutionResult"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchIndexerExecutionState">
+            <summary>
+            Describes the state of an execution of a search indexer.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexerExecutionState.TransientFailure">
+            <summary>
+            The execution failed with a transient failure.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexerExecutionState.Success">
+            <summary>
+            The execution succeeded.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexerExecutionState.InProgress">
+            <summary>
+            The execution is in progress.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexerExecutionState.Reset">
+            <summary>
+            The execution was reset.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchIndexerState">
+            <summary>
+            Defines the state of a search indexer.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexerState.Unknown">
+            <summary>
+            The status is unknown.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexerState.Error">
+            <summary>
+            The search indexer is in error.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexerState.Running">
+            <summary>
+            The search indexer is running.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchIndexerStatus">
+            <summary>
+            Describes the current status and execution history of a search indexer.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerStatus.State">
+            <summary>
+            Gets or sets the current state of the search indexer.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerStatus.LastResult">
+            <summary>
+            Gets or sets the result of the last execution of the search indexer.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexerStatus.ExecutionHistory">
+            <summary>
+            Gets or sets the execution history.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchIndexerStatus.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchIndexerStatus"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchIndexField">
+            <summary>
+            Defines a field in a search index.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexField.Name">
+            <summary>
+            Gets or sets the field name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexField.Type">
+            <summary>
+            Gets or sets the field data type.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexField.IsKey">
+            <summary>
+            Gets or sets a value indicating whether the field is the key of the index.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexField.IsSearchable">
+            <summary>
+            Gets or sets a value indicating whether the field is included in full-text searches.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexField.IsFilterable">
+            <summary>
+            Gets or sets a value indicating whether the field can be used in filter expressions.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexField.IsSortable">
+            <summary>
+            Gets or sets a value indicating whether the field can be used in order by expressions.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexField.IsFacetable">
+            <summary>
+            Gets or sets a value indicating whether it is possible to facet on this field.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexField.IsRetrievable">
+            <summary>
+            Gets or sets a value indicating whether the field can be returned in a search result.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchIndexFieldDataType">
+            <summary>
+            Defines the data type of a search index field.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexFieldDataType.String">
+            <summary>
+            The field is of type <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexFieldDataType.Int32">
+            <summary>
+            The field is of type <see cref="T:System.Int32"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexFieldDataType.Int64">
+            <summary>
+            The field is of type <see cref="T:System.Int64"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexFieldDataType.Double">
+            <summary>
+            The field is of type <see cref="T:System.Double"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexFieldDataType.Boolean">
+            <summary>
+            The field is of type <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexFieldDataType.DateTimeOffset">
+            <summary>
+            The field is of type <see cref="F:Primavera.Hydrogen.Search.SearchIndexFieldDataType.DateTimeOffset"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchIndexFieldDataType.GeographyPoint">
+            <summary>
+            The field represents a geography point.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchIndexingSchedule">
+            <summary>
+            Defines the schedule used by a search indexer.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexingSchedule.Interval">
+            <summary>
+            Gets or sets the interval.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchIndexingSchedule.StartTime">
+            <summary>
+            Gets or sets the start time.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchItemError">
+            <summary>
+            Represents an item-level search indexing error.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchItemError.Key">
+            <summary>
+            Gets or sets the key of the item for which indexing failed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchItemError.ErrorMessage">
+            <summary>
+            Gets or sets the message describing the error that occurred while attempting to index the item.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchResults">
+            <summary>
+            Describes the results of a search in an index.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchResults.Count">
+            <summary>
+            Gets or sets the total count of results found by the search operation.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchResults.Coverage">
+            <summary>
+            Gets or sets a value indicating the percentage of the index that was included in the query.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchResults.Results">
+            <summary>
+            Gets or sets the results.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchResults.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchResults"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchResultsDocument">
+            <summary>
+            Describes one result of a search in a index.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchResultsDocument.Score">
+            <summary>
+            Gets or sets the relevance score of the document compared to other documents returned
+            by the query.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchResultsDocument.Document">
+            <summary>
+            Gets or sets the document found by the search query.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchServiceError">
+            <summary>
+            Indicates the code of the error in a <see cref="T:Primavera.Hydrogen.Search.SearchServiceException" />.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.ServerUnavailable">
+            <summary>
+            Could not connect to the search server.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.InvalidRequest">
+            <summary>
+            The server returned an error that indicates that the request is invalid.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.BadRequest">
+            <summary>
+            The server returned an error with status code BadRequest.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.DataSourceAlreadyExists">
+            <summary>
+            The data source already exists.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.DataSourceNotFound">
+            <summary>
+            The data source was not found.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.IndexerAlreadyExists">
+            <summary>
+            The indexer already exists.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.IndexerNotFound">
+            <summary>
+            The indexer was not found.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.IndexAlreadyExists">
+            <summary>
+            The index already exists.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.IndexNotFound">
+            <summary>
+            The index was not found.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.Unexpected">
+            <summary>
+            The error is unexpected.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Search.SearchServiceError.Unspecified">
+            <summary>
+            The error code was not specified by the code that raised the exception.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Search.SearchServiceException">
+            <summary>
+            Represents errors raised by the <see cref="T:Primavera.Hydrogen.Search.ISearchService"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Search.SearchServiceException.ErrorCode">
+            <summary>
+            Gets the code of the error that caused the exception.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchServiceException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchServiceException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchServiceException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchServiceException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchServiceException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchServiceException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+            <param name="innerException">Represents the exception that caused this error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchServiceException.#ctor(Primavera.Hydrogen.Search.SearchServiceError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchServiceException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchServiceException.#ctor(Primavera.Hydrogen.Search.SearchServiceError,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchServiceException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Search.SearchServiceException.#ctor(Primavera.Hydrogen.Search.SearchServiceError,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Search.SearchServiceException"/> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+            <param name="innerException">The exception that caused this error.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,58 @@
+﻿<#@ template debug="true" hostspecific="true" inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".gen.cs" #>
+<#@ ServiceDesigner processor="ServiceDesignerDirectiveProcessor" requires="FileName='..'" #>
+<#
+
+// Build the transformations
+
+ServiceModelTransformations<CSharpFileModel> transformations = new ServiceModelTransformations<CSharpFileModel>(this.ServiceModel);
+
+transformations.Add(
+    (s, t) => true,
+    (s, t) => { return s is ServiceModel; },
+    this.TransformServiceModel);
+
+// Transform
+
+CSharpFileModel targetModel = new CSharpFileModel(this.ServiceModel);
+transformations.TransformTo(targetModel);
+
+// Create controller
+
+ModelWriterController controller = new ModelWriterController(this.GenerationEnvironment);
+
+// Add writers
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("Main"),
+    this.WriteMain);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("Build"),
+    this.WriteBuild);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("ConfigureAppConfiguration"),
+    this.WriteConfigureAppConfiguration);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("ConfigureLogging"),
+    this.WriteConfigureLogging);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("ConfigureServices"),
+    this.WriteConfigureServices);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        return parentProperty.Name.EqualsNoCase("UseDevelopmentSettings");
+    }, 
+    this.WriteUseDevelopmentSettings);
+
+// Generate code
+
+controller.Write(targetModel);
+
+#>

@@ -1,0 +1,590 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Security.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Security.Passwords.IPasswordStrengthEstimationService">
+            <summary>
+            Defines the interface of the password strength estimation service.
+            This service allows estimating the strength of a password.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Passwords.IPasswordStrengthEstimationService.Score(System.String)">
+            <summary>
+            Estimates the strength score of the specified password.
+            </summary>
+            <param name="password">The password whose strength score should be estimated.</param>
+            <returns>
+            The strength score of the specified password.
+            The score is a value between 0 (low) and 4 (high).
+            The higher the score, the stronger the password.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Passwords.IPasswordStrengthEstimationService.Entropy(System.String)">
+            <summary>
+            Returns the entropy of the specified password.
+            </summary>
+            <param name="password">The password whose entropy should be returned.</param>
+            <returns>
+            The entropy of the specified password.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Passwords.IPasswordStrengthEstimationService.CrackTime(System.String)">
+            <summary>
+            Estimates the time required to crack the specified password.
+            </summary>
+            <param name="password">The password whose crack time should be estimated.</param>
+            <returns>
+            The time required to crack the specified password, in seconds.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Passwords.IPasswordStrengthEstimationService.CalculationTime(System.String)">
+            <summary>
+            Estimates the time required to calculate an answer for the specified password.
+            </summary>
+            <param name="password">The password whose calculation time should be estimated.</param>
+            <returns>
+            The time required to calculate an answer for the specified password, in milliseconds.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.Attributes">
+            <summary>
+            Describes the attributes on an item stored in the secrets storage.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Attributes.Enabled">
+            <summary>
+            Gets or sets a value indicating whether the item is enabled.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Attributes.CreatedOn">
+            <summary>
+            Gets or sets the moment when the item was created.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Attributes.UpdatedOn">
+            <summary>
+            Gets or sets the moment when the item was last updated.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Attributes.NotBefore">
+            <summary>
+            Gets or sets the moment from when the item becomes active.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Attributes.Expires">
+            <summary>
+            Gets or sets the moment from when the item becomes inactive.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.Certificate">
+            <summary>
+            Describes a certificate stored in the secrets storage.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Certificate.SecretIdentifier">
+            <summary>
+            Gets or sets the identifier of the secret backing the certificate.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Certificate.KeyIdentifier">
+            <summary>
+            Gets or sets the identifier of the key backing the identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Certificate.Identifier">
+            <summary>
+            Gets or sets the certificate identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Certificate.X509Thumbprint">
+            <summary>
+            Gets or sets the certificate thumb-print.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Certificate.Cer">
+            <summary>
+            Gets or sets the certificate CER contents (the public part of the certificate).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Certificate.Attributes">
+            <summary>
+            Gets or sets the certificate attributes.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.Certificate.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.Certificate"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.CertificateAttributes">
+            <summary>
+            Describes the attributes on a certificate stored in the secrets storage.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.CertificateIdentifier">
+            <summary>
+            Describes the identifier of a <see cref="T:Primavera.Hydrogen.Security.Secrets.Certificate"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.CertificateIdentifier.Identifier">
+            <summary>
+            Gets or sets the certificate identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.CertificateIdentifier.Name">
+            <summary>
+            Gets or sets the certificate name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.CertificateIdentifier.Version">
+            <summary>
+            Gets or sets the certificate version.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.CertificateIdentifier.Storage">
+            <summary>
+            Gets or sets the secrets storage.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.CertificateIdentifier.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.CertificateIdentifier"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService">
+            <summary>
+            Defines the interface of the secrets storage service.
+            The secrets storage service allows retrieving and writing secrets stored in a secure storage.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService.GetSecretAsync(System.Uri,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the latest version of a secret from the storage.
+            </summary>
+            <param name="storageBaseUrl">The base URL for the concrete secrets storage.</param>
+            <param name="secretName">The secret name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The specified secret.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService.GetSecretAsync(System.Uri,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the specified version of a secret from the storage.
+            </summary>
+            <param name="storageBaseUrl">The base URL for the concrete secrets storage.</param>
+            <param name="secretName">The secret name.</param>
+            <param name="secretVersion">The secret version. If the specified value is null or empty then the latest version will be returned.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The specified secret.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService.GetSecretsAsync(System.Uri,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a set of secrets.
+            </summary>
+            <param name="storageBaseUrl">The base URL for the concrete secrets storage.</param>
+            <param name="resultsPerPage">The number of results that should be retrieved per page. If null a default page size will be used.</param>
+            <param name="maxResults">The maximum number of results that should be returned. If null all secrets will be returned.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The secrets.
+            </returns>
+            <remarks>
+            This operation may take some time as multiple requests will be performed to the server, if necessary,
+            to retrieve the pages.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService.GetKeyAsync(System.Uri,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the latest version of a key from the storage.
+            </summary>
+            <param name="storageBaseUrl">The base URL for the concrete secrets storage.</param>
+            <param name="keyName">The key name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The specified key.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService.GetKeyAsync(System.Uri,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the specified version of a key from the storage.
+            </summary>
+            <param name="storageBaseUrl">The base URL for the concrete secrets storage.</param>
+            <param name="keyName">The key name.</param>
+            <param name="keyVersion">The key version. If the specified value is null or empty then the latest version will be returned.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The specified key.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService.GetKeysAsync(System.Uri,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a set of keys.
+            </summary>
+            <param name="storageBaseUrl">The base URL for the concrete secrets storage.</param>
+            <param name="resultsPerPage">The number of results that should be retrieved per page. If null a default page size will be used.</param>
+            <param name="maxResults">The maximum number of results that should be returned. If null all keys will be returned.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The keys.
+            </returns>
+            <remarks>
+            This operation may take some time as multiple requests will be performed to the server, if necessary,
+            to retrieve the pages.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService.GetCertificateAsync(System.Uri,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the latest version of a certificate from the storage.
+            </summary>
+            <param name="storageBaseUrl">The base URL for the concrete secrets storage.</param>
+            <param name="certificateName">The certificate name.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The specified certificate.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService.GetCertificateAsync(System.Uri,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets the latest version of a certificate from the storage.
+            </summary>
+            <param name="storageBaseUrl">The base URL for the concrete secrets storage.</param>
+            <param name="certificateName">The certificate name.</param>
+            <param name="certificateVersion">The certificate version. If the specified value is null or empty then the latest version will be returned.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The specified certificate.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService.GetCertificatesAsync(System.Uri,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets a set of certificates.
+            </summary>
+            <param name="storageBaseUrl">The base URL for the concrete secrets storage.</param>
+            <param name="resultsPerPage">The number of results that should be retrieved per page. If null a default page size will be used.</param>
+            <param name="maxResults">The maximum number of results that should be returned. If null all certificates will be returned.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The certificates.
+            </returns>
+            <remarks>
+            This operation may take some time as multiple requests will be performed to the server, if necessary,
+            to retrieve the pages.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.JsonWebKey">
+            <summary>
+            Defines a JSON Web key.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.Q">
+            <summary>
+            Gets or sets the RSA secret prime, with p &lt; q.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.P">
+            <summary>
+            Gets or sets the RSA secret prime.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.QI">
+            <summary>
+            Gets or sets the RSA private key parameter.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.DQ">
+            <summary>
+            Gets or sets the RSA private key parameter.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.DP">
+            <summary>
+            Gets or sets the RSA private key parameter.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.D">
+            <summary>
+            Gets or sets the RSA private exponent.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.E">
+            <summary>
+            Gets or sets the RSA public exponent, in Base64.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.N">
+            <summary>
+            Gets or sets the RSA modulus, in Base64.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.KeyOps">
+            <summary>
+            Gets or sets the supported key operations.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.Kty">
+            <summary>
+            Gets or sets the supported JsonWebKey key types (kty) for Elliptic Curve, RSA, HSM,
+            Octet, usually RSA. Possible values include: 'EC', 'RSA', 'RSA-HSM', 'oct'.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.Kid">
+            <summary>
+            Gets or sets the key identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.T">
+            <summary>
+            Gets or sets the HSM Token, used with "Bring Your Own Key".
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.JsonWebKey.K">
+            <summary>
+            Gets or sets the symmetric key.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.JsonWebKey.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.JsonWebKey"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.Key">
+            <summary>
+            Describes a secret stored in the secrets storage.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Key.Identifier">
+            <summary>
+            Gets or sets the key identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Key.Value">
+            <summary>
+            Gets or sets the key value.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Key.Attributes">
+            <summary>
+            Gets or sets the key attributes.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.Key.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.Key"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.KeyAttributes">
+            <summary>
+            Describes the attributes on a key stored in the secrets storage.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.KeyIdentifier">
+            <summary>
+            Describes the identifier of a <see cref="T:Primavera.Hydrogen.Security.Secrets.Key"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.KeyIdentifier.Identifier">
+            <summary>
+            Gets or sets the key identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.KeyIdentifier.Name">
+            <summary>
+            Gets or sets the key name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.KeyIdentifier.Version">
+            <summary>
+            Gets or sets the key version.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.KeyIdentifier.Storage">
+            <summary>
+            Gets or sets the secrets storage.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.KeyIdentifier.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.KeyIdentifier"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.Secret">
+            <summary>
+            Describes a secret stored in the secrets storage.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Secret.Identifier">
+            <summary>
+            Gets or sets the secret identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Secret.Value">
+            <summary>
+            Gets or sets the secret value.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.Secret.Attributes">
+            <summary>
+            Gets or sets the secret attributes.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.Secret.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.Secret"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.SecretAttributes">
+            <summary>
+            Describes the attributes on a secret stored in the secrets storage.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.SecretIdentifier">
+            <summary>
+            Describes the identifier of a <see cref="T:Primavera.Hydrogen.Security.Secrets.Secret"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.SecretIdentifier.Identifier">
+            <summary>
+            Gets or sets the secret identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.SecretIdentifier.Name">
+            <summary>
+            Gets or sets the secret name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.SecretIdentifier.Version">
+            <summary>
+            Gets or sets the secret version.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.SecretIdentifier.Storage">
+            <summary>
+            Gets or sets the secrets storage.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.SecretIdentifier.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.SecretIdentifier"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.SecretsStorageError">
+            <summary>
+            Indicates the code of the error in a <see cref="T:Primavera.Hydrogen.Security.Secrets.SecretsStorageException" />.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.StorageServerNotFound">
+            <summary>
+            The storage server does not exist.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.InvalidApplicationIdentity">
+            <summary>
+            The application identity is invalid.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.AccessTokenNotRetrieved">
+            <summary>
+            An access token could not be retrieved using the application identity.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.AccessDenied">
+            <summary>
+            Access to the secrets storage was denied.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.AutomaticAuthenticationFailed">
+            <summary>
+            Automatic authentication to the secrets storage failed.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.SecretNotFound">
+            <summary>
+            The specified secret does not exist.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.CertificateNotFound">
+            <summary>
+            The specified certificate does not exist.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.KeyNotFound">
+            <summary>
+            The specified key does not exist.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.Unexpected">
+            <summary>
+            The error is unexpected.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Security.Secrets.SecretsStorageError.Unspecified">
+            <summary>
+            The error code was not specified by the code that raised the exception.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Security.Secrets.SecretsStorageException">
+            <summary>
+            Represents errors raised by the <see cref="T:Primavera.Hydrogen.Security.Secrets.ISecretsStorageService"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Security.Secrets.SecretsStorageException.ErrorCode">
+            <summary>
+            Gets the code of the error that caused the exception.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.SecretsStorageException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.SecretsStorageException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.SecretsStorageException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.SecretsStorageException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.SecretsStorageException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.SecretsStorageException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+            <param name="innerException">Represents the exception that caused this error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.SecretsStorageException.#ctor(Primavera.Hydrogen.Security.Secrets.SecretsStorageError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.SecretsStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.SecretsStorageException.#ctor(Primavera.Hydrogen.Security.Secrets.SecretsStorageError,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.SecretsStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Security.Secrets.SecretsStorageException.#ctor(Primavera.Hydrogen.Security.Secrets.SecretsStorageError,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Security.Secrets.SecretsStorageException"/> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+            <param name="innerException">The exception that caused this error.</param>
+        </member>
+    </members>
+</doc>

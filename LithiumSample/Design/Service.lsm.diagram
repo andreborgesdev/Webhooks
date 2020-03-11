@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<serviceModelDiagram dslVersion="2.0.0.0" Id="9ce92e1c-c224-40a6-b02b-4a5779641ffd" absoluteBounds="0, 0, 13.875, 11.125" name="Service" configuration="">
+  <serviceModelMoniker name="/Faturacao" />
+  <nestedChildShapes>
+    <dependencyShape Id="11c986d8-f12c-4fb9-93a7-bdc18dd47557" absoluteBounds="0.5, 1.5, 2, 0.5" fillColor="Khaki" textColor="Black" outlineColor="Khaki">
+      <dependencyMoniker Id="b6f9b947-9de0-4c4b-8f7e-a37e34a73a72" />
+    </dependencyShape>
+    <modelTypeShape Id="efb43351-16f2-4098-8f34-95f97ef07667" absoluteBounds="0.5, 2.5, 2, 1.1439925130208333" fillColor="LightSalmon" textColor="Black" outlineColor="LightSalmon">
+      <modelTypeMoniker name="/Faturacao/Invoice" />
+      <nestedChildShapes>
+        <elementListCompartment Id="aa463696-d69b-4d2f-8f09-331e54110361" absoluteBounds="0.515, 2.91, 1.9700000000000002, 0.63399251302083326" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </modelTypeShape>
+    <controllerTypeShape Id="94fe9f4f-86be-4d08-9f9c-0353a51175a4" absoluteBounds="3.75, 1.5, 2, 0.5" fillColor="Plum" textColor="Black" outlineColor="Plum">
+      <controllerTypeMoniker name="/Faturacao/Billing" />
+    </controllerTypeShape>
+    <controllerTypeActionShape Id="584c3fa7-8b7c-405c-89cf-1b3c48abebf8" absoluteBounds="3.75, 2.5, 2, 0.75938964843750023" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/GetInvoices" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1e0394e0-0c4b-4909-8291-db6d068b0ad6" absoluteBounds="3.765, 2.91, 1.9700000000000002, 0.2493896484375" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="681044c3-db4a-48e1-9a19-f214caa861d4" edgePoints="[(4.75 : 2); (4.75 : 2.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <controllerHasChildActionsMoniker Id="53a30b30-10d5-44f1-9098-a4cd7262d7d9" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="94fe9f4f-86be-4d08-9f9c-0353a51175a4" />
+        <controllerTypeActionShapeMoniker Id="584c3fa7-8b7c-405c-89cf-1b3c48abebf8" />
+      </nodes>
+    </controllerActionConnector>
+    <controllerTypeActionShape Id="c1812020-40d9-47d7-949d-5cc4ec862bc1" absoluteBounds="6.125, 2.375, 2, 0.95169108072916675" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/CreateInvoice" />
+      <nestedChildShapes>
+        <elementListCompartment Id="418cb026-9f78-4ebf-8a03-55ba3714bcb4" absoluteBounds="6.1400000000000006, 2.785, 1.9700000000000002, 0.44169108072916663" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="b61d97ab-9766-44a1-b348-443b308fc260" edgePoints="[(5.75 : 1.75); (7.125 : 1.75); (7.125 : 2.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <controllerHasChildActionsMoniker Id="c4b6155e-0e1d-43cf-9180-c87e479485a1" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="94fe9f4f-86be-4d08-9f9c-0353a51175a4" />
+        <controllerTypeActionShapeMoniker Id="c1812020-40d9-47d7-949d-5cc4ec862bc1" />
+      </nodes>
+    </controllerActionConnector>
+    <controllerTypeShape Id="bfe0628b-727e-47da-ae6d-90331f379ddb" absoluteBounds="8.875, 2, 2, 0.5" fillColor="Plum" textColor="Black" outlineColor="Plum">
+      <controllerTypeMoniker name="/Faturacao/Webhooks" />
+    </controllerTypeShape>
+    <controllerTypeActionShape Id="2f68b2c6-d4b6-4a89-86b6-e6b7d0fb0723" absoluteBounds="8.875, 3.875, 2, 0.75938964843750023" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/GetWebhooksEvents" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1be705a4-515b-4227-bd64-9cb9b8c37478" absoluteBounds="8.89, 4.285, 1.9700000000000002, 0.2493896484375" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="13d6889f-feb6-481b-a9bf-67b74a3bce3e" edgePoints="[(9.875 : 2.5); (9.875 : 3.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <controllerHasChildActionsMoniker Id="6300936d-c0f7-4d02-b528-ed285dc8746c" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="bfe0628b-727e-47da-ae6d-90331f379ddb" />
+        <controllerTypeActionShapeMoniker Id="2f68b2c6-d4b6-4a89-86b6-e6b7d0fb0723" />
+      </nodes>
+    </controllerActionConnector>
+    <controllerTypeActionShape Id="c0b9258c-ea46-488b-8ee8-e909a85b84d3" absoluteBounds="11.625, 0.5, 2, 0.95169108072916675" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/CreateWebhooksEvent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dc6d9d45-7b3d-417d-9fb7-2bfc14664f4a" absoluteBounds="11.64, 0.91000000000000014, 1.9700000000000002, 0.44169108072916663" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="6e73de08-af88-4432-8717-5de3d527c51b" edgePoints="[(10.875 : 2.093748); (12.625 : 2.093748); (12.625 : 1.45169108072917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <controllerHasChildActionsMoniker Id="d90d3487-08cb-462d-9110-71595279fe5b" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="bfe0628b-727e-47da-ae6d-90331f379ddb" />
+        <controllerTypeActionShapeMoniker Id="c0b9258c-ea46-488b-8ee8-e909a85b84d3" />
+      </nodes>
+    </controllerActionConnector>
+    <modelTypeShape Id="747952c1-c757-4f76-8606-2f39c534e8b5" absoluteBounds="0.5, 4.125, 2, 1.5285953776041659" fillColor="LightSalmon" textColor="Black" outlineColor="LightSalmon">
+      <modelTypeMoniker name="/Faturacao/WebhooksEvent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dc361412-a95e-4b2b-ab2e-8fc14186ac15" absoluteBounds="0.515, 4.535, 1.9700000000000002, 1.0185953776041665" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </modelTypeShape>
+    <modelTypeShape Id="3efca14b-e760-4ae6-9210-9996a32bf7dd" absoluteBounds="0.5, 6, 2, 1.5285953776041659" fillColor="LightSalmon" textColor="Black" outlineColor="LightSalmon">
+      <modelTypeMoniker name="/Faturacao/WebhooksSubscription" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d469e32f-4373-40f6-8ef3-a18d4e200493" absoluteBounds="0.515, 6.41, 1.9700000000000002, 1.0185953776041665" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </modelTypeShape>
+    <controllerTypeActionShape Id="db4de65a-85f5-419b-a947-ae36a5dac937" absoluteBounds="11.375, 3.75, 2, 0.95169108072916675" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/GetWebhooksEventsByProduct" />
+      <nestedChildShapes>
+        <elementListCompartment Id="86476220-cd2d-4c75-b1ca-f97c88802b32" absoluteBounds="11.39, 4.16, 1.9700000000000002, 0.44169108072916663" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="20374018-4f6d-40b0-ac8e-02642eb13457" edgePoints="[(10.875 : 2.25); (12 : 2.25); (12 : 3.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <controllerHasChildActionsMoniker Id="745941a6-36cc-48b1-9e6a-377286679851" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="bfe0628b-727e-47da-ae6d-90331f379ddb" />
+        <controllerTypeActionShapeMoniker Id="db4de65a-85f5-419b-a947-ae36a5dac937" />
+      </nodes>
+    </controllerActionConnector>
+    <controllerTypeActionShape Id="1bee296c-2854-4cf5-8341-def36ab08204" absoluteBounds="8.875, 0.5, 2, 1.1439925130208333" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/DeleteWebhooksEvent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fa12b3d4-d30c-403b-b38a-ff7e333c9310" absoluteBounds="8.89, 0.91, 1.9700000000000002, 0.63399251302083326" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="0971d745-26df-4e59-9903-8024ad262389" edgePoints="[(9.875 : 2); (9.875 : 1.64399251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <controllerHasChildActionsMoniker Id="9f49d4b7-5aa9-4ec1-9d10-65d45c255424" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="bfe0628b-727e-47da-ae6d-90331f379ddb" />
+        <controllerTypeActionShapeMoniker Id="1bee296c-2854-4cf5-8341-def36ab08204" />
+      </nodes>
+    </controllerActionConnector>
+    <controllerTypeShape Id="075f585b-387a-440a-955a-3c2ecf98c1f6" absoluteBounds="3.625, 4.375, 2, 0.5" fillColor="Plum" textColor="Black" outlineColor="Plum">
+      <controllerTypeMoniker name="/Faturacao/Subscription" />
+    </controllerTypeShape>
+    <controllerTypeActionShape Id="75bde1e5-3d71-47e5-9307-2292f72d43fe" absoluteBounds="6.125, 3.875, 2, 0.95169108072916675" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/SubscribeWebhooksEvent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d9e1ff0b-b3f7-45a5-85f0-f8d92ce02386" absoluteBounds="6.1400000000000006, 4.285, 1.9700000000000002, 0.44169108072916663" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="0f4d2252-92a3-40db-b2f5-5e39188d6cc2" edgePoints="[(5.625 : 4.60084554036458); (6.125 : 4.60084554036458)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <controllerHasChildActionsMoniker Id="1d26698a-e469-41b5-abae-463ed174e41c" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="075f585b-387a-440a-955a-3c2ecf98c1f6" />
+        <controllerTypeActionShapeMoniker Id="75bde1e5-3d71-47e5-9307-2292f72d43fe" />
+      </nodes>
+    </controllerActionConnector>
+    <controllerTypeActionShape Id="ed38142b-9bc1-474e-86f8-994722878e25" absoluteBounds="6.125, 6.5, 2, 0.95169108072916675" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/GetWebhooksEventsForSubscription" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bcd662c6-db69-414a-ad0b-c9e2e29155b6" absoluteBounds="6.1400000000000006, 6.91, 1.9700000000000002, 0.44169108072916663" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="b1cab567-ed0c-4ec4-8f18-3c0c0a1c6f49" edgePoints="[(5.27651515151515 : 4.875); (5.27651515151515 : 6.97584554036458); (6.125 : 6.97584554036458)]" manuallyRouted="true" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <controllerHasChildActionsMoniker Id="e50e7f60-da4a-406e-ae87-592efdd4950d" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="075f585b-387a-440a-955a-3c2ecf98c1f6" />
+        <controllerTypeActionShapeMoniker Id="ed38142b-9bc1-474e-86f8-994722878e25" />
+      </nodes>
+    </controllerActionConnector>
+    <controllerTypeActionShape Id="7f827d6b-2284-4d13-ae30-9f34d666653a" absoluteBounds="3.125, 6.125, 2, 1.1439925130208328" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/UnsubscribeWebhooksEvent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="80540d08-8863-48a8-8273-4bed8fb54646" absoluteBounds="3.14, 6.535, 1.9700000000000002, 0.63399251302083326" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="e748643a-b2bb-43cd-9171-ba8e22897e5b" edgePoints="[(4.375 : 4.875); (4.375 : 6.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <controllerHasChildActionsMoniker Id="9eb20738-97c5-4e3d-a31f-b7958f94bec8" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="075f585b-387a-440a-955a-3c2ecf98c1f6" />
+        <controllerTypeActionShapeMoniker Id="7f827d6b-2284-4d13-ae30-9f34d666653a" />
+      </nodes>
+    </controllerActionConnector>
+    <controllerTypeActionShape Id="ee75afd3-806f-4418-9e78-f628f9bf408d" absoluteBounds="3.75, 3.375, 2, 0.75938964843750023" fillColor="PaleGreen" textColor="Black" outlineColor="PaleGreen">
+      <controllerTypeActionMoniker name="/Faturacao/GetWebhooksSubscriptions" />
+      <nestedChildShapes>
+        <elementListCompartment Id="717852cd-5261-4852-9022-a6f08ca6350b" absoluteBounds="3.7649999999999997, 3.785, 1.9700000000000002, 0.2493896484375" name="Parameters" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </controllerTypeActionShape>
+    <controllerActionConnector Id="26c6ae7a-75ec-4f80-8c85-1c2d9e003cdf" edgePoints="[(4.6875 : 4.375); (4.6875 : 4.1343896484375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <controllerHasChildActionsMoniker Id="145774ab-e460-4c52-9227-a6749852144d" />
+      <nodes>
+        <controllerTypeShapeMoniker Id="075f585b-387a-440a-955a-3c2ecf98c1f6" />
+        <controllerTypeActionShapeMoniker Id="ee75afd3-806f-4418-9e78-f628f9bf408d" />
+      </nodes>
+    </controllerActionConnector>
+    <modelTypeShape Id="3b5991b6-28eb-4042-8cfa-5eaef7e6653b" absoluteBounds="0.5, 7.75, 2, 1.5285953776041659" fillColor="LightSalmon" textColor="Black" outlineColor="LightSalmon">
+      <modelTypeMoniker name="/Faturacao/WebhooksSubscriptionDto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3d1da2f4-e44e-4cb3-8566-d1f386e7d220" absoluteBounds="0.51500000000000012, 8.16, 1.9700000000000002, 1.0185953776041665" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </modelTypeShape>
+    <modelTypeShape Id="8c70a284-7478-4ea1-9a55-fd421fbdcace" absoluteBounds="0.5, 9.5, 2, 1.3362939453124998" fillColor="LightSalmon" textColor="Black" outlineColor="LightSalmon">
+      <modelTypeMoniker name="/Faturacao/WebhooksEventLog" />
+      <nestedChildShapes>
+        <elementListCompartment Id="11198af4-1277-4647-aa86-753bc8341580" absoluteBounds="0.51500000000000012, 9.91, 1.9700000000000002, 0.8262939453125" name="Properties" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </modelTypeShape>
+  </nestedChildShapes>
+</serviceModelDiagram>

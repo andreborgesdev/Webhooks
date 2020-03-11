@@ -1,0 +1,326 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Net"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Diagnostics.CodeAnalysis"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authorization"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Mvc"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Logging"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.DependencyInjection"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Mvc"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi.Controllers");
+
+    // Monitoring base class
+
+    ClassModel baseClass = targetModel.Namespace
+        .AddClass(new ClassModel("MonitoringControllerBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Abstract,
+            Inheritance = "ApiControllerBase, IMonitoringController",
+            Documentation = new DocumentationModel("Defines base class for the controller that provides monitoring routes.")
+            {
+                Remarks = "This is the base class of the MVC controller."
+            }
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base()",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"MonitoringControllerBase\" /> class.")
+            })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ProbeAsync", "Task<IActionResult>")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Abstract,
+                Documentation = new DocumentationModel(true)
+            })
+                .WithAttribute(new AttributeModel("HttpGet({0}.Models.Metadata.Routes.Monitoring.Probe)".Format(sourceModel.Namespace)))
+                .WithAttribute(new AttributeModel("ProducesResponseType(typeof(string), 200)"))
+                .ParentModelAs<ClassModel>();
+
+    MethodModel diagnosticsMethod = baseClass
+        .AddMethod(new MethodModel("DiagnosticsAsync", "Task<IActionResult>")
+        {
+            Modifiers = MethodModifiers.Public | MethodModifiers.Abstract,
+            Documentation = new DocumentationModel(true)
+        })
+            .WithAttribute(new AttributeModel("HttpGet({0}.Models.Metadata.Routes.Monitoring.Diagnostics)".Format(sourceModel.Namespace)))
+            .WithAttribute(new AttributeModel("ProducesResponseType(typeof(string), 200)"));
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+        if (!string.IsNullOrEmpty(sourceModel.DefaultScope))
+        {
+            string policy = sourceModel.Name;
+            diagnosticsMethod.WithAttribute(new AttributeModel("Authorize(Constants.Policies.{0})".Format(policy)));
+        }
+    }
+
+    // Monitoring class
+
+    targetModel.Namespace
+        .AddClass(new ClassModel("MonitoringController")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "MonitoringControllerBase",
+            Documentation = new DocumentationModel("Defines the controller that provides monitoring routes.")
+            {
+                Remarks = "This is the MVC controller."
+            }
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"MonitoringController\" /> class.")
+            })
+                .ParentModelAs<ClassModel>();
+}
+
+// *** TransformController
+
+public void TransformController(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ControllerType sourceModel = sourceElement as ControllerType;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    // Base class
+
+    ClassModel baseClassModel = targetModel.Namespace
+        .AddClass(new ClassModel("{0}ControllerBase".Format(sourceModel.Name))
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial | ClassModifiers.Abstract,
+            Inheritance = "ApiControllerBase, I{0}Controller".Format(sourceModel.Name),
+            Documentation = new DocumentationModel(sourceModel.Summary)
+            {
+                Remarks = "This is the base class of the MVC controller."
+            }
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .WithProperty(new PropertyModel("Logger", "ILogger")
+            {
+                Documentation = new DocumentationModel("Gets the logger."),
+                Modifiers = PropertyModifiers.Protected,
+                GetAccessor = new PropertyGetAccessorModel(),
+                Facets = new Dictionary<string, object>()
+                {
+                    ["BaseControllerLogger"] = true,
+                    ["ControllerName"] = sourceModel.Name
+                }
+            })
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base()",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}ControllerBase\" /> class.".Format(sourceModel.Name))
+            })
+                .ParentModelAs<ClassModel>();
+
+    if (sourceModel.ServiceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+        if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+        {
+            string policy = sourceModel.ServiceModel.Name;
+            if (!sourceModel.Scope.EqualsNoCase("(default)"))
+            {
+                policy = sourceModel.Scope;
+            }
+
+            baseClassModel.WithAttribute(new AttributeModel("Authorize(Constants.Policies.{0})".Format(policy)));
+        }
+    }
+
+    foreach (ControllerTypeAction action in sourceModel.ChildActions.OrderBy(n => n.Name))
+    {
+        this.TransformControllerAction(action, baseClassModel);
+    }
+
+    // Class
+
+    ClassModel classModel = targetModel.Namespace
+        .AddClass(new ClassModel("{0}Controller".Format(sourceModel.Name))
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "{0}ControllerBase".Format(sourceModel.Name),
+            Documentation = new DocumentationModel(sourceModel.Summary)
+            {
+                Remarks = "This is the MVC controller."
+            }
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base()",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}Controller\" /> class.".Format(sourceModel.Name))
+            })
+                .ParentModelAs<ClassModel>()
+        ;
+}
+
+// *** TransformControllerAction
+
+public void TransformControllerAction(ControllerTypeAction action, ClassModel classModel)
+{
+    MethodModel methodModel1 = classModel
+        .AddMethod(new MethodModel(action.Name + "Async", "Task<IActionResult>")
+        {
+            Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+            Documentation = new DocumentationModel(true)
+        })
+            .WithAttribute(new AttributeModel("{0}({1}.Models.Metadata.Routes.{2}.{3})".Format(this.GetMethodAttribuge(action.HttpMethod), action.ServiceModel.Namespace, action.ParentController.Name, action.Name)));
+
+    if (action.ParentController.ServiceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+        if (action.ParentController.AuthorizationMode == AuthorizationMode.On)
+        {
+            if (action.AuthorizationMode == AuthorizationMode.Off)
+            {
+                methodModel1
+                    .WithAttribute(new AttributeModel("AllowAnonymous"));
+            }
+        }
+    }
+
+    this.TransformControllerActionProducesAttributes(action, methodModel1);
+
+    methodModel1.Facets["MethodKind"] = "Action";
+    methodModel1.Facets["Action"] = action;
+
+    MethodModel methodModel2 = classModel
+        .AddMethod(new MethodModel(action.Name + "CoreAsync", "Task<IActionResult>")
+        {
+            Modifiers = MethodModifiers.Protected | MethodModifiers.Abstract,
+            Documentation = new DocumentationModel(action.Summary)
+            {
+                Returns = "The action result."
+            }
+        });
+
+    foreach (ControllerTypeActionParameter parameter in action.ChildParameters)
+    {
+        this.TransformControllerTypeActionParameter(parameter, methodModel1, methodModel2);
+    }
+}
+
+// *** TransformControllerActionProducesAttributes
+
+public void TransformControllerActionProducesAttributes(ControllerTypeAction action, MethodModel methodModel)
+{
+    // Success
+
+    if (action.ReturnValueType == ControllerTypeActionReturnValueType.None)
+    {
+        methodModel
+            .WithAttribute(new AttributeModel("ProducesResponseType(typeof(void), (int){0})".Format(action.SuccessStatusCode.ToCSharpType())));
+    }
+    else
+    {
+        string returnValueType = action.ToCSharpType();
+        methodModel
+            .WithAttribute(new AttributeModel("ProducesResponseType(typeof({0}), (int){1})".Format(returnValueType, action.SuccessStatusCode.ToCSharpType())));
+    }
+
+    // BadRequest
+
+    methodModel
+        .WithAttribute(new AttributeModel("ProducesResponseType(typeof(ServiceError), (int)HttpStatusCode.BadRequest)"));
+
+    // NotFound
+
+    if (action.ProducesNotFound)
+    {
+        methodModel
+            .WithAttribute(new AttributeModel("ProducesResponseType(typeof(ServiceError), (int)HttpStatusCode.NotFound)"));
+    }
+
+    // Conflict
+
+    if (action.ProducesConflict)
+    {
+        methodModel
+            .WithAttribute(new AttributeModel("ProducesResponseType(typeof(ServiceError), (int)HttpStatusCode.Conflict)"));
+    }
+}
+
+// *** TransformControllerTypeActionParameter
+
+public void TransformControllerTypeActionParameter(ControllerTypeActionParameter parameter, MethodModel methodModel1, MethodModel methodModel2)
+{
+    MethodParameterModel parameterModel1 = methodModel1
+        .AddParameter(new MethodParameterModel(parameter.Name.Transform().ToCamelCase(), parameter.ToCSharpType())
+        {
+            DefaultValue = NormalizeControllerActionParameterDefaultValue(parameter)
+        });
+
+    ControllerTypeActionScalarParameter scalarParameter = parameter as ControllerTypeActionScalarParameter;
+    if (scalarParameter != null)
+    {
+        if (scalarParameter.Binding == ControllerTypeActionScalarParameterBinding.FromQuery && !scalarParameter.IsList)
+        {
+            parameterModel1.WithAttribute(new AttributeModel("FromQuery"));
+        }
+        else if (scalarParameter.Binding == ControllerTypeActionScalarParameterBinding.Default && scalarParameter.IsList)
+        {
+            parameterModel1.WithAttribute(new AttributeModel("FromBody"));
+        }
+        else
+        {
+            parameterModel1.WithAttribute(new AttributeModel("FromRoute"));
+        }
+    }
+
+    ControllerTypeActionModelParameter modelParameter = parameter as ControllerTypeActionModelParameter;
+    if (modelParameter != null)
+    {
+        parameterModel1.WithAttribute(new AttributeModel("FromBody"));
+    }
+
+    MethodParameterModel parameterModel2 = methodModel2
+        .AddParameter(new MethodParameterModel(parameter.Name.Transform().ToCamelCase(), parameter.ToCSharpType())
+        {
+            Documentation = new DocumentationModel(parameter.Summary)
+        });
+}
+
+// *** GetMethodAttribute
+
+public string GetMethodAttribuge(ControllerTypeActionHttpMethodKind value)
+{
+    switch (value)
+    {
+        case ControllerTypeActionHttpMethodKind.Delete:
+            return "HttpDelete";
+        case ControllerTypeActionHttpMethodKind.Get:
+            return "HttpGet";
+        case ControllerTypeActionHttpMethodKind.Post:
+            return "HttpPost";
+        case ControllerTypeActionHttpMethodKind.Put:
+            return "HttpPut";
+        default:
+            return "Undefined";
+    }
+}
+
+#>

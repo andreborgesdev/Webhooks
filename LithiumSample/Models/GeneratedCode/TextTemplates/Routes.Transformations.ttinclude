@@ -1,0 +1,75 @@
+﻿<#+
+
+internal class RoutesTransformation : ServiceModelTransformation<CSharpFileModel>
+{
+    // *** Overrides
+
+    public override bool CanTransform(DomainModelElement sourceElement, CSharpFileModel targetModel)
+    {
+        return sourceElement is ControllerType;
+    }
+
+    public override void Transform(DomainModelElement sourceElement, CSharpFileModel targetModel)
+    {
+        if (targetModel == null)
+        {
+            return;
+        }
+
+        if (sourceElement is ControllerType controllerType)
+        {
+            if (!controllerType.ServiceModel.GenerateWebApi)
+            {
+                return;
+            }
+
+            ClassModel parentClassModel = targetModel.Namespace.Classes.FirstOrDefault(c => c.Name.EqualsNoCase("Routes"));
+
+            ClassModel classModel = parentClassModel.AddClass(new ClassModel(controllerType.Name)
+            {
+                Modifiers = ClassModifiers.Public | ClassModifiers.Static | ClassModifiers.Partial,
+                Documentation = new DocumentationModel(
+                    "Defines constants that specify the routes used by the {0} actions.".Format(controllerType.DisplayName))
+            });
+
+            if (controllerType.ChildActions.Any(a => a
+                .ChildParameters
+                .OfType<ControllerTypeActionScalarParameter>()
+                .Any(p => p.Binding == ControllerTypeActionScalarParameterBinding.FromQuery)))
+            {
+                ClassModel qsClassModel = classModel.AddClass(new ClassModel("WithQueryString")
+                {
+                    Modifiers = ClassModifiers.Public | ClassModifiers.Static | ClassModifiers.Partial,
+                    Documentation = new DocumentationModel(
+                        "Defines constants that specify the routes used by the {0} actions, including the query string parameters.".Format(controllerType.DisplayName))
+                });
+
+                foreach (ControllerTypeAction controllerAction in controllerType.ChildActions.OrderBy(n => n.Name))
+                {
+                    string route = new ActionRouteBuilder(controllerAction)
+                        .Build(true, false);
+
+                    qsClassModel.WithConstant(new ConstantModel(controllerAction.Name, "string", "\"{0}\"".Format(route))
+                    {
+                        Modifiers = ConstantModifiers.Public,
+                        Documentation = new DocumentationModel("Defines the route for the following action: {0}.".Format(controllerAction.DisplayName))
+                    });
+                }
+            }
+
+            foreach (ControllerTypeAction controllerAction in controllerType.ChildActions.OrderBy(n => n.Name))
+            {
+                string route = new ActionRouteBuilder(controllerAction)
+                    .Build();
+
+                classModel.WithConstant(new ConstantModel(controllerAction.Name, "string", "\"{0}\"".Format(route))
+                {
+                    Modifiers = ConstantModifiers.Public,
+                    Documentation = new DocumentationModel("Defines the route for the following action: {0}.".Format(controllerAction.DisplayName))
+                });
+            }
+        }
+    }
+}
+
+#>

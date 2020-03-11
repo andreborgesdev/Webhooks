@@ -1,0 +1,57 @@
+﻿<#+
+
+public void WriteSettings(ModelWriter modelWriter, ServiceModel model)
+{
+    if (model == null)
+    {
+        return;
+    }
+
+#>
+{
+    "Logging": {
+        "IncludeScopes": false,
+        "Debug": {
+            "LogLevel": {
+                "Default": "Warning",
+                "Primavera": "Warning"
+            }
+        },
+        "Console": {
+            "LogLevel": {
+                "Default": "Warning",
+                "Primavera": "Warning"
+            }
+        }
+    },
+<#+
+
+    if (model.AuthorizationMode == AuthorizationMode.On)
+    {
+
+#>
+    "ApplicationConfiguration": {
+        "ServiceBaseUri": "https://localhost:20001",
+        "IdentityServerBaseUri": "https://stg-identity.primaverabss.com"
+    }
+<#+
+
+    }
+    else
+    {
+
+#>
+    "ApplicationConfiguration": {
+        "ServiceBaseUri": "https://localhost:20001"
+    }
+<#+
+
+    }
+
+#>
+}
+<#+
+
+}
+
+#>

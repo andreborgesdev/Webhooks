@@ -1,0 +1,215 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    if (!sourceModel.GenerateClientLibrary)
+    {
+        targetModel.WithComment("This file is empty because the service model does not generate a client library.");
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Threading"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace);
+
+    // Monitoring interface
+
+    if (sourceModel.GenerateWebApi)
+    {
+        InterfaceModel interfaceModel = targetModel
+            .Namespace
+            .AddInterface(new InterfaceModel("IMonitoringOperations")
+            {
+                Modifiers = InterfaceModifiers.Public | InterfaceModifiers.Partial,
+                Inheritance = "IDisposable",
+                Documentation = new DocumentationModel("Provides monitoring operations on the service.")
+                {
+                    SeeAlso = new List<string>(new string[] { "System.IDisposable"})
+                }
+            });
+
+        interfaceModel.AddMethod(new MethodModel("ProbeAsync", "Task<ServiceOperationResult<string>>")
+        {
+            Documentation = new DocumentationModel("Probes the service.")
+            {
+                Returns = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\nThe <see cref=\"ServiceOperationResult{T}\"/> result.",
+                Exceptions = new Dictionary<string, string>()
+                {
+                    ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                }
+            }
+        })
+            .AddParameter(new MethodParameterModel("cancellationToken", "CancellationToken")
+            {
+                DefaultValue = "default(CancellationToken)",
+                Documentation = new DocumentationModel("The cancellation token.")
+            });
+
+        interfaceModel.AddMethod(new MethodModel("DiagnosticsAsync", "Task<ServiceOperationResult<string>>")
+        {
+            Documentation = new DocumentationModel("Diagnoses the service.")
+            {
+                Returns = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\nThe <see cref=\"ServiceOperationResult{T}\"/> result.",
+                Exceptions = new Dictionary<string, string>()
+                {
+                    ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                }
+            }
+        })
+            .AddParameter(new MethodParameterModel("cancellationToken", "CancellationToken")
+            {
+                DefaultValue = "default(CancellationToken)",
+                Documentation = new DocumentationModel("The cancellation token.")
+            });
+
+        if (sourceModel.GenerateSyncActions)
+        {
+            interfaceModel.AddMethod(new MethodModel("Probe", "ServiceOperationResult<string>")
+            {
+                Documentation = new DocumentationModel("Probes the service.")
+                {
+                    Returns = "The <see cref=\"ServiceOperationResult{T}\"/> result.",
+                    Exceptions = new Dictionary<string, string>()
+                    {
+                        ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                    }
+                }
+            });
+
+            interfaceModel.AddMethod(new MethodModel("Diagnostics", "ServiceOperationResult<string>")
+            {
+                Documentation = new DocumentationModel("Diagnoses the service.")
+                {
+                    Returns = "The <see cref=\"ServiceOperationResult{T}\"/> result.",
+                    Exceptions = new Dictionary<string, string>()
+                    {
+                        ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                    }
+                }
+            });
+        }
+    }
+}
+
+// *** TransformController
+
+public void TransformController(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ControllerType sourceModel = sourceElement as ControllerType;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    if (!sourceModel.ServiceModel.GenerateClientLibrary)
+    {
+        return;
+    }
+
+    if (!sourceModel.IsVisible)
+    {
+        return;
+    }
+
+    InterfaceModel interfaceModel = targetModel
+        .Namespace
+        .AddInterface(new InterfaceModel("I" + sourceModel.Name + "Operations")
+        {
+            Modifiers = InterfaceModifiers.Public | InterfaceModifiers.Partial,
+            Inheritance = "IDisposable",
+            Documentation = new DocumentationModel(sourceModel.Summary)
+            {
+                SeeAlso = new List<string>(new string[] { "System.IDisposable"})
+            }
+        });
+
+    bool generateSync = sourceModel.ServiceModel.GenerateSyncActions;
+
+    foreach (ControllerTypeAction action in sourceModel.ChildActions.Where(a => a.IsVisible).OrderBy(a => a.Name))
+    {
+        string returnType = action.ToCSharpType();
+        string returnsDoc;
+        string returnsDocSync;
+        if (string.IsNullOrEmpty(returnType))
+        {
+            returnType = "ServiceOperationResult";
+            returnsDoc = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\nThe <see cref=\"ServiceOperationResult\"/> result.";
+            returnsDocSync = "The <see cref=\"ServiceOperationResult\"/> result.";
+        }
+        else
+        {
+            returnType = "ServiceOperationResult<{0}>".Format(returnType);
+            returnsDoc = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\nThe <see cref=\"ServiceOperationResult{T}\"/> result.";
+            returnsDocSync = "The <see cref=\"ServiceOperationResult{T}\"/> result.";
+        }
+
+        MethodModel method1 = interfaceModel.AddMethod(new MethodModel(action.Name + "Async", "Task<{0}>".Format(returnType))
+        {
+            Documentation = new DocumentationModel(action.Summary)
+            {
+                Remarks = action.Remarks,
+                Returns = returnsDoc,
+                Exceptions = new Dictionary<string, string>()
+                {
+                    ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                }
+            }
+        });
+
+        foreach (ControllerTypeActionParameter parameter in action.ChildParameters)
+        {
+            method1.AddParameter(new MethodParameterModel(parameter.Name.Transform().ToCamelCase(), parameter.ToCSharpType())
+            {
+                DefaultValue = NormalizeControllerActionParameterDefaultValue(parameter),
+                Documentation = new DocumentationModel(parameter.Summary)
+            });
+        }
+
+        method1.AddParameter(new MethodParameterModel("cancellationToken", "CancellationToken")
+        {
+            DefaultValue = "default(CancellationToken)",
+            Documentation = new DocumentationModel("The cancellation token.")
+        });
+
+        if (generateSync)
+        {
+            MethodModel method2 = interfaceModel.AddMethod(new MethodModel(action.Name, returnType)
+            {
+                Documentation = new DocumentationModel(action.Summary)
+                {
+                    Remarks = action.Remarks,
+                    Returns = returnsDocSync,
+                    Exceptions = new Dictionary<string, string>()
+                    {
+                        ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                    }
+                }
+            });
+
+            foreach (ControllerTypeActionParameter parameter in action.ChildParameters)
+            {
+                method2.AddParameter(new MethodParameterModel(parameter.Name.Transform().ToCamelCase(), parameter.ToCSharpType())
+                {
+                    DefaultValue = NormalizeControllerActionParameterDefaultValue(parameter),
+                    Documentation = new DocumentationModel(parameter.Summary)
+                });
+            }
+        }
+    }
+}
+
+#>

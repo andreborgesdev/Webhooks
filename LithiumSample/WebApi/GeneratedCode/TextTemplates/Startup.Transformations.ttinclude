@@ -1,0 +1,981 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Builder"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Configuration"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Hosting"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.DependencyInjection"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Logging"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.FileProviders"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Mvc"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Localization"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Mvc.Versioning"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Http"))
+        .WithNamespaceImport(new NamespaceImportModel("Westwind.AspNetCore.Markdown"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Telemetry.Azure"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Configuration"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Mvc"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Hosting"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Mvc.Routing"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Configuration"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.OpenApi.Schema"))
+        .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".WebApi.Configuration"))
+        .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".WebApi.Controllers"));
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
+            .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authentication"))
+            .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authorization"))
+            .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authentication.JwtBearer"))
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer"))
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.IdentityModel"))
+            .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".Models.Metadata"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Caching.Distributed.Redis"))
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Caching.Distributed.Resilience"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.TableStorage))
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Storage.Azure.Tables"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.BlobStorage))
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Storage.Azure.Blobs"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.Search))
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Search.Azure"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DataProtection))
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Azure.DataProtection"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.IsolatedStorage))
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Storage.Files.Isolated"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.SecretsStorage))
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Security.Azure.Secrets"));
+    }
+
+    if (sourceModel.BackgroundServices.Any())
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".WebApi.BackgroundServices"));
+    }
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi");
+
+    ClassModel baseClassModel = targetModel.Namespace
+        .AddClass(new ClassModel("StartupBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Documentation = new DocumentationModel("Defines the base class for the application initialization logic.")
+        })
+            .WithProperty(new PropertyModel("CurrentEnvironment", "IHostEnvironment")
+            {
+                Modifiers = PropertyModifiers.Protected,
+                Documentation = new DocumentationModel("Gets the current environment."),
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel()
+                {
+                    Modifiers = PropertyAccessorModifiers.Private
+                }
+            })
+            .WithProperty(new PropertyModel("Configuration", "IConfiguration")
+            {
+                Modifiers = PropertyModifiers.Protected,
+                Documentation = new DocumentationModel("Gets the current configuration."),
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel()
+                {
+                    Modifiers = PropertyAccessorModifiers.Private
+                }
+            })
+            .WithProperty(new PropertyModel("UseDevelopmentSettings", "bool")
+            {
+                Modifiers = PropertyModifiers.Protected | PropertyModifiers.Virtual,
+                Documentation = new DocumentationModel("Gets a value indicating whether development settings should be used regardless of the current environment. The default value is false."),
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("Logger", "ILogger")
+            {
+                Modifiers = PropertyModifiers.Protected,
+                Documentation = new DocumentationModel("Gets the logger instance.")
+                {
+                    Remarks = "This instance is only initialized when <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/> starts."
+                },
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel()
+                {
+                    Modifiers = PropertyAccessorModifiers.Private
+                }
+            })
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"StartupBase\" /> class.")
+            })
+                .WithParameter(new MethodParameterModel("env", "IHostEnvironment")
+                {
+                    Documentation = new DocumentationModel("The current host environment.")
+                })
+                .WithParameter(new MethodParameterModel("configuration", "IConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureServices")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called by the runtime when the application starts to allow the application to configure its services.")
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The services collection.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("Configure")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called by the runtime when the application starts to allow the application to configure itself.")
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The current application.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .WithParameter(new MethodParameterModel("logger", "ILogger<Startup>")
+                {
+                    Documentation = new DocumentationModel("The logger.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddAdditionalServices")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add additional (custom) services to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddOpenApiDocumentation")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add the OpenAPI documentation.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddConfiguration", "HostConfiguration")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add configuration to the service collection.")
+                {
+                    Returns = "An instance of <see cref=\"HostConfiguration\"/> that can be used in the application configuration process.", 
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddCookiePolicy")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add the cookie policy to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("CheckCookiesSameSite")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to check the <see cref=\"CookieOptions.SameSite\"/> cookie setting.")
+                {
+                    Remarks = "The method is called from when a new cookie is appended or deleted."
+                }
+            })
+                .WithParameter(new MethodParameterModel("httpContext", "HttpContext")
+                {
+                    Documentation = new DocumentationModel("The HTTP context.")
+                })
+                .WithParameter(new MethodParameterModel("options", "CookieOptions")
+                {
+                    Documentation = new DocumentationModel("The cookie options.")
+                })
+                .WithParameter(new MethodParameterModel("appending", "bool")
+                {
+                    Documentation = new DocumentationModel("A value indicating whether the cookie is being appended. If false, the cookie is being deleted.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("DisallowsCookiesSameSiteNone", "bool")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to determine whether the specified user agent disallows <see cref=\"SameSiteMode.None\"/> in the <see cref=\"CookieOptions.SameSite\"/> cookie setting.")
+                {
+                    Returns = "A value indicating whether the specified user agent disallows <see cref=\"SameSiteMode.None\"/> in the <see cref=\"CookieOptions.SameSite\"/> cookie setting.", 
+                    Remarks = "The method is called from <see cref=\"CheckCookiesSameSite(HttpContext, CookieOptions, bool)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("userAgent", "string")
+                {
+                    Documentation = new DocumentationModel("The user agent.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddDependencies")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add dependencies to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddTelemetry")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add telemetry to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddMvc")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add MVC to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureMvc")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to configure MVC after its is added to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"AddMvc(IServiceCollection, HostConfiguration)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("builder", "IMvcBuilder")
+                {
+                    Documentation = new DocumentationModel("The builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureApiVersioningOptions")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to configure the API versioning options.")
+                {
+                    Remarks = "The method is called from <see cref=\"AddMvc(IServiceCollection, HostConfiguration)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("options", "ApiVersioningOptions")
+                {
+                    Documentation = new DocumentationModel("The options.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddBackgroundServices")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add background services to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ValidateConfiguration")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to validate configuration.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ValidateConfiguration")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to validate configuration.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseErrorHandling")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to activate error handling.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseHttps")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to activate HTTPS (HSTS and HTTPS redirection).")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseStaticFiles")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to activate MVC static files.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseRequestLocalization")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to activate request localization.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseRouting")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to activate routing.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseCookiePolicy")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to activate the cookie policy.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseEndpoints")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to activate endpoint routing.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AdditionalAppConfigurations")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to perform additional application configurations.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/> (just before ending)."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseOpenApiDocumentation")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to active the OpenAPI documentation.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/> (just before ending)."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>();
+
+    if (sourceModel.GenerateClientLibrary)
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddClientLibraryDocumentation")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add the client library documentation.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseClientLibraryDocumentation")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to active the client library documentation.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/> (just before ending)."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                });
+    }
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddAuthorization")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add authorization to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddAuthorizationPolicies")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add authorization policies to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"AddAuthorization(IServiceCollection, HostConfiguration)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("options", "AuthorizationOptions")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddAuthentication")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add authentication to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddJwtBearer")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add JWT bearer authentication to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"AddAuthentication(IServiceCollection, HostConfiguration)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("builder", "AuthenticationBuilder")
+                {
+                    Documentation = new DocumentationModel("The authentication builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureJwtBearerOptions")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to configure JWT bearer options after it is added to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"AddJwtBearer(IServiceCollection, AuthenticationBuilder, HostConfiguration)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("builder", "AuthenticationBuilder")
+                {
+                    Documentation = new DocumentationModel("The authentication builder.")
+                })
+                .WithParameter(new MethodParameterModel("options", "JwtBearerOptions")
+                {
+                    Documentation = new DocumentationModel("The JWT bearer options.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("OnJwtBearerAuthenticationFailed", "Task")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when the JWT bearer authentication fails.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+                .WithParameter(new MethodParameterModel("context", "AuthenticationFailedContext")
+                {
+                    Documentation = new DocumentationModel("The context.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("OnJwtBearerForbidden", "Task")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when a forbidden response is received.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+                .WithParameter(new MethodParameterModel("context", "ForbiddenContext")
+                {
+                    Documentation = new DocumentationModel("The context.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("OnJwtBearerMessageReceived", "Task")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when a message is received.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+                .WithParameter(new MethodParameterModel("context", "MessageReceivedContext")
+                {
+                    Documentation = new DocumentationModel("The context.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("OnJwtBearerTokenValidated", "Task")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when the token is validated.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+                .WithParameter(new MethodParameterModel("context", "TokenValidatedContext")
+                {
+                    Documentation = new DocumentationModel("The context.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("OnJwtBearerChallenge", "Task")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when a challenge is received.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+                .WithParameter(new MethodParameterModel("context", "JwtBearerChallengeContext")
+                {
+                    Documentation = new DocumentationModel("The context.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseAuthentication")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to activate authentication.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("UseAuthorization")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to activate authorization.")
+                {
+                    Remarks = "The method is called from <see cref=\"Configure(IApplicationBuilder, HostConfiguration, ILogger{Startup})\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("app", "IApplicationBuilder")
+                {
+                    Documentation = new DocumentationModel("The application builder.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current host configuration.")
+                })
+                .ParentModelAs<ClassModel>();
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddDistributedCache")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when configuring services to configure the distributed cache service.")
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                });
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.TableStorage))
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddAzureTableStorage")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when configuring services to configure the table storage service.")
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                });
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.BlobStorage))
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddAzureBlobStorage")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when configuring services to configure the blob storage service.")
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                });
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.Search))
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddAzureSearch")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when configuring services to configure the search service.")
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                });
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.Pipelines))
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddPipelines")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when configuring services to configure the pipelines.")
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                });
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DataProtection))
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddDataProtection")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when configuring services to configure data protection services.")
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                });
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.IsolatedStorage))
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddIsolatedStorage")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when configuring services to configure the isolated storage service.")
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                });
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.SecretsStorage))
+    {
+        baseClassModel
+            .AddMethod(new MethodModel("AddSecretsStorage")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called when configuring services to configure the secrets storage services.")
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                });
+    }
+
+    targetModel.Namespace
+        .AddClass(new ClassModel("Startup")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "StartupBase",
+            Documentation = new DocumentationModel("Provides the application initialization logic.")
+        })
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(env, configuration)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"Startup\" /> class.")
+            })
+                .WithParameter(new MethodParameterModel("env", "IHostEnvironment")
+                {
+                    Documentation = new DocumentationModel("The current host environment.")
+                })
+                .WithParameter(new MethodParameterModel("configuration", "IConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current configuration.")
+                });
+}
+
+#>

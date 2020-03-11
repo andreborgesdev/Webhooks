@@ -1,0 +1,364 @@
+﻿<#+
+
+// *** WriteService
+
+public void WriteService(ModelWriter modelWriter, ServiceModel model)
+{
+    if (model == null)
+    {
+        return;
+    }
+
+    if (!model.GenerateWebApi)
+    {
+
+#>
+// This file is empty because the service model does not generate a Web API.
+<#+
+
+        return;
+    }
+
+    string clientId = "Unknown";
+    string clientSecret = "Unknown";
+
+    if (model.UseClientCredentialsClient)
+    {
+        clientId = model.ClientCredentialsClientId;
+        clientSecret = model.ClientCredentialsClientSecret;
+    }
+
+    string apiVersion = VersioningHelper.GetApiVersionString(model);
+
+#>
+{
+    "info": {
+		"_postman_id": "<#= model.Id #>",
+		"name": "<#= model.GUID #> (<#= model.DisplayName #>)",
+        "description": "<#= model.Summary #>",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Monitoring",
+            "description": "Provides operations to monitor the service.",
+            "item": [
+                {
+                    "name": "Probe (Probe)",
+                    "request": {
+                        "description": "Probes the service.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/monitoring/probe",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"monitoring",
+								"probe"
+							]
+                        }
+                    }
+                },
+                {
+                    "name": "Diagnostics (Diagnostics)",
+                    "request": {
+                        "description": "Diagnoses the service.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/monitoring/diagnostics",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"monitoring",
+								"diagnostics"
+							]
+                        }
+                    }
+                }
+            ]
+        },
+<#+
+
+    IList<ControllerType> controllers = model.Controllers.OrderBy(c => c.DisplayName).ToList();
+    for (int i = 0; i < controllers.Count; i++)
+    {
+        WriteControllerType(modelWriter, controllers[i], i == controllers.Count - 1);
+    }
+
+#>
+    ],
+<#+
+
+    if (model.AuthorizationMode == AuthorizationMode.On)
+    {
+
+#>
+    "auth": {
+        "type": "oauth2",
+        "oauth2": [
+            {
+                "key": "accessToken",
+                "value": "{{accessToken}}",
+                "type": "string"
+            },
+            {
+                "key": "tokenType",
+                "value": "Bearer",
+                "type": "string"
+            },
+            {
+                "key": "addTokenTo",
+                "value": "header",
+                "type": "string"
+            }
+        ]
+    },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "id": "<#= SmartGuid.NewDeterministicGuid(model.Id.ToString() + "event") #>",
+                "type": "text/javascript",
+                "exec": [
+                    "let tokenUrl = pm.variables.get('tokenUrl');",
+                    "let clientId = pm.variables.get('clientId');",
+                    "let clientSecret = pm.variables.get('clientSecret');",
+                    "",
+                    "let getTokenRequest = {",
+                    "    method: 'POST',",
+                    "    url: tokenUrl,",
+                    "    auth: {",
+                    "        type: \"basic\",",
+                    "        basic: [",
+                    "            { key: \"username\", value: clientId },",
+                    "            { key: \"password\", value: clientSecret }",
+                    "        ]",
+                    "    },",
+                    "    body: {",
+                    "        mode: 'formdata',",
+                    "        formdata: [",
+                    "            { key: 'grant_type', value: 'client_credentials' }",
+                    "        ]",
+                    "    }",
+                    "};",
+                    "",
+                    "pm.sendRequest(getTokenRequest, (err, response) => {",
+                    "    let jsonResponse = response.json(),",
+                    "        newAccessToken = jsonResponse.access_token;",
+                    "",
+                    "    console.log({ err, jsonResponse, newAccessToken })",
+                    "",
+                    "    pm.variables.set('accessToken', newAccessToken);",
+                    "});"
+                ]
+            }
+        }
+    ],
+<#+
+
+    }
+
+#>
+    "variable": [
+        {
+            "id": "<#= SmartGuid.NewDeterministicGuid(model.Id.ToString() + "server") #>",
+			"key": "server",
+			"value": "https://localhost:20001",
+			"type": "string"
+        },
+        {
+            "id": "<#= SmartGuid.NewDeterministicGuid(model.Id.ToString() + "apiVersion") #>",
+			"key": "apiVersion",
+			"value": "<#= apiVersion #>",
+			"type": "string"
+        },
+        {
+            "id": "<#= SmartGuid.NewDeterministicGuid(model.Id.ToString() + "tokenUrl") #>",
+			"key": "tokenUrl",
+			"value": "https://stg-identity.primaverabss.com/connect/token",
+			"type": "string"
+        },
+        {
+            "id": "<#= SmartGuid.NewDeterministicGuid(model.Id.ToString() + "clientId") #>",
+			"key": "clientId",
+			"value": "<#= clientId #>",
+			"type": "string"
+        },
+        {
+            "id": "<#= SmartGuid.NewDeterministicGuid(model.Id.ToString() + "clientSecret") #>",
+			"key": "clientSecret",
+			"value": "<#= clientSecret #>",
+			"type": "string"
+        }
+    ]
+}
+<#+
+
+}
+
+// *** WriteControllerType
+
+public void WriteControllerType(ModelWriter modelWriter, ControllerType model, bool last)
+{
+
+#>
+        {
+            "name": "<#= model.DisplayName #>",
+            "description": "<#= model.Summary #>",
+            "item": [
+<#+
+
+    IList<ControllerTypeAction> actions = model.ChildActions.OrderBy(a => a.DisplayName).ToList();
+    for (int i = 0; i < actions.Count; i++)
+    {
+        WriteControllerTypeAction(modelWriter, actions[i], i == actions.Count - 1);
+    }
+
+#>
+            ]
+        }<#= last ? "" : "," #>
+<#+
+
+}
+
+// *** WriteControllerTypeAction
+
+public void WriteControllerTypeAction(ModelWriter modelWriter, ControllerTypeAction model, bool last)
+{
+    ActionRouteBuilder routeBuilder = new ActionRouteBuilder(model);
+
+    string route = routeBuilder.Build(true, false);
+    route = route.Replace("{", "{{");
+    route = route.Replace("}", "}}");
+    route = route.Replace("{{version:apiVersion}}", "{{apiVersion}}");
+
+#>
+                {
+                    "name": "<#= model.Name #> (<#= model.DisplayName #>)",
+                    "request": {
+                        "description": "<#= model.Summary #>",
+                        "method": "<#= model.HttpMethod.ToString().Transform().ToUpperCase() #>",
+<#+
+
+    WriteHeader(modelWriter, model);
+    WriteBody(modelWriter, model);
+
+#>
+                        "url": {
+                            "raw": "{{serverBaseAddress}}<#= route #>",
+							"host": [
+								"{{server}}"
+							],
+<#+
+
+    WritePath(modelWriter, route);
+
+#>
+                        }
+                    },
+                    "response": []
+                }<#= last ? "" : "," #>
+<#+
+
+}
+
+// *** WritePath
+
+public void WritePath(ModelWriter modelWriter, string route)
+{
+    string[] parts = route.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+#>
+							"path": [
+<#+
+
+    for (int i = 0; i < parts.Length; i++)
+    {
+        if (i < parts.Length - 1)
+        {
+
+#>
+								"<#= parts[i] #>",
+<#+
+        }
+        else
+        {
+
+#>
+								"<#= parts[i] #>"
+<#+
+        }
+
+    }
+
+#>
+							]
+<#+
+
+}
+
+// *** WriteHeader
+
+public void WriteHeader(ModelWriter modelWriter, ControllerTypeAction model)
+{
+    if (model.HttpMethod == ControllerTypeActionHttpMethodKind.Post || model.HttpMethod == ControllerTypeActionHttpMethodKind.Put)
+    {
+
+#>
+                        "header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+<#+
+
+    }
+    else
+    {
+
+#>
+                        "header": [],
+<#+
+
+    }
+}
+
+// *** WriteBody
+
+public void WriteBody(ModelWriter modelWriter, ControllerTypeAction model)
+{
+    ModelTypeBase modelType = model.ChildParameters?.OfType<ControllerTypeActionModelParameter>().FirstOrDefault()?.ReferencedModel;
+
+    if (modelType != null)
+    {
+        string prototype = EscapeJson(modelType.GetJsonPrototype());
+
+#>
+                        "body": {
+                            "mode": "raw",
+							"raw": "<#= prototype #>"
+                        },
+<#+
+
+    }
+}
+
+// *** EscapseJson
+
+public string EscapeJson(string json)
+{
+    return json.Replace("\"", "\\\"");
+}
+
+#>

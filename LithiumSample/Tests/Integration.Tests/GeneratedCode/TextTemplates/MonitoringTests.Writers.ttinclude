@@ -1,0 +1,78 @@
+﻿<#+
+
+// *** WriteMonitoringProbe
+
+public void WriteMonitoringProbe(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Create fixture
+
+            using IntegrationTestsFixture fixture = new IntegrationTestsFixture();
+
+            // Create service client
+            
+            using <#= serviceModel.Name #>Client serviceClient = await fixture.GetServiceClientAsync()
+                .ConfigureAwait(false);
+
+            // Execute action
+
+            ServiceOperationResult<string> result1 = await serviceClient.Monitoring.ProbeAsync().ConfigureAwait(false);
+            result1.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result1.Body.Should().Be("OK");
+<#+
+
+    if (serviceModel.GenerateSyncActions)
+    {
+
+#>
+
+            ServiceOperationResult<string> result2 = serviceClient.Monitoring.Probe();
+            result2.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result2.Body.Should().Be("OK");
+<#+
+
+    }
+}
+
+// *** WriteMonitoringDiagnostics
+
+public void WriteMonitoringDiagnostics(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+
+#>
+            // Create fixture
+
+            using IntegrationTestsFixture fixture = new IntegrationTestsFixture();
+
+            // Create service client
+            
+            using <#= serviceModel.Name #>Client serviceClient = await fixture.GetServiceClientAsync()
+                .ConfigureAwait(false);
+
+            // Execute action
+
+            ServiceOperationResult<string> result1 = await serviceClient.Monitoring.DiagnosticsAsync().ConfigureAwait(false);
+            result1.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result1.Body.Should().Be("OK");
+<#+
+
+    if (serviceModel.GenerateSyncActions)
+    {
+
+#>
+
+            ServiceOperationResult<string> result2 = serviceClient.Monitoring.Diagnostics();
+            result2.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result2.Body.Should().Be("OK");
+<#+
+
+    }
+}
+
+#>

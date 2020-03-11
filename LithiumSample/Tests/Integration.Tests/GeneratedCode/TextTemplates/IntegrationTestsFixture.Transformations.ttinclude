@@ -1,0 +1,326 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.Off)
+    {
+        targetModel.WithComment("This file is empty because the service model authorization model is off.");
+        return;
+    }
+
+    if (!sourceModel.GenerateClientLibrary)
+    {
+        targetModel.WithComment("This file is empty because the service does not generate a client library.");
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Net.Http"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.DependencyInjection"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Configuration"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Hosting"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authentication"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authentication.JwtBearer"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Caching.Distributed.Redis"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.IdentityModel.Client.Caching"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client.Authentication"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Security.Cryptography"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.DesignTime.IntegrationTesting"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Security.Azure.Secrets"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Storage.Azure.Tables"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Storage.Azure.Blobs"))
+        .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".Models.Metadata"))
+        .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".WebApi.Controllers"))
+        .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".WebApi.Configuration"))
+        .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".WebApi"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".Integration.Tests");
+
+    // Fixture
+
+    ClassModel baseFixtureClass = targetModel.Namespace
+        .AddClass(new ClassModel("IntegrationTestsFixtureBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Inheritance = "IDisposable",
+            Documentation = new DocumentationModel("Defines the base class for a test fixture used for integration tests.")
+            {
+                SeeAlso = new List<string> { "System.IDisposable" }
+            }
+        })
+            .WithField(new FieldModel("fieldClientId", "string", "Guid.NewGuid().ToString()"))
+            .WithField(new FieldModel("fieldClientSecret", "string", "\"secret\""))
+            .WithField(new FieldModel("disposed", "bool"))
+            .WithProperty(new PropertyModel("IdentityServer", "IdentityTestServer")
+            {
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel()
+                {
+                    Modifiers = PropertyAccessorModifiers.Private
+                },
+                Documentation = new DocumentationModel("Gets the Identity Server test server.")
+            })
+            .WithProperty(new PropertyModel("TestServerFixture", "TestServerFixture<MockStartup>")
+            {
+                Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+                GetAccessor = new PropertyGetAccessorModel(),
+                SetAccessor = new PropertySetAccessorModel()
+                {
+                    Modifiers = PropertyAccessorModifiers.Private
+                },
+                Documentation = new DocumentationModel("Gets the API server test server.")
+            })
+            .WithConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"IntegrationTestsFixtureBase\"/> class.")
+            })
+            .WithMethod(MethodModel.Templates.Dispose)
+            .AddMethod(new MethodModel("Dispose")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Releases unmanaged and - optionally - managed resources.")
+            })
+                .WithParameter(new MethodParameterModel("disposing", "bool")
+                {
+                    Documentation = new DocumentationModel("<c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.")
+                })
+                .ParentModelAs<ClassModel>()
+            .WithMethod(new MethodModel("Initialize", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Initializes the fixture.")
+            })
+            .AddMethod(new MethodModel("GetServiceClientAsync", "Task<{0}Client>".Format(sourceModel.Name))
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Virtual | MethodModifiers.Async,
+                Documentation = new DocumentationModel("Returns an instance of the service client.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+                .ParentModelAs<ClassModel>();
+
+    // Fixture
+
+    ClassModel fixtureClass = targetModel.Namespace
+        .AddClass(new ClassModel("IntegrationTestsFixture")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "IntegrationTestsFixtureBase",
+            Documentation = new DocumentationModel("Defines a test fixture used for integration tests.")
+            {
+                SeeAlso = new List<string> { "IntegrationTestsFixtureBase" }
+            }
+        })
+            .WithConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base()",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"IntegrationTestsFixture\"/> class.")
+            });
+
+    // Startup
+
+    ClassModel mockBaseClass = targetModel.Namespace
+        .AddClass(new ClassModel("MockStartupBase")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Inheritance = "Startup",
+            Documentation = new DocumentationModel("Defines the base class for a mock startup class used by the text fixtures.")
+            {
+                SeeAlso = new List<string> { "Startup" }
+            }
+        })
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base(env, configuration)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"MockStartupBase\"/> class.")
+            })
+                .WithParameter(new MethodParameterModel("env", "IHostEnvironment")
+                {
+                    Documentation = new DocumentationModel("The current host environment.")
+                })
+                .WithParameter(new MethodParameterModel("configuration", "IConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddConfiguration", "HostConfiguration")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Override,
+                Documentation = new DocumentationModel(true)
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection"))
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureHostConfiguration", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel(true)
+            })
+                .WithParameter(new MethodParameterModel("configuration", "HostConfiguration"))
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureJwtBearerOptions", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Override,
+                Documentation = new DocumentationModel(true)
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection"))
+                .WithParameter(new MethodParameterModel("builder", "AuthenticationBuilder"))
+                .WithParameter(new MethodParameterModel("options", "JwtBearerOptions"))
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration"))
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigureMvc", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Override,
+                Documentation = new DocumentationModel(true)
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection"))
+                .WithParameter(new MethodParameterModel("builder", "IMvcBuilder"))
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration"))
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("OnJwtBearerAuthenticationFailed", "Task")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Override | MethodModifiers.Async,
+                Documentation = new DocumentationModel(true)
+            })
+                .WithParameter(new MethodParameterModel("context", "AuthenticationFailedContext"))
+                .ParentModelAs<ClassModel>();
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))
+    {
+        mockBaseClass
+            .AddMethod(new MethodModel("ConfigureRedisCacheOptions", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("configures the REDIS cache options.")
+            })
+                .WithParameter(new MethodParameterModel("options", "RedisCacheOptions"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.SecretsStorage))
+    {
+        mockBaseClass
+            .AddMethod(new MethodModel("ConfigureAzureKeyVaultSecretsStorageOptions", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("configures the secrets storage options.")
+            })
+                .WithParameter(new MethodParameterModel("options", "AzureKeyVaultSecretsStorageOptions"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.TableStorage))
+    {
+        mockBaseClass
+            .AddMethod(new MethodModel("ConfigureAzureTableStorageOptions", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("configures the table storage options.")
+            })
+                .WithParameter(new MethodParameterModel("options", "AzureTableStorageOptions"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.BlobStorage))
+    {
+        mockBaseClass
+            .AddMethod(new MethodModel("ConfigureAzureBlobStorageOptions", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("configures the blob storage options.")
+            })
+                .WithParameter(new MethodParameterModel("options", "AzureBlobStorageOptions"));
+    }
+
+    ClassModel mockClass = targetModel.Namespace
+        .AddClass(new ClassModel("MockStartup")
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "MockStartupBase",
+            Documentation = new DocumentationModel("Defines a mock startup class used by the text fixtures.")
+            {
+                SeeAlso = new List<string> { "MockStartupBase" }
+            }
+        })
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(env, configuration)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"MockStartup\"/> class.")
+            })
+                .WithParameter(new MethodParameterModel("env", "IHostEnvironment")
+                {
+                    Documentation = new DocumentationModel("The current host environment.")
+                })
+                .WithParameter(new MethodParameterModel("configuration", "IConfiguration")
+                {
+                    Documentation = new DocumentationModel("The current configuration.")
+                })
+                .ParentModelAs<ClassModel>();
+
+    // Identity Server HTTP handler
+
+    InterfaceModel accessorInterface = targetModel.Namespace
+        .AddInterface(new InterfaceModel("IIdentityServerHttpHandlerAccessor")
+        {
+            Modifiers = InterfaceModifiers.Internal | InterfaceModifiers.Partial,
+            Documentation = new DocumentationModel("Defines the interface of an accessor for the Identity Server HTTP message handler.")
+        })
+            .WithMethod(new MethodModel("GetHandler", "HttpMessageHandler")
+            {
+                Documentation = new DocumentationModel("Retrieves the instance of <see cref=\"HttpMessageHandler\"/>.")
+                {
+                    Returns = "The instance of <see cref=\"HttpMessageHandler\"/>."
+                }
+            });
+
+    ClassModel accessorClass = targetModel.Namespace
+        .AddClass(new ClassModel("IdentityServerHttpHandlerAccessor")
+        {
+            Modifiers = ClassModifiers.Internal | ClassModifiers.Partial,
+            Inheritance = "IIdentityServerHttpHandlerAccessor",
+            Documentation = new DocumentationModel("Defines an accessor for the Identity Server HTTP message handler.")
+            {
+                SeeAlso = new List<string> { "IIdentityServerHttpHandlerAccessor" }
+            }
+        })
+            .WithProperty(new PropertyModel("Handler", "HttpMessageHandler")
+            {
+                Modifiers = PropertyModifiers.Private,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"IdentityServerHttpHandlerAccessor\"/> class.")
+            })
+                .WithParameter(new MethodParameterModel("handler", "HttpMessageHandler")
+                {
+                    Documentation = new DocumentationModel("The handler instance.")
+                })
+                .ParentModelAs<ClassModel>()
+            .WithMethod(new MethodModel("GetHandler", "HttpMessageHandler")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel(true)
+            });
+
+}
+
+#>

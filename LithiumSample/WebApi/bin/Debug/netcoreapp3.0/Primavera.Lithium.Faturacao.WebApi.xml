@@ -1,0 +1,1784 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Lithium.Faturacao.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Abstractions.EventTriggeredDto">
+            <summary>
+            Defines the model for the EventTriggeredDto.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Abstractions.EventTriggeredDto.Event">
+            <summary>
+            Gets or sets the Event.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Abstractions.EventTriggeredDto.TriggerDate">
+            <summary>
+            Gets or sets the TriggerDate.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Abstractions.EventTriggeredDto.Payload">
+            <summary>
+            Gets or sets the Payload.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksEvent">
+            <summary>
+            Defines the model for the WebhooksEvent table.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksEvent.Key1">
+            <inheritdoc/>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksEvent.Key2">
+            <inheritdoc/>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksEvent.Timestamp">
+            <inheritdoc/>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksSubscription">
+            <summary>
+            Defines the model for the WebhooksSubscription table.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksSubscription.Key1">
+            <inheritdoc/>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksSubscription.Key2">
+            <inheritdoc/>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksSubscription.Timestamp">
+            <inheritdoc/>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingController">
+            <summary>
+            Extension of Faturacao Auto generated class.
+            </summary>
+            <summary>
+            Billing Controller.
+            </summary>
+            <remarks>
+            This is the MVC controller.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingController.GetInvoicesCoreAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingController.CreateInvoiceCoreAsync(System.Collections.Generic.IEnumerable{Primavera.Lithium.Faturacao.Models.Invoice})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingController.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingController" /> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringController">
+            <summary>
+            Extension of Monitoring Auto generated class.
+            </summary>
+            <summary>
+            Defines the controller that provides monitoring routes.
+            </summary>
+            <remarks>
+            This is the MVC controller.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringController.DiagnosticsAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringController.ProbeAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringController.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringController" /> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionController">
+            <summary>
+            Extension of SubscriptionController Auto generated class.
+            </summary>
+            <summary>
+            Webhooks Subscripiton controller.
+            </summary>
+            <remarks>
+            This is the MVC controller.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionController.SubscribeWebhooksEventCoreAsync(Primavera.Lithium.Faturacao.Models.WebhooksSubscription)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionController.GetWebooksSubscriptionsCoreAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionController.GetWebooksEventsForSubscriptionCoreAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionController.UnsubscribeWebhooksEventCoreAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionController.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionController" /> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksController">
+            <summary>
+            Extension of WebhooksController Auto generated class.
+            </summary>
+            <summary>
+            Webhooks controller.
+            </summary>
+            <remarks>
+            This is the MVC controller.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksController.GetWebhooksEventsCoreAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksController.CreateWebhooksEventCoreAsync(Primavera.Lithium.Faturacao.Models.WebhooksEvent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksController.GetWebooksEventsByPublisherCoreAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksController.DeleteWebooksEventCoreAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksController.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksController" /> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ClientLibDocumentationControllerBase">
+            <summary>
+            Defines the base class for the controller that provides the client library documentation.
+            </summary>
+            <remarks>
+            This is the base class of the MVC controller.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.ClientLibDocumentationControllerBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ClientLibDocumentationControllerBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.ClientLibDocumentationControllerBase.Documentation">
+            <summary>
+            Executes the action that shows the client library documentation.
+            </summary>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ClientLibDocumentationController">
+            <summary>
+            Defines the controller that provides the client library documentation.
+            </summary>
+            <remarks>
+            This is the MVC controller.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.ClientLibDocumentationController.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ClientLibDocumentationController" /> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase">
+            <summary>
+            Defines base class for the controller that provides monitoring routes.
+            </summary>
+            <remarks>
+            This is the base class of the MVC controller.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.ProbeAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.DiagnosticsAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingControllerBase">
+            <summary>
+            Billing Controller.
+            </summary>
+            <remarks>
+            This is the base class of the MVC controller.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingControllerBase.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingControllerBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingControllerBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingControllerBase.CreateInvoiceAsync(System.Collections.Generic.IEnumerable{Primavera.Lithium.Faturacao.Models.Invoice})">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingControllerBase.GetInvoicesAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingControllerBase.CreateInvoiceCoreAsync(System.Collections.Generic.IEnumerable{Primavera.Lithium.Faturacao.Models.Invoice})">
+            <summary>
+            Creates a new invoice.
+            </summary>
+            <param name="invoice">Fatura a criar.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingControllerBase.GetInvoicesCoreAsync">
+            <summary>
+            Get all the invoices.
+            </summary>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase">
+            <summary>
+            Webhooks controller.
+            </summary>
+            <remarks>
+            This is the base class of the MVC controller.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.CreateWebhooksEventAsync(Primavera.Lithium.Faturacao.Models.WebhooksEvent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.DeleteWebooksEventAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.GetWebhooksEventsAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.GetWebooksEventsByPublisherAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.CreateWebhooksEventCoreAsync(Primavera.Lithium.Faturacao.Models.WebhooksEvent)">
+            <summary>
+            Create Webhooks Event.
+            </summary>
+            <param name="webhooksEvent">Webhook event being created.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.DeleteWebooksEventCoreAsync(System.String,System.String)">
+            <summary>
+            Deletes WebooksEvent.
+            </summary>
+            <param name="publisher">The name of the publisher.</param>
+            <param name="webhooksEvent">Name of the WebhooksEvent.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.GetWebhooksEventsCoreAsync">
+            <summary>
+            Get Webhooks Events.
+            </summary>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.WebhooksControllerBase.GetWebooksEventsByPublisherCoreAsync(System.String)">
+            <summary>
+            Get WebooksEvents By Publisher.
+            </summary>
+            <param name="publisher">The name of the publisher.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase">
+            <summary>
+            Webhooks Subscripiton controller.
+            </summary>
+            <remarks>
+            This is the base class of the MVC controller.
+            </remarks>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.GetWebooksEventsForSubscriptionAsync(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.GetWebooksSubscriptionsAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.SubscribeWebhooksEventAsync(Primavera.Lithium.Faturacao.Models.WebhooksSubscription)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.UnsubscribeWebhooksEventAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.GetWebooksEventsForSubscriptionCoreAsync(System.String)">
+            <summary>
+            Gets WebooksEvents For Subscription.
+            </summary>
+            <param name="subscription">Name of the Subscription.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.GetWebooksSubscriptionsCoreAsync">
+            <summary>
+            Gets all the webhooks subscriptions.
+            </summary>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.SubscribeWebhooksEventCoreAsync(Primavera.Lithium.Faturacao.Models.WebhooksSubscription)">
+            <summary>
+            Subscribe WebhooksEvent.
+            </summary>
+            <param name="webhooksSubscription">Webhooks Subscription.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.SubscriptionControllerBase.UnsubscribeWebhooksEventCoreAsync(System.String,System.String)">
+            <summary>
+            Unsubscribe WebhooksEvent.
+            </summary>
+            <param name="webhooksEvent">Name of the WebhooksEvent.</param>
+            <param name="subscriber">The event subscriber.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes">
+            <summary>
+            Provides the error codes that can be returned by the Web API.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.RequestArgsInvalid">
+            <summary>
+            The request arguments are invalid.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.CreateInvoiceInvoiceRequired">
+            <summary>
+            The Invoice is required.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.CreateWebhooksEventWebhooksEventRequired">
+            <summary>
+            The WebhooksEvent is required.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.DeleteWebooksEventPublisherRequired">
+            <summary>
+            The Publisher is required.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.DeleteWebooksEventWebhooksEventRequired">
+            <summary>
+            The WebhooksEvent is required.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.GetWebooksEventsByPublisherPublisherRequired">
+            <summary>
+            The Publisher is required.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.GetWebooksEventsForSubscriptionSubscriptionRequired">
+            <summary>
+            The SubscriptionId is required.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.SubscribeWebhooksEventWebhooksSubscriptionRequired">
+            <summary>
+            The WebhooksSubscription is required.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.UnsubscribeWebhooksEventSubscriberRequired">
+            <summary>
+            The Subscriber is required.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Controllers.ErrorCodes.UnsubscribeWebhooksEventWebhooksEventRequired">
+            <summary>
+            The WebhooksEvent is required.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeControllerBase">
+            <summary>
+            Defines the base class for the home controller.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeControllerBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeControllerBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeControllerBase.Index">
+            <summary>
+            Executes the action that responds in the default (root) route.
+            This actions shows a default home page.
+            </summary>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeControllerBase.AccessDenied">
+            <summary>
+            Executes the action that shows the access denied error.
+            </summary>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeControllerBase.Error(System.Int32)">
+            <summary>
+            Executes the action that responds in the error route.
+            This actions shows a default error page.
+            </summary>
+            <param name="statusCode">The error status code.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeControllerBase.Signout(System.String)">
+            <summary>
+            Executes the action that signs-out the user.
+            </summary>
+            <param name="returnUrl">The return URL.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeControllerBase.ShowError(Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel)">
+            <summary>
+            Shows the default error page for the specified model.
+            </summary>
+            <param name="model">The error view model.</param>
+            <returns>
+            The action result.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeController">
+            <summary>
+            Defines the controller for the service Web pages.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeController.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.HomeController" /> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.IMonitoringController">
+            <summary>
+            Defines the interface of the controller that provides monitoring routes.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IMonitoringController.ProbeAsync">
+            <summary>
+            Provides an action that probes the service. This action is used to perform dependencies tests on the service.
+            </summary>
+            <returns>
+            'OK'.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IMonitoringController.DiagnosticsAsync">
+            <summary>
+            Provides an action that diagnoses the service. This action is used to perform functional tests on the service.
+            </summary>
+            <returns>
+            'OK'.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.IBillingController">
+            <summary>
+            Billing Controller.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IBillingController.CreateInvoiceAsync(System.Collections.Generic.IEnumerable{Primavera.Lithium.Faturacao.Models.Invoice})">
+            <summary>
+            Creates a new invoice.
+            </summary>
+            <param name="invoice">Fatura a criar.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IBillingController.GetInvoicesAsync">
+            <summary>
+            Get all the invoices.
+            </summary>
+            <returns>
+            Returns a list of invoices.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.IWebhooksController">
+            <summary>
+            Webhooks controller.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IWebhooksController.CreateWebhooksEventAsync(Primavera.Lithium.Faturacao.Models.WebhooksEvent)">
+            <summary>
+            Create Webhooks Event.
+            </summary>
+            <param name="webhooksEvent">Webhook event being created.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IWebhooksController.DeleteWebooksEventAsync(System.String,System.String)">
+            <summary>
+            Deletes WebooksEvent.
+            </summary>
+            <param name="publisher">The name of the publisher.</param>
+            <param name="webhooksEvent">Name of the WebhooksEvent.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IWebhooksController.GetWebhooksEventsAsync">
+            <summary>
+            Get Webhooks Events.
+            </summary>
+            <returns>
+            Returns a list of webhooks events.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IWebhooksController.GetWebooksEventsByPublisherAsync(System.String)">
+            <summary>
+            Get WebooksEvents By Publisher.
+            </summary>
+            <param name="publisher">The name of the publisher.</param>
+            <returns>
+            A list of WebhooksEvents produced by publisher.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ISubscriptionController">
+            <summary>
+            Webhooks Subscripiton controller.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.ISubscriptionController.GetWebooksEventsForSubscriptionAsync(System.String)">
+            <summary>
+            Gets WebooksEvents For Subscription.
+            </summary>
+            <param name="subscription">Name of the Subscription.</param>
+            <returns>
+            A list of WebhooksSubscriptions.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.ISubscriptionController.GetWebooksSubscriptionsAsync">
+            <summary>
+            Gets all the webhooks subscriptions.
+            </summary>
+            <returns>
+            Returns a list with all the webhooks subscriptions.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.ISubscriptionController.SubscribeWebhooksEventAsync(Primavera.Lithium.Faturacao.Models.WebhooksSubscription)">
+            <summary>
+            Subscribe WebhooksEvent.
+            </summary>
+            <param name="webhooksSubscription">Webhooks Subscription.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.ISubscriptionController.UnsubscribeWebhooksEventAsync(System.String,System.String)">
+            <summary>
+            Unsubscribe WebhooksEvent.
+            </summary>
+            <param name="webhooksEvent">Name of the WebhooksEvent.</param>
+            <param name="subscriber">The event subscriber.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources">
+            <summary>
+            Provides means to access resource strings.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_RequestArgsInvalid">
+            <summary>
+            Gets the RES_Error_RequestArgsInvalid resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_CreateInvoice_Invoice_Required">
+            <summary>
+            Gets the RES_Error_CreateInvoice_Invoice_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_CreateWebhooksEvent_WebhooksEvent_Required">
+            <summary>
+            Gets the RES_Error_CreateWebhooksEvent_WebhooksEvent_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_DeleteWebooksEvent_Publisher_Required">
+            <summary>
+            Gets the RES_Error_DeleteWebooksEvent_Publisher_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_DeleteWebooksEvent_WebhooksEvent_Required">
+            <summary>
+            Gets the RES_Error_DeleteWebooksEvent_WebhooksEvent_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_GetWebooksEventsByPublisher_Publisher_Required">
+            <summary>
+            Gets the RES_Error_GetWebooksEventsByPublisher_Publisher_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_GetWebooksEventsForSubscription_Subscription_Required">
+            <summary>
+            Gets the RES_Error_GetWebooksEventsForSubscription_Subscription_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_SubscribeWebhooksEvent_WebhooksSubscription_Required">
+            <summary>
+            Gets the RES_Error_SubscribeWebhooksEvent_WebhooksSubscription_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_UnsubscribeWebhooksEvent_Subscriber_Required">
+            <summary>
+            Gets the RES_Error_UnsubscribeWebhooksEvent_Subscriber_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.RES_Error_UnsubscribeWebhooksEvent_WebhooksEvent_Required">
+            <summary>
+            Gets the RES_Error_UnsubscribeWebhooksEvent_WebhooksEvent_Required resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.ResourceManager">
+            <summary>
+            Gets the resource manager.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.Culture">
+            <summary>
+            Gets or sets the culture.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ValidationResources"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources">
+            <summary>
+            Provides means to access resource strings.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_PageTitle_Error">
+            <summary>
+            Gets the RES_PageTitle_Error resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_PageTitle_Error_StatusCode">
+            <summary>
+            Gets the RES_PageTitle_Error_StatusCode resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Title_Error">
+            <summary>
+            Gets the RES_Title_Error resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Title_403">
+            <summary>
+            Gets the RES_Title_403 resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Title_404">
+            <summary>
+            Gets the RES_Title_404 resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Title_500">
+            <summary>
+            Gets the RES_Title_500 resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Title_StatusCode">
+            <summary>
+            Gets the RES_Title_StatusCode resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Description_Unexpected">
+            <summary>
+            Gets the RES_Description_Unexpected resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Description_403">
+            <summary>
+            Gets the RES_Description_403 resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Description_404">
+            <summary>
+            Gets the RES_Description_404 resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Description_500">
+            <summary>
+            Gets the RES_Description_500 resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Description_StatusCode">
+            <summary>
+            Gets the RES_Description_StatusCode resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_Description_Unexpected_ErrorId">
+            <summary>
+            Gets the RES_Description_Unexpected_ErrorId resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_ErrorId">
+            <summary>
+            Gets the RES_ErrorId resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_SignedInAs">
+            <summary>
+            Gets the RES_SignedInAs resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_NoFeaturesForWebBrowsers">
+            <summary>
+            Gets the RES_NoFeaturesForWebBrowsers resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_ClientLibraryDocumentation">
+            <summary>
+            Gets the RES_ClientLibraryDocumentation resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.RES_WebApiDocumentation">
+            <summary>
+            Gets the RES_WebApiDocumentation resource string.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.ResourceManager">
+            <summary>
+            Gets the resource manager.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.Culture">
+            <summary>
+            Gets or sets the culture.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.ViewsResources"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksEventManager">
+            <summary>
+            Defines the interface of the Webhooks manager.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksEventManager.CreateWebhooksEvent(Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksEvent)">
+            <summary>
+            Creates the webhooks event.
+            </summary>
+            <param name="webhooksEvent">The webhooks event.</param>
+            <returns>Asynchronous task.</returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksEventManager.GetWebooksEvents">
+            <summary>
+            Creates the applications asynchronous.
+            </summary>
+            <returns>Asynchronous task.</returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksEventManager.GetWebooksEventsByPublisher(System.String)">
+            <summary>
+            Creates the applications asynchronous.
+            </summary>
+            <param name="publisher">The webhooks event.</param>
+            <returns>Asynchronous task.</returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksEventManager.DeleteWebooksEvent(System.String,System.String)">
+            <summary>
+            Deletes the webhooks event.
+            </summary>
+            <param name="publisher">The webhooks publisher.</param>
+            <param name="webhooksEvent">The webhooks event.</param>
+            <returns>Asynchronous task.</returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksSubscriptionManager">
+            <summary>
+            Defines the interface of the Webhooks manager.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksSubscriptionManager.SubscribeWebhooksEvent(Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksSubscription)">
+            <summary>
+            Creates the webhooks event.
+            </summary>
+            <param name="webhooksSubscription">The webhooks event.</param>
+            <returns>Asynchronous task.</returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksSubscriptionManager.GetWebooksSubscriptions">
+            <summary>
+            Creates the applications asynchronous.
+            </summary>
+            <returns>Asynchronous task.</returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksSubscriptionManager.GetWebooksEventsForSubscription(System.String)">
+            <summary>
+            Creates the applications asynchronous.
+            </summary>
+            <param name="subscription">The webhooks event.</param>
+            <returns>Asynchronous task.</returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksSubscriptionManager.UnsubscribeWebhooksEvent(System.String,System.String)">
+            <summary>
+            Creates the webhooks event.
+            </summary>
+            <param name="subscriber">The webhooks event.</param>
+            <param name="webhooksEvent">The event subscriber.</param>
+            <returns>Asynchronous task.</returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager">
+            <summary>
+            Provides the default implementation of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksEventManager"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager.CreateWebhooksEvent(Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksEvent)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager.DeleteWebooksEvent(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager.GetWebooksEvents">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager.GetWebooksEventsByPublisher(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager.GetTableAsync">
+            <summary>
+            Interface of the Lock Service.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager">
+            <summary>
+            Provides the default implementation of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksEventManager"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager.#ctor(System.IServiceProvider,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager" /> class.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager.SubscribeWebhooksEvent(Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksSubscription)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager.GetWebooksSubscriptions">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager.GetWebooksEventsForSubscription(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager.UnsubscribeWebhooksEvent(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager.GetTableAsync">
+            <summary>
+            Interface of the Lock Service.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.CustomCode.Mappers.MapExtensions">
+            <summary>
+            Extensions methods to map objects.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.CustomCode.Mappers.MapExtensions.ToWebhooksEvent(Primavera.Lithium.Faturacao.Models.WebhooksEvent)">
+            <summary>
+            Connverts AppDto to App.
+            </summary>
+            <param name="webhooksEventDto">Application Dto.</param>
+            <returns>An Instance of WebhooksEvent.</returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.CustomCode.Mappers.MapExtensions.ToWebhooksSubscription(Primavera.Lithium.Faturacao.Models.WebhooksSubscription)">
+            <summary>
+            Connverts AppDto to App.
+            </summary>
+            <param name="webhooksSubscriptionDto">Application Dto.</param>
+            <returns>An Instance of WebhooksEvent.</returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Startup">
+            <summary>
+            Defines base class for the controller that provides monitoring routes.
+            </summary>
+            <summary>
+            Provides the application initialization logic.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Startup.AddAdditionalServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Startup.SetupManagers(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Setups the managers.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Startup.#ctor(Microsoft.Extensions.Hosting.IHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Startup" /> class.
+            </summary>
+            <param name="env">The current host environment.</param>
+            <param name="configuration">The current configuration.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfigurationBase">
+            <summary>
+            Defines the base class for the configuration settings used by the service host.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfigurationBase.Information">
+            <summary>
+            Gets or sets information about the host.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfigurationBase.IdentityServerBaseUri">
+            <summary>
+            Gets or sets the identity server base URI.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfigurationBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfigurationBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfigurationBase.Initialize">
+            <summary>
+            Initializes the configuration.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase">
+            <summary>
+            Defines the base class for the type that provides information about the host.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase.ProductName">
+            <summary>
+            Gets the product name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase.HostTitle">
+            <summary>
+            Gets the host title.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase.Company">
+            <summary>
+            Gets the company.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase.Copyright">
+            <summary>
+            Gets the copyright.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase.Version">
+            <summary>
+            Gets the version.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase.InformationalVersion">
+            <summary>
+            Gets the informational version.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfigurationBase.Initialize">
+            <summary>
+            Initializes the configuration.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration">
+            <summary>
+            Defines the configuration settings used by the service host.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfiguration">
+            <summary>
+            Provides information about the host.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Configuration.InformationConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants">
+            <summary>
+            Defines constants used by various types.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers">
+            <summary>
+            Defines constants used by MVC controllers.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home">
+            <summary>
+            Defines constants that specified by the Home MVC controller.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Routes">
+            <summary>
+            Defines constants that specified the routes used in the Home MVC controller.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Routes.Index">
+            <summary>
+            Defines the route of the index action.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Routes.AccessDenied">
+            <summary>
+            Defines the route of the access denied action.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Routes.Error">
+            <summary>
+            Defines the route of the error action.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Routes.Signout">
+            <summary>
+            Defines the route of the signout action.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Actions">
+            <summary>
+            Defines constants that specify the action names used the Home MVC controller.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Actions.Index">
+            <summary>
+            Defines the name of the index action.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Actions.AccessDenied">
+            <summary>
+            Defines the route of the access denied action.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Actions.Error">
+            <summary>
+            Defines the route of the error action.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Actions.Signout">
+            <summary>
+            Defines the route of the signout action.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Controllers.Home.Name">
+            <summary>
+            Defines the name of the controller.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants.Documentation">
+            <summary>
+            Defines constants used in the documentation.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Documentation.WebApiBaseRoute">
+            <summary>
+            Defines the base route of the Web API documentation.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Documentation.WebApiDocumentsRoute">
+            <summary>
+            Defines the route of the Web API documentation documents.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Documentation.WebApiJavaScriptPath">
+            <summary>
+            Defines the path of the custom script used to customize the UI.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Documentation.WebApiStyleSheetPath">
+            <summary>
+            Defines the path of the custom style sheet used to customize the UI.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Documentation.ClientLibBaseRoute">
+            <summary>
+            Defines the base route of the Client Library documentation.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Documentation.ClientLibActionName">
+            <summary>
+            Defines the action name of the Client Library documentation.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants.Policies">
+            <summary>
+            Defines constants used to identity authentication policies.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Policies.Faturacao">
+            <summary>
+            Defines the name of the policy that applies the default scope.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants.LocalizationInstanceBase">
+            <summary>
+            Defines the base class for the localization instance.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Constants.LocalizationInstanceBase.SupportedCulturesExtended">
+            <summary>
+            Gets the list of the extended supported cultures.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Constants.LocalizationInstanceBase.DefaultCultureString">
+            <summary>
+            Gets the default culture (as a string).
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants.LocalizationInstance">
+            <summary>
+            Defines settings used in request localization.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Constants.Localization">
+            <summary>
+            Defines settings used to in request localization.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseDefaultCultureString">
+            <summary>
+            The Portuguese culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseFromPortugalCultureString">
+            <summary>
+            The Portuguese (Portugal) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.EnglishDefaultCultureString">
+            <summary>
+            The English culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.EnglishFromUnitedStatesCultureString">
+            <summary>
+            The English (US) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.SpanishDefaultCultureString">
+            <summary>
+            The Spanish culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.SpanishFromSpainCultureString">
+            <summary>
+            The Spanish (Spain) culture (as a string).
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.DefaultCulture">
+            <summary>
+            Gets the default culture.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.DefaultCultureString">
+            <summary>
+            Gets the default culture (as a string).
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.SupportedCulturesExtended">
+            <summary>
+            Gets the list of extended supported cultures.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.Instance">
+            <summary>
+            Gets the instance
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.ExtensionMethods">
+            <summary>
+            Provides extension methods for various types.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.ExtensionMethods.GetEmail(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Gets the email associated with the principal.
+            </summary>
+            <param name="principal">The claims principal.</param>
+            <returns>The email associated with the principal.</returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.ExtensionMethods.PathIsNotApi(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Determines whether the request path maps to a route that is not part of the Web API.
+            </summary>
+            <param name="request">The request.</param>
+            <returns>
+            A value indicating whether the request path maps to route that is not part of the Web API.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.ExtensionMethods.PathIsNotContent(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Determines whether the request path maps to a route that is not a content file.
+            </summary>
+            <param name="request">The request.</param>
+            <returns>
+            A value indicating whether the request path maps to route that is not a content file.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.ExtensionMethods.PathIsWebApiDocumentation(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Determines whether the request path maps to a route that is part of the Web API documentation.
+            </summary>
+            <param name="request">The request.</param>
+            <returns>
+            A value indicating whether the request path maps to a route that is part of the Web API documentation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.ExtensionMethods.PathIsWebApiDocumentationCustomization(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            Determines whether the request path maps to a route that is part of the Web API documentation.
+            </summary>
+            <param name="request">The request.</param>
+            <returns>
+            A value indicating whether the request path maps to a route that is part of the Web API documentation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorMessageViewModelBase">
+            <summary>
+            Defines the base class for the view model that represents an error message.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorMessageViewModelBase.Error">
+            <summary>
+            Gets or sets the error.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorMessageViewModelBase.ErrorDescription">
+            <summary>
+            Gets or sets the error description.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorMessageViewModelBase.IsExpected">
+            <summary>
+            Gets or sets a value indicating whether the error is expected.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorMessageViewModel">
+            <summary>
+            Defines the view model that represents an error message.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase">
+            <summary>
+            Defines the base class for the view model used by the error view.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.IsStatusCodeError">
+            <summary>
+            Gets a value indicating whether the error resulted from an error status code.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.ErrorStatusCode">
+            <summary>
+            Gets the error status code. Meaningful only if <see cref="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.IsStatusCodeError"/> is true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.ErrorOriginalPath">
+            <summary>
+            Gets the original path of the request that caused the error. Meaningful only if <see cref="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.IsStatusCodeError"/> is true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.ErrorOriginalQueryString">
+            <summary>
+            Gets the original query string of the request that caused the error. Meaningful only if <see cref="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.IsStatusCodeError"/> is true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.UserSignedIn">
+            <summary>
+            Gets a value indicating whether the user is signed-in. Meaningful only if <see cref="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.IsStatusCodeError"/> is true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.UserEmail">
+            <summary>
+            Gets the email of the user that is signed-in (if any). Meaningful only if <see cref="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.IsStatusCodeError"/> is true.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.ErrorId">
+            <summary>
+            Gets the error identifier. Meaningful only if <see cref="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.IsStatusCodeError"/> is false.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.Message">
+            <summary>
+            Gets the error message. Meaningful only if <see cref="P:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.IsStatusCodeError"/> is false.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.#ctor(System.Int32,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase" /> class.
+            </summary>
+            <param name="statusCode">The error status code.</param>
+            <param name="originalPath">The original path (if any).</param>
+            <param name="originalQueryString">The original query string (if any).</param>
+            <param name="userSignedIn">A value indicating whether a user is signed-in.</param>
+            <param name="userEmail">The signed-in user (if any).</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase.#ctor(System.String,Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorMessageViewModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase" /> class.
+            </summary>
+            <param name="errorId">The error identifier.</param>
+            <param name="message">The error message</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel">
+            <summary>
+            Defines the view model used by the error view.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel.#ctor(System.Int32,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel" /> class.
+            </summary>
+            <param name="statusCode">The error status code.</param>
+            <param name="originalPath">The original path (if any).</param>
+            <param name="originalQueryString">The original query string (if any).</param>
+            <param name="userSignedIn">A value indicating whether a user is signed-in.</param>
+            <param name="userEmail">The signed-in user (if any).</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel.#ctor(System.String,Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorMessageViewModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModelBase" /> class.
+            </summary>
+            <param name="errorId">The error identifier.</param>
+            <param name="message">The error message</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel.GetPageTitle(Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Gets the error page title.
+            </summary>
+            <param name="model">The view model.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <returns>
+            The error page title.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel.GetTitle(Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,System.String@)">
+            <summary>
+            Gets the error title.
+            </summary>
+            <param name="model">The view model.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <param name="title">The title.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel.GetDescriptionHtml(Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel,System.String@,System.String@)">
+            <summary>
+            Gets the error description HTML.
+            </summary>
+            <param name="model">The view model.</param>
+            <param name="description">The description.</param>
+            <param name="additionalInformation">The additional information.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel.GetErrorIdHtml(Primavera.Lithium.Faturacao.WebApi.Models.Internal.ViewModels.ErrorViewModel)">
+            <summary>
+            Gets the error id HTML.
+            </summary>
+            <param name="model">The view model.</param>
+            <returns>
+            The error id HTML.
+            </returns>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.Program">
+            <summary>
+            Defines the starting point of the application.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Program.Main(System.String[])">
+            <summary>
+            Executes the application.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase">
+            <summary>
+            Defines the base class for the host builder.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase.CaptureStartupErrors">
+            <summary>
+            Gets a value indicating whether startup errors should be captured. The default value is false.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase.UseDevelopmentSettings">
+            <summary>
+            Gets a value indicating whether development settings should be used regardless of the current environment. The default value is false.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase" /> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase.Build(System.String[])">
+            <summary>
+            Builds the <see cref="T:Microsoft.Extensions.Hosting.IHost" /> instance.
+            </summary>
+            <param name="args">The arguments.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.Hosting.IHost" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase.ConfigureAppConfiguration(Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.Configuration.IConfigurationBuilder)">
+            <summary>
+            Configures the application configuration.
+            </summary>
+            <param name="context">The host builder context.</param>
+            <param name="builder">The configuration builder.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase.ConfigureLogging(Microsoft.Extensions.Hosting.HostBuilderContext,Microsoft.Extensions.Logging.ILoggingBuilder)">
+            <summary>
+            Configures logging.
+            </summary>
+            <param name="context">The host builder context.</param>
+            <param name="builder">The logging builder.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase.ConfigureHostConfiguration(Microsoft.Extensions.Configuration.IConfigurationBuilder)">
+            <summary>
+            Configures the host configuration.
+            </summary>
+            <param name="builder">The configuration builder.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.HostBuilderBase.ConfigureWebHostDefaults(Microsoft.AspNetCore.Hosting.IWebHostBuilder)">
+            <summary>
+            Configures the Web host defaults.
+            </summary>
+            <param name="builder">The Web host builder.</param>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.HostBuilder">
+            <summary>
+            Defines the host builder.
+            </summary>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.HostBuilder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.HostBuilder" /> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Lithium.Faturacao.WebApi.StartupBase">
+            <summary>
+            Defines the base class for the application initialization logic.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.StartupBase.CurrentEnvironment">
+            <summary>
+            Gets the current environment.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configuration">
+            <summary>
+            Gets the current configuration.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseDevelopmentSettings">
+            <summary>
+            Gets a value indicating whether development settings should be used regardless of the current environment. The default value is false.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.StartupBase.Logger">
+            <summary>
+            Gets the logger instance.
+            </summary>
+            <remarks>
+            This instance is only initialized when <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/> starts.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.#ctor(Microsoft.Extensions.Hosting.IHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.StartupBase" /> class.
+            </summary>
+            <param name="env">The current host environment.</param>
+            <param name="configuration">The current configuration.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Called by the runtime when the application starts to allow the application to configure its services.
+            </summary>
+            <param name="services">The services collection.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})">
+            <summary>
+            Called by the runtime when the application starts to allow the application to configure itself.
+            </summary>
+            <param name="app">The current application.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddAdditionalServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to add additional (custom) services to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddOpenApiDocumentation(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to add the OpenAPI documentation.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Called to add configuration to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            An instance of <see cref="T:Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration"/> that can be used in the application configuration process.
+            </returns>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddDependencies(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to add dependencies to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddTelemetry(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to add telemetry to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddMvc(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to add MVC to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureMvc(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.IMvcBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to configure MVC after its is added to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="builder">The builder.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddMvc(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureApiVersioningOptions(Microsoft.AspNetCore.Mvc.Versioning.ApiVersioningOptions)">
+            <summary>
+            Called to configure the API versioning options.
+            </summary>
+            <param name="options">The options.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddMvc(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddBackgroundServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to add background services to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ValidateConfiguration(Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to validate configuration.
+            </summary>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ValidateConfiguration(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to validate configuration.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseErrorHandling(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to activate error handling.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseHttps(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to activate HTTPS (HSTS and HTTPS redirection).
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseStaticFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to activate MVC static files.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseRequestLocalization(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to activate request localization.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseRouting(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to activate routing.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseThrottling(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to activate throttling.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseEndpoints(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to activate endpoint routing.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AdditionalAppConfigurations(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to perform additional application configurations.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/> (just before ending).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseOpenApiDocumentation(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to active the OpenAPI documentation.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/> (just before ending).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddClientLibraryDocumentation(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to add the client library documentation.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.UseClientLibraryDocumentation(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to active the client library documentation.
+            </summary>
+            <param name="app">The application builder.</param>
+            <param name="hostConfiguration">The current host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration,Microsoft.Extensions.Logging.ILogger{Primavera.Lithium.Faturacao.WebApi.Startup})"/> (just before ending).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddAzureTableStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called when configuring services to configure the table storage service.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+        </member>
+    </members>
+</doc>

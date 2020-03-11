@@ -1,0 +1,95 @@
+﻿<#+
+
+// *** WriteGetInstance
+
+public void WriteGetInstance(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+                get
+                {
+                    return fieldInstance;
+                }
+<#+
+
+}
+
+// *** WriteGetDefaultCulture
+
+public void WriteGetDefaultCulture(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+                get
+                {
+                    return new CultureInfo(DefaultCultureString);
+                }
+<#+
+
+}
+
+// *** WriteGetSupportedCulturesExtended
+
+public void WriteGetSupportedCulturesExtended(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+                get
+                {
+                    return Instance.SupportedCulturesExtended;
+                }
+<#+
+
+}
+
+// *** WriteGetSupportedCulturesExtendedBase
+
+public void WriteGetSupportedCulturesExtendedBase(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+                get
+                {
+                    return new List<CultureInfo>
+                    {
+                        new CultureInfo(Localization.EnglishDefaultCultureString),
+                        new CultureInfo(Localization.EnglishFromUnitedStatesCultureString),
+                        new CultureInfo(Localization.PortugueseDefaultCultureString),
+                        new CultureInfo(Localization.PortugueseFromPortugalCultureString),
+                        new CultureInfo(Localization.SpanishDefaultCultureString),
+                        new CultureInfo(Localization.SpanishFromSpainCultureString)
+                    };
+                }
+<#+
+
+}
+
+// *** WriteGetDefaultCultureString
+
+public void WriteGetDefaultCultureString(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+                get
+                {
+                    return Instance.DefaultCultureString;
+                }
+<#+
+
+}
+
+// *** WriteGetDefaultCultureStringBase
+
+public void WriteGetDefaultCultureStringBase(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+                get
+                {
+                    return Localization.EnglishFromUnitedStatesCultureString;
+                }
+<#+
+
+}
+
+#>

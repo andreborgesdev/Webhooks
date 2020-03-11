@@ -1,0 +1,32 @@
+﻿<#+
+
+// *** WriteReferenceEnumerationMembers
+
+public void WriteReferenceEnumerationMembers(ModelWriter w, EnumType m)
+{
+    if (m.ChildMembers.Count == 0)
+    {
+        w.AppendLine("The enumeration has no members.");
+        w.AppendLine();
+        return;
+    }
+
+    w.AppendLine("| Member | Value | Description |");
+    w.AppendLine("| - | - | - |");
+    
+    foreach (EnumTypeMember member in m.ChildMembers)
+    {
+        this.WriteReferenceEnumerationMember(w, member);
+    }
+
+    w.AppendLine();
+}
+
+// *** WriteReferenceEnumerationMember
+
+public void WriteReferenceEnumerationMember(ModelWriter w, EnumTypeMember m)
+{
+    w.AppendLine("| `{0}` | {1} | {2} | ", m.Name, m.Value, m.Summary);
+}
+
+#>

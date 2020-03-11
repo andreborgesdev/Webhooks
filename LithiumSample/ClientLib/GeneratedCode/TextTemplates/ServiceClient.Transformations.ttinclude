@@ -1,0 +1,369 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    if (!sourceModel.GenerateClientLibrary)
+    {
+        targetModel.WithComment("This file is empty because the service model does not generate a client library.");
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Diagnostics.CodeAnalysis"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Net.Http"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client"))
+        .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".Models.Metadata"));
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace);
+
+    // Base class
+
+    ClassModel baseClassModel = targetModel.Namespace
+        .AddClass(new ClassModel("{0}ClientBase".Format(sourceModel.Name))
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Abstract | ClassModifiers.Partial,
+            Inheritance = "ServiceClient<{0}ClientBase>, I{0}Client".Format(sourceModel.Name),
+            Documentation = new DocumentationModel("Defines the base class for the service client that allows accessing the {0} API.".Format(sourceModel.DisplayName))
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .WithField(new FieldModel("disposed", "bool"));
+
+    if (sourceModel.GenerateServiceClientConstructors)
+    {
+        baseClassModel
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base(baseUri, credentials)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}ClientBase\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("credentials", "ServiceClientCredentials")
+                {
+                    Documentation = new DocumentationModel("The credentials that should be used to access the service.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base(baseUri, credentials, handler)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}ClientBase\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("credentials", "ServiceClientCredentials")
+                {
+                    Documentation = new DocumentationModel("The credentials that should be used to access the service.")
+                })
+                .WithParameter(new MethodParameterModel("handler", "HttpMessageHandler")
+                {
+                    Documentation = new DocumentationModel("The root message handler.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base(baseUri, credentials, handler, disposeHandler)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}ClientBase\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("credentials", "ServiceClientCredentials")
+                {
+                    Documentation = new DocumentationModel("The credentials that should be used to access the service.")
+                })
+                .WithParameter(new MethodParameterModel("handler", "HttpMessageHandler")
+                {
+                    Documentation = new DocumentationModel("The root message handler.")
+                })
+                .WithParameter(new MethodParameterModel("disposeHandler", "bool")
+                {
+                    Documentation = new DocumentationModel("True if the inner handler should be disposed of, false if the inner handler is intended to be reused.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base(baseUri, callback)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}ClientBase\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("callback", "Func<AuthenticationCallbackArgs, Task<string>>")
+                {
+                    Documentation = new DocumentationModel("The callback that will be invoked during authentication to get the access token.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base(baseUri, callback, handler)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}ClientBase\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("callback", "Func<AuthenticationCallbackArgs, Task<string>>")
+                {
+                    Documentation = new DocumentationModel("The callback that will be invoked during authentication to get the access token.")
+                })
+                .WithParameter(new MethodParameterModel("handler", "HttpMessageHandler")
+                {
+                    Documentation = new DocumentationModel("The root message handler.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Protected,
+                Inheritance = "base(baseUri, callback, handler, disposeHandler)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}ClientBase\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("callback", "Func<AuthenticationCallbackArgs, Task<string>>")
+                {
+                    Documentation = new DocumentationModel("The callback that will be invoked during authentication to get the access token.")
+                })
+                .WithParameter(new MethodParameterModel("handler", "HttpMessageHandler")
+                {
+                    Documentation = new DocumentationModel("The root message handler.")
+                })
+                .WithParameter(new MethodParameterModel("disposeHandler", "bool")
+                {
+                    Documentation = new DocumentationModel("True if the inner handler should be disposed of, false if the inner handler is intended to be reused.")
+                });
+    }
+
+    if (sourceModel.GenerateWebApi)
+    {
+        baseClassModel.AddProperty(new PropertyModel("Monitoring", "IMonitoringOperations")
+        {
+            Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+            GetAccessor = new PropertyGetAccessorModel(),
+            SetAccessor = new PropertySetAccessorModel()
+            {
+                Modifiers = PropertyAccessorModifiers.Protected,
+            },
+            Documentation = new DocumentationModel(true)
+        });
+    }
+
+    // Base class methods
+
+    MethodModel method1 = baseClassModel
+        .AddMethod(new MethodModel("InitializeApiVersion")
+        {
+            Modifiers = MethodModifiers.Protected | MethodModifiers.Override,
+            Documentation = new DocumentationModel(true)
+        });
+
+    method1.Facets["SourceModel"] = sourceModel;
+
+    MethodModel method2 = baseClassModel
+        .AddMethod(new MethodModel("Dispose")
+        {
+            Modifiers = MethodModifiers.Protected | MethodModifiers.Override,
+            Documentation = new DocumentationModel(true)
+        })
+            .WithParameter(new MethodParameterModel("disposing", "bool"));
+
+    method2.Facets["SourceModel"] = sourceModel;
+
+    // Class
+
+    ClassModel classModel = targetModel.Namespace
+        .AddClass(new ClassModel("{0}Client".Format(sourceModel.Name))
+        {
+            Modifiers = ClassModifiers.Public | ClassModifiers.Partial,
+            Inheritance = "{0}ClientBase".Format(sourceModel.Name),
+            Documentation = new DocumentationModel("Defines the service client that allows accessing the {0} API.".Format(sourceModel.DisplayName))
+        })
+            .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"));
+
+    if (sourceModel.GenerateServiceClientConstructors)
+    {
+        classModel
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(baseUri, credentials)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}Client\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("credentials", "ServiceClientCredentials")
+                {
+                    Documentation = new DocumentationModel("The credentials that should be used to access the service.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(baseUri, credentials, handler)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}Client\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("credentials", "ServiceClientCredentials")
+                {
+                    Documentation = new DocumentationModel("The credentials that should be used to access the service.")
+                })
+                .WithParameter(new MethodParameterModel("handler", "HttpMessageHandler")
+                {
+                    Documentation = new DocumentationModel("The root message handler.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(baseUri, credentials, handler, disposeHandler)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}Client\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("credentials", "ServiceClientCredentials")
+                {
+                    Documentation = new DocumentationModel("The credentials that should be used to access the service.")
+                })
+                .WithParameter(new MethodParameterModel("handler", "HttpMessageHandler")
+                {
+                    Documentation = new DocumentationModel("The root message handler.")
+                })
+                .WithParameter(new MethodParameterModel("disposeHandler", "bool")
+                {
+                    Documentation = new DocumentationModel("True if the inner handler should be disposed of, false if the inner handler is intended to be reused.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(baseUri, callback)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}Client\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("callback", "Func<AuthenticationCallbackArgs, Task<string>>")
+                {
+                    Documentation = new DocumentationModel("The callback that will be invoked during authentication to get the access token.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(baseUri, callback, handler)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}Client\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("callback", "Func<AuthenticationCallbackArgs, Task<string>>")
+                {
+                    Documentation = new DocumentationModel("The callback that will be invoked during authentication to get the access token.")
+                })
+                .WithParameter(new MethodParameterModel("handler", "HttpMessageHandler")
+                {
+                    Documentation = new DocumentationModel("The root message handler.")
+                })
+            .ParentModelAs<ClassModel>()
+            .AddConstructor(new ConstructorModel()
+            {
+                Modifiers = ConstructorModifiers.Public,
+                Inheritance = "base(baseUri, callback, handler, disposeHandler)",
+                Documentation = new DocumentationModel("Initializes a new instance of the <see cref=\"{0}Client\" /> class.".Format(sourceModel.Name))
+            })
+                .WithParameter(new MethodParameterModel("baseUri", "Uri")
+                {
+                    Documentation = new DocumentationModel("The base URI of the service.")
+                })
+                .WithParameter(new MethodParameterModel("callback", "Func<AuthenticationCallbackArgs, Task<string>>")
+                {
+                    Documentation = new DocumentationModel("The callback that will be invoked during authentication to get the access token.")
+                })
+                .WithParameter(new MethodParameterModel("handler", "HttpMessageHandler")
+                {
+                    Documentation = new DocumentationModel("The root message handler.")
+                })
+                .WithParameter(new MethodParameterModel("disposeHandler", "bool")
+                {
+                    Documentation = new DocumentationModel("True if the inner handler should be disposed of, false if the inner handler is intended to be reused.")
+                });
+    }
+
+    // Class methods
+
+    MethodModel method3 = classModel
+        .AddMethod(new MethodModel("InitializeCore")
+        {
+            Modifiers = MethodModifiers.Private,
+        });
+
+    method3.Facets["SourceModel"] = sourceModel;
+}
+
+// *** TransformController
+
+public void TransformController(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ControllerType sourceModel = sourceElement as ControllerType;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    if (!sourceModel.ServiceModel.GenerateClientLibrary)
+    {
+        return;
+    }
+
+    if (!sourceModel.IsVisible)
+    {
+        return;
+    }
+
+    ClassModel baseClassModel = targetModel.Namespace.Classes[0];
+
+    baseClassModel.AddProperty(new PropertyModel(sourceModel.Name, "I{0}Operations".Format(sourceModel.Name))
+    {
+        Modifiers = PropertyModifiers.Public | PropertyModifiers.Virtual,
+        GetAccessor = new PropertyGetAccessorModel(),
+        SetAccessor = new PropertySetAccessorModel()
+        {
+            Modifiers = PropertyAccessorModifiers.Protected,
+        },
+        Documentation = new DocumentationModel(true)
+    });
+}
+
+#>

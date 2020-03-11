@@ -1,0 +1,2697 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Storage.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageError">
+            <summary>
+            Indicates the code of the error in a <see cref="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageException" />.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.ServerUnavailable">
+            <summary>
+            Could not connect to the storage server.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.InvalidContainerName">
+            <summary>
+            The container name is invalid.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.ContainerAlreadyExists">
+            <summary>
+            The container already exists.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.ContainerBeingDeleted">
+            <summary>
+            The container is being deleted.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.ContainerDisabled">
+            <summary>
+            The container is disabled.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.InvalidBlobName">
+            <summary>
+            The blob name is invalid.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.BlobAlreadyExists">
+            <summary>
+            The blob already exists.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.BlobNotFound">
+            <summary>
+            The blob does not exist.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.ContainerNotFound">
+            <summary>
+            The container does not exist.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.BadRequest">
+            <summary>
+            The server returned an error with status code BadRequest.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.Conflict">
+            <summary>
+            The server returned an error with status code Conflict.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.NotFound">
+            <summary>
+            The server returned an error with status code NotFound.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.Unexpected">
+            <summary>
+            The error is unexpected.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobStorageError.Unspecified">
+            <summary>
+            The error code was not specified by the code that raised the exception.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageException">
+            <summary>
+            Represents errors raised by the <see cref="T:Primavera.Hydrogen.Storage.Blobs.IBlobStorageService"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.BlobStorageException.ErrorCode">
+            <summary>
+            Gets the code of the error that caused the exception.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.BlobStorageException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.BlobStorageException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.BlobStorageException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+            <param name="innerException">Represents the exception that caused this error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.BlobStorageException.#ctor(Primavera.Hydrogen.Storage.Blobs.BlobStorageError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.BlobStorageException.#ctor(Primavera.Hydrogen.Storage.Blobs.BlobStorageError,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.BlobStorageException.#ctor(Primavera.Hydrogen.Storage.Blobs.BlobStorageError,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Blobs.BlobStorageException"/> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+            <param name="innerException">The exception that caused this error.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.BlobType">
+            <summary>
+            Defines the type of a blob.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobType.Unknown">
+            <summary>
+            The blob type is unknown.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.BlobType.BlockBlob">
+            <summary>
+            The blob is a block blob.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType">
+            <summary>
+            Describes the public access type allowed on a container.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType.NoAccess">
+            <summary>
+            The container and its blobs cannot be accessed with anonymous requests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType.BlobsOnly">
+            <summary>
+            Only the blobs in the container can be read with anonymous requests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType.BlobsAndContainer">
+            <summary>
+            Both the blobs in the container and the container itself can be read with anonymous requests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType.Unknown">
+            <summary>
+            The access type is unknown.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.IBlobProperties">
+            <summary>
+            Describes the properties of a blob.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobProperties.Created">
+            <summary>
+            Gets the moment when the blob was created.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobProperties.LastModified">
+            <summary>
+            Gets the moment when the blob was last modified.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobProperties.DeletedTime">
+            <summary>
+            Gets the moment when the blob was deleted.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobProperties.ContentType">
+            <summary>
+            Gets or sets the blob content type.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobProperties.ContentEncoding">
+            <summary>
+            Gets or sets the blob content encoding.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobProperties.Length">
+            <summary>
+            Gets the blob length.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.IBlobReference">
+            <summary>
+            Defines the common interface for all kinds of blobs.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobReference.Name">
+            <summary>
+            Gets the blob name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobReference.Properties">
+            <summary>
+            Gets the blob properties.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobReference.Uri">
+            <summary>
+            Gets the blob URI.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IBlobReference.BlobType">
+            <summary>
+            Gets the blob type.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlobReference.Delete">
+            <summary>
+            Deletes the blob.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlobReference.DeleteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Deletes the blob.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlobReference.DeleteIfExists">
+            <summary>
+            Deletes the blob if it exists.
+            </summary>
+            <returns>
+            A value indicating whether the blob was actually deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlobReference.DeleteIfExistsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Deletes the blob if it exists.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the blob was actually deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlobReference.Exists">
+            <summary>
+            Determines whether the blob exists.
+            </summary>
+            <returns>
+            A value indicating whether the blob exists.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlobReference.ExistsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Determines whether the blob exists.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the blob exists.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.IBlobStorageService">
+            <summary>
+            Defines the interface of the blob storage service.
+            The blob storage service is a text and/or binary data store in the cloud.
+            New instances of the service should be resolved via dependency injection to realize
+            the concrete implementation.
+            </summary>
+            <remarks>
+            ATTENTION:
+            Beware that the service will communicate via a REST API to the actual storage service used.
+            Each instance of the service returned will maintain its own instance of the API client,
+            even if the configuration used is exactly the same.
+            Correctly managing the instances of the services in use will impact the application
+            performance.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlobStorageService.GetContainer(System.String)">
+            <summary>
+            Gets a reference to the specified container.
+            </summary>
+            <param name="containerName">The name of the container.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Storage.Blobs.IContainerReference"/> that represents a reference to the container.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference">
+            <summary>
+            Represents a reference to a block blob in the blob storage.
+            Notice that this is simply a reference that allows performing operations on the referenced
+            blob.
+            A blob reference can exist before (and after) the blob actually exists in the storage (for,
+            example, the reference is required to create a new blob).
+            </summary>
+            <example>
+            To create a new block blob:
+            <code>
+            <![CDATA[
+            IBlobStorageService service = provider.GetRequiredService<IBlobStorageService>();
+            IContainerReference container = service.GetContainer("MyContainer");
+            container.CreateIfNotExists();
+            IBlockBlobReference blob = container.GetBlockBlob("MyBlob");
+            blob.CreateIfNotExists();
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadToByteArray(System.Byte[],System.Int32)">
+            <summary>
+            Downloads the contents of the blob to the specified byte array.
+            </summary>
+            <param name="target">The target byte array.</param>
+            <param name="index">The starting offset in the byte array.</param>
+            <returns>
+            The number of bytes written to the byte array.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadToByteArrayAsync(System.Byte[],System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Downloads the contents of the blob to the specified byte array.
+            </summary>
+            <param name="target">The target byte array.</param>
+            <param name="index">The starting offset in the byte array.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The number of bytes written to the byte array.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadFromByteArray(System.Byte[],System.Int32,System.Int32,System.String)">
+            <summary>
+            Uploads the specified byte array to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="buffer">The array containing the bytes that should be uploaded.</param>
+            <param name="index">The zero-based byte offset in the buffer at which to begin uploading bytes to the blob.</param>
+            <param name="count">The number of bytes that should be uploaded to the blob.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadFromByteArrayAsync(System.Byte[],System.Int32,System.Int32,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Uploads the specified byte array to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="buffer">The array containing the bytes that should be uploaded.</param>
+            <param name="index">The zero-based byte offset in the buffer at which to begin uploading bytes to the blob.</param>
+            <param name="count">The number of bytes that should be uploaded to the blob.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadToFile(System.String,System.IO.FileMode)">
+            <summary>
+            Downloads the contents of the blob to a file.
+            </summary>
+            <param name="path">The path of the target file.</param>
+            <param name="mode">The mode that specifies how the file should be created/open.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadToFileAsync(System.String,System.IO.FileMode,System.Threading.CancellationToken)">
+            <summary>
+            Downloads the contents of the blob to a file.
+            </summary>
+            <param name="path">The path of the target file.</param>
+            <param name="mode">The mode that specifies how the file should be created/open.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadFromFile(System.String,System.String)">
+            <summary>
+            Uploads the specified file to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="path">The path of the file that should be uploaded.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadFromFileAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Uploads the specified file to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="path">The path of the file that should be uploaded.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadToStream(System.IO.Stream)">
+            <summary>
+            Downloads the contents of the blob to a stream.
+            </summary>
+            <param name="target">The target stream.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadToStreamAsync(System.IO.Stream,System.Threading.CancellationToken)">
+            <summary>
+            Downloads the contents of the blob to a stream.
+            </summary>
+            <param name="target">The target stream.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadFromStream(System.IO.Stream,System.String)">
+            <summary>
+            Uploads a stream to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="source">The stream that will provide the content that should be uploaded.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadFromStream(System.IO.Stream,System.Int64,System.String)">
+            <summary>
+            Uploads a stream to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="source">The stream that will provide the content that should be uploaded.</param>
+            <param name="length">The number of bytes that should be uploaded (from the current position of the stream).</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadFromStreamAsync(System.IO.Stream,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Uploads a stream to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="source">The stream that will provide the content that should be uploaded.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadFromStreamAsync(System.IO.Stream,System.Int64,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Uploads a stream to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="source">The stream that will provide the content that should be uploaded.</param>
+            <param name="length">The number of bytes that should be uploaded (from the current position of the stream).</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadText">
+            <summary>
+            Downloads the contents of the blob as a string.
+            </summary>
+            <returns>
+            The contents of the blob as a string.
+            </returns>
+            <remarks>
+            This method uses the <see cref="P:System.Text.Encoding.UTF8"/> encoding.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadText(System.Text.Encoding)">
+            <summary>
+            Downloads the contents of the blob as a string.
+            </summary>
+            <param name="encoding">The text encoding.</param>
+            <returns>
+            The contents of the blob as a string.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadTextAsync(System.Threading.CancellationToken)">
+            <summary>
+            Downloads the contents of the blob as a string.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The contents of the blob as a string.
+            </returns>
+            <remarks>
+            This method uses the <see cref="P:System.Text.Encoding.UTF8"/> encoding.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.DownloadTextAsync(System.Text.Encoding,System.Threading.CancellationToken)">
+            <summary>
+            Downloads the contents of the blob as a string.
+            </summary>
+            <param name="encoding">The text encoding.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The contents of the blob as a string.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadText(System.String,System.String)">
+            <summary>
+            Uploads a string of text to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="content">The string containing the text that should be uploaded.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+            <remarks>
+            This method uses the <see cref="P:System.Text.Encoding.UTF8"/> encoding.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadText(System.Text.Encoding,System.String,System.String)">
+            <summary>
+            Uploads a string of text to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="encoding">The text encoding.</param>
+            <param name="content">The string containing the text that should be uploaded.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadTextAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Uploads a string of text to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="content">The string containing the text that should be uploaded.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            This method uses the <see cref="P:System.Text.Encoding.UTF8"/> encoding.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference.UploadTextAsync(System.Text.Encoding,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Uploads a string of text to the blob. If the blob already exists, it will be overwritten.
+            </summary>
+            <param name="encoding">The text encoding.</param>
+            <param name="content">The string containing the text that should be uploaded.</param>
+            <param name="contentType">The content type that should be associated with the blob.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.IContainerPermissions">
+            <summary>
+            Represents the permissions set on a container.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IContainerPermissions.PublicAccess">
+            <summary>
+            Gets or sets the public access type allowed on a container.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Blobs.IContainerReference">
+            <summary>
+            Represents a reference to a container in the blob storage.
+            Notice that this is simply a reference that allows performing operations on the referenced
+            container.
+            A container reference can exist before (and after) the container actually exists in the storage (for,
+            example, the reference is required to create a new container).
+            </summary>
+            <example>
+            To create a new container:
+            <code>
+            <![CDATA[
+            IBlobStorageService service = provider.GetRequiredService<IBlobStorageService>();
+            IContainerReference container = service.GetContainer("MyContainer");
+            container.CreateIfNotExists();
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Blobs.IContainerReference.Name">
+            <summary>
+            Gets the container name.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.Create(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType)">
+            <summary>
+            Creates the container.
+            </summary>
+            <param name="publicAccess">The public access type allowed on a container.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.CreateAsync(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType,System.Threading.CancellationToken)">
+            <summary>
+            Creates the container.
+            </summary>
+            <param name="publicAccess">The public access type allowed on a container.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.CreateIfNotExists(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType)">
+            <summary>
+            Creates the container if it does not already exist.
+            </summary>
+            <param name="publicAccess">The public access type allowed on a container.</param>
+            <returns>
+            A value indicating whether the container was actually created.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.CreateIfNotExistsAsync(Primavera.Hydrogen.Storage.Blobs.ContainerPublicAccessType,System.Threading.CancellationToken)">
+            <summary>
+            Creates the container if it does not already exist.
+            </summary>
+            <param name="publicAccess">The public access type allowed on a container.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the container was actually created.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.Delete">
+            <summary>
+            Deletes the container.
+            </summary>
+            <remarks>
+            Keep in mind that deleting a container is a slow operation that will be executed asynchronously
+            by the storage server. This may result in situations where the following code would return
+            in an error in the create operation because the container could still exist on the server (in
+            the process of being deleted).
+            <code>
+            <![CDATA[
+            container.Delete();
+            container.Create();
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.DeleteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Deletes the container.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            Keep in mind that deleting a container is a slow operation that will be executed asynchronously
+            by the storage server. This may result in situations where the following code would return
+            in an error in the create operation because the container could still exist on the server (in
+            the process of being deleted).
+            <code>
+            <![CDATA[
+            await container.DeleteAsync();
+            await container.CreateAsync();
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.DeleteIfExists">
+            <summary>
+            Deletes the container if it exists.
+            </summary>
+            <returns>
+            A value indicating whether the container was actually deleted.
+            </returns>
+            <remarks>
+            Keep in mind that deleting a container is a slow operation that will be executed asynchronously
+            by the storage server. This may result in situations where the following code would return
+            in an error in the create operation because the container could still exist on the server (in
+            the process of being deleted).
+            <code>
+            <![CDATA[
+            container.DeleteIfExists();
+            container.Create();
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.DeleteIfExistsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Deletes the container if it exists.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the container was actually deleted.
+            </returns>
+            <remarks>
+            Keep in mind that deleting a container is a slow operation that will be executed asynchronously
+            by the storage server. This may result in situations where the following code would return
+            in an error in the create operation because the container could still exist on the server (in
+            the process of being deleted).
+            <code>
+            <![CDATA[
+            await container.DeleteIfExistsAsync();
+            await container.CreateAsync();
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.Exists">
+            <summary>
+            Determines whether the container exists.
+            </summary>
+            <returns>
+            A value indicating whether the container exists.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.ExistsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Determines whether the container exists.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the container exists.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.GetPermissions">
+            <summary>
+            Gets the current container permissions.
+            </summary>
+            <returns>
+            The current container permissions.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.GetPermissionsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets the current container permissions.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The current container permissions.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.SetPermissions(Primavera.Hydrogen.Storage.Blobs.IContainerPermissions)">
+            <summary>
+            Gets the current container permissions.
+            </summary>
+            <param name="permissions">The permissions that should be set.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.SetPermissionsAsync(Primavera.Hydrogen.Storage.Blobs.IContainerPermissions,System.Threading.CancellationToken)">
+            <summary>
+            Gets the current container permissions.
+            </summary>
+            <param name="permissions">The permissions that should be set.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Blobs.IContainerReference.GetBlockBlob(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a reference to the specified block blob.
+            </summary>
+            <param name="blobName">The name of the blob.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Blobs.IBlockBlobReference"/> that represents a reference to the blob.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Isolated.IIsolatedStorageService">
+            <summary>
+            Defines the interface of the isolated storage service.
+            The isolated storage service is a data storage mechanism that provides isolation and safety for associating
+            code (applications, libraries) with saved data. It also avoids the need of hard-coding information about
+            where the storage area is located.
+            </summary>
+            <remarks>
+            ATTENTION:
+            Beware that the data is saved as files in the local computer and these files are not protected from
+            highly trusted code, unmanaged code, or from trusted users of the computer.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IIsolatedStorageService.GetMachineStoreForApplication">
+            <summary>
+            Returns a machine-scoped isolated store corresponding to the calling code's application identity.
+            </summary>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Storage.Isolated.IIsolatedStore"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Isolated.IIsolatedStore">
+            <summary>
+            Defines the interface of an isolated store.
+            The store is a virtual directory system where files can be stored.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IIsolatedStore.CreateFile(System.String,System.Byte[])">
+            <summary>
+            Creates a file in the isolated store.
+            </summary>
+            <param name="path">The path and file name.</param>
+            <param name="contents">The file contents.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IIsolatedStore.DeleteFile(System.String)">
+            <summary>
+            Deletes the specified file from the isolated store.
+            </summary>
+            <param name="path">The path and file name.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IIsolatedStore.FileExists(System.String)">
+            <summary>
+            Determines whether the specified path refers to an existing file in the isolated store.
+            </summary>
+            <param name="path">The path and file name.</param>
+            <returns>
+            A value indicating whether the specified path refers to an existing file in the isolated store.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IIsolatedStore.TryReadFile(System.String,System.Byte[]@)">
+            <summary>
+            Tries to read the specified file from the isolated store.
+            </summary>
+            <param name="path">The path and file name.</param>
+            <param name="contents">The file contents.</param>
+            <returns>
+            A value indicating whether the file could be read. If true, then <paramref name="contents"/> contains the file contents.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageError">
+            <summary>
+            Indicates the code of the error in a <see cref="T:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException" />.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageError.CouldNotCreateFile">
+            <summary>
+            A file could not be created.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageError.Unexpected">
+            <summary>
+            The error is unexpected.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageError.Unspecified">
+            <summary>
+            The error code was not specified by the code that raised the exception.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException">
+            <summary>
+            Represents errors raised by the <see cref="T:Primavera.Hydrogen.Storage.Isolated.IIsolatedStorageService"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException.ErrorCode">
+            <summary>
+            Gets the code of the error that caused the exception.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+            <param name="innerException">Represents the exception that caused this error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException.#ctor(Primavera.Hydrogen.Storage.Isolated.IsolatedStorageError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException.#ctor(Primavera.Hydrogen.Storage.Isolated.IsolatedStorageError,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException.#ctor(Primavera.Hydrogen.Storage.Isolated.IsolatedStorageError,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Isolated.IsolatedStorageException"/> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+            <param name="innerException">The exception that caused this error.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.StorageServiceException">
+            <summary>
+            Represents errors raised by storage services.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.StorageServiceException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.StorageServiceException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.StorageServiceException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.StorageServiceException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.StorageServiceException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.StorageServiceException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+            <param name="innerException">Represents the exception that caused this error.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.IgnorePropertyAttribute">
+            <summary>
+            Indicates that the property to which the attribute is applies should be ignored when storing the parent
+            entity using the <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableStorageService"/>.
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.ITableEntity">
+            <summary>
+            Defines the interface of an entity managed by the <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableReference"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.ITableEntity.Key1">
+            <summary>
+            Gets or sets the first key of the entity.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.ITableEntity.Key2">
+            <summary>
+            Gets or sets the second key of the entity.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.ITableEntity.Timestamp">
+            <summary>
+            Gets or sets the time stamp of the entity.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.ITableQuery">
+            <summary>
+            Represents a query that can be executed on a <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableReference"/> to retrieve records.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.ITableQuery.SelectProperties">
+            <summary>
+            Gets the list containing the names of the table properties that should be retrieved.
+            If the list is null or empty, all properties from the table will be retrieved.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.ITableQuery.Filter">
+            <summary>
+            Gets the filter expression.
+            If the value is null or empty, records will not be filtered.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.ITableQuery.TakeCount">
+            <summary>
+            Gets the number of records that should be returned.
+            If the value is null, than all the records that satisfy the query will be retrieved.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableQuery.Select(System.String[])">
+            <summary>
+            Adds the specified properties to the result set.
+            </summary>
+            <param name="properties">The names of the properties that should be added to the result set.</param>
+            <returns>
+            The updated <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQuery"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableQuery.Select(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Adds the specified properties to the result set.
+            </summary>
+            <param name="properties">The names of the properties that should be added to the result set.</param>
+            <returns>
+            The updated <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQuery"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableQuery.Take(System.Int32)">
+            <summary>
+            Sets the number of records that should be retrieved.
+            </summary>
+            <param name="count">The number of records that should be retrieved.</param>
+            <returns>
+            The updated <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQuery"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableQuery.Where(Primavera.Hydrogen.Storage.Tables.ITableQueryCondition)">
+            <summary>
+            Sets the query filter.
+            </summary>
+            <param name="condition">The condition.</param>
+            <returns>
+            The updated <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQuery" /> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition">
+            <summary>
+            Represents a condition in a <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQuery"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.ITableQueryCondition.Filter">
+            <summary>
+            Gets the filter expression.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.ITableReference">
+            <summary>
+            Represents a reference to a table in the table storage.
+            Notice that this is simply a reference that allows performing operations on the referenced
+            table.
+            A table reference can exist before (and after) the table actually exists in the storage (for,
+            example, the reference is required to create a new table).
+            </summary>
+            <example>
+            To create a new table:
+            <code>
+            <![CDATA[
+            ITableStorageService service = provider.GetRequiredService<ITableStorageService>();
+            ITableReference table = service.GetTable("MyTable");
+            table.CreateIfNotExists();
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.ITableReference.Name">
+            <summary>
+            Gets the table name.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be inserted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryInsertEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be inserted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the entity was inserted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertEntitiesAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Inserts the specified entities.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="entities">The entities that should be inserted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertOrReplaceEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            Inserts or replaces the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be inserted or replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertOrReplaceEntitiesAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Inserts or replaces the specified entities.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="entities">The entities that should be inserted or replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be deleted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryDeleteEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be deleted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the entity was deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteEntitiesAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified entities.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="entities">The entities that should be deleted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.ReplaceEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            Replaces the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryReplaceEntityAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            Replaces the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the entity was replaced.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.ReplaceEntitiesAsync``1(System.Collections.Generic.IEnumerable{``0},System.Threading.CancellationToken)">
+            <summary>
+            Replaces the specified entities.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="entities">The entities that should be replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveEntityAsync``1(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the entity with the specified keys.
+            Raises an exception if the entity does not exist.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="key1">The first key of the entity.</param>
+            <param name="key2">The second key of the entity.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The entity with the specified keys.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryRetrieveEntityAsync``1(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the entity with the specified keys.
+            Returns null if the entity does not exist.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="key1">The first key of the entity.</param>
+            <param name="key2">The second key of the entity.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The entity with the specified keys.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveEntitiesAsync``1(System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all the entities in the table.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A list containing all the entities in the table.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveEntitiesAsync``1(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all the entities with the specified key.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="key1">The key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A list containing all the entities in the table that match the specified key.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveEntitiesAsync``1(Primavera.Hydrogen.Storage.Tables.ITableQuery,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the entities that satisfy the specified query.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="query">The query that should be used to determine the data that should be retrieved.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A list containing the entities in the table that satisfy the specified query.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertEntity``1(``0)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be inserted.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryInsertEntity``1(``0)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be inserted.</param>
+            <returns>
+            A value indicating whether the entity was inserted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertEntities``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Inserts the specified entities.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="entities">The entities that should be inserted.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertOrReplaceEntity``1(``0)">
+            <summary>
+            Inserts or replaces the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be inserted or replaced.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertOrReplaceEntities``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Inserts or replaces the specified entities.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="entities">The entities that should be inserted or replaced.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteEntity``1(``0)">
+            <summary>
+            Deletes the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be deleted.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryDeleteEntity``1(``0)">
+            <summary>
+            Deletes the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be deleted.</param>
+            <returns>
+            A value indicating whether the entity was deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteEntities``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Deletes the specified entities.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="entities">The entities that should be deleted.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.ReplaceEntity``1(``0)">
+            <summary>
+            Replaces the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be replaced.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryReplaceEntity``1(``0)">
+            <summary>
+            Replaces the specified entity.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="entity">The entity that should be replaced.</param>
+            <returns>
+            A value indicating whether the entity was replaced.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.ReplaceEntities``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Replaces the specified entities.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="entities">The entities that should be replaced.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveEntity``1(System.String,System.String)">
+            <summary>
+            Retrieves the entity with the specified keys.
+            Raises an exception if the entity does not exist.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="key1">The first key of the entity.</param>
+            <param name="key2">The second key of the entity.</param>
+            <returns>
+            The entity with the specified keys.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryRetrieveEntity``1(System.String,System.String)">
+            <summary>
+            Retrieves the entity with the specified keys.
+            Returns null if the entity does not exist.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="key1">The first key of the entity.</param>
+            <param name="key2">The second key of the entity.</param>
+            <returns>
+            The entity with the specified keys.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveEntities``1">
+            <summary>
+            Retrieves all the entities in the table.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <returns>
+            A list containing all the entities in the table.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveEntities``1(System.String)">
+            <summary>
+            Retrieves all the entities with the specified key.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="key1">The key.</param>
+            <returns>
+            A list containing all the entities in the table that match the specified key.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveEntities``1(Primavera.Hydrogen.Storage.Tables.ITableQuery)">
+            <summary>
+            Retrieves the entities that satisfy the specified query.
+            </summary>
+            <typeparam name="TEntity">The type of the entities.</typeparam>
+            <param name="query">The query that should be used to determine the data that should be retrieved.</param>
+            <returns>
+            A list containing the entities in the table that satisfy the specified query.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <summary>
+            Inserts the specified record.
+            </summary>
+            <param name="record">The record that should be inserted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryInsertRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <summary>
+            Inserts the specified record.
+            </summary>
+            <param name="record">The record that should be inserted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the record was inserted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertRecordsAsync(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord},System.Threading.CancellationToken)">
+            <summary>
+            Inserts the specified records.
+            </summary>
+            <param name="records">The records that should be inserted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertOrReplaceRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <summary>
+            Inserts or replaces the specified record.
+            </summary>
+            <param name="record">The record that should be inserted or replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertOrReplaceRecordsAsync(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord},System.Threading.CancellationToken)">
+            <summary>
+            Inserts or replaces the specified records.
+            </summary>
+            <param name="records">The records that should be inserted or replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified record.
+            </summary>
+            <param name="record">The record that should be deleted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryDeleteRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified record.
+            </summary>
+            <param name="record">The record that should be deleted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the record was deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteRecordsAsync(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord},System.Threading.CancellationToken)">
+            <summary>
+            Deletes the specified records.
+            </summary>
+            <param name="records">The records that should be deleted.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.ReplaceRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <summary>
+            Replaces the specified record.
+            </summary>
+            <param name="record">The record that should be replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryReplaceRecordAsync(Primavera.Hydrogen.Storage.Tables.TableRecord,System.Threading.CancellationToken)">
+            <summary>
+            Replaces the specified record.
+            </summary>
+            <param name="record">The record that should be replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the record was replaced.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.ReplaceRecordsAsync(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord},System.Threading.CancellationToken)">
+            <summary>
+            Replaces the specified records.
+            </summary>
+            <param name="records">The records that should be replaced.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveRecordAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the record with the specified keys.
+            Raises an exception if the record does not exist.
+            </summary>
+            <param name="key1">The first key of the record.</param>
+            <param name="key2">The second key of the record.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The record with the specified keys.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryRetrieveRecordAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the record with the specified keys.
+            Returns null if the record does not exist.
+            </summary>
+            <param name="key1">The first key of the record.</param>
+            <param name="key2">The second key of the record.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The record with the specified keys.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveRecordsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all the records in the table.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A list containing all the records in the table.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveRecordsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves all the records with the specified key.
+            </summary>
+            <param name="key1">The key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A list containing all the records in the table that match the specified key.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveRecordsAsync(Primavera.Hydrogen.Storage.Tables.ITableQuery,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the records that satisfy the specified query.
+            </summary>
+            <param name="query">The query that should be used to determine the data that should be retrieved.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A list containing the records in the table that satisfy the specified query.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <summary>
+            Inserts the specified record.
+            </summary>
+            <param name="record">The record that should be inserted.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryInsertRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <summary>
+            Inserts the specified record.
+            </summary>
+            <param name="record">The record that should be inserted.</param>
+            <returns>
+            A value indicating whether the record was inserted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertRecords(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord})">
+            <summary>
+            Inserts the specified records.
+            </summary>
+            <param name="records">The records that should be inserted.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertOrReplaceRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <summary>
+            Inserts or replaces the specified record.
+            </summary>
+            <param name="record">The record that should be inserted or replaced.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.InsertOrReplaceRecords(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord})">
+            <summary>
+            Inserts or replaces the specified records.
+            </summary>
+            <param name="records">The records that should be inserted or replaced.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <summary>
+            Deletes the specified record.
+            </summary>
+            <param name="record">The record that should be deleted.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryDeleteRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <summary>
+            Deletes the specified record.
+            </summary>
+            <param name="record">The record that should be deleted.</param>
+            <returns>
+            A value indicating whether the record was deleted.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteRecords(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord})">
+            <summary>
+            Deletes the specified records.
+            </summary>
+            <param name="records">The records that should be deleted.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.ReplaceRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <summary>
+            Replaces the specified record.
+            </summary>
+            <param name="record">The record that should be replaced.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryReplaceRecord(Primavera.Hydrogen.Storage.Tables.TableRecord)">
+            <summary>
+            Replaces the specified record.
+            </summary>
+            <param name="record">The record that should be replaced.</param>
+            <returns>
+            A value indicating whether the record was replaced.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.ReplaceRecords(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Storage.Tables.TableRecord})">
+            <summary>
+            Replaces the specified records.
+            </summary>
+            <param name="records">The records that should be replaced.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveRecord(System.String,System.String)">
+            <summary>
+            Retrieves the record with the specified keys.
+            Raises an exception if the record does not exist.
+            </summary>
+            <param name="key1">The first key of the record.</param>
+            <param name="key2">The second key of the record.</param>
+            <returns>
+            The record with the specified keys.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.TryRetrieveRecord(System.String,System.String)">
+            <summary>
+            Retrieves the record with the specified keys.
+            Returns null if the record does not exist.
+            </summary>
+            <param name="key1">The first key of the record.</param>
+            <param name="key2">The second key of the record.</param>
+            <returns>
+            The record with the specified keys.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveRecords">
+            <summary>
+            Retrieves all the records in the table.
+            </summary>
+            <returns>
+            A list containing all the records in the table.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveRecords(System.String)">
+            <summary>
+            Retrieves all the records with the specified key.
+            </summary>
+            <param name="key1">The key.</param>
+            <returns>
+            A list containing all the records in the table that match the specified key.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.RetrieveRecords(Primavera.Hydrogen.Storage.Tables.ITableQuery)">
+            <summary>
+            Retrieves the records that satisfy the specified query.
+            </summary>
+            <param name="query">The query that should be used to determine the data that should be retrieved.</param>
+            <returns>
+            A list containing the records in the table that satisfy the specified query.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.CreateAsync(System.Threading.CancellationToken)">
+            <summary>
+            Creates the table.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.CreateIfNotExistsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Creates the table if it does not already exist.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A value indicating whether the table was created.
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Deletes the table.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            Keep in mind that deleting a table is a slow operation that will be executed asynchronously
+            by the storage server. This may result in situations where the following code would return
+            in an error in the create operation because the table could still exist on the server (in
+            the process of being deleted).
+            <code>
+            <![CDATA[
+            await table.DeleteAsync();
+            await table.CreateAsync();
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteIfExistsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Deletes the table if it exists.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A value indicating whether the table was deleted.
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            Keep in mind that deleting a table is a slow operation that will be executed asynchronously
+            by the storage server. This may result in situations where the following code would return
+            in an error in the create operation because the table could still exists on the server (in
+            the process of being deleted).
+            <code>
+            <![CDATA[
+            await table.DeleteIfExistsAsync();
+            await table.CreateAsync();
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.ExistsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Determines whether the table exists.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A value indicating whether the table exists.
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.Create">
+            <summary>
+            Creates the table.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.CreateIfNotExists">
+            <summary>
+            Creates the table if it does not already exist.
+            </summary>
+            <returns>
+            A value indicating whether the table was created.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.Delete">
+            <summary>
+            Deletes the table.
+            </summary>
+            <remarks>
+            Keep in mind that deleting a table is a slow operation that will be executed asynchronously
+            by the storage server. This may result in situations where the following code would return
+            in an error in the create operation because the table could still exist on the server (in
+            the process of being deleted).
+            <code>
+            <![CDATA[
+            await table.Delete();
+            await table.Create();
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.DeleteIfExists">
+            <summary>
+            Deletes the table if it exists.
+            </summary>
+            <returns>
+            A value indicating whether the table was deleted.
+            </returns>
+            <remarks>
+            Keep in mind that deleting a table is a slow operation that will be executed asynchronously
+            by the storage server. This may result in situations where the following code would return
+            in an error in the create operation because the table could still exists on the server (in
+            the process of being deleted).
+            <code>
+            <![CDATA[
+            await table.DeleteIfExists();
+            await table.Create();
+            ]]>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableReference.Exists">
+            <summary>
+            Determines whether the table exists.
+            </summary>
+            <returns>
+            A value indicating whether the table exists.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.ITableStorageService">
+            <summary>
+            Defines the interface of the table storage service.
+            The table storage service is a structured NoSQL data store in the cloud.
+            The table storage is a key/attribute store with a schema-less design.
+            New instances of the service should be resolved via dependency injection to realize
+            the concrete implementation.
+            </summary>
+            <remarks>
+            ATTENTION:
+            Beware that the service will communicate via a REST API to the actual storage service used.
+            Each instance of the service returned will maintain its own instance of the API client,
+            even if the configuration used is exactly the same.
+            Correctly managing the instances of the services in use will impact the application
+            performance.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.ITableStorageService.GetTable(System.String)">
+            <summary>
+            Gets a reference to the specified table.
+            </summary>
+            <param name="tableName">The name of the table.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableReference"/> that represents a reference to the table.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.TableEntity">
+            <summary>
+            Defines the base class for an entity managed by the <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableReference" />.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Storage.Tables.ITableEntity" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableEntity.Key1">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableEntity.Key2">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableEntity.Timestamp">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableEntity.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableEntity"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableEntity.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableEntity"/> class.
+            </summary>
+            <param name="key1">The first key of the entity.</param>
+            <param name="key2">The second key of the entity.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Defines a property in a table record.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableProperty.PropertyType">
+            <summary>
+            Gets the type of the property value.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableProperty.PropertyValue">
+            <summary>
+            Gets the property value.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableProperty.IsNull">
+            <summary>
+            Gets a value indicating whether the property value is null.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.#ctor(System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> class.
+            </summary>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.#ctor(System.Nullable{System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> class.
+            </summary>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.#ctor(System.Nullable{System.DateTimeOffset})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> class.
+            </summary>
+            <param name="value">The property value. Values are stored in UTC.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.#ctor(System.Nullable{System.DateTime})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> class.
+            </summary>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.#ctor(System.Nullable{System.Double})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> class.
+            </summary>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.#ctor(System.Nullable{System.Guid})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> class.
+            </summary>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.#ctor(System.Nullable{System.Int32})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> class.
+            </summary>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.#ctor(System.Nullable{System.Int64})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> class.
+            </summary>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> class.
+            </summary>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.Equals(Primavera.Hydrogen.Storage.Tables.TableProperty)">
+            <summary>
+            Determines whether the specified <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty" />, is equal to this instance.
+            </summary>
+            <param name="other">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty" /> to compare with this instance.</param>
+            <returns>
+              <c>true</c> if the specified <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty" /> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(System.Byte[])~Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Byte"/> array to <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.Byte"/> array instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(System.Nullable{System.Boolean})~Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Boolean"/> to <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.Boolean"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(System.Nullable{System.DateTimeOffset})~Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.DateTimeOffset"/> to <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>. Values are stored in UTC.
+            </summary>
+            <param name="value">The <see cref="T:System.DateTimeOffset"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(System.Nullable{System.DateTime})~Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.DateTime"/> to <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.DateTime"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(System.Nullable{System.Double})~Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Double"/> to <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.Double"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(System.Nullable{System.Guid})~Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Guid"/> to <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.Guid"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(System.Nullable{System.Int32})~Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Int32"/> to <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.Int32"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(System.Nullable{System.Int64})~Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Int64"/> to <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.Int64"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(System.String)~Primavera.Hydrogen.Storage.Tables.TableProperty">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.String"/> to <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Byte[]">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Byte"/> array.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Nullable{System.Boolean}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Boolean"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Boolean">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Boolean"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Nullable{System.DateTimeOffset}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.DateTimeOffset"/>. Values are stored in UTC.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.DateTimeOffset">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.DateTimeOffset"/>. Values are stored in UTC.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Nullable{System.DateTime}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.DateTime"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.DateTime">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.DateTime"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Nullable{System.Double}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Double"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Double">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Double"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Nullable{System.Guid}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Guid"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Guid">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Guid"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Nullable{System.Int32}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Int32"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Int32">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Int32"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Nullable{System.Int64}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Int64"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.Int64">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.Int64"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableProperty.op_Implicit(Primavera.Hydrogen.Storage.Tables.TableProperty)~System.String">
+            <summary>
+            Performs an implicit conversion from <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> to <see cref="T:System.String"/>.
+            </summary>
+            <param name="value">The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/> instance that should be converted.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.TablePropertyType">
+            <summary>
+            Defines the type of a table record property value.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TablePropertyType.String">
+            <summary>
+            The table property value is of type <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TablePropertyType.Binary">
+            <summary>
+            The table property value is of type byte[].
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TablePropertyType.Boolean">
+            <summary>
+            The table property value is of type <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TablePropertyType.DateTime">
+            <summary>
+            The table property value is of type <see cref="T:System.DateTime"/> (UTC).
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TablePropertyType.Double">
+            <summary>
+            The table property value is of type <see cref="T:System.Double"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TablePropertyType.Guid">
+            <summary>
+            The table property value is of type <see cref="T:System.Guid"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TablePropertyType.Integer">
+            <summary>
+            The table property value is of type <see cref="T:System.Int32"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TablePropertyType.Long">
+            <summary>
+            The table property value is of type <see cref="T:System.Int64"/>.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.TableQueryComparison">
+            <summary>
+            Defines the comparison that will be used in a <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableQuery"/> filter.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableQueryComparison.Equal">
+            <summary>
+            Compares if two values are equal.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableQueryComparison.NotEqual">
+            <summary>
+            Compares if two values are not equal.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableQueryComparison.GreaterThan">
+            <summary>
+            Compares if the left value is greater than the right value.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableQueryComparison.GreaterThanOrEqual">
+            <summary>
+            Compares if the left value is greater than or equal to the right value.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableQueryComparison.LessThan">
+            <summary>
+            Compares if the left value is less than the right value.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableQueryComparison.LessThanOrEqual">
+            <summary>
+            Compares if the left value is less than or equal to the right value.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.TableRecord">
+            <summary>
+            Defines a table record that allows callers to access the record properties directly.
+            </summary>
+            <example>
+            Properties can be set like this:
+            <code>
+            <![CDATA[
+            record["PropertyName"] = value;
+            record.Properties["PropertyName"] = value;
+            record.Properties["PropertyName"] = new TableProperty(value);
+            ]]>
+            </code>
+            And retrieved like this:
+            <code>
+            <![CDATA[
+            string value = record.GetPropertyValueOrDefault("PropertyName", (string)null);
+            string value = record["PropertyName"];
+            string value = record.Properties["PropertyName"];
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableRecord.Key1">
+            <summary>
+            Gets or sets the first key of the record.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableRecord.Key2">
+            <summary>
+            Gets or sets the second key of the record.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableRecord.Timestamp">
+            <summary>
+            Gets or sets the time stamp of the record.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableRecord.Properties">
+            <summary>
+            Gets the table record properties, indexed by property name.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableRecord.Item(System.String)">
+            <summary>
+            Gets or sets the table property with the specified key.
+            </summary>
+            <value>
+            The <see cref="T:Primavera.Hydrogen.Storage.Tables.TableProperty"/>.
+            </value>
+            <param name="key">The table property key.</param>
+            <returns>The table property with the specified key.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableRecord"/> class.
+            </summary>
+            <param name="key1">The first key of the record.</param>
+            <param name="key2">The second key of the record.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.String)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Byte[])">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Boolean)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.DateTimeOffset)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist. Values are stored in UTC.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Nullable{System.DateTimeOffset})">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist. Values are stored in UTC.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.DateTime)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Double)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Nullable{System.Double})">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Guid)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Nullable{System.Guid})">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Int32)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Int64)">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableRecord.GetPropertyValueOrDefault(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Gets the value of the specified property or the specified default value if the property does not exist.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="defaultValue">The default value that should be returned if the property does not exist.</param>
+            <returns>
+            The value of the specified property.
+            The specified default value if the property does not exist.
+            The type default value if the property is null.
+            The type default value if the property value is not of the expected type.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.TableStorageError">
+            <summary>
+            Indicates the code of the error in a <see cref="T:Primavera.Hydrogen.Storage.Tables.TableStorageException" />.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.ServerUnavailable">
+            <summary>
+            Could not connect to the storage server.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.DuplicateProperties">
+            <summary>
+            The table has duplicate properties.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.TableTooLarge">
+            <summary>
+            The table is too large.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.InvalidValueType">
+            <summary>
+            At least one table property as an invalid value type.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.PropertiesValueMissing">
+            <summary>
+            The value of at least a property is missing.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.PropertyNameInvalid">
+            <summary>
+            The name of at least one property is invalid.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.PropertyNameTooLong">
+            <summary>
+            The name of at least one property is too long.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.PropertyValueTooLarge">
+            <summary>
+            The value of at least one property is too large.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.TooManyProperties">
+            <summary>
+            The table has too many properties.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.TableNotFound">
+            <summary>
+            The table does not exist.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.TableAlreadyExists">
+            <summary>
+            The table already exists.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.TableBeingDeleted">
+            <summary>
+            The table is being deleted.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.RecordNotFound">
+            <summary>
+            The record does not exist.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.FirstKeyMismatch">
+            <summary>
+            All the records in an insert operation must have the same first key.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.RecordTypeNotSupported">
+            <summary>
+            The type of the record object is not supported.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.PropertyTypeNotSupported">
+            <summary>
+            The type of a property is not supported.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.InvalidTableName">
+            <summary>
+            The table name is invalid.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.InvalidRecordKeys">
+            <summary>
+            At least one record in a batch operation has invalid keys.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.RecordAlreadyExists">
+            <summary>
+            The record already exists.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.OutOfRangeInput">
+            <summary>
+            The value of a property is out of range.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.InvalidInput">
+            <summary>
+            The value of a property is invalid.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.BadRequest">
+            <summary>
+            The server returned an error with status code BadRequest.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.Conflict">
+            <summary>
+            The server returned an error with status code Conflict.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.NotFound">
+            <summary>
+            The server returned an error with status code NotFound.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.Unexpected">
+            <summary>
+            The error is unexpected.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Storage.Tables.TableStorageError.Unspecified">
+            <summary>
+            The error code was not specified by the code that raised the exception.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Storage.Tables.TableStorageException">
+            <summary>
+            Represents errors raised by the <see cref="T:Primavera.Hydrogen.Storage.Tables.ITableStorageService"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Storage.Tables.TableStorageException.ErrorCode">
+            <summary>
+            Gets the code of the error that caused the exception.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableStorageException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableStorageException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableStorageException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableStorageException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableStorageException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableStorageException"/> class.
+            </summary>
+            <param name="message">Error message.</param>
+            <param name="innerException">Represents the exception that caused this error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableStorageException.#ctor(Primavera.Hydrogen.Storage.Tables.TableStorageError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableStorageException.#ctor(Primavera.Hydrogen.Storage.Tables.TableStorageError,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableStorageException" /> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Storage.Tables.TableStorageException.#ctor(Primavera.Hydrogen.Storage.Tables.TableStorageError,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Storage.Tables.TableStorageException"/> class.
+            </summary>
+            <param name="error">The code of the error that caused the exception.</param>
+            <param name="message">The error message.</param>
+            <param name="innerException">The exception that caused this error.</param>
+        </member>
+    </members>
+</doc>

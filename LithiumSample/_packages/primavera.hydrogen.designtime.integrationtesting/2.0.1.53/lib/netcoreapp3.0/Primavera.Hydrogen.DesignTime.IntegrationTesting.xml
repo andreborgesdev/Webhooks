@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.DesignTime.IntegrationTesting</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources">
+            <summary>
+            Defines constants that identify external resources used in tests.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure">
+            <summary>
+            Defines constants that identity Windows Azure resources.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.AzureAuthorityServer">
+            <summary>
+            The address of the Azure Active Directory that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.ClassicTableStorageConnectionString">
+            <summary>
+            The connection string to the classic table storage that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.CosmosDbTableStorageConnectionString">
+            <summary>
+            The connection string to the CosmosDb table storage that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.KeyVaultUrl">
+            <summary>
+            The URL of the Key Value that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.KeyVaultSecretName">
+            <summary>
+            The name of one secret stored in the key vault that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.KeyVaultKeyName">
+            <summary>
+            The name of one key stored in the key vault that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.KeyVaultCertificateName">
+            <summary>
+            The name of one certificate stored in the key vault that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.KeyVaultClientApplicationId">
+            <summary>
+            The application id of the client application that is being used to communicate with the key vault used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.KeyVaultClientApplicationKey">
+            <summary>
+            The application key of the client application that is being used to communicate with the key vault used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.KeyVaultResourceName">
+            <summary>
+            The name of the resource (OAuth) to access the KeyVault that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.AppInsightsInstrumentationKey">
+            <summary>
+            The instrumentation key for the Application Insights that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.RedisCacheConnectionString">
+            <summary>
+            The connection string to the REDIS cache that should be used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.SearchServiceName">
+            <summary>
+            The name of the Azure Search service used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.SearchServiceApiKey">
+            <summary>
+            The API key of the Azure Search service used in tests.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Azure.ServiceBusConnectionString">
+            <summary>
+            The connection string to the service Bus instance that should be used in tests.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.AuthorityServers">
+            <summary>
+            Defines constants that identity authority servers.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.AuthorityServers.IdentityServerProduction">
+            <summary>
+            The base address of Identity Server (production) (HTTPS).
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.AuthorityServers.IdentityServerStaging">
+            <summary>
+            The base address of Identity Server (staging) (HTTP).
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Other">
+            <summary>
+            Defines constants that identity additional resources.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Other.SmtpServerHostAddress">
+            <summary>
+            The SMTP server host address.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Other.SmtpServerUserName">
+            <summary>
+            The SMTP server user name.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Other.SmtpServerPassword">
+            <summary>
+            The SMTP server password.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Other.TwilioAccountSid">
+            <summary>
+            The Twilio account SID.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Other.TwilioAuthorizationToken">
+            <summary>
+            The Twilio account authorization token.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.DesignTime.IntegrationTesting.ExternalTestResources.Other.TimeServerHostAddress">
+            <summary>
+            The time server host address.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture">
+            <summary>
+            Defines a test fixture that configures an instance of <see cref="T:Microsoft.AspNetCore.TestHost.TestServer" />
+            using the specified actions for the host startup.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.TestServer">
+            <summary>
+            Gets the test server.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.ServiceProvider">
+            <summary>
+            Gets the service provider.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.ConfigureLoggingAction">
+            <summary>
+            Gets or sets the action that should be executed to configure logging.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.ConfigureAppConfigurationAction">
+            <summary>
+            Gets or sets the action that should be executed to configure the application configuration.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.ConfigureServicesAction">
+            <summary>
+            Gets or sets the action that should be executed to configure services.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.ConfigureAction">
+            <summary>
+            Gets or sets the action that should be executed to configure the application.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.Build">
+            <summary>
+            Builds the test server.
+            </summary>
+            <returns>
+            The <see cref="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.TestServer"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1">
+            <summary>
+            Defines a test fixture that configures an instance of <see cref="T:Microsoft.AspNetCore.TestHost.TestServer" />
+            using the specified <typeparamref name="TStartup" /> for the host startup.
+            </summary>
+            <typeparam name="TStartup">The type of the host startup class.</typeparam>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.TestServer">
+            <summary>
+            Gets the test server.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.ServiceProvider">
+            <summary>
+            Gets the service provider.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.ConfigureLoggingAction">
+            <summary>
+            Gets or sets the action that should be executed to configure logging.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.ConfigureAppConfigurationAction">
+            <summary>
+            Gets or sets the action that should be executed to configure the application configuration.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.ConfigureServicesAction">
+            <summary>
+            Gets or sets the action that should be executed to configure services.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.ConfigureAction">
+            <summary>
+            Gets or sets the action that should be executed to configure the application.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.Build">
+            <summary>
+            Builds the test server.
+            </summary>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.Fixtures.TestServerFixture`1.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer">
+            <summary>
+            Provides a test server that hosts an instance of Identity Server that can be used
+            for integration testing.
+            </summary>
+            <remarks>
+            This test server allows configuring the API resources, clients, etc. to emulate
+            the authentication/authorization flows.
+            </remarks>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.TestServer">
+            <summary>
+            Gets the <see cref="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.TestServer"/> instance.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.ServiceProvider">
+            <summary>
+            Gets the service provider.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.#ctor(System.Collections.Generic.IEnumerable{IdentityServer4.Models.IdentityResource},System.Collections.Generic.IEnumerable{IdentityServer4.Models.ApiResource},System.Collections.Generic.IEnumerable{IdentityServer4.Models.Client},System.Action{Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.Extensions.Configuration.IConfigurationBuilder},System.Action{Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.Extensions.DependencyInjection.IServiceCollection},System.Action{Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.AspNetCore.Builder.IApplicationBuilder})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer"/> class.
+            </summary>
+            <param name="identityResources">The identity resources that should be configured. Optional.</param>
+            <param name="apiResources">The API resources that should be configured. Optional.</param>
+            <param name="clients">The clients that should be configured. Optional.</param>
+            <param name="configureAppConfigurationDelegate">A delegate that should be used to configure the application configuration. Optional. Runs after the test server configuration is set.</param>
+            <param name="configureServicesDelegate">A delegate that should be used to configure the application services. Optional. Runs after the test server configuration is set.</param>
+            <param name="configureDelegate">A delegate that should be used to configure the application. Optional. Runs after the test server configuration is set.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.Build">
+            <summary>
+            Builds the Identity test server.
+            </summary>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.ConfigureAppConfiguration(Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.Extensions.Configuration.IConfigurationBuilder)">
+            <summary>
+            Executes the test server standard logic to configure the application configuration.
+            </summary>
+            <param name="context">The host builder context.</param>
+            <param name="builder">The configuration builder.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.ConfigureServices(Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Executes the test server standard logic to configure the application services.
+            </summary>
+            <param name="context">The host builder context.</param>
+            <param name="services">The service collection.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.Configure(Microsoft.AspNetCore.Hosting.WebHostBuilderContext,Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Executes the test server standard logic to configure the application.
+            </summary>
+            <param name="context">The host builder context.</param>
+            <param name="builder">The application builder.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.AddIdentityResources">
+            <summary>
+            Adds the identity resources to the Identity Server in-memory store.
+            </summary>
+            <returns>
+            The identity resources that will be added to the Identity Server in-memory store.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.AddApiResources">
+            <summary>
+            Adds the API resources to the Identity Server in-memory store.
+            </summary>
+            <returns>
+            The API resources that will be added to the Identity Server in-memory store.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.AddClients">
+            <summary>
+            Adds the clients to the Identity Server in-memory store.
+            </summary>
+            <returns>
+            The clients that will be added to the Identity Server in-memory store.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.DesignTime.IntegrationTesting.IdentityServer.IdentityTestServer.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

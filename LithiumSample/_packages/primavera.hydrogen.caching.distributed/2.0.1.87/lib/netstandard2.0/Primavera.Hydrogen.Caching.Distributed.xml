@@ -1,0 +1,461 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Caching.Distributed</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Caching.Distributed.Redis.RedisCacheOptions">
+            <summary>
+            Defines the options used by <see cref="T:Primavera.Hydrogen.Caching.Distributed.Redis.RedisCacheServiceCollectionExtensions"/>
+            to configure the REDIS cache.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Redis.RedisCacheOptions.ConnectionString">
+            <summary>
+            Gets or sets the connection string that should be used.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Redis.RedisCacheOptions.InstanceName">
+            <summary>
+            Gets or sets the REDIS cache instance name.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Caching.Distributed.Redis.RedisCacheServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type that
+            allow configuring the REDIS cache.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Redis.RedisCacheServiceCollectionExtensions.AddRedisCache(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the REDIS distributed caching services to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Redis.RedisCacheServiceCollectionExtensions.AddRedisCache(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.Caching.Distributed.Redis.RedisCacheOptions})">
+            <summary>
+            Adds the REDIS distributed caching services to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions">
+            <summary>
+            Defines the options used by <see cref="T:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCacheServiceCollectionExtensions"/>
+            to configure the resilient cache.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions.RetryPolicy">
+            <summary>
+            Gets or sets the retry policy that should be used.
+            When null, the default service retry policy will be used.
+            Otherwise the policy set here will be applied.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions.ErrorDetectionPredicate">
+            <summary>
+            Gets or sets the error detection predicate that should be used.
+            When null, the default predicate will be used.
+            This predicate will only be used when <see cref="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions.RetryPolicy"/> is not set.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions.MaxRetries">
+            <summary>
+            Gets or sets the maximum number of retries.
+            The default value is 2.
+            This option will only be used when <see cref="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions.RetryPolicy"/> is not set.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions.MinRetryBackoff">
+            <summary>
+            Gets or sets the minimum retry back-off time.
+            The default value is 1 second.
+            This option will only be used when <see cref="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions.RetryPolicy"/> is not set.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCacheServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type that
+            allow configuring the resilient distributed cache.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCacheServiceCollectionExtensions.AddResilientDistributedCache(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the resilient distributed cache, which is a distributed cache that
+            is resilient to transient errors.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            This service will replace any <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/> prior registration
+            and will used that implementation internally to perform the caching operation.
+            Thus this service only adds resilience - through a retry policy - to that operations.
+            It does not change any other behavior.
+            To work correctly, this service registration should be performed after all configurations
+            on <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCacheServiceCollectionExtensions.AddResilientDistributedCache(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions})">
+            <summary>
+            Adds the resilient distributed cache, which is a distributed cache that
+            is resilient to transient errors.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.
+            </returns>
+            <remarks>
+            This service will replace any <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/> prior registration
+            and will used that implementation internally to perform the caching operation.
+            Thus this service only adds resilience - through a retry policy - to that operations.
+            It does not change any other behavior.
+            To work correctly, this service registration should be performed after all configurations
+            on <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/>.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.Caching.Distributed.Resilience.IResilientDistributeCache">
+            <summary>
+            Defines the interface of the resilient distribute cache service.
+            This service provides a distributed cache that is resilient to transient
+            errors.
+            </summary>
+            <remarks>
+            The default implementation of this service considers all the exceptions of the following types as transient
+            errors, subject to retry:
+            - <see cref="T:StackExchange.Redis.RedisTimeoutException"/>.
+            </remarks>
+            <example>
+            This service is designed to replace the registered implementation of <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/> and
+            it should be added to the application using the extension methods available in <see cref="T:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCacheServiceCollectionExtensions"/>:
+            <code>
+            <![CDATA[
+            ServiceCollection services = new ServiceCollection();
+            services.AddStackExchangeRedisCache(
+                (options) =>
+                {
+                    options.Configuration = "connection_string_for_redis_cache";
+                });
+            services.AddResilientDistributedCache();
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Resilience.IResilientDistributeCache.RetryPolicy">
+            <summary>
+            Gets or sets the retry policy that will be applied to transient
+            errors.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/> type.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.Get(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Boolean)">
+            <summary>
+            Gets a value with the given key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">A string identifying the requested value.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised. If false, then a default value will be returned.</param>
+            <returns>The located value or null.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.GetAsync(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets a value with the given key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">A string identifying the requested value.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised. If false, then a default value will be returned.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken"/> to cancel the operation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The located value or null.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.GetString(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Boolean)">
+            <summary>
+            Gets a string from the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to get the stored data for.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised. If false, then a default value will be returned.</param>
+            <returns>The string value from the stored cache key.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.GetString(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.String,System.Boolean)">
+            <summary>
+            Gets a string from the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to get the stored data for.</param>
+            <param name="defaultValue">The value that should be returned if the key is not found.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised. If false, then the default value will be returned.</param>
+            <returns>The string value from the stored cache key.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.GetStringAsync(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets a string from the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to get the stored data for.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised. If false, then a default value will be returned.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken"/> to cancel the operation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The string value from the stored cache key.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.GetStringAsync(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Gets a string from the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to get the stored data for.</param>
+            <param name="defaultValue">The value that should be returned if the key is not found.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised. If false, then the default value will be returned.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken"/> to cancel the operation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The string value from the stored cache key.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.Set(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Byte[],System.Boolean)">
+            <summary>
+            Sets a sequence of bytes in the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.Set(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Boolean)">
+            <summary>
+            Sets a value with the given key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">A string identifying the requested value.</param>
+            <param name="value">The value to set in the cache.</param>
+            <param name="options">The cache options for the value.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.SetAsync(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Byte[],System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Sets a sequence of bytes in the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken"/> to cancel the operation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.SetAsync(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Sets a value with the given key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">A string identifying the requested value.</param>
+            <param name="value">The value to set in the cache.</param>
+            <param name="options">The cache options for the value.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken"/> to cancel the operation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.SetString(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.String,System.Boolean)">
+            <summary>
+            Sets a string in the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.SetString(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.String,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Boolean)">
+            <summary>
+            Sets a string in the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="options">The cache options for the entry.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.SetStringAsync(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Sets a string in the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken"/> to cancel the operation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.SetStringAsync(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.String,Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Sets a string in the specified cache with the specified key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">The key to store the data in.</param>
+            <param name="value">The data to store in the cache.</param>
+            <param name="options">The cache options for the entry.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken"/> to cancel the operation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.Refresh(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Boolean)">
+            <summary>
+            Refreshes a value in the cache based on its key, resetting its sliding expiration
+            timeout (if any).
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">A string identifying the requested value.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.RefreshAsync(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Refreshes a value in the cache based on its key, resetting its sliding expiration
+            timeout (if any).
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">A string identifying the requested value.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken"/> to cancel the operation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.Remove(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Boolean)">
+            <summary>
+            Removes the value with the given key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">A string identifying the requested value.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilentDistributedCacheExtensions.RemoveAsync(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.String,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Removes the value with the given key.
+            </summary>
+            <param name="cache">The cache in which to store the data.</param>
+            <param name="key">A string identifying the requested value.</param>
+            <param name="throwErrors">A value indicating whether any error should be raised.</param>
+            <param name="token">Optional. A <see cref="T:System.Threading.CancellationToken"/> to cancel the operation.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache">
+            <summary>
+            Provides a default implementation of the <see cref="T:Primavera.Hydrogen.Caching.Distributed.Resilience.IResilientDistributeCache"/> service.
+            This cache service is resilient to transient errors by applying a retry policy.
+            </summary>
+            <remarks>
+            By default this implementation considers all the exceptions of the following types as transient
+            errors, subject to retry:
+            - <see cref="T:StackExchange.Redis.RedisTimeoutException"/>.
+            </remarks>
+        </member>
+        <member name="F:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.DefaultErrorDetectionPredicate">
+            <summary>
+            Gets the default error detection predicate.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.RetryPolicy">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.Options">
+            <summary>
+            Gets the configuration options.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.Decorator">
+            <summary>
+            Gets the <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/> decorator.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.#ctor(Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientCacheOptions,Primavera.Hydrogen.DependencyInjection.Decorator{Microsoft.Extensions.Caching.Distributed.IDistributedCache},Microsoft.Extensions.Logging.ILogger{Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache"/> class.
+            </summary>
+            <param name="options">The configuration options.</param>
+            <param name="decorator">The decorator of <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/>.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.Get(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.GetAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.Refresh(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.RefreshAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.Remove(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.RemoveAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.Set(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.SetAsync(System.String,System.Byte[],Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.GetDecorator">
+            <summary>
+            Gets the current decorator.
+            </summary>
+            <returns>The decorator instance.</returns>
+            <remarks>
+            This enables unit testing.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.InitializeRetryPolicy">
+            <summary>
+            Initializes the retry policy.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.DefaultRetryPolicy(System.Func{System.Exception,System.Boolean})">
+            <summary>
+            Returns the default retry policy.
+            </summary>
+            <param name="predicate">
+            The predicate that should be used to evaluate exceptions.
+            When null, the <see cref="F:Primavera.Hydrogen.Caching.Distributed.Resilience.ResilientDistributedCache.DefaultErrorDetectionPredicate"/> will be used.
+            </param>
+            <returns>The default retry policy.</returns>
+        </member>
+    </members>
+</doc>

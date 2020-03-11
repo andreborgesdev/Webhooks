@@ -1,0 +1,396 @@
+﻿<#+
+
+// *** WriteBaseFixtureClassConstructor
+
+public void WriteBaseFixtureClassConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Initialize
+
+            this.Initialize();
+<#+
+
+}
+
+// *** WriteInitialize
+
+public void WriteInitialize(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Initialize Identity Server test server
+
+            IEnumerable<IdentityServer4.Models.ApiResource> apiResources = new List<IdentityServer4.Models.ApiResource>()
+            {
+                new IdentityServer4.Models.ApiResource(Scopes.<#= serviceModel.Name #>, "<#= serviceModel.Name #> API")
+            };
+
+            List<IdentityServer4.Models.Client> clients = new List<IdentityServer4.Models.Client>();
+
+            clients.Add(
+                new IdentityServer4.Models.Client()
+                {
+                    ClientId = this.fieldClientId,
+                    AllowedGrantTypes = IdentityServer4.Models.GrantTypes.ClientCredentials,
+                    ClientSecrets =
+                    {
+                        new IdentityServer4.Models.Secret(
+                            ComputeHashString.Sha256(
+                                this.fieldClientSecret))
+                    },
+                    AllowedScopes =
+                    {
+                        Scopes.<#= serviceModel.Name #>
+                    }
+                });
+
+            this.IdentityServer = new IdentityTestServer(
+                null,
+                apiResources,
+                clients,
+                null,
+                null,
+                null);
+
+            this.IdentityServer.Build();
+
+            // Initialize API test server
+
+            this.TestServerFixture = new TestServerFixture<MockStartup>()
+            {
+                ConfigureServicesAction =
+                    (context, services) =>
+                    {
+                        services.AddTransient<IIdentityServerHttpHandlerAccessor>(
+                            (provider) =>
+                            {
+                                return new IdentityServerHttpHandlerAccessor(
+                                    this.IdentityServer.TestServer.CreateHandler());
+                            });
+                    }
+            };
+
+            this.TestServerFixture.Build();
+<#+
+
+}
+
+// *** WriteAccessorClassConstructor
+
+public void WriteAccessorClassConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => handler, handler);
+
+            // Set properties
+
+            this.Handler = handler;
+<#+
+
+}
+
+// *** WriteDisposeProtected
+
+public void WriteDisposeProtected(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Already disposed?
+
+            if (this.disposed)
+            {
+                return;
+            }
+
+            // Called from Dispose()?
+
+            if (disposing)
+            {
+                if (this.TestServerFixture != null)
+                {
+                    this.TestServerFixture.Dispose();
+                    this.TestServerFixture = null;
+                }
+
+                if (this.IdentityServer != null)
+                {
+                    this.IdentityServer.Dispose();
+                    this.IdentityServer = null;
+                }
+            }
+
+            // Set flag
+
+            this.disposed = true;
+<#+
+
+}
+
+// *** WriteGetServiceClientAsync
+
+public void WriteGetServiceClientAsync(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Need to create a new cache for every service client
+            // to prevent unit tests from reusing tokens since the
+            // encryption fails (each test server uses different data
+            // protection keys)
+
+            TokenCache tokenCache = new TokenCache();
+
+            string accessToken = await ClientCredentials
+                .ForAllScopes(
+                    new Uri("http://localhost"),
+                    this.fieldClientId,
+                    this.fieldClientSecret,
+                    this.IdentityServer.TestServer.CreateHandler())
+                .WithTokenCache(tokenCache)
+                .RetrieveAccessTokenAsync()
+                .ConfigureAwait(false);
+
+            return new <#= serviceModel.Name #>Client(
+                new Uri("http://localhost"),
+                new AccessTokenCredentials(accessToken),
+                this.TestServerFixture.TestServer.CreateHandler());
+<#+
+
+}
+
+// *** WriteGetHandler
+
+public void WriteGetHandler(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            return this.Handler;
+<#+
+
+}
+
+// *** WriteAddConfiguration
+
+public void WriteAddConfiguration(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
+            // Default behavior
+
+            base.AddConfiguration(services);
+
+            // Setup the Identity Server test server address
+
+            services.Configure<HostConfiguration>(this.ConfigureHostConfiguration);
+<#+
+
+    if (serviceModel.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))
+    {
+
+#>
+
+            // Distributed cache options
+
+            services.Configure<RedisCacheOptions>(this.ConfigureRedisCacheOptions);
+<#+
+
+    }
+
+    if (serviceModel.Dependencies.Any(d => d.Kind == DependencyKind.SecretsStorage))
+    {
+
+#>
+
+            // Distributed cache options
+
+            services.Configure<AzureKeyVaultSecretsStorageOptions>(this.ConfigureAzureKeyVaultSecretsStorageOptions);
+<#+
+
+    }
+
+    if (serviceModel.Dependencies.Any(d => d.Kind == DependencyKind.TableStorage))
+    {
+
+#>
+
+            // Table storage options
+
+            services.Configure<AzureTableStorageOptions>(this.ConfigureAzureTableStorageOptions);
+<#+
+
+    }
+
+    if (serviceModel.Dependencies.Any(d => d.Kind == DependencyKind.BlobStorage))
+    {
+
+#>
+
+            // Blob storage options
+
+            services.Configure<AzureBlobStorageOptions>(this.ConfigureAzureBlobStorageOptions);
+<#+
+
+    }
+#>
+
+            // Resolve the host configuration instance
+
+            IServiceProvider provider = services.BuildServiceProvider();
+            return provider.GetRequiredService<HostConfiguration>();
+<#+
+}
+
+// *** WriteConfigureJwtBearerOptions
+
+public void WriteConfigureJwtBearerOptions(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Add the Identity Server handler as the JWT back channel handler
+
+            IServiceProvider provider = services.BuildServiceProvider();
+            IIdentityServerHttpHandlerAccessor accessor = provider.GetRequiredService<IIdentityServerHttpHandlerAccessor>();
+            HttpMessageHandler handler = accessor.GetHandler();
+            if (handler != null)
+            {
+                options.BackchannelHttpHandler = handler;
+            }
+<#+
+
+}
+
+// *** WriteConfigureMvc
+
+public void WriteConfigureMvc(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => builder, builder);
+
+            // Default behavior
+
+            base.ConfigureMvc(services, builder, hostConfiguration);
+
+            // Add application part
+
+            builder
+                .AddApplicationPart(typeof(MonitoringController).Assembly);
+<#+
+
+}
+
+// *** WriteOnJwtBearerAuthenticationFailed
+
+public void WriteOnJwtBearerAuthenticationFailed(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Default behavior
+
+            await base.OnJwtBearerAuthenticationFailed(context).ConfigureAwait(false);
+
+            // Break debugger
+
+            System.Diagnostics.Debugger.Break();
+<#+
+
+}
+
+// *** WriteConfigureHostConfiguration
+
+public void WriteConfigureHostConfiguration(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            configuration.IdentityServerBaseUri = "http://localhost";
+<#+
+
+}
+
+// *** WriteConfigureRedisCacheOptions
+
+public void WriteConfigureRedisCacheOptions(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            options.ConnectionString = ExternalTestResources.Azure.RedisCacheConnectionString;
+<#+
+
+}
+
+// *** WriteConfigureAzureKeyVaultSecretsStorageOptions
+
+public void WriteConfigureAzureKeyVaultSecretsStorageOptions(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            options.AutomaticAuthenticationEnabled = false;
+            options.ClientId = ExternalTestResources.Azure.KeyVaultClientApplicationId;
+            options.ClientSecret = ExternalTestResources.Azure.KeyVaultClientApplicationKey;
+<#+
+
+}
+
+// *** WriteConfigureAzureTableStorageOptions
+
+public void WriteConfigureAzureTableStorageOptions(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            options.ConnectionString = ExternalTestResources.Azure.ClassicTableStorageConnectionString;
+<#+
+
+}
+
+// *** WriteConfigureAzureBlobStorageOptions
+
+public void WriteConfigureAzureBlobStorageOptions(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            options.ConnectionString = ExternalTestResources.Azure.ClassicTableStorageConnectionString;
+<#+
+
+}
+
+#>

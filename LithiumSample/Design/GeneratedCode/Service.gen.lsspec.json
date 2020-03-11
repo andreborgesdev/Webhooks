@@ -1,0 +1,310 @@
+﻿{
+  "description": {
+    "id": "FATUR",
+    "name": "Faturacao",
+    "displayName": "Faturacao Service",
+    "summary": "Serviço de faturação da Primavera."
+  },
+  "dependencies": [
+    "TableStorage"
+  ],
+  "backgroundServices": [],
+  "appSettings": {
+    "standard": [
+      {
+        "name": "Logging:IncludeScopes",
+        "value": {
+          "pd": false
+        }
+      },
+      {
+        "name": "Logging:Debug:LogLevel:Default",
+        "value": {
+          "dv": "Trace",
+          "pd": "Warning"
+        }
+      },
+      {
+        "name": "Logging:Console:LogLevel:Default",
+        "value": {
+          "dv": "Trace",
+          "pd": "Warning"
+        }
+      },
+      {
+        "name": "Logging:ApplicationInsights:LogLevel:Default",
+        "value": {
+          "dv": "Trace",
+          "pd": "Warning"
+        }
+      },
+      {
+        "name": "HostConfiguration:IdentityServerBaseUri",
+        "alwaysOverride": true,
+        "value": {
+          "dv": "https://stg-identity.primaverabss.com",
+          "st": "https://stg-identity.primaverabss.com",
+          "pd": "https://identity.primaverabss.com"
+        }
+      },
+      {
+        "name": "AzureInsightsTelemetryOptions:Enabled",
+        "value": {
+          "pd": true
+        }
+      },
+      {
+        "name": "AzureInsightsTelemetryOptions:IgnoreErrors",
+        "value": {
+          "pd": true
+        }
+      },
+      {
+        "name": "AzureInsightsTelemetryOptions:DeveloperMode",
+        "value": {
+          "dv": true,
+          "pd": false
+        }
+      },
+      {
+        "name": "AzureInsightsTelemetryOptions:EnableAdaptiveSampling",
+        "value": {
+          "pd": false
+        }
+      },
+      {
+        "name": "AzureInsightsTelemetryOptions:DefaultProperties:Lithium-Service",
+        "value": {
+          "pd": "Faturacao"
+        }
+      },
+      {
+        "name": "AzureInsightsTelemetryOptions:InstrumentationKey",
+        "alwaysOverride": true,
+        "value": {}
+      },
+      {
+        "name": "AzureInsightsTelemetryOptions:RequestTracking:TrackRequestHeaders",
+        "value": {
+          "pd": true
+        }
+      },
+      {
+        "name": "AzureInsightsTelemetryOptions:RequestTracking:TrackResponseHeaders",
+        "value": {
+          "pd": false
+        }
+      },
+      {
+        "name": "AzureInsightsTelemetryOptions:RequestTracking:IgnoreAvailabilityTestsRequests",
+        "value": {
+          "pd": true
+        }
+      },
+      {
+        "name": "AzureKeyVaultSecretsStorageOptions:AutomaticAuthenticationEnabled",
+        "value": {
+          "dv": false,
+          "st": true,
+          "pd": true
+        }
+      },
+      {
+        "name": "AzureKeyVaultSecretsStorageOptions:ClientId",
+        "value": {}
+      },
+      {
+        "name": "AzureKeyVaultSecretsStorageOptions:ClientSecret",
+        "value": {}
+      },
+      {
+        "name": "AzureKeyVaultSecretsStorageOptions:ConfigurationStorageBaseUrl",
+        "alwaysOverride": true,
+        "value": {}
+      },
+      {
+        "name": "AzureTableStorageOptions:ConnectionString",
+        "alwaysOverride": true,
+        "value": {}
+      }
+    ],
+    "custom": []
+  },
+  "apiResource": {
+    "scopes": []
+  },
+  "clients": [],
+  "endpoints": [
+    {
+      "controller": "Monitoring",
+      "name": "Probe",
+      "route": "GET api/v{version:apiVersion}/monitoring/probe",
+      "summary": "Allows probing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Monitoring",
+      "name": "Diagnostics",
+      "route": "GET api/v{version:apiVersion}/monitoring/diagnostics",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Billing",
+      "name": "CreateInvoice",
+      "route": "POST /api/v{version:apiVersion}/billing/{amount}",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Billing",
+      "name": "GetInvoices",
+      "route": "GET /api/v{version:apiVersion}/billing",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Subscription",
+      "name": "GetWebhooksEventsForSubscription",
+      "route": "GET /api/v{version:apiVersion}/webhooks/subscription/{subscription}",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Subscription",
+      "name": "GetWebhooksSubscriptions",
+      "route": "GET /api/v{version:apiVersion}/webhooks/subscription",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Subscription",
+      "name": "SubscribeWebhooksEvent",
+      "route": "POST /api/v{version:apiVersion}/webhooks/subscription",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Subscription",
+      "name": "UnsubscribeWebhooksEvent",
+      "route": "DELETE /api/v{version:apiVersion}/webhooks/subscription/{webhooksEvent}/{subscription}",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Webhooks",
+      "name": "CreateWebhooksEvent",
+      "route": "POST /api/v{version:apiVersion}/webhooks",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Webhooks",
+      "name": "DeleteWebhooksEvent",
+      "route": "DELETE /api/v{version:apiVersion}/webhooks/{product}/{webhooksEvent}",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Webhooks",
+      "name": "GetWebhooksEvents",
+      "route": "GET /api/v{version:apiVersion}/webhooks",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Webhooks",
+      "name": "GetWebhooksEventsByProduct",
+      "route": "GET /api/v{version:apiVersion}/webhooks/{product}",
+      "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    }
+  ],
+  "features": [
+    {
+      "name": "ClientLibCSharp",
+      "summary": "Provides a C# client library to consume the service Web API.",
+      "isAvailable": true
+    },
+    {
+      "name": "WebApi",
+      "summary": "Provides a Web API.",
+      "isAvailable": true
+    },
+    {
+      "name": "WebApiVersioning",
+      "summary": "Uses versioning in the Web API.",
+      "isAvailable": true
+    },
+    {
+      "name": "BackgroundServices",
+      "summary": "Includes background services has hosted services."
+    }
+  ],
+  "apiVersions": [
+    {
+      "version": "1.0",
+      "isDefault": true
+    }
+  ]
+}

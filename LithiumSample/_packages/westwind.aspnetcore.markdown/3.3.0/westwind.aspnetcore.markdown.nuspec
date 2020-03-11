@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Westwind.AspNetCore.Markdown</id>
+    <version>3.3.0</version>
+    <title>Westwind AspNet Core Markdown TagHelper and Parsing Support</title>
+    <authors>Rick Strahl</authors>
+    <owners>Rick Strahl</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/RickStrahl/Westwind.AspNetCore.Markdown#License</licenseUrl>
+    <projectUrl>https://github.com/RickStrahl/Westwind.AspNetCore.Markdown</projectUrl>
+    <iconUrl>https://markdownmonster.west-wind.com/images/markdown_icon.png</iconUrl>
+    <description>This library provides Markdown support for ASP.NET Core applications:
+
+ * Markdown TagHelper - embed static markdown text from files, urls or bind model data
+ * Markdown Page Handler Middleware to render Markdown files in your site
+
+ * Markdown Parsing Support via Markdown.Parse() and Markdown.ParseHtmlString()
+ * Markdown Parsing from Files via Markdown.ParseFromFile() and .ParseFromFileAsync()
+ * Markdown Parsiong from URL via Markdown.ParseFromUrl() and .ParseFromUrlAsync()
+
+ * Supports basic HTML Sanitation
+ * TagHelper supports White Space Normalization
+ * Customization of Markdown Processing Options
+
+For similar features in System.Web based classic ASP.NET apps see `Westwind.Web.MarkdownControl`.</description>
+    <copyright>(c) West Wind Technologies, 2017-2019</copyright>
+    <tags>Westwind AspNetCore Web</tags>
+    <repository type="Github" url="https://github.com/RickStrahl/Westwind.AspNetCore.Markdown" />
+    <dependencies>
+      <group targetFramework=".NETCoreApp2.1">
+        <dependency id="Markdig" version="0.18.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc" version="2.2.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETCoreApp3.0">
+        <dependency id="Markdig" version="0.18.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework=".NETCoreApp3.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+</package>

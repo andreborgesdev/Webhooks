@@ -1,0 +1,42 @@
+﻿<#+
+
+public void WriteResolve(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNullOrEmpty(() => properties, properties);
+
+            // Result
+
+            return new Uri(
+                UriHelper.Combine(
+                    baseUri.AbsoluteUri,
+                    RouteTemplateResolver.Resolve(
+                        route,
+                        properties)));
+<#+
+
+}
+
+// *** WriteGetInstance
+
+public void WriteGetInstance(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                if (fieldInstance == null)
+                {
+                    fieldInstance = new Routes();
+                }
+
+                return fieldInstance;
+            }
+<#+
+
+}
+
+#>

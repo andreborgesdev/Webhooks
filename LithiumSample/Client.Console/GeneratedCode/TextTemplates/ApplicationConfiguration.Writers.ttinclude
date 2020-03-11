@@ -1,0 +1,16 @@
+﻿<#+
+
+// *** WriteConstructor
+
+public void WriteConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+
+#>
+            // Set default values
+
+            this.SetDefaultValues();
+<#+
+
+}
+
+#>

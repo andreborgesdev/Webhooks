@@ -1,0 +1,1 @@
+C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\obj\Debug\netcoreapp3.0\Client.Console.csprojAssemblyReference.cache

@@ -1,0 +1,153 @@
+﻿<#+
+
+// *** WriteConstructor
+
+public void WriteConstructor(ModelWriter modelWriter, ConstructorBodyModel model)
+{
+
+#>
+            // Initialize
+
+            this.Initialize();
+<#+
+}
+
+// *** WriteInitialize
+
+public void WriteInitialize(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Initialization
+
+            this.Information = new InformationConfiguration();
+<#+
+
+}
+
+// *** WriteProductName
+
+public void WriteProductName(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                if (this.fieldProductName == null)
+                {
+                    Assembly assembly = this.GetType().Assembly;
+                    this.fieldProductName = assembly.Reflector().AssemblyProduct;
+                }
+
+                return this.fieldProductName;
+            }
+<#+
+
+}
+
+// *** WriteHostTitle
+
+public void WriteHostTitle(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                if (this.fieldHostTitle == null)
+                {
+                    Assembly assembly = this.GetType().Assembly;
+                    this.fieldHostTitle = assembly.Reflector().AssemblyTitle;
+                }
+
+                return this.fieldHostTitle;
+            }
+<#+
+
+}
+
+// *** WriteCompany
+
+public void WriteCompany(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                if (this.fieldCompany == null)
+                {
+                    Assembly assembly = this.GetType().Assembly;
+                    this.fieldCompany = assembly.Reflector().AssemblyCompany;
+                }
+
+                return this.fieldCompany;
+            }
+<#+
+
+}
+
+// *** WriteCopyright
+
+public void WriteCopyright(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                if (this.fieldCopyright == null)
+                {
+                    Assembly assembly = this.GetType().Assembly;
+                    string copyright = assembly.Reflector().AssemblyCopyright.Replace("©", "&#169;", StringComparison.InvariantCulture);
+                    this.fieldCopyright = "{0}. All rights reserved.".Format(copyright);
+                }
+
+                return this.fieldCopyright;
+            }
+<#+
+
+}
+
+// *** WriteVersion
+
+public void WriteVersion(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                if (this.fieldVersion == null)
+                {
+                    Assembly assembly = this.GetType().Assembly;
+                    string version = assembly.Reflector().AssemblyFileVersion.ToString();
+                    this.fieldVersion = "Version: {0}.".Format(version);
+                }
+
+                return this.fieldVersion;
+            }
+<#+
+
+}
+
+// *** WriteInformationalVersion
+
+public void WriteInformationalVersion(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                if (this.fieldInformationalVersion == null)
+                {
+                    Assembly assembly = this.GetType().Assembly;
+                    string version = assembly.Reflector().AssemblyInformationalVersion;
+                    this.fieldInformationalVersion = "Build info: {0}.".Format(version);
+                }
+
+                return this.fieldInformationalVersion;
+            }
+<#+
+
+}
+
+#>

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Telemetry.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Telemetry.ITelemetryClientService">
+            <summary>
+            Defines the interface of the telemetry client service.
+            This service allows creating clients to record telemetry (logging, metrics, etc.).
+            New instances of the service should be resolved via dependency injection to realize
+            the concrete implementation.
+            </summary>
+            <example>
+            <code>
+            <![CDATA[
+            using (ITelemetryClientService service = services.GetRequiredService<ITelemetryClientService>())
+            {
+                service.WriteTrace(TelemetrySeverityLevel.Verbose, "My trace message");
+            }
+            ]]>
+            </code>
+            </example>
+            <seealso cref="T:System.IDisposable"/>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.ITelemetryClientService.WriteTrace(Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Writes a trace message to telemetry.
+            </summary>
+            <param name="severityLevel">The trace severity level.</param>
+            <param name="message">The trace message that should be written.</param>
+            <param name="properties">A dictionary containing named string values that can be used to search and classify traces.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.ITelemetryClientService.WriteMetric(System.String,System.Double,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Writes a metric to telemetry.
+            </summary>
+            <param name="name">The name of the metric that should be written.</param>
+            <param name="value">The value of the metric.</param>
+            <param name="properties">A dictionary containing named string values that can be used to search and classify metrics.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.ITelemetryClientService.WriteEvent(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Double})">
+            <summary>
+            Writes an event to telemetry.
+            </summary>
+            <param name="eventName">The name of the event that should be written.</param>
+            <param name="properties">A dictionary containing named string values that can be used to search and classify events.</param>
+            <param name="metrics">A dictionary containing metrics associated with the event.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.ITelemetryClientService.WriteException(System.Exception,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Double})">
+            <summary>
+            Writes an exception to telemetry.
+            </summary>
+            <param name="exception">The exception that should be written.</param>
+            <param name="properties">A dictionary containing named string values that can be used to search and classify exceptions.</param>
+            <param name="metrics">A dictionary containing metrics associated with the exception.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Telemetry.ITelemetryClientService.Flush">
+            <summary>
+            Flushes the service in-memory buffer.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel">
+            <summary>
+            Defines the severity level of a telemetry trace.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel.Verbose">
+            <summary>
+            Verbose severity level.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel.Information">
+            <summary>
+            Information severity level.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel.Warning">
+            <summary>
+            Warning severity level.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel.Error">
+            <summary>
+            Error severity level.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Telemetry.TelemetrySeverityLevel.Critical">
+            <summary>
+            Critical severity level.
+            </summary>
+        </member>
+    </members>
+</doc>

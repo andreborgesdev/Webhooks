@@ -1,0 +1,89 @@
+﻿<#+
+
+// *** GetAppSettings
+
+public IList<AppSettingSpec> GetAppSettings(ServiceModel model)
+{
+    // Standard settings
+
+    IList<AppSettingSpec> standard = new List<AppSettingSpec>();
+
+    // ... Logging
+
+    standard.Add(new AppSettingSpec("Logging:IncludeScopes", false, new AppSettingValueSpec(false)));
+    
+    standard.Add(new AppSettingSpec("Logging:Debug:LogLevel:Default", false, new AppSettingValueSpec("Trace", "Warning")));
+    
+    standard.Add(new AppSettingSpec("Logging:Console:LogLevel:Default", false, new AppSettingValueSpec("Trace", "Warning")));
+    
+    standard.Add(new AppSettingSpec("Logging:ApplicationInsights:LogLevel:Default", false, new AppSettingValueSpec("Trace", "Warning")));
+
+    // ... Host configuration
+
+    standard.Add(new AppSettingSpec("HostConfiguration:IdentityServerBaseUri", true, new AppSettingValueSpec("https://stg-identity.primaverabss.com", "https://stg-identity.primaverabss.com", "https://identity.primaverabss.com")));
+
+    // ... Telemetry
+
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:Enabled", false, new AppSettingValueSpec(true)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:IgnoreErrors", false, new AppSettingValueSpec(true)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:DeveloperMode", false, new AppSettingValueSpec(true, false)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:EnableAdaptiveSampling", false, new AppSettingValueSpec(false)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:DefaultProperties:Lithium-Service", false, new AppSettingValueSpec(model.Name)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:InstrumentationKey", true));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:RequestTracking:TrackRequestHeaders", false, new AppSettingValueSpec(true)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:RequestTracking:TrackResponseHeaders", false, new AppSettingValueSpec(false)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:RequestTracking:IgnoreAvailabilityTestsRequests", false, new AppSettingValueSpec(true)));
+
+    // ... Secrets storage
+
+    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:AutomaticAuthenticationEnabled", false, new AppSettingValueSpec(false, true, true)));
+    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:ClientId", false));
+    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:ClientSecret", false));
+    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:ConfigurationStorageBaseUrl", true));
+
+    // ... Blob storage
+
+    if (model.Dependencies.Any(d => d.Kind == DependencyKind.BlobStorage))
+    {
+        standard.Add(new AppSettingSpec("AzureBlobStorageOptions:ConnectionString", true));
+    }
+
+    // ... Table storage
+
+    if (model.Dependencies.Any(d => d.Kind == DependencyKind.TableStorage))
+    {
+        standard.Add(new AppSettingSpec("AzureTableStorageOptions:ConnectionString", true));
+    }
+
+    // ... Search
+
+    if (model.Dependencies.Any(d => d.Kind == DependencyKind.Search))
+    {
+        standard.Add(new AppSettingSpec("AzureSearchOptions:ServiceName", true));
+        standard.Add(new AppSettingSpec("AzureSearchOptions:AdminApiKey", true));
+    }
+
+    // ... Distributed cache
+
+    if (model.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))
+    {
+        standard.Add(new AppSettingSpec("RedisCacheOptions:ConnectionString", true));
+        standard.Add(new AppSettingSpec("RedisCacheOptions:InstanceName", false));
+        standard.Add(new AppSettingSpec("ResilientCacheOptions:MaxRetries", false, new AppSettingValueSpec(2)));
+        standard.Add(new AppSettingSpec("ResilientCacheOptions:MinRetryBackoff", false, new AppSettingValueSpec("00:00:01")));
+    }
+
+    // ... Data protection
+
+    if (model.Dependencies.Any(d => d.Kind == DependencyKind.DataProtection))
+    {
+        string applicationName = "lithium-{0}".Format(model.Name.Transform().ToLowerCase());
+
+        standard.Add(new AppSettingSpec("AzureBlobStorageDataProtectionOptions:ApplicationName", false, new AppSettingValueSpec(applicationName)));
+        standard.Add(new AppSettingSpec("AzureBlobStorageDataProtectionOptions:UseBlobStorage", false, new AppSettingValueSpec(false, true)));
+    }
+
+    return standard;
+}
+
+#>

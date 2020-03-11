@@ -1,0 +1,101 @@
+﻿<#+
+
+// *** TransformServiceModel
+
+public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ServiceModel sourceModel = sourceElement as ServiceModel;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    targetModel
+        .WithNamespaceImport(new NamespaceImportModel("System"))
+        .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Net"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Mvc"))
+        ;
+
+    targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi.Controllers");
+
+    targetModel.Namespace
+        .AddInterface(new InterfaceModel("IMonitoringController")
+        {
+            Modifiers = InterfaceModifiers.Public | InterfaceModifiers.Partial,
+            Documentation = new DocumentationModel("Defines the interface of the controller that provides monitoring routes.")
+        })
+            .WithMethod(new MethodModel("ProbeAsync", "Task<IActionResult>")
+            {
+                Documentation = new DocumentationModel("Provides an action that probes the service. This action is used to perform dependencies tests on the service.")
+                {
+                    Returns = "'OK'."
+                }
+            })
+            .WithMethod(new MethodModel("DiagnosticsAsync", "Task<IActionResult>")
+            {
+                Documentation = new DocumentationModel("Provides an action that diagnoses the service. This action is used to perform functional tests on the service.")
+                {
+                    Returns = "'OK'."
+                }
+            });
+}
+
+// *** TransformController
+
+public void TransformController(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    ControllerType sourceModel = sourceElement as ControllerType;
+    if (sourceModel == null)
+    {
+        return;
+    }
+
+    InterfaceModel interfaceModel = targetModel.Namespace
+        .AddInterface(new InterfaceModel("I{0}Controller".Format(sourceModel.Name))
+        {
+            Modifiers = InterfaceModifiers.Public | InterfaceModifiers.Partial,
+            Documentation = new DocumentationModel(sourceModel.Summary)
+        });
+
+    foreach (ControllerTypeAction action in sourceModel.ChildActions.OrderBy(n => n.Name))
+    {
+        this.TransformControllerAction(action, interfaceModel);
+    }
+}
+
+// *** TransformControllerAction
+
+public void TransformControllerAction(ControllerTypeAction action, InterfaceModel interfaceModel)
+{
+    MethodModel methodModel = interfaceModel
+        .AddMethod(new MethodModel("{0}Async".Format(action.Name), "Task<IActionResult>")
+        {
+            Documentation = new DocumentationModel(action.Summary)
+            {
+                Remarks = action.Remarks,
+                Returns = action.Returns
+            }
+        });
+
+    foreach (ControllerTypeActionParameter parameter in action.ChildParameters)
+    {
+        this.TransformControllerTypeActionParameter(parameter, methodModel);
+    }
+}
+
+// *** TransformControllerTypeActionParameter
+
+public void TransformControllerTypeActionParameter(ControllerTypeActionParameter parameter, MethodModel methodModel)
+{
+    methodModel
+        .AddParameter(new MethodParameterModel(parameter.Name.Transform().ToCamelCase(), parameter.ToCSharpType())
+        {
+            DefaultValue = NormalizeControllerActionParameterDefaultValue(parameter),
+            Documentation = new DocumentationModel(parameter.Summary)
+        });
+}
+
+#>

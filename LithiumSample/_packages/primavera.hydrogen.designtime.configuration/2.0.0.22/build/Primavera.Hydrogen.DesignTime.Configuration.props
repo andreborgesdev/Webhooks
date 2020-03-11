@@ -1,0 +1,42 @@
+<Project>
+
+    <!-- AssemblyInfo and key file -->
+
+    <PropertyGroup>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Primavera.Public.Private.snk</AssemblyOriginatorKeyFile>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    </PropertyGroup>
+
+    <!-- .tfignore -->
+
+    <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)\.tfignore')" >
+        <AdditionalFiles Include="$(MSBuildThisFileDirectory)\.tfignore" />
+    </ItemGroup>
+
+    <!-- .editorconfig -->
+
+    <PropertyGroup>
+        <SkipDefaultEditorConfigAsAdditionalFile>true</SkipDefaultEditorConfigAsAdditionalFile>
+    </PropertyGroup>
+    <ItemGroup Condition="Exists('$(MSBuildThisFileDirectory)\.editorconfig')" >
+        <AdditionalFiles Include="$(MSBuildThisFileDirectory)\.editorconfig" />
+    </ItemGroup>
+
+    <!-- Analyzers rule set -->
+
+    <PropertyGroup>
+        <Features>IOperation</Features>
+        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)Primavera.Analyzers.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    
+    <!-- Analyzers packages -->
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    </ItemGroup>
+
+</Project>

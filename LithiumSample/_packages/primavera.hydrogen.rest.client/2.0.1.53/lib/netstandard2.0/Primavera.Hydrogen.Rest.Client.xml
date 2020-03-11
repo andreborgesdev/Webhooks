@@ -1,0 +1,1684 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.Rest.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.Rest.Client.AuthenticationCallback">
+            <summary>
+            Defines a delegate used by the callback invoked to get the authentication access token.
+            </summary>
+            <param name="args">The authentication request arguments.</param>
+            <returns>
+            The access token that should be used.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs">
+            <summary>
+            Defines the arguments used in the <see cref="T:Primavera.Hydrogen.Rest.Client.AuthenticationCallback"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs.Authority">
+            <summary>
+            Gets the URI of the authority from where the access token should be obtained.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs.Resource">
+            <summary>
+            Gets the URI of the target resource, the recipient of the access token.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs.Audience">
+            <summary>
+            Gets the audience of the authentication request.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.AuthenticationCallbackArgs"/> class.
+            </summary>
+            <param name="authority">The URI of the authority from where the access token should be obtained.</param>
+            <param name="resource">The URI of the target resource, the recipient of the access token.</param>
+            <param name="audience">The audience of the authentication request.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Authentication.AccessTokenCredentials">
+            <summary>
+            Allows providing credentials for accessing a REST service from a service client.
+            The service client provides the client application access token, previously
+            obtained from the authority server, to the server for authentication.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.AccessTokenCredentials.AccessToken">
+            <summary>
+            Gets the client application access token, previously obtained from the authority server.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.AccessTokenCredentials.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.AccessTokenCredentials" /> class.
+            </summary>
+            <param name="accessToken">The client application access token, previously obtained from the authority server.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.AccessTokenCredentials.HandleRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Authentication.AuthenticationCallbackCredentials">
+            <summary>
+            Allows providing credentials for accessing a REST service from a service client.
+            The service client provides the credentials from a callback.
+            This callback is invoked by the service client before sending a request and the
+            callback parameters contain the information required for the client to obtain
+            the access token from the authority server.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials" />
+            <remarks>
+            This kind of credentials is useful to interact with the authority server without
+            knowing its address in advance (meaning that the authority server does not beed to
+            be hardcoded in the client).
+            </remarks>
+        </member>
+        <member name="E:Primavera.Hydrogen.Rest.Client.Authentication.AuthenticationCallbackCredentials.OnAuthenticate">
+            <summary>
+            Callback invoked to get the access token.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.AuthenticationCallbackCredentials.#ctor(Primavera.Hydrogen.Rest.Client.AuthenticationCallback)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.AuthenticationCallbackCredentials"/> class.
+            </summary>
+            <param name="callback">The callback that should be used to obtain the access token.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.AuthenticationCallbackCredentials.HandleRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.AuthenticationCallbackCredentials.HandleResponseAsync(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Authentication.AuthorityServerException">
+            <summary>
+            Describes an error raised while interacting with the authority server.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.RestException" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.AuthorityServerException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.AuthorityServerException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.AuthorityServerException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.AuthorityServerException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.AuthorityServerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.AuthorityServerException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials">
+            <summary>
+            Allows providing credentials for accessing a REST service from a service client.
+            The service client provides the client application identity to the server for
+            authentication using the client credentials flow. The infrastructure will interact
+            with the authority server to obtain the corresponding access token.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.AuthorityServer">
+            <summary>
+            Gets the base URI of the authority server. This URI will be used to
+            get the access token for the client.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.ClientId">
+            <summary>
+            Gets the client application identifier.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.ClientSecret">
+            <summary>
+            Gets the client application secret.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.Scope">
+            <summary>
+            Gets the scope that the client application is trying to access.
+            The scope is optional. If no scope is provided the access token returned
+            will contain all the scopes allowed for the client.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.CredentialStyle">
+            <summary>
+            Gets the client credential style.
+            The default value is <see cref="F:Primavera.Hydrogen.IdentityModel.Client.ClientCredentialStyle.PostBody"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.TokenCache">
+            <summary>
+            Gets the token cache that should be used with <see cref="T:Primavera.Hydrogen.IdentityModel.Client.TokenClient"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.AccessToken">
+            <summary>
+            Gets the client application access token, previously obtained from the authority server.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.ForScope(System.Uri,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials" /> to authorize
+            the service client using the client credentials flow using the specified scope.
+            </summary>
+            <param name="authorityServer">The base address of the authority server. Required to retrieve the access token.</param>
+            <param name="clientId">The client identifier.</param>
+            <param name="clientSecret">The client secret.</param>
+            <param name="scope">The scope that the client is trying to access.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials" /> instance.</returns>
+            <remarks>
+            When this factory method is used the access token will contain only the specified scope.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.ForScope(System.Uri,System.String,System.String,System.String,System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials" /> to authorize
+            the service client using the client credentials flow using the specified scope.
+            </summary>
+            <param name="authorityServer">The base address of the authority server. Required to retrieve the access token.</param>
+            <param name="clientId">The client identifier.</param>
+            <param name="clientSecret">The client secret.</param>
+            <param name="scope">The scope that the client is trying to access.</param>
+            <param name="handler">The <see cref="P:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.HttpMessageHandler"/> that should be used to communicate with the authority server.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials" /> instance.</returns>
+            <remarks>
+            When this factory method is used the access token will contain only the specified scope.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.ForAllScopes(System.Uri,System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials" /> to authorize
+            the service client using the client credentials flow using all allowed scopes.
+            </summary>
+            <param name="authorityServer">The base address of the authority server. Required to retrieve the access token.</param>
+            <param name="clientId">The client identifier.</param>
+            <param name="clientSecret">The client secret.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials" /> instance.</returns>
+            <remarks>
+            When this factory method is used the access token will contain all the scopes allowed for the client
+            (if the client is configured to allow that).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.ForAllScopes(System.Uri,System.String,System.String,System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials" /> to authorize
+            the service client using the client credentials flow using all allowed scopes.
+            </summary>
+            <param name="authorityServer">The base address of the authority server. Required to retrieve the access token.</param>
+            <param name="clientId">The client identifier.</param>
+            <param name="clientSecret">The client secret.</param>
+            <param name="handler">The <see cref="P:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.HttpMessageHandler"/> that should be used to communicate with the authority server.</param>
+            <returns>The <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials" /> instance.</returns>
+            <remarks>
+            When this factory method is used the access token will contain all the scopes allowed for the client
+            (if the client is configured to allow that).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.WithCredentialStyle(Primavera.Hydrogen.IdentityModel.Client.ClientCredentialStyle)">
+            <summary>
+            Sets the authentication style that should be used.
+            </summary>
+            <param name="clientCredentialStyle">The client credential style that should be used.</param>
+            <returns>The updated <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.WithTokenCache(Primavera.Hydrogen.IdentityModel.Client.Caching.ITokenCache)">
+            <summary>
+            Sets the token cache that should be used.
+            </summary>
+            <param name="tokenCache">The token cache that should be used.</param>
+            <returns>The updated <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.RetrieveAccessTokenAsync(System.Threading.CancellationToken)">
+            <summary>
+            Retrieves the access token for these credentials.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The access token.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.HandleRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.ClientCredentials.HandleResponseAsync(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge">
+            <summary>
+            Describes a HTTP bearer challenge as used by <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.AuthenticationCallbackCredentials"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.RequestMethod">
+            <summary>
+            Gets the request method.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.RequestUri">
+            <summary>
+            Gets the request URI.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.AuthorizationUri">
+            <summary>
+            Gets the URI of the authorization server.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.ResourceUri">
+            <summary>
+            Gets the URI of the resource.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.Audience">
+            <summary>
+            Gets the audience.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.Error">
+            <summary>
+            Gets the error.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.ErrorDescription">
+            <summary>
+            Gets the error description.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.#ctor(System.Net.Http.HttpMethod,System.Uri,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge" /> class.
+            </summary>
+            <param name="method">The request method.</param>
+            <param name="requestUri">The request URI.</param>
+            <param name="challenge">The value of the WWW-Authenticate header.</param>
+            <param name="requireAutorizationUri">
+            Gets a value indicating whether the authorization (or authorization_uri) parameter
+            is required to be present in the challenge.
+            </param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.IsBearerChallenge(System.String)">
+            <summary>
+            Determines whether the specified value of the WWW-Authenticate header
+            corresponds to a bearer challenge.
+            </summary>
+            <param name="challenge">The WWW-Authenticate header value.</param>
+            <returns>
+            <c>True</c> if the specified value of the WWW-Authenticate header
+            corresponds to a bearer challenge.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.IsValidBearerChallenge(System.Net.Http.HttpMethod,System.Uri,System.String)">
+            <summary>
+            Determines whether the specified value of the WWW-Authenticate header
+            is a valid bearer challenge for the specified request URI.
+            </summary>
+            <param name="method">The request method.</param>
+            <param name="uri">The request URI.</param>
+            <param name="challenge">The WWW-Authenticate header value.</param>
+            <returns>
+            <c>True</c> if the specified value of the WWW-Authenticate header
+            is a valid bearer challenge for the specified request URI.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge.IsTokenExpiredBearerChallenge(System.Net.Http.HttpMethod,System.Uri,System.String)">
+            <summary>
+            Determines whether the specified value of the WWW-Authenticate header
+            indicates the access token is expired.
+            </summary>
+            <param name="method">The request method.</param>
+            <param name="uri">The request URI.</param>
+            <param name="challenge">The WWW-Authenticate header value.</param>
+            <returns>
+            <c>True</c> if the specified value of the WWW-Authenticate header
+            indicates the access token is expired.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeCache">
+            <summary>
+            Provides a memory cache of <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge"/> instances, indexed by request method and URI.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeCache.Count">
+            <summary>
+            Gets the number of challenges contained in the cache.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeCache.Instance">
+            <summary>
+            Get the singleton <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeCache"/> instance.
+            </summary>
+            <returns>
+            The singleton <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeCache"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeCache.GetChallenge(System.Net.Http.HttpMethod,System.Uri)">
+            <summary>
+            Gets the challenge for the specified request.
+            </summary>
+            <param name="method">The request method.</param>
+            <param name="uri">The request URI.</param>
+            <returns>
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge" /> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeCache.RemoveChallenge(System.Net.Http.HttpMethod,System.Uri)">
+            <summary>
+            Removes the challenge for the specified request.
+            </summary>
+            <param name="method">The request method.</param>
+            <param name="uri">The request URI.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeCache.SetChallenge(System.Net.Http.HttpMethod,System.Uri,Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallenge)">
+            <summary>
+            Adds the specified challenge to the cache.
+            </summary>
+            <param name="method">The request method.</param>
+            <param name="uri">The request URI.</param>
+            <param name="challenge">The challenge.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeCache.Clear">
+            <summary>
+            Clears the cache.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeErrorCode">
+            <summary>
+            Defines the error code represented by a <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeErrorCode.WWWAuthenticateHeaderNotFound">
+            <summary>
+            The response does not include the WWW-Authenticate header.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeErrorCode.BearerChallengeNotFound">
+            <summary>
+            The WWW-Authenticate header does not include a bearer challenge.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeErrorCode.InvalidBearerChallenge">
+            <summary>
+            The WWW-Authenticate header contains a bearer challenge but it has invalid properties.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException">
+            <summary>
+            Describes an error raised while accessing the authentication authority.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.RestException" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException.ErrorCode">
+            <summary>
+            Gets the code that identifies the error.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException.#ctor(Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeErrorCode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException"/> class.
+            </summary>
+            <param name="errorCode">The error code.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException.#ctor(Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeErrorCode,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException"/> class.
+            </summary>
+            <param name="errorCode">The error code.</param>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException.#ctor(Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeErrorCode,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.Authentication.HttpBearerChallengeException" /> class.
+            </summary>
+            <param name="errorCode">The error code.</param>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Authentication.NoCredentials">
+            <summary>
+            Allows providing credentials for accessing a REST service from a service client.
+            These credentials should be used in service clients that require the specification
+            of credentials but the underlying Web API does not implement authorization.
+            This acts as 'empty credentials'.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials" />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Errors.ServiceApiVersioningError">
+            <summary>
+            Describes an error that is returned by the API versioning middleware
+            in the response body.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Errors.ServiceApiVersioningError.Error">
+            <summary>
+            Gets or sets the error.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Errors.ServiceApiVersioningError.IsDefined">
+            <summary>
+            Gets a value indicating whether this instance is defined.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Errors.ServiceApiVersioningErrorDetail">
+            <summary>
+            Describes the detail of a <see cref="T:Primavera.Hydrogen.Rest.Client.Errors.ServiceApiVersioningError"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Errors.ServiceApiVersioningErrorDetail.Code">
+            <summary>
+            Gets or sets the error code.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Errors.ServiceApiVersioningErrorDetail.Message">
+            <summary>
+            Gets or sets the error message.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.HttpMessageSurrogate">
+            <summary>
+            Defines the base class for surrogates of <see cref="T:System.Net.Http.HttpRequestMessage"/> and <see cref="T:System.Net.Http.HttpResponseMessage"/>
+            instances. The surrogates allow accessing most of the properties after the instances are disposed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpMessageSurrogate.Content">
+            <summary>
+            Gets or sets the HTTP message contents.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpMessageSurrogate.Headers">
+            <summary>
+            Gets the collection of HTTP headers.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpMessageSurrogate.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpMessageSurrogate"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpMessageSurrogate.CopyHeaders(System.Net.Http.Headers.HttpHeaders)">
+            <summary>
+            Copies HTTP message headers.
+            </summary>
+            <param name="headers">The collection of HTTP headers that should be copied.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse">
+            <summary>
+            Describes the response of a service operation without a response body.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpOperationResponse.Request">
+            <inheritdoc />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpOperationResponse.Response">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpOperationResponse.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpOperationResponse.#ctor(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse" /> class.
+            </summary>
+            <param name="request">The <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.</param>
+            <param name="response">The <see cref="T:System.Net.Http.HttpResponseMessage"/> instance.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpOperationResponse.#ctor(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse" /> class.
+            </summary>
+            <param name="request">The <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.</param>
+            <param name="response">The <see cref="T:System.Net.Http.HttpResponseMessage"/> instance.</param>
+            <param name="responseContent">The response content.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpOperationResponse.#ctor(Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate,Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse" /> class.
+            </summary>
+            <param name="request">The <see cref="T:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate"/> instance.</param>
+            <param name="response">The <see cref="T:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate"/> instance.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse`1">
+            <summary>
+            Describes the response of a service operation with a response body.
+            </summary>
+            <typeparam name="T">The type of the response body.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse" />
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.IHttpOperationResponse`1" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpOperationResponse`1.Body">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpOperationResponse`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse`1" /> class.
+            </summary>
+            <param name="body">The body (deserialized).</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpOperationResponse`1.#ctor(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.String,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse`1" /> class.
+            </summary>
+            <param name="request">The <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.</param>
+            <param name="response">The <see cref="T:System.Net.Http.HttpResponseMessage"/> instance.</param>
+            <param name="bodyRaw">The body (raw).</param>
+            <param name="body">The body (deserialized).</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpOperationResponse`1.#ctor(Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate,Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse`1" /> class.
+            </summary>
+            <param name="request">The <see cref="T:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate"/> instance.</param>
+            <param name="response">The <see cref="T:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate"/> instance.</param>
+            <param name="body">The body (deserialized).</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.HttpRequestMessageExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:System.Net.Http.HttpRequestMessage"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpRequestMessageExtensions.AddJsonContent(System.Net.Http.HttpRequestMessage,System.Object,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Adds the specified object to the request content as JSON (encoded with UTF8).
+            </summary>
+            <param name="request">The request.</param>
+            <param name="value">The object that should be serialized and added to the request content.</param>
+            <param name="options">The serialization options.</param>
+            <returns>
+            The updated <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpRequestMessageExtensions.CloneAsync(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Returns a clone of this <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.
+            </summary>
+            <param name="request">The original <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.</param>
+            <returns>
+            A clone of this <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpRequestMessageExtensions.GetContentHeaders(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Get the content headers of a <see cref="T:System.Net.Http.HttpRequestMessage"/>.
+            </summary>
+            <param name="request">The request message.</param>
+            <returns>The content headers.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate">
+            <summary>
+            Defines a surrogate of <see cref="T:System.Net.Http.HttpRequestMessage"/> instances.
+            The surrogate allow accessing most of the properties after the instances are disposed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate.Method">
+            <summary>
+            Gets the HTTP method used in the HTTP request message.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate.RequestUri">
+            <summary>
+            Gets the URI used in the HTTP request.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate.Version">
+            <summary>
+            Gets the HTTP message version.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate.Properties">
+            <summary>
+            Gets a set of properties of the HTTP request.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate.#ctor(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate"/> class.
+            </summary>
+            <param name="httpRequest">The HTTP request.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate.#ctor(System.Net.Http.HttpRequestMessage,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate"/> class.
+            </summary>
+            <param name="httpRequest">The HTTP request.</param>
+            <param name="content">The HTTP request content.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.HttpResponseMessageExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:System.Net.Http.HttpResponseMessage"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpResponseMessageExtensions.GetContentHeaders(System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Get the content headers of a <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+            <param name="response">The response message.</param>
+            <returns>The content headers.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate">
+            <summary>
+            Defines a surrogate of <see cref="T:System.Net.Http.HttpResponseMessage"/> instances.
+            The surrogate allow accessing most of the properties after the instances are disposed.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate.IsSuccessStatusCode">
+            <summary>
+            Gets a value indicating whether the HTTP response was successful.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate.StatusCode">
+            <summary>
+            Gets the status code of the HTTP response.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate.ReasonPhrase">
+            <summary>
+            Gets the reason phrase, typically sent along with the status code. 
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate.Version">
+            <summary>
+            Gets the HTTP message version.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate.#ctor(System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate"/> class.
+            </summary>
+            <param name="httpResponse">The HTTP response.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate.#ctor(System.Net.Http.HttpResponseMessage,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate"/> class.
+            </summary>
+            <param name="httpResponse">The HTTP response.</param>
+            <param name="content">The content.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.IHttpOperationResponse">
+            <summary>
+            Describes the interface of the response of a service operation without a response body.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.IHttpOperationResponse.Request">
+            <summary>
+            Gets the information about the HTTP request.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.IHttpOperationResponse.Response">
+            <summary>
+            Gets the information about the HTTP response.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.IHttpOperationResponse`1">
+            <summary>
+            Describes the interface of the response of a service operation with a response body.
+            </summary>
+            <typeparam name="T">The type of the response body.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.IHttpOperationResponse" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.IHttpOperationResponse`1.Body">
+            <summary>
+            Gets the response object.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.IServiceOperationResponse">
+            <summary>
+            Describes the interface of the response of a service operation.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.IHttpOperationResponse" />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Error_ApiVersioningFailure">
+            <summary>
+              Looks up a localized string similar to The API versioning middleware rejected the request..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_AuthorityServer_TokenEndpointReturnedError">
+            <summary>
+              Looks up a localized string similar to The authority server token endpoint returned error: &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_ChallengeNotBearer">
+            <summary>
+              Looks up a localized string similar to The challenge is not bearer..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_HttpBearerChallenge_ChallengeNotFound">
+            <summary>
+              Looks up a localized string similar to The response does not contain a valid HTTP Bearer challenge. The WWW-Authenticate header does not include a bearer challenge. WWW-Authenticate header: &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_HttpBearerChallenge_InvalidChallenge">
+            <summary>
+              Looks up a localized string similar to The response does not contain a valid HTTP Bearer challenge. The bearer challenge was found but it has invalid properties.  WWW-Authenticate header: &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_HttpBearerChallenge_WWWAuthenticateNotFound">
+            <summary>
+              Looks up a localized string similar to The response does not contain a valid HTTP Bearer challenge. The WWW-Authenticate header was not found..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_InvalidChallengeParameters1">
+            <summary>
+              Looks up a localized string similar to Invalid challenge parameters. The challenge must contain at least one parameter..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_InvalidChallengeParameters2">
+            <summary>
+              Looks up a localized string similar to Invalid challenge parameters. The challenge does not contain the &apos;authorization&apos; of &apos;authorization_uri&apos; parameter..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_OperationReturnedUnexpectedStatusCode">
+            <summary>
+              Looks up a localized string similar to Operation returned unexpected status code &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_RequestUriIsNotHttpOrHttps">
+            <summary>
+              Looks up a localized string similar to The request URI is neither HTTP or HTTPS..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_ResponseErrorStatusCode">
+            <summary>
+              Looks up a localized string similar to Response status code indicates server error: {0} ({1})..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_RetryHandlerNotFound">
+            <summary>
+              Looks up a localized string similar to The retry handler is not present in the HttpClient handler stack..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_UnableToDeserializeResponse">
+            <summary>
+              Looks up a localized string similar to Unable to deserialize the response..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_UnableToDeserializeResponse_ContentIsNull">
+            <summary>
+              Looks up a localized string similar to Unable to deserialize the response. The response content is null..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.Properties.Resources.RES_Exception_UriAndChallengeUriDoNotMatch">
+            <summary>
+              Looks up a localized string similar to The source URI and the challenge URI do not match..
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler">
+            <summary>
+            Defines a HTTP handler that is capable of retrying requests according to
+            the retry strategy specified.
+            </summary>
+            <seealso cref="T:System.Net.Http.DelegatingHandler" />
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.DefaultNumberOfAttempts">
+            <summary>
+            Gets the maximum number of retry attempts by default.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.RetryPolicy">
+            <summary>
+            Gets or sets the retry policy.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.DefaultBackoffDelta">
+            <summary>
+            Gets the value by default that will be used to calculate a random delta in the exponential delay 
+            between retries. The default value is 5 seconds.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.DefaultMaxBackoff">
+            <summary>
+            Gets the maximum backoff time by default. The default value is 5 seconds.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.DefaultMinBackoff">
+            <summary>
+            Gets the minimum backoff time by default. The default value is 1 second.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.#ctor(System.Net.Http.DelegatingHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler"/> class.
+            </summary>
+            <param name="innerHandler">The inner HTTP handler.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.#ctor(Primavera.Hydrogen.Policies.Retry.RetryPolicy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler"/> class.
+            </summary>
+            <param name="retryPolicy">The retry policy that should be used.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.#ctor(Primavera.Hydrogen.Policies.Retry.RetryPolicy,System.Net.Http.DelegatingHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler"/> class.
+            </summary>
+            <param name="retryPolicy">The retry policy that should be used.</param>
+            <param name="innerHandler">The inner HTTP handler.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1">
+            <summary>
+            Provides the base class for a service client.
+            A service client is a type that is used to communicate with a REST service.
+            </summary>
+            <typeparam name="T">The type of the concrete service client.</typeparam>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.BaseUri">
+            <summary>
+            Gets or sets the base URI of the service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.Credentials">
+            <summary>
+            Gets or sets the credentials use to access the service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.ApiVersion">
+            <summary>
+            Gets or sets the API version.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.AcceptLanguage">
+            <summary>
+            Gets or sets the preferred language for the response.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.SerializationOptions">
+            <summary>
+            Gets or sets the options that will be used in serialization.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.DeserializationOptions">
+            <summary>
+            Gets or sets the options that will be used in deserialization.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient">
+            <summary>
+            Gets or sets the <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient"/> instance in use to communicate with the service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpMessageHandlers">
+            <summary>
+            Gets the HTTP message handlers pipeline configured for the service client.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.UserAgent">
+            <summary>
+            Gets the user agent headers collection.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.Actions">
+            <summary>
+            Gets or sets the instance of <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1"/> that should be used
+            to execute actions on behalf of this service client. This instance
+            ensures uniform behaviors.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClientHandler">
+            <summary>
+            Gets or sets the <see cref="T:System.Net.Http.HttpMessageHandler"/> instance in use.
+            This is the innermost HTTP handler (the end of the send HTTP pipeline).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.FirstMessageHandler">
+            <summary>
+            Gets or sets the first HTTP handler (the start of the send HTTP pipeline).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.DefaultUserAgentValue">
+            <summary>
+            Gets the default user-agent value.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.FrameworkVersion">
+            <summary>
+            Gets the framework version (as used by <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.DefaultUserAgentValue"/>).
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.ClientVersion">
+            <summary>
+            Gets the client version used to set the user-agent.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.ClientInfo">
+            <summary>
+            Gets the client information used to set the user-agent.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.#ctor(System.Uri)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <remarks>
+            This constructor should be used when the service does not require authentication.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.#ctor(System.Uri,System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="handler">The root message handler.</param>
+            <remarks>
+            This constructor should be used when the service does not require authentication.
+            The <paramref name="handler"/> allows overriding the default message handling in <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.#ctor(System.Uri,System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="handler">The root message handler.</param>
+            <param name="disposeHandler">
+            True if the inner handler should be disposed of, false if the inner handler is intended to be reused.
+            </param>
+            <remarks>
+            This constructor should be used when the service does not require authentication.
+            The <paramref name="handler"/> allows overriding the default message handling in <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="credentials">The credentials that should be used to access the service.</param>
+            <remarks>
+            This constructor should be used when the service requires authentication.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials,System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="credentials">The credentials that should be used to access the service.</param>
+            <param name="handler">The root message handler.</param>
+            <remarks>
+            This constructor should be used when the service requires authentication.
+            The <paramref name="handler"/> allows overriding the default message handling in <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials,System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="credentials">The credentials that should be used to access the service.</param>
+            <param name="handler">The root message handler.</param>
+            <param name="disposeHandler">
+            True if the inner handler should be disposed of, false if the inner handler is intended to be reused.
+            </param>
+            <remarks>
+            This constructor should be used when the service requires authentication.
+            The <paramref name="handler"/> allows overriding the default message handling in <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.AuthenticationCallback)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="callback">The callback that will be invoked during authentication to get the access token.</param>
+            <remarks>
+            This constructor should be used when the service requires authentication.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.AuthenticationCallback,System.Net.Http.HttpMessageHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="callback">The callback that will be invoked during authentication to get the access token.</param>
+            <param name="handler">The root message handler.</param>
+            <remarks>
+            This constructor should be used when the service requires authentication.
+            The <paramref name="handler"/> allows overriding the default message handling in <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.#ctor(System.Uri,Primavera.Hydrogen.Rest.Client.AuthenticationCallback,System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1" /> class.
+            </summary>
+            <param name="baseUri">The base URI of the service.</param>
+            <param name="callback">The callback that will be invoked during authentication to get the access token.</param>
+            <param name="handler">The root message handler.</param>
+            <param name="disposeHandler">
+            True if the inner handler should be disposed of, false if the inner handler is intended to be reused.
+            </param>
+            <remarks>
+            This constructor should be used when the service requires authentication.
+            The <paramref name="handler"/> allows overriding the default message handling in <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.SetUserAgent">
+            <summary>
+            Sets the user agent header when making requests to the service.
+            </summary>
+            <returns>
+            A value indicating whether the user agent information was updated.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.SetUserAgent(System.String)">
+            <summary>
+            Sets the user agent header when making requests to the service, including the specified product name.
+            </summary>
+            <param name="productName">The product name.</param>
+            <returns>
+            A value indicating whether the user agent information was updated.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.SetUserAgent(System.String,System.String)">
+            <summary>
+            Sets the user agent header when making requests to the service, including the specified product name and version.
+            </summary>
+            <param name="productName">The product name.</param>
+            <param name="version">The version.</param>
+            <returns>
+            A value indicating whether the user agent information was updated.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.SetUserAgent(System.String,System.String,System.String)">
+            <summary>
+            Sets the user agent header when making requests to the service, including the specified product name, version and additional information.
+            </summary>
+            <param name="productName">The product name.</param>
+            <param name="version">The version.</param>
+            <param name="info">The additional information.</param>
+            <returns>
+            A value indicating whether the user agent information was updated.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.SetRetryPolicy(Primavera.Hydrogen.Policies.Retry.RetryPolicy)">
+            <summary>
+            Sets the retry policy.
+            </summary>
+            <param name="retryPolicy">The new retry policy.</param>
+            <exception cref="T:System.InvalidOperationException">
+            Raised if there is no <see cref="T:Primavera.Hydrogen.Rest.Client.RetryDelegatingHandler"/> instance present in the <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient"/> handlers
+            stack.
+            </exception>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.InitializeOptions">
+            <summary>
+            Initializes the service client options.
+            </summary>
+            <remarks>
+            This method is called when the service client is created, from <see cref="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.Initialize(System.Uri,Primavera.Hydrogen.Rest.Client.ServiceClientCredentials,System.Net.Http.HttpMessageHandler,System.Boolean)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.InitializeCredentials">
+            <summary>
+            Initializes the service client options.
+            </summary>
+            <remarks>
+            This method is called when the service client is created.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.InitializeApiVersion">
+            <summary>
+            Initializes the API version.
+            </summary>
+            <remarks>
+            This method is called when the service client is created.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.InitializeAcceptLanguage">
+            <summary>
+            Initializes the accept language used by the service client.
+            </summary>
+            <remarks>
+            This method is called when the service client is created.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.InitializeHttpClient(System.Net.Http.HttpMessageHandler,System.Boolean)">
+            <summary>
+            Initializes the <see cref="P:Primavera.Hydrogen.Rest.Client.ServiceClient`1.HttpClient"/> that should be used.
+            </summary>
+            <param name="handler">
+            The <see cref="T:System.Net.Http.HttpMessageHandler"/> instance that should be used to process the messages.
+            This is the innermost HTTP handler (the end of the send HTTP pipeline).
+            </param>
+            <param name="disposeHandler">
+            True if the inner handler should be disposed of, false if the inner handler is intended to be reused.
+            </param>
+            <remarks>
+            This method is called when the service client is created.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClient`1.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>True</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1">
+            <summary>
+            Provides methods to execute actions on behalf of <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1"/> using well-defined
+            patterns for sending the requests, serializing the request body, handling responses, deserializing
+            the response body and handling errors and unexpected status codes.
+            </summary>
+            <typeparam name="T">The type of the concrete service client.</typeparam>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.#ctor(Primavera.Hydrogen.Rest.Client.ServiceClient{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1" /> class.
+            </summary>
+            <param name="serviceClient">The service client instance.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecuteGetAsync``1(System.Uri,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Get" /> action and returns the result.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="requestUri">The request URI.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success:
+            The response body contains the result of the action.
+            Failure:
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecuteGetNoResultAsync(System.Uri,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Get" /> action that returns no result.
+            </summary>
+            <param name="requestUri">The request URI.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success:
+            The response body is empty.
+            Failure:
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecutePostAsync``2(System.Uri,``0,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Post" /> action and returns the result.
+            </summary>
+            <typeparam name="TRequestBody">The type of the request body.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="requestUri">The request URI.</param>
+            <param name="body">The request body.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success: 
+            The response body contains the result of the action.
+            Failure:
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecutePostAsync``1(System.Uri,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Post" /> action and returns the result.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="requestUri">The request URI.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success: 
+            The response body contains the result of the action.
+            Failure: 
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecutePostNoResultAsync``1(System.Uri,``0,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Post" /> action that returns no result.
+            </summary>
+            <typeparam name="TRequestBody">The type of the request body.</typeparam>
+            <param name="requestUri">The request URI.</param>
+            <param name="body">The request body.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success: 
+            The response body is empty. 
+            Failure: 
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecutePostNoResultAsync(System.Uri,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Post" /> action that returns no result.
+            </summary>
+            <param name="requestUri">The request URI.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success: 
+            The response body is empty. 
+            Failure: 
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecuteDeleteNoResultAsync``1(System.Uri,``0,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Delete" /> action that returns no result.
+            </summary>
+            <typeparam name="TRequestBody">The type of the request body.</typeparam>
+            <param name="requestUri">The request URI.</param>
+            <param name="body">The request body.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success:
+            The response body is empty.
+            Failure:
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecuteDeleteNoResultAsync(System.Uri,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Delete" /> action that returns no result.
+            </summary>
+            <param name="requestUri">The request URI.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success: 
+            The response body is empty.
+            Failure: 
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecutePutAsync``2(System.Uri,``0,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Put" /> action and returns the result.
+            </summary>
+            <typeparam name="TRequestBody">The type of the request body.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="requestUri">The request URI.</param>
+            <param name="body">The request body.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success: 
+            The response body contains the result of the action. 
+            Failure: 
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecutePutAsync``1(System.Uri,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Put" /> action and returns the result.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="requestUri">The request URI.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success: 
+            The response body contains the result of the action. 
+            Failure: 
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecutePutNoResultAsync``1(System.Uri,``0,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Put" /> action that returns no result.
+            </summary>
+            <typeparam name="TRequestBody">The type of the request body.</typeparam>
+            <param name="requestUri">The request URI.</param>
+            <param name="body">The request body.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success: 
+            The response body is empty. 
+            Failure: 
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.ExecutePutNoResultAsync(System.Uri,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Executes a <see cref="P:System.Net.Http.HttpMethod.Put" /> action that returns no result.
+            </summary>
+            <param name="requestUri">The request URI.</param>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> that describes the result of the operation.
+            </returns>
+            <remarks>
+            Success:
+            The response body is empty. 
+            Failure: 
+            Throws <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException" />.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.SendRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Sends the specified request.
+            </summary>
+            <param name="request">The request that should be sent.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The <see cref="T:System.Net.Http.HttpResponseMessage"/> resulting from the request.
+            </returns>
+            <remarks>
+            This methods ensures uniform behaviors between all the service client operations, like:
+            - Authentication of the service client.
+            - Error recovery (e.g. when the access token expires).
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.DeserializeResponseAsync``1(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
+            <summary>
+            Deserializes the response body received in the specified response.
+            </summary>
+            <typeparam name="TResult">The type of the response body.</typeparam>
+            <param name="request">The request sent.</param>
+            <param name="response">The response received.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The deserialized response body.
+            </returns>
+            <remarks>
+            This methods ensures uniform behaviors between all the service client operations, like:
+            - Correctly deserializing the response.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.DeserializeResponseAsync``1(System.Net.HttpStatusCode,System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
+            <summary>
+            Deserializes the response body received in the specified response.
+            </summary>
+            <typeparam name="TResult">The type of the response body.</typeparam>
+            <param name="expectedStatusCode">The expected status code.</param>
+            <param name="request">The request sent.</param>
+            <param name="response">The response received.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            A tuple containing the raw response body and the deserialized response body.
+            The deserialized response body.
+            </returns>
+            <remarks>
+            This methods ensures uniform behaviors between all the service client operations, like:
+            - Correctly deserializing the response.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.DeserializeResponseAsync(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Deserializes the response body received in the specified response (when the body is a string).
+            </summary>
+            <param name="request">The request sent.</param>
+            <param name="response">The response received.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1" /> that represents the asynchronous operation.
+            The deserialized response body.
+            </returns>
+            <remarks>
+            This methods ensures uniform behaviors between all the service client operations, like:
+            - Correctly deserializing the response.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientActions`1.HandleRequestErrorAsync(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
+            <summary>
+            Handles the response received when response represents an error (it is not of the expected status code) by
+            raising the appropriate <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException"/>.
+            </summary>
+            <param name="request">The request that originated the error.</param>
+            <param name="response">The response received.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.
+            </returns>
+            <remarks>
+            This methods ensures uniform behaviors between all the service client operations, like:
+            - Raising the correct <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException"/> to represent the error.
+            </remarks>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials">
+            <summary>
+            Defines the base class for types that provide credentials to access a REST service
+            using the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClient`1"/>.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials.NoCredentials">
+            <summary>
+            Returns a <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials"/> instance for accessing a REST service from a service client.
+            These credentials should be used in service clients that require the specification
+            of credentials but the underlying Web API does not implement authorization.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials.InitializeServiceClient``1(Primavera.Hydrogen.Rest.Client.ServiceClient{``0})">
+            <summary>
+            Allows to initialize the credentials depending on the specified service client.
+            </summary>
+            <typeparam name="T">The type of the service client.</typeparam>
+            <param name="serviceClient">The service client instance that is using these credentials.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials.HandleRequestAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Allows to apply the credentials before sending the request for the first time.
+            </summary>
+            <param name="request">The request that is being sent.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceClientCredentials.HandleResponseAsync(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
+            <summary>
+            Allows to apply the credentials after sending the request based on the failure response received.
+            </summary>
+            <param name="request">The request that is being sent.</param>
+            <param name="response">The response received after sending the request for the first time.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the request should be sent again.
+            </returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.ServiceException">
+            <summary>
+            Describes an error returned in the HTTP response of a REST service.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.RestException" />
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceException.Request">
+            <summary>
+            Gets or sets information about the HTTP request that raised the error.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceException.Response">
+            <summary>
+            Gets or sets information about the HTTP response that returned the error.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.Rest.Client.ServiceException.Body">
+            <summary>
+            Gets or sets the response object that describes the error.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult">
+            <summary>
+            Describes the response of a service operation without a response body.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse" />
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.IServiceOperationResponse" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceOperationResult.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceOperationResult.#ctor(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> class.
+            </summary>
+            <param name="request">The <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.</param>
+            <param name="response">The <see cref="T:System.Net.Http.HttpResponseMessage"/> instance.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceOperationResult.#ctor(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> class.
+            </summary>
+            <param name="request">The <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.</param>
+            <param name="response">The <see cref="T:System.Net.Http.HttpResponseMessage"/> instance.</param>
+            <param name="responseContent">The response content.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceOperationResult.#ctor(Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate,Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult" /> class.
+            </summary>
+            <param name="request">The <see cref="T:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate"/> instance.</param>
+            <param name="response">The <see cref="T:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate"/> instance.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1">
+            <summary>
+            Describes the response of a service operation with a response body.
+            </summary>
+            <typeparam name="T">The type of the response body.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.HttpOperationResponse`1" />
+            <seealso cref="T:Primavera.Hydrogen.Rest.Client.IServiceOperationResponse" />
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1" /> class.
+            </summary>
+            <param name="body">The body (deserialized).</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1.#ctor(System.Net.Http.HttpRequestMessage,System.Net.Http.HttpResponseMessage,System.String,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1" /> class.
+            </summary>
+            <param name="request">The <see cref="T:System.Net.Http.HttpRequestMessage"/> instance.</param>
+            <param name="response">The <see cref="T:System.Net.Http.HttpResponseMessage"/> instance.</param>
+            <param name="bodyRaw">The body (raw).</param>
+            <param name="body">The body (deserialized).</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1.#ctor(Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate,Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1" /> class.
+            </summary>
+            <param name="request">The <see cref="T:Primavera.Hydrogen.Rest.Client.HttpRequestMessageSurrogate"/> instance.</param>
+            <param name="response">The <see cref="T:Primavera.Hydrogen.Rest.Client.HttpResponseMessageSurrogate"/> instance.</param>
+            <param name="body">The body.</param>
+        </member>
+    </members>
+</doc>

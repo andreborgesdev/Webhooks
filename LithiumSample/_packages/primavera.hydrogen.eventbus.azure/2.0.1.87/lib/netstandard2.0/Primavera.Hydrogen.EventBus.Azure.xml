@@ -1,0 +1,546 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Primavera.Hydrogen.EventBus.Azure</name>
+    </assembly>
+    <members>
+        <member name="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBus">
+            <summary>
+            Defines a <see cref="N:Microsoft.Azure.ServiceBus"/> implementation of a disposable <see
+            cref="T:Primavera.Hydrogen.EventBus.EventBusBase"/> service.
+            </summary>
+        </member>
+        <member name="F:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.DefaultRuleDescriptionName">
+            <summary>
+            The default name to be applied to a new <see cref="N:Microsoft.Azure.ServiceBus"/> rule
+            description. A static name is used in order to guarantee that the rule name doesn't
+            exceed azure-defined character limit.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.ManagementClient">
+            <summary>
+            Gets or sets the management client.
+            </summary>
+            <value>The management client.</value>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.Options">
+            <summary>
+            Gets or sets the options.
+            </summary>
+            <value>The options.</value>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.PublisherClients">
+            <summary>
+            Gets or sets the publisher clients. Each key of the dictionary represents the topic that
+            the client is connected to.
+            </summary>
+            <value>The publisher clients.</value>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.RetryPolicy">
+            <summary>
+            Gets or sets the retry policy that should be implemented to each new publisher or
+            subscription client.
+            </summary>
+            <value>The retry policy.</value>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.SubscriberClients">
+            <summary>
+            Gets or sets the subscriber clients. Each key of the dictionary represents the
+            subscription that the client is connected to.
+            </summary>
+            <value>The subscription clients.</value>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBus"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.#ctor(Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions,Microsoft.Extensions.Logging.ILogger{Primavera.Hydrogen.EventBus.Azure.AzureEventBus})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBus"/> class.
+            </summary>
+            <param name="options">The options.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.Publish``1(Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Publishes the specified <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> as a
+            broadcast to all the paths of an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to be published.</typeparam>
+            <param name="eventBusEvent">The event bus service event.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.Publish``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Publishes the specified <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> as a
+            unicast to the specified path of an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to be published.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventBusEvent">The event bus service event.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.PublishAsync``1(Primavera.Hydrogen.EventBus.IEventBusEvent{``0},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously publishes the specified <see
+            cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> as a broadcast to all the paths
+            of an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to be published.</typeparam>
+            <param name="eventBusEvent">The event bus service event.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.PublishAsync``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0},System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously publishes the specified <see
+            cref="T:Primavera.Hydrogen.EventBus.IEventBusEvent`1"/> as a unicast to the specified
+            path of an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to be published.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventBusEvent">The event bus service event.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.Subscribe``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0})">
+            <summary>
+            Subscribes to the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to subscribed.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.Subscribe``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0},Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Subscribes to the specified path in an event bus service instance. The subscription is
+            constrained by the specified filters.
+            </summary>
+            <typeparam name="T">The event bus service event type to subscribed.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+            <param name="eventFilters">The event bus service event filters to subscribe.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.SubscribeAsync``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0})">
+            <summary>
+            Asynchronously subscribes to the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to subscribe.</typeparam>
+            <param name="path">The event bus service path to subscribe.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.SubscribeAsync``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0},Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Asynchronously subscribes to the specified path in an event bus service instance. The
+            subscription is constrained by the specified filters.
+            </summary>
+            <typeparam name="T">The event bus service event type to subscribe.</typeparam>
+            <param name="path">The event bus service path to subscribe.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+            <param name="eventFilters">The event bus service event filters to subscribe.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.Unsubscribe``1(System.String)">
+            <summary>
+            Unsubscribes from the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to unsubscribe.</typeparam>
+            <param name="path">The event bus service path to unsubscribe.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.Unsubscribe``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Unsubscribes from the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to unsubscribe.</typeparam>
+            <param name="path">The event bus service path to unsubscribe.</param>
+            <param name="eventFilters">The event bus event filters to unsubscribe.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.UnsubscribeAsync``1(System.String)">
+            <summary>
+            Asynchronously unsubscribes from the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to unsubscribe.</typeparam>
+            <param name="path">The event bus service path to unsubscribe.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.UnsubscribeAsync``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Asynchronously unsubscribes from the specified path in an event bus service instance.
+            </summary>
+            <typeparam name="T">The event bus service event type to unsubscribe.</typeparam>
+            <param name="path">The event bus service path to unsubscribe.</param>
+            <param name="eventFilters">The event bus event filters to unsubscribe.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.AddSubscriptionIfNonexistent``1(System.String)">
+            <summary>
+            Asynchronously adds the <see cref="N:Microsoft.Azure.ServiceBus"/> subscription if nonexistent.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <returns>The subscription identifier.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.AddSubscriptionIfNonexistent``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Asynchronously adds the <see cref="N:Microsoft.Azure.ServiceBus"/> subscription if nonexistent.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventBusEvent">The event bus service event.</param>
+            <returns>The subscription identifier.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.AddSubscriptionIfNonexistent``1(System.String,Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Asynchronously adds the <see cref="N:Microsoft.Azure.ServiceBus"/> subscription if nonexistent.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="path">The event bus service path.</param>
+            <param name="eventFilters">The event bus service event filters.</param>
+            <returns>The subscription identifier.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.ExceptionReceivedHandler(Microsoft.Azure.ServiceBus.ExceptionReceivedEventArgs)">
+            <summary>
+            Handler that manages received messages exceptions.
+            </summary>
+            <param name="exceptionReceivedEventArgs">The object that contains the exception.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.GetCorrelationFilter``1">
+            <summary>
+            Gets a <see cref="N:Microsoft.Azure.ServiceBus"/> correlation filter from the specified
+            event bus event type.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <returns>The correlation filter.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.GetCorrelationFilter``1(Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Gets a <see cref="N:Microsoft.Azure.ServiceBus"/> correlation filter from the specified
+            event bus event.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="eventBusEvent">The event bus service event.</param>
+            <returns>The correlation filter.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.GetCorrelationFilter``1(Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Gets a <see cref="N:Microsoft.Azure.ServiceBus"/> correlation filter from the specified
+            event bus event type and filters.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="eventFilters">The event bus event filters.</param>
+            <returns>The correlation filter.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.GetMessageHandlerOptions">
+            <summary>
+            Gets the <see cref="N:Microsoft.Azure.ServiceBus"/> message handler options.
+            </summary>
+            <returns>The <see cref="N:Microsoft.Azure.ServiceBus"/> message handler options.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.GetRetryExponential(Primavera.Hydrogen.Policies.Retry.Strategies.ExponentialBackoffRetryStrategy)">
+            <summary>
+            Gets the <see cref="N:Microsoft.Azure.ServiceBus"/> exponential back-off retry strategy
+            type from the specified <see cref="T:Primavera.Hydrogen.Policies.Retry.Strategies.ExponentialBackoffRetryStrategy"/>.
+            </summary>
+            <param name="retryStrategy">The exponential back-off retry strategy.</param>
+            <returns>
+            The <see cref="N:Microsoft.Azure.ServiceBus"/> exponential back-off retry strategy.
+            </returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.GetRuleDescription``1">
+            <summary>
+            Gets a <see cref="N:Microsoft.Azure.ServiceBus"/> rule description from the specified
+            event bus event type.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <returns>The rule description.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.GetRuleDescription``1(Primavera.Hydrogen.EventBus.IEventBusEvent{``0})">
+            <summary>
+            Gets a <see cref="N:Microsoft.Azure.ServiceBus"/> rule description from the specified
+            event bus event.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="eventBusEvent">The event bus service event.</param>
+            <returns>The rule description.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.GetRuleDescription``1(Primavera.Hydrogen.EventBus.IEventBusEventFilters{``0})">
+            <summary>
+            Gets a <see cref="N:Microsoft.Azure.ServiceBus"/> rule description from the specified
+            event bus event type and filters.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="eventFilters">The event bus service event filters.</param>
+            <returns>The rule description.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.GetTransactionScope">
+            <summary>
+            Gets a self-contained, serializable and thread-safe <see cref="T:System.Transactions.TransactionScope"/> in
+            order to safely publish messages to <see cref="N:Microsoft.Azure.ServiceBus"/>
+            independently of other context existing transactions.
+            </summary>
+            <returns>The transaction scope.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.InitializePublisherClients(System.Collections.Generic.IDictionary{System.String,Microsoft.Azure.ServiceBus.ITopicClient})">
+            <summary>
+            Initializes publisher clients for all the existing topics, if not already initialized.
+            Useful for broadcasting operations.
+            </summary>
+            <param name="publisherClients">The publisher clients collection.</param>
+            <returns>The initialized publisher clients collection.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.ProcessMessagesAsync``1(Microsoft.Azure.ServiceBus.ISubscriptionClient,Microsoft.Azure.ServiceBus.Message,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0})">
+            <summary>
+            Asynchronously handles and process received messages from the specified <see
+            cref="N:Microsoft.Azure.ServiceBus"/> subscription client.
+            </summary>
+            <param name="subscriptionClient">The subscription client.</param>
+            <param name="message">The message.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/> representing the operation.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBus.RegisterMessageHandler``1(Microsoft.Azure.ServiceBus.ISubscriptionClient,Primavera.Hydrogen.EventBus.IEventBusEventHandler{``0},Microsoft.Azure.ServiceBus.MessageHandlerOptions)">
+            <summary>
+            Registers the <see cref="N:Microsoft.Azure.ServiceBus"/> message handler from the
+            specified event bus service event handler.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <param name="subscriptionClient">The subscription client.</param>
+            <param name="eventHandler">The event bus service event handler.</param>
+            <param name="messageHandlerOptions">The message handler options.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusServiceCollectionExtensions">
+            <summary>
+            Provides extension methods for the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> type that allows the
+            configuration of <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBus"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusServiceCollectionExtensions.AddAzureEventBus(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBus"/> using
+            configuration defined by <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions"/>.
+            </summary>
+            <param name="services">The service collection.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusServiceCollectionExtensions.AddAzureEventBus(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions})">
+            <summary>
+            Adds a service that allows creating instances of <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBus"/> using the
+            specified configuration options.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureDelegate">The configuration delegate.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> instance.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEvent`1">
+            <summary>
+            Defines a <see cref="N:Microsoft.Azure.ServiceBus"/> implementation of the <see cref="T:Primavera.Hydrogen.EventBus.EventBusEventBase`1"/>.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.EventBus.EventBusBase"/>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEvent`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEvent`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEvent`1.#ctor(Microsoft.Azure.ServiceBus.Message)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEvent`1"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEvent`1.ToMessage">
+            <summary>
+            Converts this instance into an <see cref="T:Microsoft.Azure.ServiceBus.Message"/>.
+            </summary>
+            <returns>The message.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventFilters`1">
+            <summary>
+            Defines a <see cref="N:Microsoft.Azure.ServiceBus"/> implementation of <see
+            cref="T:Primavera.Hydrogen.EventBus.EventBusEventFiltersBase`1"/>. Each filter value only supports the following types:
+            byte, sbyte, char, short, ushort, int, uint, long, ulong, float, double, decimal, bool,
+            Guid, string, Uri, DateTime, DateTimeOffset, TimeSpan, Stream, byte[] and IList/IDictionary
+            of supported types.
+            </summary>
+            <typeparam name="T">The event bus service event type.</typeparam>
+            <seealso cref="T:Primavera.Hydrogen.EventBus.EventBusEventFiltersBase`1"/>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventFilters`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventFilters`1"/> class.
+            </summary>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventHandlerOptions">
+            <summary>
+            Defines the options used to register a <see cref="N:Microsoft.Azure.ServiceBus"/>
+            implementation of the <see cref="T:Primavera.Hydrogen.EventBus.IEventBusEventHandler`1"/>.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventHandlerOptions.AutoComplete">
+            <summary>
+            Gets or sets a value indicating whether the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBus"/> service events
+            should be automatically completed after returning from user callback.
+            </summary>
+            <value>
+            <c>true</c> if [the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBus"/> event should be automatically completed
+            after returning from user callback]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventHandlerOptions.MaxConcurrentCalls">
+            <summary>
+            Gets or sets the maximum concurrent calls to the callback event processor.
+            </summary>
+            <value>The maximum concurrent calls to the callback event processor.</value>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventHandlerOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventHandlerOptions"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventHandlerOptions.#ctor(System.Boolean,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventHandlerOptions"/> class.
+            </summary>
+            <param name="autoComplete">if set to <c>true</c> [automatic complete].</param>
+            <param name="maxConcurrentCalls">The maximum concurrent calls.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions">
+            <summary>
+            Defines a <see cref="N:Microsoft.Azure.ServiceBus"/> implementation of the <see cref="T:Primavera.Hydrogen.EventBus.EventBusOptionsBase"/>.
+            </summary>
+            <seealso cref="T:Primavera.Hydrogen.EventBus.EventBusOptionsBase"/>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions.ConnectionString">
+            <summary>
+            Gets or sets the event bus service connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions.EventHandlerOptions">
+            <summary>
+            Gets or sets the event bus event handler options.
+            </summary>
+            <value>The event bus event handler options.</value>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions.RetryStrategy">
+            <summary>
+            Gets or sets the event bus service exponential back-off retry strategy.
+            </summary>
+            <value>The retry policy.</value>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions"/> class.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions.#ctor(System.String,Primavera.Hydrogen.EventBus.Azure.AzureEventBusEventHandlerOptions,Primavera.Hydrogen.Policies.Retry.Strategies.ExponentialBackoffRetryStrategy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusOptions"/> class.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+            <param name="eventHandlerOptions">The event handler options.</param>
+            <param name="retryStrategy">The exponential back-off retry strategy.</param>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusExtensions">
+            <summary>
+            Provides extensions methods for <see cref="T:Primavera.Hydrogen.EventBus.Azure.AzureEventBusEvent`1"/>.
+            </summary>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusExtensions.ToByteSequence(System.String)">
+            <summary>
+            Converts the specified string to a byte sequence.
+            </summary>
+            <param name="string">The string.</param>
+            <returns>The sequence of bytes.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusExtensions.ToJson``1(``0)">
+            <summary>
+            Converts the specified typed object to a JSON string.
+            </summary>
+            <typeparam name="T">The object type.</typeparam>
+            <param name="object">The object.</param>
+            <returns>The JSON string.</returns>
+        </member>
+        <member name="M:Primavera.Hydrogen.EventBus.Azure.AzureEventBusExtensions.ToTypedObject``1(System.Byte[])">
+            <summary>
+            Converts the specified byte sequence encoded JSON string to the respective typed object.
+            </summary>
+            <typeparam name="T">The object type.</typeparam>
+            <param name="byteSequence">The byte sequence.</param>
+            <returns>The typed object.</returns>
+        </member>
+        <member name="T:Primavera.Hydrogen.EventBus.Azure.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_EventHandlerError">
+            <summary>
+              Looks up a localized string similar to The event handler encountered an error..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_SubscriptionAlreadyExists">
+            <summary>
+              Looks up a localized string similar to A subscription for the event type &apos;{0}&apos; in the specified path already exists..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_SubscriptionNotFound">
+            <summary>
+              Looks up a localized string similar to A subscription for the event type &apos;{0}&apos; in the specified path was not found..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_SubscriptionWithFiltersAlreadyExists">
+            <summary>
+              Looks up a localized string similar to A subscription for the event type &apos;{0}&apos; in the specified path with the provided filters already exists..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_SubscriptionWithFiltersNotFound">
+            <summary>
+              Looks up a localized string similar to A subscription for the event type &apos;{0}&apos; in the specified path with the provided filters was not found..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_UnableToAddSubscription">
+            <summary>
+              Looks up a localized string similar to Unable to add subscription for event type &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_UnableToBroadcastEvent">
+            <summary>
+              Looks up a localized string similar to Unable to broadcast event. There&apos;s no paths associated to the event bus service instance..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_UnableToUnicastEvent">
+            <summary>
+              Looks up a localized string similar to Unable to unicast event. The path &apos;{0}&apos; doesn&apos;t exist..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_UnexpectedErrorWhilePublishing">
+            <summary>
+              Looks up a localized string similar to An unexpected error has occurred while publishing event type &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_UnexpectedErrorWhileSubscribing">
+            <summary>
+              Looks up a localized string similar to An unexpected error has occurred while subscribing event type &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Primavera.Hydrogen.EventBus.Azure.Properties.Resources.RES_Exception_AzureEventBus_UnexpectedErrorWhileUnsubscribing">
+            <summary>
+              Looks up a localized string similar to An unexpected error has occurred while unsubscribing event type &apos;{0}&apos;..
+            </summary>
+        </member>
+    </members>
+</doc>

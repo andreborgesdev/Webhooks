@@ -1,0 +1,153 @@
+﻿<#+
+
+// *** WriteMain
+
+public void WriteMain(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Create the host builder
+
+            HostBuilder builder = new HostBuilder();
+
+            // Build the host
+
+            IConsoleHost host = builder.Build<Application>(args);
+
+            // Run the application
+
+            await host.RunAsync().ConfigureAwait(false);
+<#+
+
+}
+
+// *** WriteBuild
+
+public void WriteBuild(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Create the host builder
+
+            IConsoleHostBuilder builder = new ConsoleHostBuilder();
+
+            // Setup host configuration
+
+            builder = builder.ConfigureHostConfiguration(this.ConfigureHostConfiguration);
+
+            // Setup application configuration
+
+            builder = builder.ConfigureAppConfiguration(
+                (context, config) =>
+                {
+                    this.ConfigureAppConfiguration(context, config, args);
+                });
+
+            // Configure logging
+
+            builder = builder.ConfigureLogging(this.ConfigureLogging);
+
+            // Configure services
+
+            builder = builder.ConfigureServices(this.ConfigureServices);
+
+            // Result
+
+            return builder.Build<Application>();
+<#+
+
+}
+
+// *** WriteConfigureAppConfiguration
+
+public void WriteConfigureAppConfiguration(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Set base path
+
+            builder
+                .SetBasePath(Environment.CurrentDirectory);
+
+            // JSON configuration
+
+            builder
+                .AddJsonFile("GeneratedCode/appsettings.gen.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("CustomCode/appsettings.json", optional: true, reloadOnChange: true);
+
+            // Environment variables
+
+            builder
+                .AddEnvironmentVariables();
+
+            // Command line arguments
+
+            builder
+                .AddCommandLine(args);
+<#+
+
+}
+
+// *** WriteConfigureLogging
+
+public void WriteConfigureLogging(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Clear default providers
+
+            builder
+                .ClearProviders();
+
+            // Configuration
+
+            builder
+                .AddConfiguration(context.Configuration.GetSection("Logging"));
+
+            // Console and debug
+
+            bool useDevelopmentSettings = this.UseDevelopmentSettings || context.HostingEnvironment.IsDevelopment();
+
+            if (useDevelopmentSettings)
+            {
+                builder
+                    .AddConsole()
+                    .AddDebug();
+            }
+<#+
+
+}
+
+// *** WriteConfigureServices
+
+public void WriteConfigureServices(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Configuration
+
+            services
+                .AddOptions()
+                .Configure<ApplicationConfiguration>(context.Configuration.GetSection(nameof(ApplicationConfiguration)));
+
+            services
+                .AddOptionsSnapshot<ApplicationConfiguration>();
+<#+
+
+}
+
+// *** WriteUseDevelopmentSettings
+
+public void WriteUseDevelopmentSettings(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                return false;
+            }
+<#+
+
+}
+
+#>

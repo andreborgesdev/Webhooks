@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MediatR</id>
+    <version>8.0.0</version>
+    <authors>Jimmy Bogard</authors>
+    <owners>Jimmy Bogard</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/jbogard/MediatR/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/jbogard/MediatR</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/jbogard/MediatR/master/assets/logo/gradient_128x128.png</iconUrl>
+    <description>Simple, unambitious mediator implementation in .NET</description>
+    <copyright>Copyright Jimmy Bogard</copyright>
+    <tags>mediator request response queries commands notifications</tags>
+    <repository type="git" url="git://github.com/jbogard/mediatr" commit="4f8764886d3a83b4f59d17ab21cf8686a33adec6" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.1" />
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.6.1" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.6.1" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
