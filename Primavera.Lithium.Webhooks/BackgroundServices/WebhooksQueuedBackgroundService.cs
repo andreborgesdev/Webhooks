@@ -29,14 +29,14 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
         #region Protected Methods
 
         /// <inheritdoc />
-        ////protected async override Task ExecuteWorkAsync(SendWebhooksToSubscriptionsWorker workItem, CancellationToken cancellationToken)
-        ////{
-        ////    Console.WriteLine("Testeee");
+        //protected async override Task ExecuteWorkAsync(SendWebhooksToSubscriptionsWorker workItem, CancellationToken cancellationToken)
+        //{
+        //    Console.WriteLine("Testeee");
 
-        ////    await workItem.ExecuteAsync(cancellationToken);
+        //    await workItem.ExecuteAsync(cancellationToken);
 
-        ////    return;
-        ////}
+        //    return;
+        //}
 
         #endregion
     }

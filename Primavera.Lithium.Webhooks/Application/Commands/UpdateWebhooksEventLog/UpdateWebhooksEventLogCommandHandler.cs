@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Primavera.Hydrogen;
 using Primavera.Hydrogen.Storage.Tables;
 using Primavera.Lithium.Webhooks.Abstractions;
 
 namespace Primavera.Lithium.Webhooks.Application
 {
-    public class SaveWebhooksEventLogCommandHandler : IRequestHandler<SaveWebhooksEventLogCommand, BaseResponse>
+    public class UpdateWebhooksEventLogCommandHandler : IRequestHandler<UpdateWebhooksEventLogCommand, BaseResponse>
     {
         #region Private Fields
 
@@ -25,16 +25,16 @@ namespace Primavera.Lithium.Webhooks.Application
 
         private IServiceProvider ServiceProvider { get; }
 
-        private ILogger<SaveWebhooksEventLogCommandHandler> Logger { get; set; }
+        private ILogger<UpdateWebhooksEventLogCommandHandler> Logger { get; set; }
 
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SaveWebhooksEventLogCommandHandler"/> class.
+        /// Initializes a new instance of the <see cref="UpdateWebhooksEventLogCommandHandler"/> class.
         /// </summary>
         /// <param name="serviceProvider">asd</param>
         /// <param name="logger">asds</param>
-        public SaveWebhooksEventLogCommandHandler(IServiceProvider serviceProvider, ILogger<SaveWebhooksEventLogCommandHandler> logger)
+        public UpdateWebhooksEventLogCommandHandler(IServiceProvider serviceProvider, ILogger<UpdateWebhooksEventLogCommandHandler> logger)
         {
             this.ServiceProvider = serviceProvider;
             this.Logger = logger;
@@ -47,24 +47,15 @@ namespace Primavera.Lithium.Webhooks.Application
         /// <param name="request">qewe</param>
         /// <param name="cancellationToken">ad</param>
         /// <returns><see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BaseResponse> Handle(SaveWebhooksEventLogCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse> Handle(UpdateWebhooksEventLogCommand request, CancellationToken cancellationToken)
         {
             SmartGuard.NotNull(() => request, request);
 
-            WebhooksEventLog webhooksEventLog = new WebhooksEventLog(request.Product, request.Event)
-            {
-                Subscription = request.Subscription,
-                NotificationEndpoint = request.NotificationEndpoint,
-                Success = request.Success,
-                Retries = 0,
-                NextRetry = request.Success ? DateTime.Now : DateTime.Now.AddSeconds(5),
-                DeliveredOn = request.Success ? DateTime.Now : DateTime.Now.AddSeconds(5),
-                EventPayload = JsonConvert.SerializeObject(request.EventPayload)
-            };
+            WebhooksEventLog webhooksEventLog = request.WebhooksEventLog;
 
-            await this.table.InsertEntityAsync<WebhooksEventLog>(webhooksEventLog).ConfigureAwait(false);
+            await this.table.ReplaceEntityAsync<WebhooksEventLog>(webhooksEventLog).ConfigureAwait(false);
 
-            return new BaseResponse { IsSuccess = true, Message = "WebhooksEventLog created with success!" };
+            return new BaseResponse { IsSuccess = true, Message = "WebhooksEventLog updated with success!" };
         }
 
         #region Private Methods

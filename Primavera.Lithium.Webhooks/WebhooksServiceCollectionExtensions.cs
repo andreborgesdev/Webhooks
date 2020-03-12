@@ -20,10 +20,14 @@ namespace Primavera.Lithium.Webhooks
         public static IServiceCollection AddWebhooksBackgroundServices(this IServiceCollection services)
         {
             // Add TimedBackgroundService
-            services.AddBackgroundServiceTimed<RetryToSendWebhooksToSubscriptionsService>();
-
+            services.AddTransient<RetryToSendWebhooksToSubscriptionsWorker>();
+            services.AddSingleton<IBackgroundWorkQueue<RetryToSendWebhooksToSubscriptionsWorker>, BackgroundWorkQueue<RetryToSendWebhooksToSubscriptionsWorker>>();
+            //services.AddBackgroundServiceTimed<RetryToSendWebhooksToSubscriptionsService>();
+            services.AddBackgroundServiceTimedWithWorker<RetryToSendWebhooksToSubscriptionsService, RetryToSendWebhooksToSubscriptionsWorker>();
+            //services.AddBackgroundServiceQueuedWithWorker<RetryToSendWebhooksToSubscriptionsService, RetryToSendWebhooksToSubscriptionsWorker>();
 
             // Add QueuedBackgroundWorker and QueuedBackgroundService 
+            services.AddTransient<SendWebhooksToSubscriptionsWorker>();
             services.AddSingleton<IBackgroundWorkQueue<SendWebhooksToSubscriptionsWorker>, BackgroundWorkQueue<SendWebhooksToSubscriptionsWorker>>();
             services.AddBackgroundServiceQueuedWithWorker<WebhooksQueuedBackgroundService, SendWebhooksToSubscriptionsWorker>();
 
@@ -64,7 +68,6 @@ namespace Primavera.Lithium.Webhooks
             messageFilters.Filters.Add("Service", serviceNamespace.Replace(" ", String.Empty).ToLower());
 
             eventbus.Subscribe("webhooks", messageEventHandler, messageFilters);
-            //eventbus.Subscribe("webhooks", messageEventHandler, messageFilters);
 
             return services;
         }

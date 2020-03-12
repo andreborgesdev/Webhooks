@@ -14,6 +14,10 @@ namespace Primavera.Lithium.Webhooks.Application
 
         public string Subscription { get; set; }
 
+        public string NotificationEndpoint { get; set; }
+
         public EventTriggeredDto EventPayload { get; set; }
+
+        public bool Success { get; set; }
     }
 }

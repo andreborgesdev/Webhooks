@@ -66,16 +66,13 @@ namespace Primavera.Lithium.Webhooks.EventBus
 
             try
             {
-                ////var worker = this.ServiceProvider.GetService<SendWebhooksToSubscriptionsWorker>();
-
-                ////this.WorkerQueue.Enqueue(
-                ////    new SendWebhooksToSubscriptionsWorker(
-                ////        this.ServiceProvider,
-                ////        this.ServiceProvider.GetRequiredService<ILogger<SendWebhooksToSubscriptionsWorker>>()));
-                ///
+                //this.WorkerQueue.Enqueue(
+                //    new SendWebhooksToSubscriptionsWorker(
+                //        this.ServiceProvider,
+                //        this.ServiceProvider.GetRequiredService<ILogger<SendWebhooksToSubscriptionsWorker>>()));
 
                 IEnumerable<WebhooksSubscription> eventSubcriptions = await this.GetWebhooksSubscriptionsByEvent(eventBusEvent.Body.Product, eventBusEvent.Body.Event).ConfigureAwait(false);
-                
+
                 await SendEventToSubscribers(eventSubcriptions, eventBusEvent.Body.Product, eventBusEvent.Body.Event, eventBusEvent.Body);
 
                 Console.WriteLine($"Incoming message: '{eventBusEvent.Body.Payload}'");
@@ -101,22 +98,45 @@ namespace Primavera.Lithium.Webhooks.EventBus
 
             foreach (var subscription in webhooksSubscriptions)
             {
-                await SaveWebhooksEventLog(eventTriggered, product, subscription.Subscription, payload);
-
-                using (HttpClient client = new HttpClient())
+                try
                 {
-                    var stringContent = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
+                    using (HttpClient client = new HttpClient())
+                    {
+                        var stringContent = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
 
-                    var stringTask = await client.PostAsync(subscription.NotificationEndpoint, stringContent).ConfigureAwait(false);
+                        var request = await client.PostAsync(subscription.NotificationEndpoint, stringContent).ConfigureAwait(false);
+
+                        if (request.IsSuccessStatusCode)
+                        {
+                            await SaveWebhooksEventLog(eventTriggered, product, subscription.Subscription, subscription.NotificationEndpoint, payload, true);
+                        }
+                        else
+                        {
+                            await SaveWebhooksEventLog(eventTriggered, product, subscription.Subscription, subscription.NotificationEndpoint, payload, false);
+                        }
+                    }
                 }
+                catch (Exception e)
+                {
+                    await SaveWebhooksEventLog(eventTriggered, product, subscription.Subscription, subscription.NotificationEndpoint, payload, false);
+                }
+
             }
         }
 
-        public async Task SaveWebhooksEventLog(string webhooksEvent, string product, string subscription, EventTriggeredDto payload)
+        public async Task SaveWebhooksEventLog(string webhooksEvent, string product, string subscription, string notificationEndpoint, EventTriggeredDto payload, bool success)
         {
             SmartGuard.NotNull(() => payload, payload);
 
-            await this.Mediator.Send(new SaveWebhooksEventLogCommand() { Event = webhooksEvent, Product = product, Subscription = subscription, EventPayload = payload });
+            await this.Mediator.Send(new SaveWebhooksEventLogCommand()
+            {
+                Event = webhooksEvent,
+                Product = product,
+                Subscription = subscription,
+                NotificationEndpoint = notificationEndpoint,
+                EventPayload = payload,
+                Success = success
+            });
         }
 
         #endregion

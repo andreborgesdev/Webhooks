@@ -5,7 +5,7 @@ using Primavera.Hydrogen.Storage.Tables;
 
 namespace Primavera.Lithium.Webhooks.Abstractions
 {
-    public class WebhooksEventLog : ITableEntity
+    public class WebhooksEventLog : TableEntity
     {
         public string Event { get; set; }
 
@@ -13,21 +13,28 @@ namespace Primavera.Lithium.Webhooks.Abstractions
 
         public string Subscription { get; set; }
 
+        public string NotificationEndpoint { get; set; }
+
         public bool Success { get; set; }
 
         public int Retries { get; set; }
 
         public DateTime NextRetry { get; set; }
 
+        public DateTime DeliveredOn { get; set; }
+
         public string EventPayload { get; set; }
 
-        /// <inheritdoc/>
-        public string Key1 { get; set; }
+        public WebhooksEventLog(string Product, string Event)
+        {
+            Key1 = Product + ":" + Event;
+            Key2 = Guid.NewGuid().ToString();
+            Timestamp = DateTime.Now;
+        }
 
-        /// <inheritdoc/>
-        public string Key2 { get; set; }
+        public WebhooksEventLog()
+        {
 
-        /// <inheritdoc/>
-        public DateTimeOffset Timestamp { get; set; }
+        }
     }
 }
