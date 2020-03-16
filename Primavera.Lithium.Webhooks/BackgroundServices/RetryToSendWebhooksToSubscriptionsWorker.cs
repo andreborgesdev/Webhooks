@@ -21,12 +21,9 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
 
         #region Public Constructor
 
-        public RetryToSendWebhooksToSubscriptionsWorker(
-            IServiceProvider serviceProvider, 
-            ILogger<RetryToSendWebhooksToSubscriptionsWorker> logger)
+        public RetryToSendWebhooksToSubscriptionsWorker(IServiceProvider serviceProvider, ILogger<RetryToSendWebhooksToSubscriptionsWorker> logger)
             : base(serviceProvider, logger)
         {
-            //this.WebhooksEventLog = webhooksEventLog;
         }
 
         private IMediator Mediator
@@ -46,7 +43,10 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
         {
             Console.WriteLine("EXECUTIIIIIIIIIIIING");
 
-            //IEnumerable<SmsNotificationStateData> records = await this.SmsNotificationReceiversManager.GetQueuedAsync().ConfigureAwait(false);
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return;
+            }
 
             await SendEventToSubscribers();
         }

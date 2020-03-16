@@ -22,7 +22,13 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
         #region Public Properties
 
         /// <inheritdoc />
-        public override IBackgroundWorkQueue<SendWebhooksToSubscriptionsWorker> Queue => this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<SendWebhooksToSubscriptionsWorker>>();
+        public override IBackgroundWorkQueue<SendWebhooksToSubscriptionsWorker> Queue
+        {
+            get
+            {
+                return this.ServiceProvider.GetRequiredService<IBackgroundWorkQueue<SendWebhooksToSubscriptionsWorker>>();
+            }
+        }
 
         #endregion
 

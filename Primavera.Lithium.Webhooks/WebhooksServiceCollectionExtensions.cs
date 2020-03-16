@@ -22,9 +22,7 @@ namespace Primavera.Lithium.Webhooks
             // Add TimedBackgroundService
             services.AddTransient<RetryToSendWebhooksToSubscriptionsWorker>();
             services.AddSingleton<IBackgroundWorkQueue<RetryToSendWebhooksToSubscriptionsWorker>, BackgroundWorkQueue<RetryToSendWebhooksToSubscriptionsWorker>>();
-            //services.AddBackgroundServiceTimed<RetryToSendWebhooksToSubscriptionsService>();
             services.AddBackgroundServiceTimedWithWorker<RetryToSendWebhooksToSubscriptionsService, RetryToSendWebhooksToSubscriptionsWorker>();
-            //services.AddBackgroundServiceQueuedWithWorker<RetryToSendWebhooksToSubscriptionsService, RetryToSendWebhooksToSubscriptionsWorker>();
 
             // Add QueuedBackgroundWorker and QueuedBackgroundService 
             services.AddTransient<SendWebhooksToSubscriptionsWorker>();

@@ -18,10 +18,6 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
     {
         #region Private Properties
 
-        private IServiceProvider ServiceProvider { get; }
-
-        private ILogger<RetryToSendWebhooksToSubscriptionsService> Logger { get; set; }
-
         private IMediator Mediator
         {
             get
@@ -50,7 +46,15 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
             }
         }
 
-        public override RetryToSendWebhooksToSubscriptionsWorker Worker { get; }
+        public override RetryToSendWebhooksToSubscriptionsWorker Worker
+        {
+            get
+            {
+                return new RetryToSendWebhooksToSubscriptionsWorker(
+                    this.ServiceProvider,
+                    this.ServiceProvider.GetRequiredService<ILogger<RetryToSendWebhooksToSubscriptionsWorker>>());
+            }
+        }
 
         #endregion
 
@@ -59,8 +63,8 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
         public RetryToSendWebhooksToSubscriptionsService(IServiceProvider serviceProvider, ILogger<RetryToSendWebhooksToSubscriptionsService> logger)
             : base(serviceProvider, logger)
         {
-            this.ServiceProvider = serviceProvider;
-            this.Logger = logger;
+            //this.ServiceProvider = serviceProvider;
+            //this.Logger = logger;
         }
 
         #endregion
@@ -75,10 +79,12 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
             {
                 if (!webhooksEventLog.Success && DateTime.Now >= webhooksEventLog.NextRetry)
                 {
-                    this.WorkerQueue.Enqueue(
-                        new RetryToSendWebhooksToSubscriptionsWorker(
-                            this.ServiceProvider,
-                            this.ServiceProvider.GetRequiredService<ILogger<RetryToSendWebhooksToSubscriptionsWorker>>()));
+                    //await this.Worker.ExecuteAsync(cancellationToken);
+
+                    RetryToSendWebhooksToSubscriptionsWorker worker = this.ServiceProvider.GetRequiredService<RetryToSendWebhooksToSubscriptionsWorker>();
+
+                    this.WorkerQueue.Enqueue(worker);
+
                     // Fazer retry
                     //++webhooksEventLog.Retries;
 

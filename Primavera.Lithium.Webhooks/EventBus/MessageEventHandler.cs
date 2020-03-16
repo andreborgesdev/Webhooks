@@ -66,10 +66,10 @@ namespace Primavera.Lithium.Webhooks.EventBus
 
             try
             {
-                //this.WorkerQueue.Enqueue(
-                //    new SendWebhooksToSubscriptionsWorker(
-                //        this.ServiceProvider,
-                //        this.ServiceProvider.GetRequiredService<ILogger<SendWebhooksToSubscriptionsWorker>>()));
+                this.WorkerQueue.Enqueue(
+                    new SendWebhooksToSubscriptionsWorker(
+                        this.ServiceProvider,
+                        this.ServiceProvider.GetRequiredService<ILogger<SendWebhooksToSubscriptionsWorker>>()));
 
                 IEnumerable<WebhooksSubscription> eventSubcriptions = await this.GetWebhooksSubscriptionsByEvent(eventBusEvent.Body.Product, eventBusEvent.Body.Event).ConfigureAwait(false);
 
