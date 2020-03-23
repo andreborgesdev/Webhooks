@@ -53,7 +53,13 @@ namespace Primavera.Lithium.Webhooks.Application
         {
             SmartGuard.NotNull(() => request, request);
 
-            WebhooksEvent webhooksEvent = request.WebhooksEvent;
+            WebhooksEvent webhooksEvent = new WebhooksEvent(request.WebhooksEvent.Product, request.WebhooksEvent.Event)
+            {
+                Description = request.WebhooksEvent.Description,
+                Event = request.WebhooksEvent.Event,
+                Product = request.WebhooksEvent.Product,
+                RequiredScope = request.WebhooksEvent.RequiredScope
+            };
 
             await this.table.InsertEntityAsync<WebhooksEvent>(webhooksEvent).ConfigureAwait(false);
 

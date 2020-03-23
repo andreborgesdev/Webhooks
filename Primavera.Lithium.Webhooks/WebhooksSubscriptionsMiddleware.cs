@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
 using Primavera.Lithium.Webhooks.Application;
+using System.Linq;
 
 namespace Primavera.Lithium.Webhooks
 {
@@ -124,9 +125,23 @@ namespace Primavera.Lithium.Webhooks
 
                     SubscribeWebhooksEventDto webhooksSubscriptionDto = JsonConvert.DeserializeObject<SubscribeWebhooksEventDto>(requestBody);
 
-                    var response = await this._mediator.Send(new SubscribeWebhooksEventCommand() { WebhooksSubscriptionDto = webhooksSubscriptionDto });
+                    IEnumerable<WebhooksEvent> webhooksEvents = await this._mediator.Send(new GetWebhooksEventsQuery());
 
-                    await context.Response.WriteAsync(response.Message);
+                    bool eventExists = webhooksSubscriptionDto.Events.Any(x => webhooksEvents.Any(y => y.Event == x));
+
+                    if (eventExists)
+                    {
+                        var response = await this._mediator.Send(new SubscribeWebhooksEventCommand() { WebhooksSubscriptionDto = webhooksSubscriptionDto });
+
+                        await context.Response.WriteAsync(response.Message);
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = 404;
+
+                        await context.Response.WriteAsync("One or more events that you are trying to subscribe don't exist!");
+                    }
+                   
                 }
             }
             catch (Exception e)
