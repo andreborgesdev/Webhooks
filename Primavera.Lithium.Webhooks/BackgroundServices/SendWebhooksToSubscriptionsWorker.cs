@@ -44,22 +44,21 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
 
             //IEnumerable<SmsNotificationStateData> records = await this.SmsNotificationReceiversManager.GetQueuedAsync().ConfigureAwait(false);
 
-            //try
-            //{
-            //    IEnumerable<WebhooksSubscription> eventSubcriptions = await this.GetWebhooksSubscriptionsByEvent(eventBusEvent.Body.Product, eventBusEvent.Body.Event).ConfigureAwait(false);
 
-            //    await SendEventToSubscribers(eventSubcriptions, eventBusEvent.Body.Product, eventBusEvent.Body.Event, eventBusEvent.Body);
+        }
 
-            //    Console.WriteLine($"Incoming message: '{eventBusEvent.Body.Payload}'");
+        public async Task Executar(EventTriggeredDto eventTriggered)
+        {
+            try
+            {
+                IEnumerable<WebhooksSubscription> eventSubcriptions = await this.GetWebhooksSubscriptionsByEvent(eventTriggered.Product, eventTriggered.Event).ConfigureAwait(false);
 
-            //    return true;
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine($"Message handler has encountered an exception: '{e.Message}'");
-
-            //    return false;
-            //}
+                await SendEventToSubscribers(eventSubcriptions, eventTriggered.Product, eventTriggered.Event, eventTriggered);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Message handler has encountered an exception: '{e.Message}'");
+            }
         }
 
         public async Task<IEnumerable<WebhooksSubscription>> GetWebhooksSubscriptionsByEvent(string product, string eventTriggered)

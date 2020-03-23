@@ -53,6 +53,8 @@ namespace Primavera.Lithium.Webhooks.Application
 
             WebhooksEventLog webhooksEventLog = new WebhooksEventLog(request.Product, request.Event)
             {
+                Event = request.Event,
+                Product = request.Product,
                 Subscription = request.Subscription,
                 NotificationEndpoint = request.NotificationEndpoint,
                 Success = request.Success,

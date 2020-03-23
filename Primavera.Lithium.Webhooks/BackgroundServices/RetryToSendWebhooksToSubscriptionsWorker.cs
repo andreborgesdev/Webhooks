@@ -17,8 +17,6 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
 {
     public class RetryToSendWebhooksToSubscriptionsWorker : BackgroundWorker
     {
-        public WebhooksEventLog WebhooksEventLog { get; set; }
-
         #region Public Constructor
 
         public RetryToSendWebhooksToSubscriptionsWorker(IServiceProvider serviceProvider, ILogger<RetryToSendWebhooksToSubscriptionsWorker> logger)
@@ -43,43 +41,49 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
         {
             Console.WriteLine("EXECUTIIIIIIIIIIIING");
 
-            if (cancellationToken.IsCancellationRequested)
-            {
-                return;
-            }
+            //if (cancellationToken.IsCancellationRequested)
+            //{
+            //    return;
+            //}
 
-            await SendEventToSubscribers();
+            //await SendEventToSubscribers();
         }
 
-        public async Task SendEventToSubscribers()
+        public async Task Executar(WebhooksEventLog webhooksEventLog)
+        {
+            await this.SendEventToSubscribers(webhooksEventLog);
+        }
+
+        public async Task SendEventToSubscribers(WebhooksEventLog webhooksEventLog)
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    ++WebhooksEventLog.Retries;
+                    ++webhooksEventLog.Retries;
 
-                    var stringContent = new StringContent(JsonConvert.SerializeObject(WebhooksEventLog.EventPayload), Encoding.UTF8, "application/json");
+                    //var stringContent = new StringContent(JsonConvert.SerializeObject(webhooksEventLog.EventPayload), Encoding.UTF8, "application/json");
+                    var stringContent = new StringContent(webhooksEventLog.EventPayload, Encoding.UTF8, "application/json");
 
-                    var request = await client.PostAsync(WebhooksEventLog.NotificationEndpoint, stringContent).ConfigureAwait(false);
+                    var request = await client.PostAsync(webhooksEventLog.NotificationEndpoint, stringContent).ConfigureAwait(false);
 
                     if (request.IsSuccessStatusCode)
                     {
-                        WebhooksEventLog.DeliveredOn = DateTime.Now;
-                        WebhooksEventLog.Success = true;
-                        await Mediator.Send(new UpdateWebhooksEventLogCommand() { WebhooksEventLog = WebhooksEventLog });
+                        webhooksEventLog.DeliveredOn = DateTime.Now;
+                        webhooksEventLog.Success = true;
+                        await Mediator.Send(new UpdateWebhooksEventLogCommand() { WebhooksEventLog = webhooksEventLog });
                     }
                     else
                     {
-                        WebhooksEventLog.NextRetry = DateTime.Now.AddSeconds(5);
-                        await Mediator.Send(new UpdateWebhooksEventLogCommand() { WebhooksEventLog = WebhooksEventLog });
+                        webhooksEventLog.NextRetry = DateTime.Now.AddSeconds(5);
+                        await Mediator.Send(new UpdateWebhooksEventLogCommand() { WebhooksEventLog = webhooksEventLog });
                     }
                 }
             }
             catch (Exception e)
             {
-                WebhooksEventLog.NextRetry = DateTime.Now.AddSeconds(5);
-                await Mediator.Send(new UpdateWebhooksEventLogCommand() { WebhooksEventLog = WebhooksEventLog });
+                webhooksEventLog.NextRetry = DateTime.Now.AddSeconds(5);
+                await Mediator.Send(new UpdateWebhooksEventLogCommand() { WebhooksEventLog = webhooksEventLog });
             }
         }
 

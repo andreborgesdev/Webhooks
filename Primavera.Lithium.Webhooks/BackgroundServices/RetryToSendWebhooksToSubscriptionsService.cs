@@ -79,48 +79,14 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
             {
                 if (!webhooksEventLog.Success && DateTime.Now >= webhooksEventLog.NextRetry)
                 {
+                    await this.Worker.Executar(webhooksEventLog);
                     //await this.Worker.ExecuteAsync(cancellationToken);
 
-                    RetryToSendWebhooksToSubscriptionsWorker worker = this.ServiceProvider.GetRequiredService<RetryToSendWebhooksToSubscriptionsWorker>();
+                    //RetryToSendWebhooksToSubscriptionsWorker worker = this.ServiceProvider.GetRequiredService<RetryToSendWebhooksToSubscriptionsWorker>();
 
-                    this.WorkerQueue.Enqueue(worker);
-
-                    // Fazer retry
-                    //++webhooksEventLog.Retries;
-
-                    //EventTriggeredDto eventTriggered = JsonConvert.DeserializeObject<EventTriggeredDto>(webhooksEventLog.EventPayload);
-
-                    //this.WorkerQueue.Enqueue(
-                    //    new SendWebhooksToSubscriptionsWorker(
-                    //        this.ServiceProvider,
-                    //        this.ServiceProvider.GetRequiredService<ILogger<SendWebhooksToSubscriptionsWorker>>()));
-
-                    //try
-                    //{
-                    //    using (HttpClient client = new HttpClient())
-                    //    {
-                    //        var stringContent = new StringContent(JsonConvert.SerializeObject(eventTriggered), Encoding.UTF8, "application/json");
-
-                    //        var request = await client.PostAsync(webhooksEventLog.NotificationEndpoint, stringContent).ConfigureAwait(false);
-
-                    //        if (request.IsSuccessStatusCode)
-                    //        {
-                    //            webhooksEventLog.DeliveredOn = DateTime.Now;
-                    //            webhooksEventLog.Success = true;
-                    //            await Mediator.Send(new UpdateWebhooksEventLogCommand() { WebhooksEventLog = webhooksEventLog });
-                    //        }
-                    //        else
-                    //        {
-                    //            webhooksEventLog.NextRetry = DateTime.Now.AddSeconds(5);
-                    //            await Mediator.Send(new UpdateWebhooksEventLogCommand() { WebhooksEventLog = webhooksEventLog });
-                    //        }
-                    //    }
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    webhooksEventLog.NextRetry = DateTime.Now.AddSeconds(5);
-                    //    await Mediator.Send(new UpdateWebhooksEventLogCommand() { WebhooksEventLog = webhooksEventLog });
-                    //}
+                    //await Worker.ExecuteAsync(cancellationToken);
+                    
+                    //this.WorkerQueue.Enqueue(worker);
                 }
             }
         }
