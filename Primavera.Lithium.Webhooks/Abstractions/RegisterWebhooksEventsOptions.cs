@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using Primavera.Hydrogen.ComponentModel.DataAnnotations;
-using Primavera.Hydrogen.Storage.Tables;
 
 namespace Primavera.Lithium.Webhooks.Abstractions
 {
-    /// <summary>
-    /// Defines the model for the WebhooksEvent table.
-    /// </summary>
-    public class WebhooksEvent : TableEntity
+    public class RegisterWebhooksEventsOptions
     {
         [NotEmpty]
         public string Description { get; set; }
@@ -25,16 +20,6 @@ namespace Primavera.Lithium.Webhooks.Abstractions
         [Required]
         public string RequiredScope { get; set; }
 
-        public WebhooksEvent(string Product, string Event)
-        {
-            Key1 = Product;
-            Key2 = Event;
-            Timestamp = DateTime.Now;
-        }
-
-        public WebhooksEvent()
-        {
-
-        }
+        public RegisterWebhooksEventsOptions() { }
     }
 }

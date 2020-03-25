@@ -9,12 +9,12 @@ using Primavera.Hydrogen.EventBus;
 using Primavera.Hydrogen.EventBus.Azure;
 using Primavera.Hydrogen.Policies.Retry.Strategies;
 using Primavera.Hydrogen.Storage.Azure.Tables;
-using Primavera.Lithium.Faturacao.WebApi.Abstractions;
 using Primavera.Lithium.Faturacao.WebApi.BackgroundServices;
 using Primavera.Lithium.Faturacao.WebApi.Configuration;
 using Primavera.Lithium.Faturacao.WebApi.Controllers;
 using Primavera.Lithium.Faturacao.WebApi.Managers;
 using Primavera.Lithium.Webhooks;
+using Primavera.Lithium.Webhooks.Abstractions;
 
 namespace Primavera.Lithium.Faturacao.WebApi
 {
@@ -63,6 +63,14 @@ namespace Primavera.Lithium.Faturacao.WebApi
             ////            options.Webhooks<InvoiceCreate>().Register();
             ////            options.Webhooks<InvoiceUpdate>().Register();
             ////        });
+
+            services.RegisterWebhooksEvents(new RegisterWebhooksEventsOptions()
+            {
+                Description = "Teste Register",
+                Event = "webhooks_teste1",
+                Product = "product",
+                RequiredScope = "none"
+            }).GetAwaiter();
         }
 
         /// <inheritdoc />
@@ -85,12 +93,12 @@ namespace Primavera.Lithium.Faturacao.WebApi
         /// Setups the managers.
         /// </summary>
         /// <param name="services">The services.</param>
-        internal void EventBusSubscription(IServiceCollection services)
-        {
-            IEventBusEventHandler<WebhooksSubscription> messageEventHandler = new MessageEventHandler();
+        ////internal void EventBusSubscription(IServiceCollection services)
+        ////{
+        ////    IEventBusEventHandler<WebhooksSubscription> messageEventHandler = new MessageEventHandler();
 
-            services.BuildServiceProvider().GetRequiredService<IEventBus>().Subscribe("webhooks", messageEventHandler);
-        }
+        ////    services.BuildServiceProvider().GetRequiredService<IEventBus>().Subscribe("webhooks", messageEventHandler);
+        ////}
 
         /// <summary>
         /// Setups the managers.

@@ -19,13 +19,6 @@ namespace Primavera.Lithium.Webhooks
     {
         public static IServiceCollection AddWebhooksBackgroundServices(this IServiceCollection services)
         {
-
-
-            return services;
-        }
-
-        public static IServiceCollection AddWebhooksServices(this IServiceCollection services, string serviceNamespace)
-        {
             // Add TimedBackgroundService
             services.AddTransient<RetryToSendWebhooksToSubscriptionsWorker>();
             services.AddSingleton<IBackgroundWorkQueue<RetryToSendWebhooksToSubscriptionsWorker>, BackgroundWorkQueue<RetryToSendWebhooksToSubscriptionsWorker>>();
@@ -36,6 +29,11 @@ namespace Primavera.Lithium.Webhooks
             services.AddSingleton<IBackgroundWorkQueue<SendWebhooksToSubscriptionsWorker>, BackgroundWorkQueue<SendWebhooksToSubscriptionsWorker>>();
             services.AddBackgroundServiceQueuedWithWorker<WebhooksQueuedBackgroundService, SendWebhooksToSubscriptionsWorker>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddWebhooksServices(this IServiceCollection services, string serviceNamespace)
+        {
             // Add Mediator service
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
