@@ -1,0 +1,362 @@
+{
+	"info": {
+		"_postman_id": "67d86e70-2fdd-4a73-af59-dab313b9da14",
+		"name": "Webhooks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetWebooksEvents Middleware",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20000/.webhooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetWebooksEventsByProduct Middleware",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Publisher",
+						"value": "f",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20000/.webhooks?product=Jasmin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks"
+					],
+					"query": [
+						{
+							"key": "publisher",
+							"value": "PrimaveraBSS",
+							"disabled": true
+						},
+						{
+							"key": "product",
+							"value": "Jasmin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateWebhooksEvent Middleware",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Event\" : \"bill_created\",\n\t\"Product\": \"Jasmin\",\n\t\"Description\" : \"A new order has been created.\",\n\t\"RequiredScope\" : \"none\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20000/.webhooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateWebhooksEvent Middleware",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Event\" : \"bill_created\",\n\t\"Product\": \"Jasmin\",\n\t\"Description\" : \"A new order has been created rftyui.\",\n\t\"RequiredScope\" : \"none\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20000/.webhooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteWebooksEvent Middleware",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Product\" : \"Jasmin\",\n\t\"Event\" : \"bill_created\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20000/.webhooks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSubscriptions Middleware",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:20000/.webhooks/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetWebooksEventsForSubscription Middleware",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:20000/.webhooks/subscriptions?subscription=AppKeyTeste",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks",
+						"subscriptions"
+					],
+					"query": [
+						{
+							"key": "subscription",
+							"value": "AppKeyTeste"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SubscribeWebhooksEvent Middleware",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Events\" : [\"bill_created\", \"client_updated\"],\n\t\"Product\" : \"Jasmin\",\n\t\"Subscription\" : \"AppKeyTeste\",\n\t\"NotificationEndpoint\" : \"http://localhost:20005/api/v1/webhooks\",\n\t\"Properties\" : {\n\t\t\"SubscriptionAlias\" : \"Antonio Pereira\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20000/.webhooks/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateWebhooksEvent Middleware",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Event\" : \"bill_created\",\n\t\"Product\" : \"Jasmin\",\n\t\"Subscription\" : \"AppKeyTeste\",\n\t\"NotificationEndpoint\" : \"www.google123.com\",\n\t\"Properties\" : {\n\t\t\"SubscriptionAlias\" : \"Antonio Pereira\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20000/.webhooks/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UnsubscribeWebhooksEvent Middleware",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Subscription\" : \"AppKeyTeste\",\n\t\"Product\" : \"Jasmin\",\n\t\"Event\" : \"bill_created\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:20000/.webhooks/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "20000",
+					"path": [
+						".webhooks",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
