@@ -53,10 +53,22 @@ public void WriteGetSupportedCulturesExtendedBase(ModelWriter modelWriter, Prope
                     return new List<CultureInfo>
                     {
                         new CultureInfo(Localization.EnglishDefaultCultureString),
+                        new CultureInfo(Localization.EnglishFromIrelandCultureString),
+                        new CultureInfo(Localization.EnglishFromGreatBritainCultureString),
                         new CultureInfo(Localization.EnglishFromUnitedStatesCultureString),
                         new CultureInfo(Localization.PortugueseDefaultCultureString),
+                        new CultureInfo(Localization.PortugueseFromAngolaCultureString),
+                        new CultureInfo(Localization.PortugueseFromBrazilCultureString),
+                        new CultureInfo(Localization.PortugueseFromCapeVerdeCultureString),
+                        new CultureInfo(Localization.PortugueseFromGuineaBissauCultureString),
+                        new CultureInfo(Localization.PortugueseFromMozambiqueCultureString),
                         new CultureInfo(Localization.PortugueseFromPortugalCultureString),
+                        new CultureInfo(Localization.PortugueseFromSaoTomeAndPrincipeCultureString),
+                        new CultureInfo(Localization.PortugueseFromTimorLesteCultureString),
                         new CultureInfo(Localization.SpanishDefaultCultureString),
+                        new CultureInfo(Localization.SpanishFromArgentinaCultureString),
+                        new CultureInfo(Localization.SpanishFromChileCultureString),
+                        new CultureInfo(Localization.SpanishFromMexicoCultureString),
                         new CultureInfo(Localization.SpanishFromSpainCultureString)
                     };
                 }

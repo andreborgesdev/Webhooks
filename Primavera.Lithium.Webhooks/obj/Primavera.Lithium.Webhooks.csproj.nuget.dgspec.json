@@ -66,23 +66,19 @@
             },
             "Primavera.Hydrogen.AspNetCore": {
               "target": "Package",
-              "version": "[2.0.1.87, )"
+              "version": "[2.0.1.137, )"
             },
             "Primavera.Hydrogen.EventBus.Azure": {
               "target": "Package",
-              "version": "[2.0.1.87, )"
-            },
-            "Primavera.Hydrogen.EventBus.InMemory": {
-              "target": "Package",
-              "version": "[2.0.1.111, )"
+              "version": "[2.0.1.137, )"
             },
             "Primavera.Hydrogen.Rest": {
               "target": "Package",
-              "version": "[2.0.1.87, )"
+              "version": "[2.0.1.137, )"
             },
             "Primavera.Hydrogen.Storage.Azure": {
               "target": "Package",
-              "version": "[2.0.1.87, )"
+              "version": "[2.0.1.137, )"
             }
           },
           "imports": [

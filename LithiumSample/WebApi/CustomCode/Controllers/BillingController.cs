@@ -8,6 +8,7 @@ using Primavera.Hydrogen;
 using Primavera.Hydrogen.AspNetCore.Hosting;
 using Primavera.Hydrogen.EventBus;
 using Primavera.Hydrogen.EventBus.Azure;
+using Primavera.Hydrogen.EventBus.Contracts;
 using Primavera.Lithium.Faturacao.Models;
 using Primavera.Lithium.Webhooks.Abstractions;
 using Primavera.Lithium.Webhooks.BackgroundServices;
@@ -20,11 +21,11 @@ namespace Primavera.Lithium.Faturacao.WebApi.Controllers
     /// </summary>
     public partial class BillingController
     {
-        private IEventBus EventBus
+        private IEventBusService EventBus
         {
             get
             {
-                return (IEventBus)this.HttpContext.RequestServices.GetService(typeof(IEventBus));
+                return (IEventBusService)this.HttpContext.RequestServices.GetService(typeof(IEventBusService));
             }
         }
 
@@ -109,9 +110,9 @@ namespace Primavera.Lithium.Faturacao.WebApi.Controllers
                 Payload = amount
             };
 
-            IWebhooksEventBusPublish webhooksEventBusPublish = new WebhooksEventBusPublish(this.HttpContext.RequestServices);
+            WebhooksEventBusPublish webhooksEventBusPublish = new WebhooksEventBusPublish(this.HttpContext.RequestServices);
 
-            await webhooksEventBusPublish.Publish("primaveralithiumfaturacaoservice", eventTriggeredDto);
+            await webhooksEventBusPublish.Publish(eventTriggeredDto).ConfigureAwait(false);
 
             return this.Ok();
         }

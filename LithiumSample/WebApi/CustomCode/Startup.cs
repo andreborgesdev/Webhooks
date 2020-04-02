@@ -34,43 +34,23 @@ namespace Primavera.Lithium.Faturacao.WebApi
         {
             SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
-            services.AddAzureTableStorage(
-                (options) =>
-                {
-                    options.ConnectionString = "DefaultEndpointsProtocol=https;AccountName=lithiumhubstg;AccountKey=yvZ5vPvWfAkhY6VEEdB/vrRMTUtLavTli4dBJFi9uueF6VDl/6LKDIdqydfVTCTFTynYknOvdcmY2X/ofVAqgg==;EndpointSuffix=core.windows.net;";
-                });
-
-            ////services.AddAzureEventBus(
-            ////    (options) =>
-            ////    {
-            ////        options.ConnectionString = "Endpoint=sb://tbx-eventbus-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=8cjm4NSJBpQvRZy/QlYxReESPp/tQC23h35X5hH6Dug=";
-            ////        options.EventHandlerOptions = new AzureEventBusEventHandlerOptions(autoComplete: false, maxConcurrentCalls: 10);
-            ////        options.RetryStrategy = new ExponentialBackoffRetryStrategy();
-            ////    });
-
             this.SetupManagers(services);
 
             ////this.EventBusSubscription(services);
 
             this.BuildMediator(services);
 
-            services.AddWebhooksServices(hostConfiguration.Information.HostTitle);
-
-            ////services
-            ////    .AddApplicationWebHooks(
-            ////        (options) =>
-            ////        {
-            ////            options.Webhooks<InvoiceCreate>().Register();
-            ////            options.Webhooks<InvoiceUpdate>().Register();
-            ////        });
-
-            services.RegisterWebhooksEvents(new RegisterWebhooksEventsOptions()
+            services.AddWebhooksServices((options) =>
             {
-                Description = "Teste Register",
-                Event = "webhooks_teste1",
-                Product = "product",
-                RequiredScope = "none"
-            }).GetAwaiter();
+                options.EventBus.ConnectionString = "Endpoint=sb://tbx-eventbus-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=8cjm4NSJBpQvRZy/QlYxReESPp/tQC23h35X5hH6Dug=";
+                options.TableStorage.ConnectionString = "DefaultEndpointsProtocol=https;AccountName=lithiumhubstg;AccountKey=yvZ5vPvWfAkhY6VEEdB/vrRMTUtLavTli4dBJFi9uueF6VDl/6LKDIdqydfVTCTFTynYknOvdcmY2X/ofVAqgg==;EndpointSuffix=core.windows.net;";
+
+                options.ServiceNamespace = hostConfiguration.Information.HostTitle;
+
+                options.Product = hostConfiguration.Information.HostTitle;
+
+                options.RegisterWebhook("create_todo", "Teste Register", "none");
+            });
         }
 
         /// <inheritdoc />

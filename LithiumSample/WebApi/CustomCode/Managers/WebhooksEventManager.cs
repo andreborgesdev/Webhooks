@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Primavera.Hydrogen;
 using Primavera.Hydrogen.EventBus;
+using Primavera.Hydrogen.EventBus.Contracts;
 using Primavera.Hydrogen.Storage.Tables;
 using Primavera.Lithium.Faturacao.WebApi.Abstractions;
 using Primavera.Lithium.Faturacao.WebApi.Application;
@@ -59,25 +60,25 @@ namespace Primavera.Lithium.Faturacao.WebApi.Managers
         {
             SmartGuard.NotNull(() => webhooksEvent, webhooksEvent);
             
-            return await this.mediator.Send(new CreateWebhooksEventCommand() { WebhooksEvent = webhooksEvent });
+            return await this.mediator.Send(new CreateWebhooksEventCommand() { WebhooksEvent = webhooksEvent }).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<BaseResponse> DeleteWebhooksEvent(string product, string webhooksEvent)
         {
-            return await this.mediator.Send(new DeleteWebhooksEventCommand() { Product = product, WebhooksEvent = webhooksEvent });
+            return await this.mediator.Send(new DeleteWebhooksEventCommand() { Product = product, WebhooksEvent = webhooksEvent }).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<IEnumerable<WebhooksEvent>> GetWebhooksEvents()
         {
-            return await this.mediator.Send(new GetWebhooksEventsQuery());
+            return await this.mediator.Send(new GetWebhooksEventsQuery()).ConfigureAwait(false);
         }
 
         /// <inheritdoc />
         public async Task<IEnumerable<WebhooksEvent>> GetWebhooksEventsByProduct(string product)
         {
-            return await this.mediator.Send(new GetWebhooksEventsByProductQuery() { Product = product });
+            return await this.mediator.Send(new GetWebhooksEventsByProductQuery() { Product = product }).ConfigureAwait(false);
         }
 
         /// <inheritdoc />

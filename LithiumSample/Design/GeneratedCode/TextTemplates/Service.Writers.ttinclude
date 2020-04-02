@@ -21,6 +21,10 @@ public void WriteServiceSpec(ModelWriter modelWriter, ServiceModel model)
 
     this.AddApiVersions(spec, model);
 
+    // Authorization Policies
+
+    this.AddAuthorizationPolicies(spec, model);
+
     // Dependencies
 
     this.AddDependencies(spec, model);
@@ -82,6 +86,20 @@ public void AddApiVersions(ServiceSpec spec, ServiceModel model)
     {
         ApiVersionSpec apiVersionSpec = new ApiVersionSpec(apiVersion.Version);
         spec.ApiVersions.Add(apiVersionSpec);
+    }
+}
+
+// *** AddAuthorizationPolicies
+
+public void AddAuthorizationPolicies(ServiceSpec spec, ServiceModel model)
+{
+    if (model.AuthorizationMode == AuthorizationMode.On)
+    {
+        foreach (AuthorizationPolicy policy in model.AuthorizationPolicies.OrderBy(i => i.Name))
+        {
+            AuthorizationPolicySpec policySpec = new AuthorizationPolicySpec(policy.Name, policy.DisplayName);
+            spec.AuthorizationPolicies.Add(policySpec);
+        }
     }
 }
 
@@ -158,11 +176,21 @@ public void AddApiResource(ServiceSpec spec, ServiceModel model)
             }
         }
 
+        List<ApiResourceClaimSpec> claims = new List<ApiResourceClaimSpec>();
+
+        if (model.GenerateOidcSupport)
+        {
+            claims.Add(new ApiResourceClaimSpec("name"));
+            claims.Add(new ApiResourceClaimSpec("email"));
+            claims.Add(new ApiResourceClaimSpec("profile"));
+        }
+
         spec.ApiResource = new ApiResourceSpec()
         {
             Name = model.DefaultScope,
             DisplayName = "{0} Web API".Format(model.DisplayName),
-            Scopes = scopes
+            Scopes = scopes,
+            Claims = claims
         };
     }
 }
@@ -185,6 +213,13 @@ public void AddClients(ServiceSpec spec, ServiceModel model)
                 scopes.Add(scope.Scope);
             }
         }
+
+        List<string> hybridScopes = new List<string>(scopes)
+        {
+            "openid",
+            "email",
+            "profile"
+        };
 
         if (model.UseClientCredentialsClient)
         {
@@ -231,7 +266,7 @@ public void AddClients(ServiceSpec spec, ServiceModel model)
                     {
                         "Hybrid"
                     },
-                    Scopes = scopes,
+                    Scopes = hybridScopes,
                     Secrets = new List<ClientSecretSpec>()
                     {
                         new ClientSecretSpec()
@@ -272,8 +307,30 @@ public void AddEndpoints(ServiceSpec spec, ServiceModel model)
 
     this.AddEndpointApiVersions(diagnosticsEndpoint, model);
 
+    EndpointSpec endpointsEndpoint = new EndpointSpec()
+    {
+        Controller = "Monitoring",
+        Name = "Endpoints",
+        Route = "GET api/v{version:apiVersion}/monitoring/endpoints",
+        Summary = "Allows verifying the endpoints of the service."
+    };
+
+    this.AddEndpointApiVersions(endpointsEndpoint, model);
+
+    EndpointSpec configurationEndpoint = new EndpointSpec()
+    {
+        Controller = "Monitoring",
+        Name = "Configuration",
+        Route = "GET api/v{version:apiVersion}/monitoring/configuration",
+        Summary = "Allows verifying the configuration of the service."
+    };
+
+    this.AddEndpointApiVersions(configurationEndpoint, model);
+
     spec.Endpoints.Add(probeEndpoint);
     spec.Endpoints.Add(diagnosticsEndpoint);
+    spec.Endpoints.Add(endpointsEndpoint);
+    spec.Endpoints.Add(configurationEndpoint);
 
     // Controllers
 
@@ -352,6 +409,16 @@ public void AddFeatures(ServiceSpec spec, ServiceModel model)
             Name = "BackgroundServices",
             Summary = "Includes background services has hosted services.",
             IsAvailable = model.BackgroundServices.Count > 0
+        });
+
+    // Has OIDC
+
+    spec.Features.Add(
+        new FeatureSpec()
+        {
+            Name = "OidcAuthentication",
+            Summary = "Uses OIDC authentication.",
+            IsAvailable = model.GenerateOidcSupport
         });
 }
 

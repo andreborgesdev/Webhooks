@@ -99,6 +99,16 @@ namespace Primavera.Lithium.Faturacao.Models.Metadata
             /// </summary>
             public const string Diagnostics = "api/v{version:apiVersion}/monitoring/diagnostics";
 
+            /// <summary>
+            /// Defines the route for the action that analyzes the endpoints of the service. This action is used to verify the service implementation.
+            /// </summary>
+            public const string Endpoints = "api/v{version:apiVersion}/monitoring/endpoints";
+
+            /// <summary>
+            /// Defines the route for the action that analyzes the configuration of the service. This action is used to verify the service implementation.
+            /// </summary>
+            public const string Configuration = "api/v{version:apiVersion}/monitoring/configuration";
+
             #endregion
 
             #endregion

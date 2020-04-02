@@ -39,6 +39,22 @@ controller.AddModelWriter<MethodBodyModel>(
     }, 
     this.WriteMonitoringDiagnostics);
 
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("Monitoring_Endpoints");
+    }, 
+    this.WriteMonitoringEndpoints);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("Monitoring_Configuration");
+    }, 
+    this.WriteMonitoringConfiguration);
+
 // Generate code
 
 controller.Write(targetModel);

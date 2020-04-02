@@ -450,6 +450,52 @@ public void WriteDiagnosticsActionCancellation(ModelWriter modelWriter, MethodBo
 
 }
 
+// *** WriteEndpointsActionCancellation
+
+public void WriteEndpointsActionCancellation(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Build the URL of the request
+            
+            Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
+                this.Client.BaseUri,
+                Models.Metadata.Routes.Monitoring.Endpoints, 
+                new Dictionary<string, object>()
+                {
+                    ["version"] = this.Client.ApiVersion
+                });
+            
+            // Result
+            
+            return this.Actions.ExecuteGetAsync<IEnumerable<EndpointInfo>>(requestUri, HttpStatusCode.OK, cancellationToken);
+<#+
+
+}
+
+// *** WriteConfigurationActionCancellation
+
+public void WriteConfigurationActionCancellation(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Build the URL of the request
+            
+            Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
+                this.Client.BaseUri,
+                Models.Metadata.Routes.Monitoring.Configuration, 
+                new Dictionary<string, object>()
+                {
+                    ["version"] = this.Client.ApiVersion
+                });
+            
+            // Result
+            
+            return this.Actions.ExecuteGetAsync<string>(requestUri, HttpStatusCode.OK, cancellationToken);
+<#+
+
+}
+
 // *** WriteProbeAction
 
 public void WriteProbeAction(ModelWriter modelWriter, MethodBodyModel model)
@@ -472,6 +518,32 @@ public void WriteDiagnosticsAction(ModelWriter modelWriter, MethodBodyModel mode
             // Result
             
             return this.DiagnosticsAsync().GetAwaiter().GetResult();
+<#+
+
+}
+
+// *** WriteEndpointsAction
+
+public void WriteEndpointsAction(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Result
+            
+            return this.EndpointsAsync().GetAwaiter().GetResult();
+<#+
+
+}
+
+// *** WriteConfigurationAction
+
+public void WriteConfigurationAction(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Result
+            
+            return this.ConfigurationAsync().GetAwaiter().GetResult();
 <#+
 
 }

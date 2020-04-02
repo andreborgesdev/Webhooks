@@ -23,7 +23,12 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Mvc"))
-        .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"));
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Configuration"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Routing"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Routing"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Text.Json"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Storage.Blobs"));
 
     targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi.Controllers");
 
@@ -40,6 +45,29 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
             }
         })
             .WithAttribute(new AttributeModel("SuppressMessage(\"Maintainability Rules\", \"SA1402:FileMayOnlyContainASingleType\", Justification = \"Because of code generation design.\")"))
+            .WithProperty(new PropertyModel("Logger", "ILogger")
+            {
+                Documentation = new DocumentationModel("Gets the logger."),
+                Modifiers = PropertyModifiers.Protected,
+                GetAccessor = new PropertyGetAccessorModel(),
+                Facets = new Dictionary<string, object>()
+                {
+                    ["BaseControllerLogger"] = true,
+                    ["ControllerName"] = "Monitoring"
+                }
+            })
+            .WithProperty(new PropertyModel("EndpointAnalyzer", "IEndpointAnalyzerService")
+            {
+                Documentation = new DocumentationModel("Gets the endpoint analyzer service."),
+                Modifiers = PropertyModifiers.Protected,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
+            .WithProperty(new PropertyModel("ConfigurationAnalyzer", "IConfigurationAnalyzerService")
+            {
+                Documentation = new DocumentationModel("Gets the configuration analyzer service."),
+                Modifiers = PropertyModifiers.Protected,
+                GetAccessor = new PropertyGetAccessorModel()
+            })
             .AddConstructor(new ConstructorModel()
             {
                 Modifiers = ConstructorModifiers.Protected,
@@ -54,7 +82,32 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
             })
                 .WithAttribute(new AttributeModel("HttpGet({0}.Models.Metadata.Routes.Monitoring.Probe)".Format(sourceModel.Namespace)))
                 .WithAttribute(new AttributeModel("ProducesResponseType(typeof(string), 200)"))
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("SaveConfigurationInBlobStorageAsync", "Task<bool>")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual | MethodModifiers.Async,
+                Documentation = new DocumentationModel("Saves the specified configuration options to the blob storage.")
+                {
+                    Returns = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\nA value indicating whether the configuration options were saved."
+                }
+            })
+                .WithParameter(new MethodParameterModel("options", "IDictionary<string, string>")
+                {
+                    Documentation = new DocumentationModel("The configuration options.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("SaveConfigurationInFileSystem", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Saves the specified configuration options in the file system.")
+            })
+                .WithParameter(new MethodParameterModel("options", "IDictionary<string, string>")
+                {
+                    Documentation = new DocumentationModel("The configuration options.")
+                })
                 .ParentModelAs<ClassModel>();
+
+    // Diagnostics method
 
     MethodModel diagnosticsMethod = baseClass
         .AddMethod(new MethodModel("DiagnosticsAsync", "Task<IActionResult>")
@@ -71,6 +124,46 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         {
             string policy = sourceModel.Name;
             diagnosticsMethod.WithAttribute(new AttributeModel("Authorize(Constants.Policies.{0})".Format(policy)));
+        }
+    }
+
+    // Endpoints method
+
+    MethodModel endpointsMethod = baseClass
+        .AddMethod(new MethodModel("EndpointsAsync", "Task<IActionResult>")
+        {
+            Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+            Documentation = new DocumentationModel(true)
+        })
+            .WithAttribute(new AttributeModel("HttpGet({0}.Models.Metadata.Routes.Monitoring.Endpoints)".Format(sourceModel.Namespace)))
+            .WithAttribute(new AttributeModel("ProducesResponseType(typeof(EndpointInfo), 200)"));
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+        if (!string.IsNullOrEmpty(sourceModel.DefaultScope))
+        {
+            string policy = sourceModel.Name;
+            endpointsMethod.WithAttribute(new AttributeModel("Authorize(Constants.Policies.{0})".Format(policy)));
+        }
+    }
+
+    // Configuration method
+
+    MethodModel configurationMethod = baseClass
+        .AddMethod(new MethodModel("ConfigurationAsync", "Task<IActionResult>")
+        {
+            Modifiers = MethodModifiers.Public | MethodModifiers.Virtual | MethodModifiers.Async,
+            Documentation = new DocumentationModel(true)
+        })
+            .WithAttribute(new AttributeModel("HttpGet({0}.Models.Metadata.Routes.Monitoring.Configuration)".Format(sourceModel.Namespace)))
+            .WithAttribute(new AttributeModel("ProducesResponseType(typeof(IDictionary<string, string>), 200)"));
+
+    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    {
+        if (!string.IsNullOrEmpty(sourceModel.DefaultScope))
+        {
+            string policy = sourceModel.Name;
+            configurationMethod.WithAttribute(new AttributeModel("Authorize(Constants.Policies.{0})".Format(policy)));
         }
     }
 

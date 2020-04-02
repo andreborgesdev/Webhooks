@@ -103,6 +103,16 @@ transformations.Add(
                         {
                             Modifiers = ConstantModifiers.Public,
                             Documentation = new DocumentationModel("Defines the route for the action that diagnoses the service. This action is used to perform functional tests on the service.")
+                        })
+                        .WithConstant(new ConstantModel("Endpoints", "string", "\"api/v{version:apiVersion}/monitoring/endpoints\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route for the action that analyzes the endpoints of the service. This action is used to verify the service implementation.")
+                        })
+                        .WithConstant(new ConstantModel("Configuration", "string", "\"api/v{version:apiVersion}/monitoring/configuration\"")
+                        {
+                            Modifiers = ConstantModifiers.Public,
+                            Documentation = new DocumentationModel("Defines the route for the action that analyzes the configuration of the service. This action is used to verify the service implementation.")
                         });
         }
     });

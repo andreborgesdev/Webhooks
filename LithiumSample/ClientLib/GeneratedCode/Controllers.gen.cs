@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Primavera.Hydrogen;
 using Primavera.Hydrogen.Rest.Client;
+using Primavera.Hydrogen.Rest.Routing;
 
 namespace Primavera.Lithium.Faturacao
 {
@@ -118,6 +119,42 @@ namespace Primavera.Lithium.Faturacao
             Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
                 this.Client.BaseUri,
                 Models.Metadata.Routes.Monitoring.Diagnostics, 
+                new Dictionary<string, object>()
+                {
+                    ["version"] = this.Client.ApiVersion
+                });
+            
+            // Result
+            
+            return this.Actions.ExecuteGetAsync<string>(requestUri, HttpStatusCode.OK, cancellationToken);
+        }
+
+        /// <inheritdoc />
+        public virtual Task<ServiceOperationResult<IEnumerable<EndpointInfo>>> EndpointsAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Build the URL of the request
+            
+            Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
+                this.Client.BaseUri,
+                Models.Metadata.Routes.Monitoring.Endpoints, 
+                new Dictionary<string, object>()
+                {
+                    ["version"] = this.Client.ApiVersion
+                });
+            
+            // Result
+            
+            return this.Actions.ExecuteGetAsync<IEnumerable<EndpointInfo>>(requestUri, HttpStatusCode.OK, cancellationToken);
+        }
+
+        /// <inheritdoc />
+        public virtual Task<ServiceOperationResult<string>> ConfigurationAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            // Build the URL of the request
+            
+            Uri requestUri = Models.Metadata.Routes.Instance.Resolve(
+                this.Client.BaseUri,
+                Models.Metadata.Routes.Monitoring.Configuration, 
                 new Dictionary<string, object>()
                 {
                     ["version"] = this.Client.ApiVersion

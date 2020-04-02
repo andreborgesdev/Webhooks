@@ -9,6 +9,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
@@ -19,15 +20,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Primavera.Hydrogen;
 using Primavera.Hydrogen.AspNetCore.Configuration;
 using Primavera.Hydrogen.AspNetCore.Hosting;
 using Primavera.Hydrogen.AspNetCore.Mvc;
-using Primavera.Hydrogen.AspNetCore.Mvc.Routing;
 using Primavera.Hydrogen.AspNetCore.OpenApi.Schema;
+using Primavera.Hydrogen.AspNetCore.Routing;
 using Primavera.Hydrogen.Configuration;
 using Primavera.Hydrogen.Storage.Azure.Tables;
 using Primavera.Hydrogen.Telemetry.Azure;
+using Primavera.Hydrogen.Telemetry.Azure.Initializers;
 using Primavera.Lithium.Faturacao.WebApi.Configuration;
 using Primavera.Lithium.Faturacao.WebApi.Controllers;
 using Westwind.AspNetCore.Markdown;
@@ -251,6 +254,46 @@ namespace Primavera.Lithium.Faturacao.WebApi
         /// </remarks>
         protected virtual void AddAdditionalServices(IServiceCollection services, HostConfiguration hostConfiguration)
         {
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Add HttpClient
+
+            this.AddHttpClient(services, hostConfiguration);
+
+            // Add endpoint analyzer
+
+            services
+                .AddEndpointAnalyzer();
+
+            // Add configuration analyzer
+
+            services
+                .AddConfigurationAnalyzer();
+        }
+
+        /// <summary>
+        /// Called to add the HTTP Client factory to the service collection.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="hostConfiguration">The host configuration.</param>
+        /// <remarks>
+        /// The method is called from <see cref="AddAdditionalServices(IServiceCollection, HostConfiguration)"/>.
+        /// </remarks>
+        protected virtual void AddHttpClient(IServiceCollection services, HostConfiguration hostConfiguration)
+        {
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // NOTE:
+            // For more information on the HTTP Client factory:
+            // https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
+            // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests
+
             // Add HttpClient
 
             services
@@ -267,6 +310,11 @@ namespace Primavera.Lithium.Faturacao.WebApi
         /// </remarks>
         protected virtual void AddOpenApiDocumentation(IServiceCollection services, HostConfiguration hostConfiguration)
         {
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
             // Default version
 
             services.AddOpenApiDocument(
@@ -299,6 +347,10 @@ namespace Primavera.Lithium.Faturacao.WebApi
         /// </remarks>
         protected virtual HostConfiguration AddConfiguration(IServiceCollection services)
         {
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
             // Common options
 
             services
@@ -477,6 +529,30 @@ namespace Primavera.Lithium.Faturacao.WebApi
         /// </remarks>
         protected virtual void AddTelemetry(IServiceCollection services, HostConfiguration hostConfiguration)
         {
+            // Ignore Spelling: api
+
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Add status code 404 telemetry initializer
+
+            services
+                .AddSingleton<Microsoft.ApplicationInsights.Extensibility.ITelemetryInitializer>(
+                    (provider) =>
+                    {
+                        return new StatusCodeTelemetryInitializer(provider)
+                        {
+                            Requests = RequestTelemetryInitializerBehavior.Specified,
+                            RequestPaths = new List<string>()
+                            {
+                                "/api/*",
+                            },
+                            StatusCode = HttpStatusCode.NotFound
+                        };
+                    });
+
             // Add Azure Insights telemetry
 
             services
@@ -494,6 +570,11 @@ namespace Primavera.Lithium.Faturacao.WebApi
         /// </remarks>
         protected virtual void AddMvc(IServiceCollection services, HostConfiguration hostConfiguration)
         {
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
             // API controllers with views
             
             IMvcBuilder builder = services
@@ -537,6 +618,10 @@ namespace Primavera.Lithium.Faturacao.WebApi
         /// </remarks>
         protected virtual void ConfigureApiVersioningOptions(ApiVersioningOptions options)
         {
+            // Validation
+
+            SmartGuard.NotNull(() => options, options);
+
             // Default API version
 
             ApiVersion defaultVersion = new ApiVersion(
@@ -838,19 +923,6 @@ namespace Primavera.Lithium.Faturacao.WebApi
                 // Map default controller route
 
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-
-                // On Development environment
-
-                if (this.CurrentEnvironment.IsDevelopment())
-                {
-                    // Map route analyzer
-
-                    endpoints.MapRouteAnalyzer();
-
-                    // Map configuration analyzer
-
-                    endpoints.MapConfigurationAnalyzer();
-                }
             });
         }
 
@@ -956,6 +1028,11 @@ namespace Primavera.Lithium.Faturacao.WebApi
         /// </remarks>
         protected virtual void AddClientLibraryDocumentation(IServiceCollection services, HostConfiguration hostConfiguration)
         {
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
             // Add markdown
 
             services.AddMarkdown();
@@ -973,6 +1050,7 @@ namespace Primavera.Lithium.Faturacao.WebApi
         {
             // Validation
 
+            SmartGuard.NotNull(() => app, app);
             SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Configure middleware
@@ -990,10 +1068,12 @@ namespace Primavera.Lithium.Faturacao.WebApi
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Azure table storage
 
-            services.AddAzureTableStorage();
+            services
+                .AddAzureTableStorage();
         }
 
         #endregion

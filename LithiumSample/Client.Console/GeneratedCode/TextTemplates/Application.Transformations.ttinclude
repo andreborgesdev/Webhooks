@@ -15,6 +15,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
         .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
         .WithNamespaceImport(new NamespaceImportModel("System.Diagnostics.CodeAnalysis"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Linq"))
         .WithNamespaceImport(new NamespaceImportModel("System.Net"))
         .WithNamespaceImport(new NamespaceImportModel("System.Threading"))
         .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
@@ -23,6 +24,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Hosting"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client.Authentication"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Routing"))
         .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".Client.Console.Configuration"));
 
     targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".Client.Console");
@@ -156,6 +158,30 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                 Documentation = new DocumentationModel("The key pressed by the user.")
             })
             .ParentModelAs<ClassModel>()
+        .AddMethod(new MethodModel("WriteEndpoints")
+        {
+            Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+            Documentation = new DocumentationModel("Writes the specified endpoints to the console.")
+        })
+            .WithParameter(new MethodParameterModel("endpoints", "IEnumerable<EndpointInfo>")
+            {
+                Documentation = new DocumentationModel("The endpoints.")
+            })
+            .ParentModelAs<ClassModel>()
+        .AddMethod(new MethodModel("WriteEndpoint")
+        {
+            Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+            Documentation = new DocumentationModel("Writes the specified endpoint to the console.")
+        })
+            .WithParameter(new MethodParameterModel("spacing", "string")
+            {
+                Documentation = new DocumentationModel("The spacing.")
+            })
+            .WithParameter(new MethodParameterModel("endpoint", "EndpointInfo")
+            {
+                Documentation = new DocumentationModel("The endpoint.")
+            })
+            .ParentModelAs<ClassModel>()
         .AddMethod(new MethodModel("WriteException")
         {
             Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
@@ -283,6 +309,22 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
             {
                 Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual | MethodModifiers.Async,
                 Documentation = new DocumentationModel("Executes the diagnosis endpoint.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+            .WithMethod(new MethodModel("EndpointsAsync", "Task")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual | MethodModifiers.Async,
+                Documentation = new DocumentationModel("Executes the endpoints analyzer endpoint.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+            .WithMethod(new MethodModel("ConfigurationAsync", "Task")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual | MethodModifiers.Async,
+                Documentation = new DocumentationModel("Executes the configuration analyzer endpoint.")
                 {
                     Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
                 }

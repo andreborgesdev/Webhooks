@@ -1,3 +1,6 @@
+C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\xunit.runner.utility.netcoreapp10.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.Models.Tests.deps.json
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.Models.Tests.runtimeconfig.json
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.Models.Tests.runtimeconfig.dev.json
@@ -46,6 +49,7 @@ C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Test
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\System.Text.Json.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\xunit.abstractions.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\xunit.assert.dll
@@ -130,7 +134,4 @@ C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Test
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\obj\Debug\netcoreapp3.1\Models.Tests.csproj.CopyComplete
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\obj\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.Models.Tests.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\obj\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.Models.Tests.pdb
-C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
-C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\xunit.runner.reporters.netcoreapp10.dll
-C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\xunit.runner.utility.netcoreapp10.dll
-C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\System.Text.Json.dll
+C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Tests\Models.Tests\bin\Debug\netcoreapp3.1\System.IO.Pipelines.dll

@@ -178,25 +178,85 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                     Modifiers = ConstantModifiers.Internal,
                     Documentation = new DocumentationModel("The Portuguese culture (as a string).")
                 })
+                .WithConstant(new ConstantModel("PortugueseFromAngolaCultureString", "string", "\"pt-AO\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Portuguese (Angola) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("PortugueseFromBrazilCultureString", "string", "\"pt-BR\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Portuguese (Brazil) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("PortugueseFromCapeVerdeCultureString", "string", "\"pt-CV\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Portuguese (Cape Verde) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("PortugueseFromGuineaBissauCultureString", "string", "\"pt-GW\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Portuguese (Guinea-Bissau) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("PortugueseFromMozambiqueCultureString", "string", "\"pt-MZ\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Portuguese (Mozambique) culture (as a string).")
+                })
                 .WithConstant(new ConstantModel("PortugueseFromPortugalCultureString", "string", "\"pt-PT\"")
                 {
                     Modifiers = ConstantModifiers.Internal,
                     Documentation = new DocumentationModel("The Portuguese (Portugal) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("PortugueseFromSaoTomeAndPrincipeCultureString", "string", "\"pt-ST\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Portuguese (São Tomé e Príncipe) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("PortugueseFromTimorLesteCultureString", "string", "\"pt-TL\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Portuguese (Timor-Leste) culture (as a string).")
                 })
                 .WithConstant(new ConstantModel("EnglishDefaultCultureString", "string", "\"en\"")
                 {
                     Modifiers = ConstantModifiers.Internal,
                     Documentation = new DocumentationModel("The English culture (as a string).")
                 })
+                .WithConstant(new ConstantModel("EnglishFromIrelandCultureString", "string", "\"en-IE\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The English (Ireland) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("EnglishFromGreatBritainCultureString", "string", "\"en-GB\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The English (G.B.) culture (as a string).")
+                })
                 .WithConstant(new ConstantModel("EnglishFromUnitedStatesCultureString", "string", "\"en-US\"")
                 {
                     Modifiers = ConstantModifiers.Internal,
-                    Documentation = new DocumentationModel("The English (US) culture (as a string).")
+                    Documentation = new DocumentationModel("The English (U.S.) culture (as a string).")
                 })
                 .WithConstant(new ConstantModel("SpanishDefaultCultureString", "string", "\"es\"")
                 {
                     Modifiers = ConstantModifiers.Internal,
                     Documentation = new DocumentationModel("The Spanish culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("SpanishFromArgentinaCultureString", "string", "\"es-AR\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Spanish (Argentina) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("SpanishFromChileCultureString", "string", "\"es-CL\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Spanish (Chile) culture (as a string).")
+                })
+                .WithConstant(new ConstantModel("SpanishFromMexicoCultureString", "string", "\"es-MX\"")
+                {
+                    Modifiers = ConstantModifiers.Internal,
+                    Documentation = new DocumentationModel("The Spanish (Mexico) culture (as a string).")
                 })
                 .WithConstant(new ConstantModel("SpanishFromSpainCultureString", "string", "\"es-ES\"")
                 {
@@ -293,6 +353,28 @@ public void TransformAuthorizationScope(DomainModelElement sourceElement, CSharp
         {
             Modifiers = ConstantModifiers.Internal,
             Documentation = new DocumentationModel("Defines the name of the policy that applies the {0} scope.".Format(sourceModel.DisplayName))
+        });
+}
+
+
+// *** TransformAuthorizationPolicy
+
+public void TransformAuthorizationPolicy(DomainModelElement sourceElement, CSharpFileModel targetModel)
+{
+    AuthorizationPolicy sourceModel = sourceElement as AuthorizationPolicy;
+    if (sourceModel == null)
+    {
+        throw new InvalidOperationException("XXX");
+        // return;
+    }
+
+    ClassModel classModel = targetModel.Namespace.Classes[0].Classes.FirstOrDefault(c => c.Name.EqualsNoCase("Policies"));
+
+    classModel    
+        .WithConstant(new ConstantModel(sourceModel.Name, "string", "\"" + sourceModel.Name.ToLowerInvariant() + "\"")
+        {
+            Modifiers = ConstantModifiers.Internal,
+            Documentation = new DocumentationModel("Defines the name of the policy that applies the {0} authorization policy.".Format(sourceModel.DisplayName))
         });
 }
 

@@ -6,7 +6,12 @@ internal class ScopesTransformation : ServiceModelTransformation<CSharpFileModel
 
     public override bool CanTransform(DomainModelElement sourceElement, CSharpFileModel targetModel)
     {
-        return sourceElement is AuthorizationScope;
+        if (sourceElement is AuthorizationScope scope)
+        {
+            return scope.ServiceModel.AuthorizationMode == AuthorizationMode.On;
+        }
+        
+        return false;
     }
 
     public override void Transform(DomainModelElement sourceElement, CSharpFileModel targetModel)

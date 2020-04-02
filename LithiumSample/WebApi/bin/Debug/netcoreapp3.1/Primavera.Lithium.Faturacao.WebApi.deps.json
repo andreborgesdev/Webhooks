@@ -15,10 +15,10 @@
     "allowUnsafe": false,
     "warningsAsErrors": false,
     "optimize": false,
-    "keyFile": "C:\\Users\\Andre.Borges\\.nuget\\packages\\primavera.hydrogen.designtime.configuration\\2.0.0.25\\build\\Primavera.Public.Private.snk",
+    "keyFile": "C:\\Users\\Andre.Borges\\.nuget\\packages\\primavera.hydrogen.designtime.configuration\\2.0.0.26\\build\\Primavera.Public.Private.snk",
     "emitEntryPoint": true,
     "xmlDoc": true,
-    "debugType": "portable"
+    "debugType": "full"
   },
   "targets": {
     ".NETCoreApp,Version=v3.1": {
@@ -27,9 +27,10 @@
           "MediatR": "8.0.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "8.0.0",
           "Microsoft.CodeAnalysis.FxCopAnalyzers": "2.9.8",
-          "Primavera.Hydrogen.AspNetCore.Azure": "2.0.1.87",
-          "Primavera.Hydrogen.DesignTime.Configuration": "2.0.0.25",
-          "Primavera.Hydrogen.EventBus.Azure": "2.0.1.87",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.5.132",
+          "Primavera.Hydrogen.AspNetCore.Azure": "2.0.1.137",
+          "Primavera.Hydrogen.DesignTime.Configuration": "2.0.0.26",
+          "Primavera.Hydrogen.EventBus.Azure": "2.0.1.137",
           "Primavera.Lithium.Faturacao.Models": "1.0.0",
           "Primavera.Lithium.Webhooks": "1.0.0",
           "StyleCop.Analyzers": "1.1.118",
@@ -115,7 +116,6 @@
           "Microsoft.Extensions.Diagnostics.HealthChecks": "3.1.0.0",
           "Microsoft.Extensions.FileProviders.Composite": "3.1.0.0",
           "Microsoft.Extensions.FileProviders.Embedded.Reference": "3.1.0.0",
-          "Microsoft.Extensions.Http": "3.1.0.0",
           "Microsoft.Extensions.Identity.Core": "3.1.0.0",
           "Microsoft.Extensions.Identity.Stores": "3.1.0.0",
           "Microsoft.Extensions.Localization.Abstractions": "3.1.0.0",
@@ -317,7 +317,7 @@
       "MediatR.Extensions.Microsoft.DependencyInjection/8.0.0": {
         "dependencies": {
           "MediatR": "8.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3"
         },
         "runtime": {
           "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {
@@ -329,49 +329,48 @@
           "lib/netstandard2.0/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights/2.12.1": {
+      "Microsoft.ApplicationInsights/2.13.1": {
         "dependencies": {
-          "System.Diagnostics.DiagnosticSource": "4.6.0",
-          "System.Runtime.InteropServices": "4.3.0"
+          "System.Diagnostics.DiagnosticSource": "4.6.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ApplicationInsights.dll": {
-            "assemblyVersion": "2.12.1.36699",
-            "fileVersion": "2.12.1.36699"
+            "assemblyVersion": "2.13.1.12554",
+            "fileVersion": "2.13.1.12554"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.ApplicationInsights.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights.AspNetCore/2.12.1": {
+      "Microsoft.ApplicationInsights.AspNetCore/2.13.1": {
         "dependencies": {
-          "Microsoft.ApplicationInsights": "2.12.1",
-          "Microsoft.ApplicationInsights.DependencyCollector": "2.12.1",
-          "Microsoft.ApplicationInsights.EventCounterCollector": "2.12.1",
-          "Microsoft.ApplicationInsights.PerfCounterCollector": "2.12.1",
-          "Microsoft.ApplicationInsights.WindowsServer": "2.12.1",
-          "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": "2.12.1",
+          "Microsoft.ApplicationInsights": "2.13.1",
+          "Microsoft.ApplicationInsights.DependencyCollector": "2.13.1",
+          "Microsoft.ApplicationInsights.EventCounterCollector": "2.13.1",
+          "Microsoft.ApplicationInsights.PerfCounterCollector": "2.13.1",
+          "Microsoft.ApplicationInsights.WindowsServer": "2.13.1",
+          "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": "2.13.1",
           "Microsoft.AspNetCore.Hosting": "1.0.2",
           "Microsoft.Extensions.Configuration.Json": "3.1.2",
-          "Microsoft.Extensions.Logging.ApplicationInsights": "2.12.1",
+          "Microsoft.Extensions.Logging.ApplicationInsights": "2.13.1",
           "System.Diagnostics.DiagnosticSource": "4.6.0",
           "System.Net.NameResolution": "4.3.0",
           "System.Text.Encodings.Web": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ApplicationInsights.AspNetCore.dll": {
-            "assemblyVersion": "2.12.1.36699",
-            "fileVersion": "2.12.1.36699"
+            "assemblyVersion": "2.13.1.12554",
+            "fileVersion": "2.13.1.12554"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.ApplicationInsights.AspNetCore.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights.DependencyCollector/2.12.1": {
+      "Microsoft.ApplicationInsights.DependencyCollector/2.13.1": {
         "dependencies": {
-          "Microsoft.ApplicationInsights": "2.12.1",
+          "Microsoft.ApplicationInsights": "2.13.1",
           "Microsoft.Extensions.DiagnosticAdapter": "1.1.0",
           "Microsoft.Extensions.PlatformAbstractions": "1.1.0",
           "System.Data.SqlClient": "4.3.1",
@@ -380,32 +379,32 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AI.DependencyCollector.dll": {
-            "assemblyVersion": "2.12.1.36699",
-            "fileVersion": "2.12.1.36699"
+            "assemblyVersion": "2.13.1.12554",
+            "fileVersion": "2.13.1.12554"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AI.DependencyCollector.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights.EventCounterCollector/2.12.1": {
+      "Microsoft.ApplicationInsights.EventCounterCollector/2.13.1": {
         "dependencies": {
-          "Microsoft.ApplicationInsights": "2.12.1"
+          "Microsoft.ApplicationInsights": "2.13.1"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AI.EventCounterCollector.dll": {
-            "assemblyVersion": "2.12.1.36699",
-            "fileVersion": "2.12.1.36699"
+            "assemblyVersion": "2.13.1.12554",
+            "fileVersion": "2.13.1.12554"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AI.EventCounterCollector.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights.PerfCounterCollector/2.12.1": {
+      "Microsoft.ApplicationInsights.PerfCounterCollector/2.13.1": {
         "dependencies": {
-          "Microsoft.ApplicationInsights": "2.12.1",
-          "Microsoft.Extensions.Caching.Memory": "3.1.2",
+          "Microsoft.ApplicationInsights": "2.13.1",
+          "Microsoft.Extensions.Caching.Memory": "3.1.3",
           "Microsoft.Extensions.PlatformAbstractions": "1.1.0",
           "System.Diagnostics.PerformanceCounter": "4.5.0",
           "System.Runtime.Serialization.Json": "4.3.0",
@@ -414,72 +413,72 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AI.PerfCounterCollector.dll": {
-            "assemblyVersion": "2.12.1.36699",
-            "fileVersion": "2.12.1.36699"
+            "assemblyVersion": "2.13.1.12554",
+            "fileVersion": "2.13.1.12554"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AI.PerfCounterCollector.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights.WindowsServer/2.12.1": {
+      "Microsoft.ApplicationInsights.WindowsServer/2.13.1": {
         "dependencies": {
-          "Microsoft.ApplicationInsights": "2.12.1",
-          "Microsoft.ApplicationInsights.DependencyCollector": "2.12.1",
-          "Microsoft.ApplicationInsights.PerfCounterCollector": "2.12.1",
-          "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": "2.12.1",
+          "Microsoft.ApplicationInsights": "2.13.1",
+          "Microsoft.ApplicationInsights.DependencyCollector": "2.13.1",
+          "Microsoft.ApplicationInsights.PerfCounterCollector": "2.13.1",
+          "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel": "2.13.1",
           "System.Diagnostics.DiagnosticSource": "4.6.0",
           "System.Runtime.Serialization.Json": "4.3.0",
           "System.Runtime.Serialization.Primitives": "4.3.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AI.WindowsServer.dll": {
-            "assemblyVersion": "2.12.1.36699",
-            "fileVersion": "2.12.1.36699"
+            "assemblyVersion": "2.13.1.12554",
+            "fileVersion": "2.13.1.12554"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AI.WindowsServer.dll": {}
         }
       },
-      "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel/2.12.1": {
+      "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel/2.13.1": {
         "dependencies": {
-          "Microsoft.ApplicationInsights": "2.12.1",
+          "Microsoft.ApplicationInsights": "2.13.1",
           "Newtonsoft.Json": "10.0.3",
           "System.IO.FileSystem.AccessControl": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AI.ServerTelemetryChannel.dll": {
-            "assemblyVersion": "2.12.1.36699",
-            "fileVersion": "2.12.1.36699"
+            "assemblyVersion": "2.13.1.12554",
+            "fileVersion": "2.13.1.12554"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AI.ServerTelemetryChannel.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.2": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.3": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6801"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.16314"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.1.2": {
+      "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.1.3": {
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "5.5.0"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6801"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.16314"
           }
         },
         "compile": {
@@ -488,64 +487,64 @@
       },
       "Microsoft.AspNetCore.Authorization/1.0.2": {
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Options": "3.1.2",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Options": "3.1.3",
           "System.Security.Claims": "4.3.0"
         }
       },
-      "Microsoft.AspNetCore.Cryptography.Internal/3.1.2": {
+      "Microsoft.AspNetCore.Cryptography.Internal/3.1.3": {
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.Internal.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6801"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.16314"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.Internal.dll": {}
         }
       },
-      "Microsoft.AspNetCore.DataProtection/3.1.2": {
+      "Microsoft.AspNetCore.DataProtection/3.1.3": {
         "dependencies": {
-          "Microsoft.AspNetCore.Cryptography.Internal": "3.1.2",
-          "Microsoft.AspNetCore.DataProtection.Abstractions": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Hosting.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Logging.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Options": "3.1.2",
+          "Microsoft.AspNetCore.Cryptography.Internal": "3.1.3",
+          "Microsoft.AspNetCore.DataProtection.Abstractions": "3.1.3",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Hosting.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Options": "3.1.3",
           "Microsoft.Win32.Registry": "4.7.0",
           "System.Security.Cryptography.Xml": "4.7.0"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.DataProtection.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6801"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.16314"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.DataProtection.dll": {}
         }
       },
-      "Microsoft.AspNetCore.DataProtection.Abstractions/3.1.2": {
+      "Microsoft.AspNetCore.DataProtection.Abstractions/3.1.3": {
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.DataProtection.Abstractions.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6801"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.16314"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.AspNetCore.DataProtection.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNetCore.DataProtection.AzureStorage/3.1.2": {
+      "Microsoft.AspNetCore.DataProtection.AzureStorage/3.1.3": {
         "dependencies": {
-          "Microsoft.AspNetCore.DataProtection": "3.1.2",
+          "Microsoft.AspNetCore.DataProtection": "3.1.3",
           "Microsoft.Azure.Storage.Blob": "11.1.3",
           "Microsoft.Data.OData": "5.8.4"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.AzureStorage.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6801"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.16314"
           }
         },
         "compile": {
@@ -558,12 +557,12 @@
           "Microsoft.AspNetCore.Hosting.Server.Abstractions": "1.0.2",
           "Microsoft.AspNetCore.Http": "1.0.2",
           "Microsoft.AspNetCore.Http.Extensions": "2.2.0",
-          "Microsoft.Extensions.Configuration": "3.1.2",
+          "Microsoft.Extensions.Configuration": "3.1.3",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection": "3.1.2",
+          "Microsoft.Extensions.DependencyInjection": "3.1.3",
           "Microsoft.Extensions.FileProviders.Physical": "3.1.2",
-          "Microsoft.Extensions.Logging": "3.1.2",
-          "Microsoft.Extensions.Options": "3.1.2",
+          "Microsoft.Extensions.Logging": "3.1.3",
+          "Microsoft.Extensions.Options": "3.1.3",
           "Microsoft.Extensions.PlatformAbstractions": "1.1.0",
           "System.Console": "4.0.0",
           "System.Diagnostics.DiagnosticSource": "4.6.0",
@@ -577,16 +576,16 @@
         "dependencies": {
           "Microsoft.AspNetCore.Hosting.Server.Abstractions": "1.0.2",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2",
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Logging.Abstractions": "3.1.2"
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.3",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3",
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.3"
         }
       },
       "Microsoft.AspNetCore.Hosting.Server.Abstractions/1.0.2": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "2.2.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.2"
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.3"
         }
       },
       "Microsoft.AspNetCore.Http/1.0.2": {
@@ -594,7 +593,7 @@
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.WebUtilities": "1.0.2",
           "Microsoft.Extensions.ObjectPool": "2.2.0",
-          "Microsoft.Extensions.Options": "3.1.2",
+          "Microsoft.Extensions.Options": "3.1.3",
           "Microsoft.Net.Http.Headers": "2.2.0",
           "System.Buffers": "4.5.0",
           "System.Threading": "4.3.0"
@@ -609,14 +608,14 @@
       "Microsoft.AspNetCore.Http.Extensions/2.2.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.2",
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.3",
           "Microsoft.Net.Http.Headers": "2.2.0",
           "System.Buffers": "4.5.0"
         }
       },
       "Microsoft.AspNetCore.Http.Features/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.2"
+          "Microsoft.Extensions.Primitives": "3.1.3"
         }
       },
       "Microsoft.AspNetCore.JsonPatch/1.0.0": {
@@ -667,8 +666,8 @@
           "Microsoft.AspNetCore.Mvc.Abstractions": "1.0.3",
           "Microsoft.AspNetCore.Routing": "2.2.2",
           "Microsoft.Extensions.DependencyModel": "1.0.0",
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Logging.Abstractions": "3.1.2",
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.3",
           "Microsoft.Extensions.PlatformAbstractions": "1.1.0",
           "System.Buffers": "4.5.0",
           "System.Diagnostics.DiagnosticSource": "4.6.0",
@@ -710,9 +709,9 @@
         "dependencies": {
           "Microsoft.AspNetCore.Http.Extensions": "2.2.0",
           "Microsoft.AspNetCore.Routing.Abstractions": "2.2.0",
-          "Microsoft.Extensions.Logging.Abstractions": "3.1.2",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.3",
           "Microsoft.Extensions.ObjectPool": "2.2.0",
-          "Microsoft.Extensions.Options": "3.1.2"
+          "Microsoft.Extensions.Options": "3.1.3"
         }
       },
       "Microsoft.AspNetCore.Routing.Abstractions/2.2.0": {
@@ -724,14 +723,14 @@
         "dependencies": {
           "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.2",
           "Microsoft.AspNetCore.Http.Extensions": "2.2.0",
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Logging.Abstractions": "3.1.2",
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.3",
           "Microsoft.Extensions.WebEncoders": "1.0.2"
         }
       },
       "Microsoft.AspNetCore.WebUtilities/1.0.2": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.2",
+          "Microsoft.Extensions.Primitives": "3.1.3",
           "System.Buffers": "4.5.0",
           "System.Collections": "4.3.0",
           "System.IO": "4.3.0",
@@ -943,7 +942,7 @@
           "lib/netstandard1.4/Microsoft.Azure.Search.Service.dll": {}
         }
       },
-      "Microsoft.Azure.ServiceBus/4.1.1": {
+      "Microsoft.Azure.ServiceBus/4.1.2": {
         "dependencies": {
           "Microsoft.Azure.Amqp": "2.4.2",
           "Microsoft.Azure.Services.AppAuthentication": "1.4.0",
@@ -953,8 +952,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Azure.ServiceBus.dll": {
-            "assemblyVersion": "4.1.1.0",
-            "fileVersion": "4.100.119.55803"
+            "assemblyVersion": "4.1.2.0",
+            "fileVersion": "4.100.220.15305"
           }
         },
         "compile": {
@@ -1143,89 +1142,89 @@
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/3.0.0": {},
-      "Microsoft.Extensions.Caching.Abstractions/3.1.2": {
+      "Microsoft.Extensions.Caching.Abstractions/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.2"
+          "Microsoft.Extensions.Primitives": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Caching.Abstractions.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Caching.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Caching.Memory/3.1.2": {
+      "Microsoft.Extensions.Caching.Memory/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Logging.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Options": "3.1.2"
+          "Microsoft.Extensions.Caching.Abstractions": "3.1.3",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Options": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Caching.Memory.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Caching.Memory.dll": {}
         }
       },
-      "Microsoft.Extensions.Caching.StackExchangeRedis/3.1.2": {
+      "Microsoft.Extensions.Caching.StackExchangeRedis/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Options": "3.1.2",
+          "Microsoft.Extensions.Caching.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Options": "3.1.3",
           "StackExchange.Redis": "2.0.593"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration/3.1.2": {
+      "Microsoft.Extensions.Configuration/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.2"
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration.Abstractions/3.1.2": {
+      "Microsoft.Extensions.Configuration.Abstractions/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.2"
+          "Microsoft.Extensions.Primitives": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration.Binder/3.1.2": {
+      "Microsoft.Extensions.Configuration.Binder/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "3.1.2"
+          "Microsoft.Extensions.Configuration": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
@@ -1234,7 +1233,7 @@
       },
       "Microsoft.Extensions.Configuration.CommandLine/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "3.1.2"
+          "Microsoft.Extensions.Configuration": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.CommandLine.dll": {
@@ -1248,7 +1247,7 @@
       },
       "Microsoft.Extensions.Configuration.EnvironmentVariables/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "3.1.2"
+          "Microsoft.Extensions.Configuration": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.EnvironmentVariables.dll": {
@@ -1262,7 +1261,7 @@
       },
       "Microsoft.Extensions.Configuration.FileExtensions/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "3.1.2",
+          "Microsoft.Extensions.Configuration": "3.1.3",
           "Microsoft.Extensions.FileProviders.Physical": "3.1.2"
         },
         "runtime": {
@@ -1277,7 +1276,7 @@
       },
       "Microsoft.Extensions.Configuration.Json/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "3.1.2",
+          "Microsoft.Extensions.Configuration": "3.1.3",
           "Microsoft.Extensions.Configuration.FileExtensions": "3.1.2"
         },
         "runtime": {
@@ -1304,25 +1303,25 @@
           "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.UserSecrets.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection/3.1.2": {
+      "Microsoft.Extensions.DependencyInjection/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.DependencyInjection.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.Extensions.DependencyInjection.dll": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.2": {
+      "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.3": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
@@ -1349,7 +1348,7 @@
       },
       "Microsoft.Extensions.DiagnosticAdapter/1.1.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3",
           "NETStandard.Library": "2.0.1",
           "System.ComponentModel": "4.3.0",
           "System.Diagnostics.DiagnosticSource": "4.6.0",
@@ -1366,14 +1365,14 @@
           "lib/netstandard1.1/Microsoft.Extensions.DiagnosticAdapter.dll": {}
         }
       },
-      "Microsoft.Extensions.FileProviders.Abstractions/3.1.2": {
+      "Microsoft.Extensions.FileProviders.Abstractions/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.2"
+          "Microsoft.Extensions.Primitives": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
@@ -1382,13 +1381,13 @@
       },
       "Microsoft.Extensions.FileProviders.Embedded/1.0.1": {
         "dependencies": {
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.2",
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.3",
           "System.Runtime.Extensions": "4.3.0"
         }
       },
       "Microsoft.Extensions.FileProviders.Physical/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.2",
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.3",
           "Microsoft.Extensions.FileSystemGlobbing": "3.1.2"
         },
         "runtime": {
@@ -1414,14 +1413,14 @@
       },
       "Microsoft.Extensions.Hosting/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "3.1.2",
+          "Microsoft.Extensions.Configuration": "3.1.3",
           "Microsoft.Extensions.Configuration.CommandLine": "3.1.2",
           "Microsoft.Extensions.Configuration.EnvironmentVariables": "3.1.2",
           "Microsoft.Extensions.Configuration.UserSecrets": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection": "3.1.2",
+          "Microsoft.Extensions.DependencyInjection": "3.1.3",
           "Microsoft.Extensions.FileProviders.Physical": "3.1.2",
-          "Microsoft.Extensions.Hosting.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Logging": "3.1.2",
+          "Microsoft.Extensions.Hosting.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Logging": "3.1.3",
           "Microsoft.Extensions.Logging.Console": "3.1.2",
           "Microsoft.Extensions.Logging.Debug": "3.1.2",
           "Microsoft.Extensions.Logging.EventLog": "3.1.2",
@@ -1437,60 +1436,76 @@
           "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.dll": {}
         }
       },
-      "Microsoft.Extensions.Hosting.Abstractions/3.1.2": {
+      "Microsoft.Extensions.Hosting.Abstractions/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2",
-          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Logging.Abstractions": "3.1.2"
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.3",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3",
+          "Microsoft.Extensions.FileProviders.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Hosting.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Logging/3.1.2": {
+      "Microsoft.Extensions.Http/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Binder": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection": "3.1.2",
-          "Microsoft.Extensions.Logging.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Options": "3.1.2"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Logging": "3.1.3",
+          "Microsoft.Extensions.Options": "3.1.3"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Http.dll": {
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.1/Microsoft.Extensions.Http.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging/3.1.3": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Binder": "3.1.3",
+          "Microsoft.Extensions.DependencyInjection": "3.1.3",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Options": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Logging.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Logging.dll": {}
         }
       },
-      "Microsoft.Extensions.Logging.Abstractions/3.1.2": {
+      "Microsoft.Extensions.Logging.Abstractions/3.1.3": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Logging.ApplicationInsights/2.12.1": {
+      "Microsoft.Extensions.Logging.ApplicationInsights/2.13.1": {
         "dependencies": {
-          "Microsoft.ApplicationInsights": "2.12.1",
-          "Microsoft.Extensions.Logging": "3.1.2"
+          "Microsoft.ApplicationInsights": "2.13.1",
+          "Microsoft.Extensions.Logging": "3.1.3"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.ApplicationInsights.dll": {
-            "assemblyVersion": "2.12.1.36699",
-            "fileVersion": "2.12.1.36699"
+            "assemblyVersion": "2.13.1.12554",
+            "fileVersion": "2.13.1.12554"
           }
         },
         "compile": {
@@ -1499,7 +1514,7 @@
       },
       "Microsoft.Extensions.Logging.Configuration/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Logging": "3.1.2",
+          "Microsoft.Extensions.Logging": "3.1.3",
           "Microsoft.Extensions.Options.ConfigurationExtensions": "3.1.2"
         },
         "runtime": {
@@ -1514,8 +1529,8 @@
       },
       "Microsoft.Extensions.Logging.Console/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Logging": "3.1.2",
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Logging": "3.1.3",
           "Microsoft.Extensions.Logging.Configuration": "3.1.2"
         },
         "runtime": {
@@ -1530,7 +1545,7 @@
       },
       "Microsoft.Extensions.Logging.Debug/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Logging": "3.1.2"
+          "Microsoft.Extensions.Logging": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Logging.Debug.dll": {
@@ -1544,7 +1559,7 @@
       },
       "Microsoft.Extensions.Logging.EventLog/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Logging": "3.1.2",
+          "Microsoft.Extensions.Logging": "3.1.3",
           "System.Diagnostics.EventLog": "4.7.0"
         },
         "runtime": {
@@ -1559,7 +1574,7 @@
       },
       "Microsoft.Extensions.Logging.EventSource/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Logging": "3.1.2"
+          "Microsoft.Extensions.Logging": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Logging.EventSource.dll": {
@@ -1572,15 +1587,15 @@
         }
       },
       "Microsoft.Extensions.ObjectPool/2.2.0": {},
-      "Microsoft.Extensions.Options/3.1.2": {
+      "Microsoft.Extensions.Options/3.1.3": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Primitives": "3.1.2"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Primitives": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Options.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
@@ -1589,10 +1604,10 @@
       },
       "Microsoft.Extensions.Options.ConfigurationExtensions/3.1.2": {
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Configuration.Binder": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Options": "3.1.2"
+          "Microsoft.Extensions.Configuration.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Configuration.Binder": "3.1.3",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Options": "3.1.3"
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {
@@ -1619,11 +1634,11 @@
           "lib/netstandard1.3/Microsoft.Extensions.PlatformAbstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Primitives/3.1.2": {
+      "Microsoft.Extensions.Primitives/3.1.3": {
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Extensions.Primitives.dll": {
-            "assemblyVersion": "3.1.2.0",
-            "fileVersion": "3.100.220.6706"
+            "assemblyVersion": "3.1.3.0",
+            "fileVersion": "3.100.320.12802"
           }
         },
         "compile": {
@@ -1632,8 +1647,8 @@
       },
       "Microsoft.Extensions.WebEncoders/1.0.2": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.2",
-          "Microsoft.Extensions.Options": "3.1.2",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.3",
+          "Microsoft.Extensions.Options": "3.1.3",
           "System.Text.Encodings.Web": "4.5.0"
         }
       },
@@ -1737,7 +1752,7 @@
       },
       "Microsoft.Net.Http.Headers/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.2",
+          "Microsoft.Extensions.Primitives": "3.1.3",
           "System.Buffers": "4.5.0"
         }
       },
@@ -1812,6 +1827,7 @@
           "lib/netstandard1.1/Microsoft.Spatial.dll": {}
         }
       },
+      "Microsoft.VisualStudio.Threading.Analyzers/16.5.132": {},
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -1844,14 +1860,14 @@
           }
         }
       },
-      "Namotion.Reflection/1.0.8": {
+      "Namotion.Reflection/1.0.11": {
         "dependencies": {
           "Microsoft.CSharp": "4.3.0"
         },
         "runtime": {
           "lib/netstandard2.0/Namotion.Reflection.dll": {
-            "assemblyVersion": "1.0.8.0",
-            "fileVersion": "1.0.8.0"
+            "assemblyVersion": "1.0.11.0",
+            "fileVersion": "1.0.11.0"
           }
         },
         "compile": {
@@ -1882,99 +1898,99 @@
           "lib/netstandard1.3/Newtonsoft.Json.dll": {}
         }
       },
-      "NJsonSchema/10.1.5": {
+      "NJsonSchema/10.1.11": {
         "dependencies": {
-          "Namotion.Reflection": "1.0.8",
+          "Namotion.Reflection": "1.0.11",
           "Newtonsoft.Json": "10.0.3"
         },
         "runtime": {
           "lib/netstandard2.0/NJsonSchema.dll": {
-            "assemblyVersion": "10.1.5.0",
-            "fileVersion": "10.1.5.0"
+            "assemblyVersion": "10.1.11.0",
+            "fileVersion": "10.1.11.0"
           }
         },
         "compile": {
           "lib/netstandard2.0/NJsonSchema.dll": {}
         }
       },
-      "NSwag.Annotations/13.2.3": {
+      "NSwag.Annotations/13.3.0": {
         "runtime": {
           "lib/netstandard2.0/NSwag.Annotations.dll": {
-            "assemblyVersion": "13.2.3.0",
-            "fileVersion": "13.2.3.0"
+            "assemblyVersion": "13.3.0.0",
+            "fileVersion": "13.3.0.0"
           }
         },
         "compile": {
           "lib/netstandard2.0/NSwag.Annotations.dll": {}
         }
       },
-      "NSwag.AspNetCore/13.2.3": {
+      "NSwag.AspNetCore/13.3.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Core": "1.0.3",
           "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.3",
           "Microsoft.AspNetCore.StaticFiles": "1.0.2",
           "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
           "Microsoft.Extensions.FileProviders.Embedded": "1.0.1",
-          "NSwag.Annotations": "13.2.3",
-          "NSwag.Core": "13.2.3",
-          "NSwag.Generation": "13.2.3",
-          "NSwag.Generation.AspNetCore": "13.2.3",
+          "NSwag.Annotations": "13.3.0",
+          "NSwag.Core": "13.3.0",
+          "NSwag.Generation": "13.3.0",
+          "NSwag.Generation.AspNetCore": "13.3.0",
           "System.IO.FileSystem": "4.3.0",
           "System.Xml.XPath.XDocument": "4.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/NSwag.AspNetCore.dll": {
-            "assemblyVersion": "13.2.3.0",
-            "fileVersion": "13.2.3.0"
+            "assemblyVersion": "13.3.0.0",
+            "fileVersion": "13.3.0.0"
           }
         },
         "compile": {
           "lib/netstandard2.0/NSwag.AspNetCore.dll": {}
         }
       },
-      "NSwag.Core/13.2.3": {
+      "NSwag.Core/13.3.0": {
         "dependencies": {
-          "NJsonSchema": "10.1.5",
+          "NJsonSchema": "10.1.11",
           "Newtonsoft.Json": "10.0.3"
         },
         "runtime": {
           "lib/netstandard2.0/NSwag.Core.dll": {
-            "assemblyVersion": "13.2.3.0",
-            "fileVersion": "13.2.3.0"
+            "assemblyVersion": "13.3.0.0",
+            "fileVersion": "13.3.0.0"
           }
         },
         "compile": {
           "lib/netstandard2.0/NSwag.Core.dll": {}
         }
       },
-      "NSwag.Generation/13.2.3": {
+      "NSwag.Generation/13.3.0": {
         "dependencies": {
-          "NJsonSchema": "10.1.5",
-          "NSwag.Core": "13.2.3",
+          "NJsonSchema": "10.1.11",
+          "NSwag.Core": "13.3.0",
           "Newtonsoft.Json": "10.0.3"
         },
         "runtime": {
           "lib/netstandard2.0/NSwag.Generation.dll": {
-            "assemblyVersion": "13.2.3.0",
-            "fileVersion": "13.2.3.0"
+            "assemblyVersion": "13.3.0.0",
+            "fileVersion": "13.3.0.0"
           }
         },
         "compile": {
           "lib/netstandard2.0/NSwag.Generation.dll": {}
         }
       },
-      "NSwag.Generation.AspNetCore/13.2.3": {
+      "NSwag.Generation.AspNetCore/13.3.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.ApiExplorer": "1.0.3",
           "Microsoft.AspNetCore.Mvc.Core": "1.0.3",
           "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.3",
-          "NJsonSchema": "10.1.5",
-          "NSwag.Generation": "13.2.3"
+          "NJsonSchema": "10.1.11",
+          "NSwag.Generation": "13.3.0"
         },
         "runtime": {
           "lib/netstandard2.0/NSwag.Generation.AspNetCore.dll": {
-            "assemblyVersion": "13.2.3.0",
-            "fileVersion": "13.2.3.0"
+            "assemblyVersion": "13.3.0.0",
+            "fileVersion": "13.3.0.0"
           }
         },
         "compile": {
@@ -1997,20 +2013,19 @@
           "lib/netcoreapp3.0/Pipelines.Sockets.Unofficial.dll": {}
         }
       },
-      "Primavera.Hydrogen.AspNetCore/2.0.1.87": {
+      "Primavera.Hydrogen.AspNetCore/2.0.1.137": {
         "dependencies": {
-          "Microsoft.AspNetCore.Mvc.Versioning": "4.1.1",
           "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer": "4.1.1",
-          "NSwag.AspNetCore": "13.2.3",
-          "Primavera.Hydrogen.Caching.Distributed": "2.0.1.87",
-          "Primavera.Hydrogen.IdentityModel": "2.0.1.87",
-          "Primavera.Hydrogen.Rest": "2.0.1.87",
+          "NSwag.AspNetCore": "13.3.0",
+          "Primavera.Hydrogen.Caching.Distributed": "2.0.1.137",
+          "Primavera.Hydrogen.IdentityModel": "2.0.1.137",
+          "Primavera.Hydrogen.Rest": "2.0.1.137",
           "Westwind.AspNetCore.Markdown": "3.3.6"
         },
         "runtime": {
           "lib/netcoreapp3.1/Primavera.Hydrogen.AspNetCore.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2025,38 +2040,37 @@
           "lib/netcoreapp3.1/Primavera.Hydrogen.AspNetCore.dll": {}
         }
       },
-      "Primavera.Hydrogen.AspNetCore.Authentication/2.0.1.87": {
+      "Primavera.Hydrogen.AspNetCore.Authentication/2.0.1.137": {
         "dependencies": {
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.2",
-          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection": "3.1.2",
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.3",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.1.3",
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netcoreapp3.1/Primavera.Hydrogen.AspNetCore.Authentication.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "compile": {
           "lib/netcoreapp3.1/Primavera.Hydrogen.AspNetCore.Authentication.dll": {}
         }
       },
-      "Primavera.Hydrogen.AspNetCore.Azure/2.0.1.87": {
+      "Primavera.Hydrogen.AspNetCore.Azure/2.0.1.137": {
         "dependencies": {
-          "Microsoft.AspNetCore.DataProtection.AzureStorage": "3.1.2",
-          "Primavera.Hydrogen.AspNetCore": "2.0.1.87",
-          "Primavera.Hydrogen.AspNetCore.Authentication": "2.0.1.87",
-          "Primavera.Hydrogen.Pipelines": "2.0.1.87",
-          "Primavera.Hydrogen.Search.Azure": "2.0.1.87",
-          "Primavera.Hydrogen.Security.Azure": "2.0.1.87",
-          "Primavera.Hydrogen.Storage.Azure": "2.0.1.87",
-          "Primavera.Hydrogen.Telemetry.Azure": "2.0.1.87"
+          "Microsoft.AspNetCore.DataProtection.AzureStorage": "3.1.3",
+          "Primavera.Hydrogen.AspNetCore": "2.0.1.137",
+          "Primavera.Hydrogen.AspNetCore.Authentication": "2.0.1.137",
+          "Primavera.Hydrogen.Pipelines": "2.0.1.137",
+          "Primavera.Hydrogen.Search.Azure": "2.0.1.137",
+          "Primavera.Hydrogen.Security.Azure": "2.0.1.137",
+          "Primavera.Hydrogen.Storage.Azure": "2.0.1.137",
+          "Primavera.Hydrogen.Telemetry.Azure": "2.0.1.137"
         },
         "runtime": {
           "lib/netcoreapp3.1/Primavera.Hydrogen.AspNetCore.Azure.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2071,33 +2085,33 @@
           "lib/netcoreapp3.1/Primavera.Hydrogen.AspNetCore.Azure.dll": {}
         }
       },
-      "Primavera.Hydrogen.Caching.Distributed/2.0.1.87": {
+      "Primavera.Hydrogen.Caching.Distributed/2.0.1.137": {
         "dependencies": {
-          "Microsoft.Extensions.Caching.Memory": "3.1.2",
-          "Microsoft.Extensions.Caching.StackExchangeRedis": "3.1.2",
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Microsoft.Extensions.Caching.Memory": "3.1.3",
+          "Microsoft.Extensions.Caching.StackExchangeRedis": "3.1.3",
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Caching.Distributed.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "compile": {
           "lib/netstandard2.0/Primavera.Hydrogen.Caching.Distributed.dll": {}
         }
       },
-      "Primavera.Hydrogen.Core/2.0.1.111": {
+      "Primavera.Hydrogen.Core/2.0.1.137": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection": "3.1.2",
-          "Microsoft.Extensions.Logging": "3.1.2",
+          "Microsoft.Extensions.DependencyInjection": "3.1.3",
+          "Microsoft.Extensions.Logging": "3.1.3",
           "System.ComponentModel.Annotations": "4.7.0",
           "System.Text.Json": "4.7.1"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Core.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.111"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2112,15 +2126,15 @@
           "lib/netstandard2.0/Primavera.Hydrogen.Core.dll": {}
         }
       },
-      "Primavera.Hydrogen.DesignTime.Configuration/2.0.0.25": {},
-      "Primavera.Hydrogen.EventBus.Abstractions/2.0.1.111": {
+      "Primavera.Hydrogen.DesignTime.Configuration/2.0.0.26": {},
+      "Primavera.Hydrogen.EventBus.Abstractions/2.0.1.137": {
         "dependencies": {
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.EventBus.Abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.111"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2135,15 +2149,15 @@
           "lib/netstandard2.0/Primavera.Hydrogen.EventBus.Abstractions.dll": {}
         }
       },
-      "Primavera.Hydrogen.EventBus.Azure/2.0.1.87": {
+      "Primavera.Hydrogen.EventBus.Azure/2.0.1.137": {
         "dependencies": {
-          "Microsoft.Azure.ServiceBus": "4.1.1",
-          "Primavera.Hydrogen.EventBus.Abstractions": "2.0.1.111"
+          "Microsoft.Azure.ServiceBus": "4.1.2",
+          "Primavera.Hydrogen.EventBus.Abstractions": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.EventBus.Azure.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2158,37 +2172,14 @@
           "lib/netstandard2.0/Primavera.Hydrogen.EventBus.Azure.dll": {}
         }
       },
-      "Primavera.Hydrogen.EventBus.InMemory/2.0.1.111": {
+      "Primavera.Hydrogen.IdentityModel/2.0.1.137": {
         "dependencies": {
-          "Primavera.Hydrogen.EventBus.Abstractions": "2.0.1.111",
-          "System.Threading.Channels": "4.7.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Primavera.Hydrogen.EventBus.InMemory.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.111"
-          }
-        },
-        "resources": {
-          "lib/netstandard2.0/es/Primavera.Hydrogen.EventBus.InMemory.resources.dll": {
-            "locale": "es"
-          },
-          "lib/netstandard2.0/pt/Primavera.Hydrogen.EventBus.InMemory.resources.dll": {
-            "locale": "pt"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.0/Primavera.Hydrogen.EventBus.InMemory.dll": {}
-        }
-      },
-      "Primavera.Hydrogen.IdentityModel/2.0.1.87": {
-        "dependencies": {
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.IdentityModel.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2203,15 +2194,15 @@
           "lib/netstandard2.0/Primavera.Hydrogen.IdentityModel.dll": {}
         }
       },
-      "Primavera.Hydrogen.IdentityModel.Client/2.0.1.87": {
+      "Primavera.Hydrogen.IdentityModel.Client/2.0.1.137": {
         "dependencies": {
-          "Microsoft.Extensions.Caching.Memory": "3.1.2",
-          "Primavera.Hydrogen.IdentityModel": "2.0.1.87"
+          "Microsoft.Extensions.Caching.Memory": "3.1.3",
+          "Primavera.Hydrogen.IdentityModel": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.IdentityModel.Client.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2226,14 +2217,14 @@
           "lib/netstandard2.0/Primavera.Hydrogen.IdentityModel.Client.dll": {}
         }
       },
-      "Primavera.Hydrogen.Pipelines/2.0.1.87": {
+      "Primavera.Hydrogen.Pipelines/2.0.1.137": {
         "dependencies": {
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Pipelines.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2248,14 +2239,14 @@
           "lib/netstandard2.0/Primavera.Hydrogen.Pipelines.dll": {}
         }
       },
-      "Primavera.Hydrogen.Rest/2.0.1.87": {
+      "Primavera.Hydrogen.Rest/2.0.1.137": {
         "dependencies": {
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Rest.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2270,29 +2261,30 @@
           "lib/netstandard2.0/Primavera.Hydrogen.Rest.dll": {}
         }
       },
-      "Primavera.Hydrogen.Search.Abstractions/2.0.1.87": {
+      "Primavera.Hydrogen.Search.Abstractions/2.0.1.137": {
         "dependencies": {
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Search.Abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "compile": {
           "lib/netstandard2.0/Primavera.Hydrogen.Search.Abstractions.dll": {}
         }
       },
-      "Primavera.Hydrogen.Search.Azure/2.0.1.87": {
+      "Primavera.Hydrogen.Search.Azure/2.0.1.137": {
         "dependencies": {
           "Microsoft.Azure.Search": "5.0.3",
-          "Primavera.Hydrogen.Search.Abstractions": "2.0.1.87"
+          "Microsoft.Extensions.Http": "3.1.3",
+          "Primavera.Hydrogen.Search.Abstractions": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Search.Azure.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2307,31 +2299,32 @@
           "lib/netstandard2.0/Primavera.Hydrogen.Search.Azure.dll": {}
         }
       },
-      "Primavera.Hydrogen.Security.Abstractions/2.0.1.87": {
+      "Primavera.Hydrogen.Security.Abstractions/2.0.1.137": {
         "dependencies": {
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Security.Abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "compile": {
           "lib/netstandard2.0/Primavera.Hydrogen.Security.Abstractions.dll": {}
         }
       },
-      "Primavera.Hydrogen.Security.Azure/2.0.1.87": {
+      "Primavera.Hydrogen.Security.Azure/2.0.1.137": {
         "dependencies": {
           "Microsoft.Azure.KeyVault": "3.0.5",
           "Microsoft.Azure.Services.AppAuthentication": "1.4.0",
-          "Primavera.Hydrogen.IdentityModel.Client": "2.0.1.87",
-          "Primavera.Hydrogen.Security.Abstractions": "2.0.1.87"
+          "Microsoft.Extensions.Http": "3.1.3",
+          "Primavera.Hydrogen.IdentityModel.Client": "2.0.1.137",
+          "Primavera.Hydrogen.Security.Abstractions": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Security.Azure.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2346,30 +2339,31 @@
           "lib/netstandard2.0/Primavera.Hydrogen.Security.Azure.dll": {}
         }
       },
-      "Primavera.Hydrogen.Storage.Abstractions/2.0.1.87": {
+      "Primavera.Hydrogen.Storage.Abstractions/2.0.1.137": {
         "dependencies": {
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Storage.Abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "compile": {
           "lib/netstandard2.0/Primavera.Hydrogen.Storage.Abstractions.dll": {}
         }
       },
-      "Primavera.Hydrogen.Storage.Azure/2.0.1.87": {
+      "Primavera.Hydrogen.Storage.Azure/2.0.1.137": {
         "dependencies": {
           "Microsoft.Azure.Cosmos.Table": "1.0.6",
           "Microsoft.Azure.Storage.Blob": "11.1.3",
-          "Primavera.Hydrogen.Storage.Abstractions": "2.0.1.87"
+          "Microsoft.Extensions.Http": "3.1.3",
+          "Primavera.Hydrogen.Storage.Abstractions": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Storage.Azure.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "resources": {
@@ -2384,29 +2378,29 @@
           "lib/netstandard2.0/Primavera.Hydrogen.Storage.Azure.dll": {}
         }
       },
-      "Primavera.Hydrogen.Telemetry.Abstractions/2.0.1.87": {
+      "Primavera.Hydrogen.Telemetry.Abstractions/2.0.1.137": {
         "dependencies": {
-          "Primavera.Hydrogen.Core": "2.0.1.111"
+          "Primavera.Hydrogen.Core": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Telemetry.Abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "compile": {
           "lib/netstandard2.0/Primavera.Hydrogen.Telemetry.Abstractions.dll": {}
         }
       },
-      "Primavera.Hydrogen.Telemetry.Azure/2.0.1.87": {
+      "Primavera.Hydrogen.Telemetry.Azure/2.0.1.137": {
         "dependencies": {
-          "Microsoft.ApplicationInsights.AspNetCore": "2.12.1",
-          "Primavera.Hydrogen.Telemetry.Abstractions": "2.0.1.87"
+          "Microsoft.ApplicationInsights.AspNetCore": "2.13.1",
+          "Primavera.Hydrogen.Telemetry.Abstractions": "2.0.1.137"
         },
         "runtime": {
           "lib/netstandard2.0/Primavera.Hydrogen.Telemetry.Azure.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.1.87"
+            "fileVersion": "2.0.1.137"
           }
         },
         "compile": {
@@ -2496,7 +2490,7 @@
           "Pipelines.Sockets.Unofficial": "2.0.17",
           "System.Diagnostics.PerformanceCounter": "4.5.0",
           "System.IO.Pipelines": "4.5.1",
-          "System.Threading.Channels": "4.7.0"
+          "System.Threading.Channels": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/StackExchange.Redis.dll": {
@@ -3659,11 +3653,7 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Threading.Channels/4.7.0": {
-        "compile": {
-          "lib/netcoreapp3.0/System.Threading.Channels.dll": {}
-        }
-      },
+      "System.Threading.Channels/4.5.0": {},
       "System.Threading.Overlapped/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -3822,8 +3812,9 @@
       "Primavera.Lithium.Faturacao.Models/1.0.0": {
         "dependencies": {
           "Microsoft.CodeAnalysis.FxCopAnalyzers": "2.9.8",
-          "Primavera.Hydrogen.Core": "2.0.1.111",
-          "Primavera.Hydrogen.Rest": "2.0.1.87",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.5.132",
+          "Primavera.Hydrogen.Core": "2.0.1.137",
+          "Primavera.Hydrogen.Rest": "2.0.1.137",
           "StyleCop.Analyzers": "1.1.118"
         },
         "runtime": {
@@ -3840,11 +3831,10 @@
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Routing": "2.2.2",
           "Microsoft.Extensions.Hosting": "3.1.2",
-          "Primavera.Hydrogen.AspNetCore": "2.0.1.87",
-          "Primavera.Hydrogen.EventBus.Azure": "2.0.1.87",
-          "Primavera.Hydrogen.EventBus.InMemory": "2.0.1.111",
-          "Primavera.Hydrogen.Rest": "2.0.1.87",
-          "Primavera.Hydrogen.Storage.Azure": "2.0.1.87"
+          "Primavera.Hydrogen.AspNetCore": "2.0.1.137",
+          "Primavera.Hydrogen.EventBus.Azure": "2.0.1.137",
+          "Primavera.Hydrogen.Rest": "2.0.1.137",
+          "Primavera.Hydrogen.Storage.Azure": "2.0.1.137"
         },
         "runtime": {
           "Primavera.Lithium.Webhooks.dll": {}
@@ -4342,12 +4332,6 @@
       "Microsoft.Extensions.FileProviders.Embedded.Reference/3.1.0.0": {
         "compile": {
           "Microsoft.Extensions.FileProviders.Embedded.dll": {}
-        },
-        "compileOnly": true
-      },
-      "Microsoft.Extensions.Http/3.1.0.0": {
-        "compile": {
-          "Microsoft.Extensions.Http.dll": {}
         },
         "compileOnly": true
       },
@@ -5388,68 +5372,68 @@
       "path": "mediatr.extensions.microsoft.dependencyinjection/8.0.0",
       "hashPath": "mediatr.extensions.microsoft.dependencyinjection.8.0.0.nupkg.sha512"
     },
-    "Microsoft.ApplicationInsights/2.12.1": {
+    "Microsoft.ApplicationInsights/2.13.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-PJCxZzLzsPNA4X9O1HIqT2SYyJtNkurka1mm7gQhtl+PXACmCzKAuj6PZhBPLelQ3wqM1jFzL+qA5AcuZ+zH8Q==",
-      "path": "microsoft.applicationinsights/2.12.1",
-      "hashPath": "microsoft.applicationinsights.2.12.1.nupkg.sha512"
+      "sha512": "sha512-BQhLmYR06Z8TVCdxnr8WOhhovJHtqYRNeB5gePBdQ4uDOE8D4IK9HW9i6a3llELz1QHv4HtFpku6dpXMGnO22g==",
+      "path": "microsoft.applicationinsights/2.13.1",
+      "hashPath": "microsoft.applicationinsights.2.13.1.nupkg.sha512"
     },
-    "Microsoft.ApplicationInsights.AspNetCore/2.12.1": {
+    "Microsoft.ApplicationInsights.AspNetCore/2.13.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RK+PD82naKi2rgvCVf+SfAHMTSBxesC5IctIxoPxYLgNlmVwISG4K4VQH8pje2OUyjnKmx2jyoyFm/v2FPHXZQ==",
-      "path": "microsoft.applicationinsights.aspnetcore/2.12.1",
-      "hashPath": "microsoft.applicationinsights.aspnetcore.2.12.1.nupkg.sha512"
+      "sha512": "sha512-9Thxr3UqOpjQsZJz5xvz6pvcf8XRD6sTydvgLtyzZVMi3z1EFNjf/E9xHRqC79Ogoeab7Lyt1a8NjeSGh/csbQ==",
+      "path": "microsoft.applicationinsights.aspnetcore/2.13.1",
+      "hashPath": "microsoft.applicationinsights.aspnetcore.2.13.1.nupkg.sha512"
     },
-    "Microsoft.ApplicationInsights.DependencyCollector/2.12.1": {
+    "Microsoft.ApplicationInsights.DependencyCollector/2.13.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-U2XxIdwJ+ZSUOk/uVBUOoDXLUw5pg12wkA+KzH4j2YUcKIH5Mf26kGWlvrLHkC4r5/KzVkVGuMgXcVbBcavomQ==",
-      "path": "microsoft.applicationinsights.dependencycollector/2.12.1",
-      "hashPath": "microsoft.applicationinsights.dependencycollector.2.12.1.nupkg.sha512"
+      "sha512": "sha512-9aJDHexsYh9AoxCh4B+p9vFFYvJ7ETO37848v6Bhk35sLfq0gK2m0I3mNL3WMOFTFQ1X+nKBbx5AUVaa3u3t1g==",
+      "path": "microsoft.applicationinsights.dependencycollector/2.13.1",
+      "hashPath": "microsoft.applicationinsights.dependencycollector.2.13.1.nupkg.sha512"
     },
-    "Microsoft.ApplicationInsights.EventCounterCollector/2.12.1": {
+    "Microsoft.ApplicationInsights.EventCounterCollector/2.13.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IYzun/D/5XlBCUEX45LtYkgxRPE6c7VDRDsEaAeJMNiIbeoibfEsgB2qDaDRBTK4uhJTn8QCoE/tBj2iuvxRkg==",
-      "path": "microsoft.applicationinsights.eventcountercollector/2.12.1",
-      "hashPath": "microsoft.applicationinsights.eventcountercollector.2.12.1.nupkg.sha512"
+      "sha512": "sha512-vNWMkRb6RbC677B2sQ0IeHyvPiMDdLoieOEQfa43ZPfQ6oStiAAhvHr/i3GjyhVUpWQoQfUieRmrq2aLwcVBqg==",
+      "path": "microsoft.applicationinsights.eventcountercollector/2.13.1",
+      "hashPath": "microsoft.applicationinsights.eventcountercollector.2.13.1.nupkg.sha512"
     },
-    "Microsoft.ApplicationInsights.PerfCounterCollector/2.12.1": {
+    "Microsoft.ApplicationInsights.PerfCounterCollector/2.13.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-APQKuyJ/zB8zFffYwV35ZlJOnpy8fGBwwi5uvA7KNZ54FBNLdGkANsJ1O4Qel7X6bwjyiyKBT3khLdloFh348Q==",
-      "path": "microsoft.applicationinsights.perfcountercollector/2.12.1",
-      "hashPath": "microsoft.applicationinsights.perfcountercollector.2.12.1.nupkg.sha512"
+      "sha512": "sha512-ktVKZZOg7+Hq+qaSopjdZfAdSSquGd7+BiLdhTru/BsvK6tTtGHNH0ooRSnVBsRySOFE+cpiEvgLzniWPPceKQ==",
+      "path": "microsoft.applicationinsights.perfcountercollector/2.13.1",
+      "hashPath": "microsoft.applicationinsights.perfcountercollector.2.13.1.nupkg.sha512"
     },
-    "Microsoft.ApplicationInsights.WindowsServer/2.12.1": {
+    "Microsoft.ApplicationInsights.WindowsServer/2.13.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FJja9HiD948SzEngQpyvIS1kiiNfcGElTy9Qvg2wmfppc4aCYgfLlRT0cmWuIo7ThAK/S2rqOMpMP6TEAG7oWw==",
-      "path": "microsoft.applicationinsights.windowsserver/2.12.1",
-      "hashPath": "microsoft.applicationinsights.windowsserver.2.12.1.nupkg.sha512"
+      "sha512": "sha512-Gw4k/LUg6qiYmTIH092GNCEgIqvYG+uVZjuj9Xo9T0Km+VBHBLcVBMNWoYMdnsXZWngCC0RelThekW9l0f75YA==",
+      "path": "microsoft.applicationinsights.windowsserver/2.13.1",
+      "hashPath": "microsoft.applicationinsights.windowsserver.2.13.1.nupkg.sha512"
     },
-    "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel/2.12.1": {
+    "Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel/2.13.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-csQejmWR9d6Mxi49RTqBaxCDApil6WMcOTapOXjkqXM09f8Npu6M0mlkA/FggrojrGHnZjneMPjskOPFeUHInw==",
-      "path": "microsoft.applicationinsights.windowsserver.telemetrychannel/2.12.1",
-      "hashPath": "microsoft.applicationinsights.windowsserver.telemetrychannel.2.12.1.nupkg.sha512"
+      "sha512": "sha512-Cy/Ik+XspcPAzTLH6xWL8A64/50g8YZMIB8fgkJAS7gSH8yXbwjx1HHdRQ7DwZ3w918wRzMkdWseXMxrQ2xb1A==",
+      "path": "microsoft.applicationinsights.windowsserver.telemetrychannel/2.13.1",
+      "hashPath": "microsoft.applicationinsights.windowsserver.telemetrychannel.2.13.1.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.2": {
+    "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hBgNbsvTgk8svtlCWkKXb1z8c0M29vjDKNJFAifoyZiIUYuv/Rn/hqb7gg8QuLW15NeG9r1PlLmoArdSjTHHZA==",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/3.1.2",
-      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.3.1.2.nupkg.sha512"
+      "sha512": "sha512-F19wwKzyE1K/KF30XZq2STKNJNxBrTKa1wLxTy5qdgXh7akzgLreMdC3j7rPzIQVGHlPCMeI30fpmD1k5zHkCQ==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/3.1.3",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.3.1.3.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.1.2": {
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-pNfzXFQkLCEiaZJ2Zj6kYagsShEu66pKi0ecNot8j05F8wfsgHFzqFSt0bWF3Rf2z8GbBOrZzqczsN++aW1m5Q==",
-      "path": "microsoft.aspnetcore.authentication.openidconnect/3.1.2",
-      "hashPath": "microsoft.aspnetcore.authentication.openidconnect.3.1.2.nupkg.sha512"
+      "sha512": "sha512-yGUkXWlKiSoiFB9QUQcYvk+UFz1tLSFPUV7EfQ5zYpEDxXmUcUVHn2YZklfarvORawfZ4rwVrMsx2MiT4gXtUA==",
+      "path": "microsoft.aspnetcore.authentication.openidconnect/3.1.3",
+      "hashPath": "microsoft.aspnetcore.authentication.openidconnect.3.1.3.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authorization/1.0.2": {
       "type": "package",
@@ -5458,33 +5442,33 @@
       "path": "microsoft.aspnetcore.authorization/1.0.2",
       "hashPath": "microsoft.aspnetcore.authorization.1.0.2.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Cryptography.Internal/3.1.2": {
+    "Microsoft.AspNetCore.Cryptography.Internal/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Yi69aUt2rZsMor/eIEy7IgDoh/bZ6Lx0ZD3p9FZeU2zw+LIjERghrA8fOJUfpacJxBlWqcf9YkIzD85SSJ0u7Q==",
-      "path": "microsoft.aspnetcore.cryptography.internal/3.1.2",
-      "hashPath": "microsoft.aspnetcore.cryptography.internal.3.1.2.nupkg.sha512"
+      "sha512": "sha512-DIF+4a32iHJIri2T2bnGXzjMramSs6rxijIAInYpdLoBqKNUHkUnOkklRVFae20pnuFi7l8VwEe/gPNt+xq7EQ==",
+      "path": "microsoft.aspnetcore.cryptography.internal/3.1.3",
+      "hashPath": "microsoft.aspnetcore.cryptography.internal.3.1.3.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.DataProtection/3.1.2": {
+    "Microsoft.AspNetCore.DataProtection/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BTyIpoF0jBWLec9klePAlCYMWTQ9gHkp0xyzbSyUz45rbiUjB5AHFCW0mboNUbG4NdizVMjqy7BOL41pRozIfQ==",
-      "path": "microsoft.aspnetcore.dataprotection/3.1.2",
-      "hashPath": "microsoft.aspnetcore.dataprotection.3.1.2.nupkg.sha512"
+      "sha512": "sha512-vnE22RTI13xoIqAUgrB2Sm2Fr2I3FH77uQPcD866pOO7iwcsp9qNZw/+i6M28LRJY6l3AQEMSeJON2XP6viDBw==",
+      "path": "microsoft.aspnetcore.dataprotection/3.1.3",
+      "hashPath": "microsoft.aspnetcore.dataprotection.3.1.3.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.DataProtection.Abstractions/3.1.2": {
+    "Microsoft.AspNetCore.DataProtection.Abstractions/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-TFFK5jAvnnUJBy5q0z6hK4fu0ZxtoziDxKlEfnEOs0SXJmEE4i05+YaYXzibVvg5HEUJKTlB8i4t8wAOWagBBg==",
-      "path": "microsoft.aspnetcore.dataprotection.abstractions/3.1.2",
-      "hashPath": "microsoft.aspnetcore.dataprotection.abstractions.3.1.2.nupkg.sha512"
+      "sha512": "sha512-hDSN7gqAeMRCS2FzmMZMB8JCkuOPs4e6He8+Br6BA1gcdoShc6U9Ke4pKrqCQ1/c2T8CmrdA91NKUGk5ce98Zg==",
+      "path": "microsoft.aspnetcore.dataprotection.abstractions/3.1.3",
+      "hashPath": "microsoft.aspnetcore.dataprotection.abstractions.3.1.3.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.DataProtection.AzureStorage/3.1.2": {
+    "Microsoft.AspNetCore.DataProtection.AzureStorage/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WBwlCln6OCe9xh+qw0I7umLz9cGuT6nPb+8ueHIW1OsS3hGt4EDABRun9y216Bk7fSMK9Hp85lWylAqxrmqLqg==",
-      "path": "microsoft.aspnetcore.dataprotection.azurestorage/3.1.2",
-      "hashPath": "microsoft.aspnetcore.dataprotection.azurestorage.3.1.2.nupkg.sha512"
+      "sha512": "sha512-kHdUGzTTXEaKYDFP4kI59+jVpisDjsxdPka7mYbsvutOe7ruwzxyt4y5IkWddvwHQ67yUtIW6Xhtk+CTiYPpvg==",
+      "path": "microsoft.aspnetcore.dataprotection.azurestorage/3.1.3",
+      "hashPath": "microsoft.aspnetcore.dataprotection.azurestorage.3.1.3.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Hosting/1.0.2": {
       "type": "package",
@@ -5682,12 +5666,12 @@
       "path": "microsoft.azure.search.service/5.0.3",
       "hashPath": "microsoft.azure.search.service.5.0.3.nupkg.sha512"
     },
-    "Microsoft.Azure.ServiceBus/4.1.1": {
+    "Microsoft.Azure.ServiceBus/4.1.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-s5+/u/KBXHgEE0QWZ4aIXqp0USSyCleua2tEl804qsJYO6sjmDuTxhFODm2urfdQ+jeqQ3BUnuch0uTiW/XosA==",
-      "path": "microsoft.azure.servicebus/4.1.1",
-      "hashPath": "microsoft.azure.servicebus.4.1.1.nupkg.sha512"
+      "sha512": "sha512-oagGhZAILSx9x+k/6NEnTeR5nqilscaKgpcNUJgBte99S/zIrekqA/6LpJ1h1Le5aKQPMDmcfK37Rrfx5Nh1Cg==",
+      "path": "microsoft.azure.servicebus/4.1.2",
+      "hashPath": "microsoft.azure.servicebus.4.1.2.nupkg.sha512"
     },
     "Microsoft.Azure.Services.AppAuthentication/1.4.0": {
       "type": "package",
@@ -5766,47 +5750,47 @@
       "path": "microsoft.extensions.apidescription.server/3.0.0",
       "hashPath": "microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Caching.Abstractions/3.1.2": {
+    "Microsoft.Extensions.Caching.Abstractions/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-UfMC7L+8ha05PUAfVpmMS0kb7C1BoOrWxN70706D50qWohXLYgkUsu22oS7zkd9amCPTCmhRm2z/LisN8SESgg==",
-      "path": "microsoft.extensions.caching.abstractions/3.1.2",
-      "hashPath": "microsoft.extensions.caching.abstractions.3.1.2.nupkg.sha512"
+      "sha512": "sha512-jWyuPd4HqWT0rEjoCnG/7OB/KcYbIBa0z7TS6eWytTwrbjT2/pnp+LUYUZAqc9ppSZFf2u2gFYQ7RFS3UU+vEw==",
+      "path": "microsoft.extensions.caching.abstractions/3.1.3",
+      "hashPath": "microsoft.extensions.caching.abstractions.3.1.3.nupkg.sha512"
     },
-    "Microsoft.Extensions.Caching.Memory/3.1.2": {
+    "Microsoft.Extensions.Caching.Memory/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4O/YgpVhK/ZIYteGy9LyJv+YRcTxLOe7AnMUHBj1m1U40Er1/dbMymFTH1HrRS/fkVB90un24JhG+c1qSWjjjA==",
-      "path": "microsoft.extensions.caching.memory/3.1.2",
-      "hashPath": "microsoft.extensions.caching.memory.3.1.2.nupkg.sha512"
+      "sha512": "sha512-Ie7mWAuyd6BxnUYswc84Bf8iMHknNcP2ZV0me/8ZCsaIwcNb+NUHJOZwwaaAz6HJM6+K0PLilPePTCVkqY8XGw==",
+      "path": "microsoft.extensions.caching.memory/3.1.3",
+      "hashPath": "microsoft.extensions.caching.memory.3.1.3.nupkg.sha512"
     },
-    "Microsoft.Extensions.Caching.StackExchangeRedis/3.1.2": {
+    "Microsoft.Extensions.Caching.StackExchangeRedis/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Lw6HyH0dL0P/dxUJIWmKbUe3eZxDC6rtRx+pHLZ+wQJFh8SFJtS71Cex7RvJGcdTvINBUlr05w/1Br6yzq5Vdw==",
-      "path": "microsoft.extensions.caching.stackexchangeredis/3.1.2",
-      "hashPath": "microsoft.extensions.caching.stackexchangeredis.3.1.2.nupkg.sha512"
+      "sha512": "sha512-n69AHT1yRI4Hzdc7zsSxg6IgxH2PI7VLgjLaWTG8AS+TNXLvIXzOvgoXEFrygst1MtdneCszT52kQwva6tvt/g==",
+      "path": "microsoft.extensions.caching.stackexchangeredis/3.1.3",
+      "hashPath": "microsoft.extensions.caching.stackexchangeredis.3.1.3.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration/3.1.2": {
+    "Microsoft.Extensions.Configuration/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BxwRSBab309SYMCDCFyB6eSc7FnX5m9kOJQHw2IQIyb5PEtpfslhscTw63Gwhl3dPnaM1VGFXIyI0BVgpiLgOw==",
-      "path": "microsoft.extensions.configuration/3.1.2",
-      "hashPath": "microsoft.extensions.configuration.3.1.2.nupkg.sha512"
+      "sha512": "sha512-nTr4JgTSJScDBD3lahIh1jUBH8A43oG1cqID1qLoHSZhtegslpIyTYxmnehtUKi6xdY5j9R0oWeeGEP+JTcmAg==",
+      "path": "microsoft.extensions.configuration/3.1.3",
+      "hashPath": "microsoft.extensions.configuration.3.1.3.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration.Abstractions/3.1.2": {
+    "Microsoft.Extensions.Configuration.Abstractions/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-xmfdVdazTslWJ8od7uNS9QSPqn1wBC84RLprPrFS20EdAqd3lV0g0IZAitYbCiiICpjktnhzbUb85aLHNZ3RQw==",
-      "path": "microsoft.extensions.configuration.abstractions/3.1.2",
-      "hashPath": "microsoft.extensions.configuration.abstractions.3.1.2.nupkg.sha512"
+      "sha512": "sha512-d3vpIJdw+hRtkW1WoNTXhCczakVVId30Tj58li5GbJxz6MVGi8gy4+7JdLBb/wuHFd4+25cZe+Z0WPi207rBbQ==",
+      "path": "microsoft.extensions.configuration.abstractions/3.1.3",
+      "hashPath": "microsoft.extensions.configuration.abstractions.3.1.3.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration.Binder/3.1.2": {
+    "Microsoft.Extensions.Configuration.Binder/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IWrc9/voGki2pc5g8bRXIqs+P50tXOjNf47qgFKSu/pL50InRuXxh/nj5AG9Po8YRpvT/bYIUk3XQqHH7yUg5w==",
-      "path": "microsoft.extensions.configuration.binder/3.1.2",
-      "hashPath": "microsoft.extensions.configuration.binder.3.1.2.nupkg.sha512"
+      "sha512": "sha512-GouLlU6JOffNNudJpC+eGtGMe9o5ds2oH9dsJUEH1QS13eLl60eNX9rHicaE40c252e7Aixn3sS7yregDfpQ8g==",
+      "path": "microsoft.extensions.configuration.binder/3.1.3",
+      "hashPath": "microsoft.extensions.configuration.binder.3.1.3.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration.CommandLine/3.1.2": {
       "type": "package",
@@ -5843,19 +5827,19 @@
       "path": "microsoft.extensions.configuration.usersecrets/3.1.2",
       "hashPath": "microsoft.extensions.configuration.usersecrets.3.1.2.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyInjection/3.1.2": {
+    "Microsoft.Extensions.DependencyInjection/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-e+F6/wjQPOFHB/sGWTAqC8FX/C6+JZWWLpryXTAQYIS3tr+17lByADdP9Y6RtxfJ4kW/IPrU6RuxTNZNdAQz1A==",
-      "path": "microsoft.extensions.dependencyinjection/3.1.2",
-      "hashPath": "microsoft.extensions.dependencyinjection.3.1.2.nupkg.sha512"
+      "sha512": "sha512-H/d/jt4Pdp2iYx28shLkxfgQpk9S7cCCTEjtS/61PbZcFAT/mc4cemmOlBdED7+CqmEAIDg8X4Fo0KtADaNizg==",
+      "path": "microsoft.extensions.dependencyinjection/3.1.3",
+      "hashPath": "microsoft.extensions.dependencyinjection.3.1.3.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.2": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/CZzCSCIm/3FFoXHfUpsfov/Elo268dcvlz/MMINT0vPgphqg2pAgdEn/EjCDyoAT3NAmsRmjfGwBumC1uYJtA==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/3.1.2",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.3.1.2.nupkg.sha512"
+      "sha512": "sha512-woeS5XeBChU76EmtFCwGHKgBfsYIn76u3myDq4zNY2ZrcwzBMNEViK2FRgXDgF11PBNbGdKCXsWFFZDtqPW0nQ==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/3.1.3",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.3.1.3.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyModel/1.0.0": {
       "type": "package",
@@ -5871,12 +5855,12 @@
       "path": "microsoft.extensions.diagnosticadapter/1.1.0",
       "hashPath": "microsoft.extensions.diagnosticadapter.1.1.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.FileProviders.Abstractions/3.1.2": {
+    "Microsoft.Extensions.FileProviders.Abstractions/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-O9+N6KuA7kiPIYpdgRFFveKRyI3X2hLgdqdEwQki0MOA5XtCVOkxz8O+6CK1+b1a7Y1TildGfx3i+h/652vyHg==",
-      "path": "microsoft.extensions.fileproviders.abstractions/3.1.2",
-      "hashPath": "microsoft.extensions.fileproviders.abstractions.3.1.2.nupkg.sha512"
+      "sha512": "sha512-vr1V6dj8NONgaTA/EdlwtJOaNXRBf6f/din15pkWM/RfTbdoqrr0mKcTRx4MD/AGwxgM0+G2rUT2pDQGa2tNtA==",
+      "path": "microsoft.extensions.fileproviders.abstractions/3.1.3",
+      "hashPath": "microsoft.extensions.fileproviders.abstractions.3.1.3.nupkg.sha512"
     },
     "Microsoft.Extensions.FileProviders.Embedded/1.0.1": {
       "type": "package",
@@ -5906,33 +5890,40 @@
       "path": "microsoft.extensions.hosting/3.1.2",
       "hashPath": "microsoft.extensions.hosting.3.1.2.nupkg.sha512"
     },
-    "Microsoft.Extensions.Hosting.Abstractions/3.1.2": {
+    "Microsoft.Extensions.Hosting.Abstractions/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-oafEsTwy1ed4zycyjzgFet58IW3I/aC1uUJTWpFAs3mjkQzW52LqVlE/9AAW2IVk4q8EPw+GPsiFB17qYksNXQ==",
-      "path": "microsoft.extensions.hosting.abstractions/3.1.2",
-      "hashPath": "microsoft.extensions.hosting.abstractions.3.1.2.nupkg.sha512"
+      "sha512": "sha512-QBVyz//TkXEGPIEhL57LyA9dnwSLRlJh5OtEqoUZUqU2INcGjPxcP99mPjngSLjIcN2IfEEfkgOwjBQDlIo4Cg==",
+      "path": "microsoft.extensions.hosting.abstractions/3.1.3",
+      "hashPath": "microsoft.extensions.hosting.abstractions.3.1.3.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging/3.1.2": {
+    "Microsoft.Extensions.Http/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AIIRgKamzEqJNLZsHd37VogFX9YpxgrBmf/b3dznD7S0qjxWQnAs498ulLV1n6AKJ8XVjTCBNzsvQiSwCa7dIw==",
-      "path": "microsoft.extensions.logging/3.1.2",
-      "hashPath": "microsoft.extensions.logging.3.1.2.nupkg.sha512"
+      "sha512": "sha512-QV5ODk9CFm+//AsZQSm8sH33Li1a19PTy44Ln+FCd7YnNRcxxXgZGNCdQtJpKFBpaLjfdfaGUfqWWq3LID1GdA==",
+      "path": "microsoft.extensions.http/3.1.3",
+      "hashPath": "microsoft.extensions.http.3.1.3.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging.Abstractions/3.1.2": {
+    "Microsoft.Extensions.Logging/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cIXPw7VVX3fON4uuHwJFmCi0qDl8uY75xZMKB2oM3In0ZDEB1Ee+p9Ti1DSw92AwRtJ2Zh+QG1joTBednJMzvA==",
-      "path": "microsoft.extensions.logging.abstractions/3.1.2",
-      "hashPath": "microsoft.extensions.logging.abstractions.3.1.2.nupkg.sha512"
+      "sha512": "sha512-mAuOMhgB73dgVYeJzrksGU6BUBr7vIruFJyxssYK1nmDS+ude0kShILrXPq2iGHOvYNacczW4VSa6zcssUh4iQ==",
+      "path": "microsoft.extensions.logging/3.1.3",
+      "hashPath": "microsoft.extensions.logging.3.1.3.nupkg.sha512"
     },
-    "Microsoft.Extensions.Logging.ApplicationInsights/2.12.1": {
+    "Microsoft.Extensions.Logging.Abstractions/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-81O5BhS/sKJtVn63+u3FjH1TpHGbc2QKTZD0pvUE8ZoJADQUgbgSocbjzYSpG0Kgg3kcOEWnsQY+EfO8dj8WoA==",
-      "path": "microsoft.extensions.logging.applicationinsights/2.12.1",
-      "hashPath": "microsoft.extensions.logging.applicationinsights.2.12.1.nupkg.sha512"
+      "sha512": "sha512-j6r0E+OVinD4s13CIZASYJLLLApStb1yh5Vig7moB2FE1UsMRj4TYJ/xioDjreVA0dyOFpbWny1/n2iSJMbmNg==",
+      "path": "microsoft.extensions.logging.abstractions/3.1.3",
+      "hashPath": "microsoft.extensions.logging.abstractions.3.1.3.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging.ApplicationInsights/2.13.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FNxIcYqlWoAXURJYwzP33wYbSYqpwsDdCH2FMUjkHMi2nZMr1Rb9IjkDKgSm3fNuCNnzMg3j+HD6uuo0egUduQ==",
+      "path": "microsoft.extensions.logging.applicationinsights/2.13.1",
+      "hashPath": "microsoft.extensions.logging.applicationinsights.2.13.1.nupkg.sha512"
     },
     "Microsoft.Extensions.Logging.Configuration/3.1.2": {
       "type": "package",
@@ -5976,12 +5967,12 @@
       "path": "microsoft.extensions.objectpool/2.2.0",
       "hashPath": "microsoft.extensions.objectpool.2.2.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Options/3.1.2": {
+    "Microsoft.Extensions.Options/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6F4anwt9yMlnQckac2etjrasRFyqZNIp46p+i9qVps0DXNsOLZIKRkqq4AY4FlxXxKeGkEJC7M77RQEkvd3p8Q==",
-      "path": "microsoft.extensions.options/3.1.2",
-      "hashPath": "microsoft.extensions.options.3.1.2.nupkg.sha512"
+      "sha512": "sha512-RyOSOg/kHW3AXojWGSdOs3BXJJnE9Sc6RVvP4LhnY5oaC2Da4k8CWfIw7I+QThxV8HTCPjzmON9c+QO+JZggNg==",
+      "path": "microsoft.extensions.options/3.1.3",
+      "hashPath": "microsoft.extensions.options.3.1.3.nupkg.sha512"
     },
     "Microsoft.Extensions.Options.ConfigurationExtensions/3.1.2": {
       "type": "package",
@@ -5997,12 +5988,12 @@
       "path": "microsoft.extensions.platformabstractions/1.1.0",
       "hashPath": "microsoft.extensions.platformabstractions.1.1.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Primitives/3.1.2": {
+    "Microsoft.Extensions.Primitives/3.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WGtoFWY9yc9HGMG6ObDNQPz9dBP+xz/GqFe2dKjdE/cSdXFEKxCFTyYCzL/e8kxVkc/Bq9qjOsXRWydvn0g9Uw==",
-      "path": "microsoft.extensions.primitives/3.1.2",
-      "hashPath": "microsoft.extensions.primitives.3.1.2.nupkg.sha512"
+      "sha512": "sha512-5gK6qeq9CBCHBfB3Tim3jCJTLafT9FXFBAZZq39rC8adz8mxcjVAuQSw3jGgHqoRk0jwtXKFhXJUVur8vfeuFg==",
+      "path": "microsoft.extensions.primitives/3.1.3",
+      "hashPath": "microsoft.extensions.primitives.3.1.3.nupkg.sha512"
     },
     "Microsoft.Extensions.WebEncoders/1.0.2": {
       "type": "package",
@@ -6123,6 +6114,13 @@
       "path": "microsoft.spatial/7.5.0",
       "hashPath": "microsoft.spatial.7.5.0.nupkg.sha512"
     },
+    "Microsoft.VisualStudio.Threading.Analyzers/16.5.132": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-o4HU49jv6c5xrOUoPickuxwrF3Lk+9F0TopwEJr/40dezjo0vNDU5/ETJK2jRJyD/c1ROVn7Q3qKLjaiEs6fyA==",
+      "path": "microsoft.visualstudio.threading.analyzers/16.5.132",
+      "hashPath": "microsoft.visualstudio.threading.analyzers.16.5.132.nupkg.sha512"
+    },
     "Microsoft.Win32.Primitives/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -6144,12 +6142,12 @@
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
     },
-    "Namotion.Reflection/1.0.8": {
+    "Namotion.Reflection/1.0.11": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-v1SDuCEsif5xM1dQnTGQ58/YTpvFQe3TL/I1FH7UdYVlajYPZ3J0zzkMHEYISCpebG+Q4b9cqavFsDqkul69/Q==",
-      "path": "namotion.reflection/1.0.8",
-      "hashPath": "namotion.reflection.1.0.8.nupkg.sha512"
+      "sha512": "sha512-NT7/kod+9SCiL3XbCeY5OtohSGtLmclH5YAlWZiual5fhSldhDsrk8kzgSDx45UBOoeBnvmC8HEpAzKwj6grYQ==",
+      "path": "namotion.reflection/1.0.11",
+      "hashPath": "namotion.reflection.1.0.11.nupkg.sha512"
     },
     "NETStandard.Library/2.0.1": {
       "type": "package",
@@ -6165,47 +6163,47 @@
       "path": "newtonsoft.json/10.0.3",
       "hashPath": "newtonsoft.json.10.0.3.nupkg.sha512"
     },
-    "NJsonSchema/10.1.5": {
+    "NJsonSchema/10.1.11": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-8n4FtH2uqxVMz8CKdpE0i62TAzdLnHlpCVZC7heIdKRz5ME3jWTj12INnfzVDv0LOqQKApXbeGqor80aiNxH/g==",
-      "path": "njsonschema/10.1.5",
-      "hashPath": "njsonschema.10.1.5.nupkg.sha512"
+      "sha512": "sha512-xOXrTDqXsZJktxhd2T5RL21alFa8WzsCcQkOoFy0ARLNCzG8w/qVapyfT3gY6bWHyzThoIBgY2RaYch31+F5hQ==",
+      "path": "njsonschema/10.1.11",
+      "hashPath": "njsonschema.10.1.11.nupkg.sha512"
     },
-    "NSwag.Annotations/13.2.3": {
+    "NSwag.Annotations/13.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-/SfsSa9TdiGLCgnCHPKp4d1OSUIvr0QIj+Ovrt9sB33ohpcg+uLIGy0zwANY+n3oah8Lya0oZaMvOsVVW4o3rQ==",
-      "path": "nswag.annotations/13.2.3",
-      "hashPath": "nswag.annotations.13.2.3.nupkg.sha512"
+      "sha512": "sha512-B3gCrTPCkyaNf4SXK0YqPZWLA5n8A7yly8v+q/4fRLGhVSxxtrCBLo1hR8ChCvisQ9z8572v4IZll9eDNwV8JQ==",
+      "path": "nswag.annotations/13.3.0",
+      "hashPath": "nswag.annotations.13.3.0.nupkg.sha512"
     },
-    "NSwag.AspNetCore/13.2.3": {
+    "NSwag.AspNetCore/13.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-nhJMj4TKq+I+Q+tPSKNvJhzUbn0bCbvHUvZKmSB89XJu9INA4vc4n+prXThSJ7mKiXprAh0re6Asi0aRcU5mdA==",
-      "path": "nswag.aspnetcore/13.2.3",
-      "hashPath": "nswag.aspnetcore.13.2.3.nupkg.sha512"
+      "sha512": "sha512-qo52gdoni1AjGeHmUd5oLkG4L34VXYHbU+jByASRSB5Y0WLXFf5eF+FQuF7s9lcC+l4pIO1iY5Dye0e7AzZ6cA==",
+      "path": "nswag.aspnetcore/13.3.0",
+      "hashPath": "nswag.aspnetcore.13.3.0.nupkg.sha512"
     },
-    "NSwag.Core/13.2.3": {
+    "NSwag.Core/13.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-AR1tlL6rSQiXG3VhC8gGned+rx1O9D0Z2hZGMGpgyPafYG3SyYQy4waYb9JNr8wlGK0kYGKXgzGQ8W4plT2U4A==",
-      "path": "nswag.core/13.2.3",
-      "hashPath": "nswag.core.13.2.3.nupkg.sha512"
+      "sha512": "sha512-v50bGV2pgGxUkcJOcL/9M6N9FnToZuYQX35e3F/ipWHrVkKg0Gn6rsJscHy/p7i0rbB7JfLiSd/KaTumkNT1Dg==",
+      "path": "nswag.core/13.3.0",
+      "hashPath": "nswag.core.13.3.0.nupkg.sha512"
     },
-    "NSwag.Generation/13.2.3": {
+    "NSwag.Generation/13.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wzxQ/0GTrK7OrNKnGNy/RU18ucw9FAopfG/jD4HMEhDwBNMy+FGJAd2ADLgQ7XrlqnKeuJbjsY9KCvQvbaiEwA==",
-      "path": "nswag.generation/13.2.3",
-      "hashPath": "nswag.generation.13.2.3.nupkg.sha512"
+      "sha512": "sha512-5mFhXdLs0d652mQ3tOZNRgcpvzVujsLqOKTBWWybev9nk4cf3mYk9NG/7sqObz5GrKAvvOVy0VoEuVQVvttAKw==",
+      "path": "nswag.generation/13.3.0",
+      "hashPath": "nswag.generation.13.3.0.nupkg.sha512"
     },
-    "NSwag.Generation.AspNetCore/13.2.3": {
+    "NSwag.Generation.AspNetCore/13.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Mts/5bzZ/druNuSMZl0sB/m4oWoZyf2V5DgdKBVse8ZTpjLM9qqERvaex+ZUhk38NHZ9jb5V3JLZFxDzRS5z0w==",
-      "path": "nswag.generation.aspnetcore/13.2.3",
-      "hashPath": "nswag.generation.aspnetcore.13.2.3.nupkg.sha512"
+      "sha512": "sha512-630jtLkUlV0APg01Dm2oiynGwZa3FmAREVxlUvxyJILTG6Tb92kyY3WNWXLfyl/vUHKs9teOC1rk1ZKshAq88A==",
+      "path": "nswag.generation.aspnetcore/13.3.0",
+      "hashPath": "nswag.generation.aspnetcore.13.3.0.nupkg.sha512"
     },
     "Pipelines.Sockets.Unofficial/2.0.17": {
       "type": "package",
@@ -6214,152 +6212,145 @@
       "path": "pipelines.sockets.unofficial/2.0.17",
       "hashPath": "pipelines.sockets.unofficial.2.0.17.nupkg.sha512"
     },
-    "Primavera.Hydrogen.AspNetCore/2.0.1.87": {
+    "Primavera.Hydrogen.AspNetCore/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OBwPZc9JmNmob6lqiVBtTHxrVFhdMiyyxtwMJ45GvKvOIXU4W4lq4L+Ml9qNLGdS5W398l6RP89wr5rwuiQw+A==",
-      "path": "primavera.hydrogen.aspnetcore/2.0.1.87",
-      "hashPath": "primavera.hydrogen.aspnetcore.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-tccLwcGpImva4HsLVU7lAUdJNnT1EsudOFTN5pd89G9z4T5bHePHEkii8kHIdDYhRd2jFZhv80eoH8z5pIHmqQ==",
+      "path": "primavera.hydrogen.aspnetcore/2.0.1.137",
+      "hashPath": "primavera.hydrogen.aspnetcore.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.AspNetCore.Authentication/2.0.1.87": {
+    "Primavera.Hydrogen.AspNetCore.Authentication/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-aQM6TNdMJfWZ16Ti53qs3SrHWIEs4RMjC0G67lcsm5p3AJsvDcGrCbsF5qSQsIXt8HcavWhF1hpAvZdz3U4Snw==",
-      "path": "primavera.hydrogen.aspnetcore.authentication/2.0.1.87",
-      "hashPath": "primavera.hydrogen.aspnetcore.authentication.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-oQXzFhMdmktsSu2BrKCN5Q1/X1wcsnnHQsFiHPaVc/TVyGC0OlYJvVqq5rytrVXOqw/nS+L+TAnnw1kZ3urU7w==",
+      "path": "primavera.hydrogen.aspnetcore.authentication/2.0.1.137",
+      "hashPath": "primavera.hydrogen.aspnetcore.authentication.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.AspNetCore.Azure/2.0.1.87": {
+    "Primavera.Hydrogen.AspNetCore.Azure/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-j9QasqExJzpbbvlib1iLodYtM8kZVxCWFzLyWW+Rp2f+KigNeV/KlIiAruvm6ffX2dl7IRqTz3qjTcpu4nhMPQ==",
-      "path": "primavera.hydrogen.aspnetcore.azure/2.0.1.87",
-      "hashPath": "primavera.hydrogen.aspnetcore.azure.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-WJiN9AmT/1RmSapOt13YLXGbC02VdTHcH9r2du89RlcYn3CvXuSRze8Atlz5sMYwfOCOyTsxbs37iueJf+7/MQ==",
+      "path": "primavera.hydrogen.aspnetcore.azure/2.0.1.137",
+      "hashPath": "primavera.hydrogen.aspnetcore.azure.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Caching.Distributed/2.0.1.87": {
+    "Primavera.Hydrogen.Caching.Distributed/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-tke0Q85y4s6mpvbcw3gXZsFDTRzwwq+OL0BfFXaO5d+icRKCi2+yz0vNXmYqk1IfzGRxL7Z2xmxXAh0uzfUcLA==",
-      "path": "primavera.hydrogen.caching.distributed/2.0.1.87",
-      "hashPath": "primavera.hydrogen.caching.distributed.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-OJxKHVgzG6OGXAq/xN+uvsmzTtzoPr5MT1+ePG9KDQZSVQYsQBqMGtRGzneOpQpIPIkPZ6+nMO3/o+P79sZQuA==",
+      "path": "primavera.hydrogen.caching.distributed/2.0.1.137",
+      "hashPath": "primavera.hydrogen.caching.distributed.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Core/2.0.1.111": {
+    "Primavera.Hydrogen.Core/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Nhn5wulHeh2Bb9K/N9fx4IjqX0uY7fJSIUUKADbTZ+eipA7YLH7RkTVlMuVW2sriFfINQpIrZWKEB6wl9vsteA==",
-      "path": "primavera.hydrogen.core/2.0.1.111",
-      "hashPath": "primavera.hydrogen.core.2.0.1.111.nupkg.sha512"
+      "sha512": "sha512-/3hh0o+kxyxTirzeagxZ0301tfSy+tBJge+R9HtdzANJtwQwphhhlu7paggrE9+eeVyjDZ/2seOmnoWcVi1hQQ==",
+      "path": "primavera.hydrogen.core/2.0.1.137",
+      "hashPath": "primavera.hydrogen.core.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.DesignTime.Configuration/2.0.0.25": {
+    "Primavera.Hydrogen.DesignTime.Configuration/2.0.0.26": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-YZBGCNqo8bM0MkJSEqw2DqrXKQlol0MIEAyrWxrgV7HaPFTYeboNpPso/KosQ4/OyCjpFaSvpTzeSdxltZtvtw==",
-      "path": "primavera.hydrogen.designtime.configuration/2.0.0.25",
-      "hashPath": "primavera.hydrogen.designtime.configuration.2.0.0.25.nupkg.sha512"
+      "sha512": "sha512-2hoPw7Vix99lBkepflpX52bP9bbq/D1WAvDxRCvxug5ioOg91yz0Pnj/ks66P/UHg00n04los/u4fpMChXw6DA==",
+      "path": "primavera.hydrogen.designtime.configuration/2.0.0.26",
+      "hashPath": "primavera.hydrogen.designtime.configuration.2.0.0.26.nupkg.sha512"
     },
-    "Primavera.Hydrogen.EventBus.Abstractions/2.0.1.111": {
+    "Primavera.Hydrogen.EventBus.Abstractions/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bvHUkdUp+lJxNrkJ3NAeUpIHo0F1E4u76ff+Z6jDp5esxa52BUGMC04YrnPkW5Rg/V9wW36xI+Zn6LIStAAS1Q==",
-      "path": "primavera.hydrogen.eventbus.abstractions/2.0.1.111",
-      "hashPath": "primavera.hydrogen.eventbus.abstractions.2.0.1.111.nupkg.sha512"
+      "sha512": "sha512-oYCxXttuSvO7p2nbfeYQbG+rNzym/MobQNTdf4GBBXnNs1fuspC1s186UmSJexa3BJaoLV0sCrV4FxKTkwnDVg==",
+      "path": "primavera.hydrogen.eventbus.abstractions/2.0.1.137",
+      "hashPath": "primavera.hydrogen.eventbus.abstractions.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.EventBus.Azure/2.0.1.87": {
+    "Primavera.Hydrogen.EventBus.Azure/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zGu7HH/qoTI49LH/7Ms3VqCdoldJec1ep5UMS/sFFTHzgm9JY8Q6SGOlR3FB/QG2P5vN19KXlStQnPIQtEZrXQ==",
-      "path": "primavera.hydrogen.eventbus.azure/2.0.1.87",
-      "hashPath": "primavera.hydrogen.eventbus.azure.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-nd4tFoLQYmS/mO0AApamNM3TVEAo6/NEYXXu57sugANgdi/s7ODfQ1Aw/b1etPicTOb3u7XFwuweVzrFA3ZjGg==",
+      "path": "primavera.hydrogen.eventbus.azure/2.0.1.137",
+      "hashPath": "primavera.hydrogen.eventbus.azure.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.EventBus.InMemory/2.0.1.111": {
+    "Primavera.Hydrogen.IdentityModel/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ORj/RHuGD2BnBI0Dby9RXhJO7Z/9k83sd7iJO1SZT7d+gou74vXS1IeFtEhUTUcqXIWiqNGyyfH5XtIU4Zum2A==",
-      "path": "primavera.hydrogen.eventbus.inmemory/2.0.1.111",
-      "hashPath": "primavera.hydrogen.eventbus.inmemory.2.0.1.111.nupkg.sha512"
+      "sha512": "sha512-1Ef4WJs3Mv9V1ktPfBx3tijVDAYagPNJVnzfEvPnYiV1hlaW1AC0dOsRIZlkdCqo3ei4QV5noGx2Vhz7ObXnyw==",
+      "path": "primavera.hydrogen.identitymodel/2.0.1.137",
+      "hashPath": "primavera.hydrogen.identitymodel.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.IdentityModel/2.0.1.87": {
+    "Primavera.Hydrogen.IdentityModel.Client/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FafmxAsbxdfZrpAFnrlXipWUmBmboCFgMrdGeLCLwCoRcK/cpAjyr3sPqmQGMBF03/2CSAqV45aOIK68OU4Wsg==",
-      "path": "primavera.hydrogen.identitymodel/2.0.1.87",
-      "hashPath": "primavera.hydrogen.identitymodel.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-tF9EkbVO8FnGuSBdDL7khxW+R9QnXzIKP8WKouN4PzEgi95lBcEJHZ16VArxG7UK8hiUAwmcfuXmraku8NciGA==",
+      "path": "primavera.hydrogen.identitymodel.client/2.0.1.137",
+      "hashPath": "primavera.hydrogen.identitymodel.client.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.IdentityModel.Client/2.0.1.87": {
+    "Primavera.Hydrogen.Pipelines/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SR+L1++/mQolLLpbKcT9ROi6lARWV+xr1KdVVr9cvdEp8PEvRkcqP3LXeSDWlTYPukPECebBMkyLfDn77ZR4fQ==",
-      "path": "primavera.hydrogen.identitymodel.client/2.0.1.87",
-      "hashPath": "primavera.hydrogen.identitymodel.client.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-ED6XyxTKhF+f1QpeXQo97KdcDA05ezl1UxfkJFyzfwzVp5OGM6TL2euNoPunoczPoqpt3fK7p5XsTAYC9WjMZg==",
+      "path": "primavera.hydrogen.pipelines/2.0.1.137",
+      "hashPath": "primavera.hydrogen.pipelines.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Pipelines/2.0.1.87": {
+    "Primavera.Hydrogen.Rest/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-nkXcuDSqetQatszUa8jx/CjwiWygU4NQApBHOitrnIZOmdvBtieAvaaxUvi0UKPUSlquaik40VA/d5d7uybCKw==",
-      "path": "primavera.hydrogen.pipelines/2.0.1.87",
-      "hashPath": "primavera.hydrogen.pipelines.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-99oOMHTE/OlliQMTkQJchT7sUeghKiy8qKHATsjRro5CIezDjn50gmEDT8VNjwrtdGQWG0ueJZYXn228tbDoPA==",
+      "path": "primavera.hydrogen.rest/2.0.1.137",
+      "hashPath": "primavera.hydrogen.rest.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Rest/2.0.1.87": {
+    "Primavera.Hydrogen.Search.Abstractions/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Kc+Q33Jt0N9qYXi3LSeq9t9IOKqTFhA/DRB/eQ2DyYoeZSKNh//hVrr8GYwu5XADlyEBbw8BiljDXJNJe1m7rg==",
-      "path": "primavera.hydrogen.rest/2.0.1.87",
-      "hashPath": "primavera.hydrogen.rest.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-xo6hvvjDaELCmuGYtiQmM36ScXzMJyyGS/EqzD6KB6CP0OUiiTSaDFFvNkEsp6dZsdpWfgappvFBCH/n8/0EQw==",
+      "path": "primavera.hydrogen.search.abstractions/2.0.1.137",
+      "hashPath": "primavera.hydrogen.search.abstractions.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Search.Abstractions/2.0.1.87": {
+    "Primavera.Hydrogen.Search.Azure/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-thLR6wW2fzfZyOB3R9+JRf3ygdl6bXEH0QbCcncPfuop32OTFTx3I+/FzACmBBCwKzus9pNaYIeVrTkOB+WZCg==",
-      "path": "primavera.hydrogen.search.abstractions/2.0.1.87",
-      "hashPath": "primavera.hydrogen.search.abstractions.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-TqBqSpcNZoe4JTrMA+kofr0ASn7x5Z10vQS5R0ChCls+Ex5Jydn3rFsiJtFSv/QromLb1Kf6JVvx50tUFUdu0Q==",
+      "path": "primavera.hydrogen.search.azure/2.0.1.137",
+      "hashPath": "primavera.hydrogen.search.azure.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Search.Azure/2.0.1.87": {
+    "Primavera.Hydrogen.Security.Abstractions/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-xD7GUj7ztjrNStxmLZ9/ouoS6LKsOXDxciBzHU308WDr+415xagTx657c9v2kdlGjv1cWdeCoz9hp92Iy+DaDg==",
-      "path": "primavera.hydrogen.search.azure/2.0.1.87",
-      "hashPath": "primavera.hydrogen.search.azure.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-qwcRDB91EuRVOoFhxTnH9nf6Gpg3CweMkpc7vUiXBja9gbuhkPbsmiJxPcb5s/xhyzSBhwKxUy45PPSKltgpXg==",
+      "path": "primavera.hydrogen.security.abstractions/2.0.1.137",
+      "hashPath": "primavera.hydrogen.security.abstractions.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Security.Abstractions/2.0.1.87": {
+    "Primavera.Hydrogen.Security.Azure/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wCgozdm1oY9bAUbxUalGvmslaxgFklEgXSYo5qszy1p/gfL0AfguvRr3yu+cYMhMcMZOnkm58R9YUiERL1v3uQ==",
-      "path": "primavera.hydrogen.security.abstractions/2.0.1.87",
-      "hashPath": "primavera.hydrogen.security.abstractions.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-oe16vmJlocwBonHfhKJoI/nipHa5QUR/HS5jQd+W3s+q8NBbIZGMh3g1exht5TVEuiM6bu0G+PnHcVfxe82ZMw==",
+      "path": "primavera.hydrogen.security.azure/2.0.1.137",
+      "hashPath": "primavera.hydrogen.security.azure.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Security.Azure/2.0.1.87": {
+    "Primavera.Hydrogen.Storage.Abstractions/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-8ZzR+zGpSzNq7ixhamxr23OTT3BFEUhvT5Ln2ekXnArByNstKXwzGe2w7+sLTFbV+vQCCvOdDo1P+pTiZ9t1fg==",
-      "path": "primavera.hydrogen.security.azure/2.0.1.87",
-      "hashPath": "primavera.hydrogen.security.azure.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-bX9+1fUVPj087AEslGCD+KaKo8Ufj2SCdhOCYWmOdK4clygj8sukJgmm+y3n27tqLxGE8j7htzuQwcCFuOPW0Q==",
+      "path": "primavera.hydrogen.storage.abstractions/2.0.1.137",
+      "hashPath": "primavera.hydrogen.storage.abstractions.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Storage.Abstractions/2.0.1.87": {
+    "Primavera.Hydrogen.Storage.Azure/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-0gLWvew6lNI5Af8yNdnQP925zEAmN03dcV/n1eoSOHZb/uwNfw++remscW6xhobGGttGFgiZyo2TeOncTgCvWQ==",
-      "path": "primavera.hydrogen.storage.abstractions/2.0.1.87",
-      "hashPath": "primavera.hydrogen.storage.abstractions.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-47YhxHCDOhCtDFm7zFUvwJPyBTk0LtoYGYRVaomrMg0/6361jOvMA+L4NM1qVWKbtbjZkLrLMxciBiEshscPVw==",
+      "path": "primavera.hydrogen.storage.azure/2.0.1.137",
+      "hashPath": "primavera.hydrogen.storage.azure.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Storage.Azure/2.0.1.87": {
+    "Primavera.Hydrogen.Telemetry.Abstractions/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RIv8crqihPLdilJC3W2DNQBrM0OTORB0TEEepkRgOXsix9Jgnx4KCfzyLLgJg9hXXL9wjJ03OYm9Gklt/hVKlw==",
-      "path": "primavera.hydrogen.storage.azure/2.0.1.87",
-      "hashPath": "primavera.hydrogen.storage.azure.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-nuEvBZUCtsPbAkAiFoRtUttWl+Zdb3msTGDQA2z+qTsJPspvLjloQdau/vn9/zzi23LBQz3MxxfraPWewZr+hg==",
+      "path": "primavera.hydrogen.telemetry.abstractions/2.0.1.137",
+      "hashPath": "primavera.hydrogen.telemetry.abstractions.2.0.1.137.nupkg.sha512"
     },
-    "Primavera.Hydrogen.Telemetry.Abstractions/2.0.1.87": {
+    "Primavera.Hydrogen.Telemetry.Azure/2.0.1.137": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-gUPomurNCss4Jx/3kCUW5IELXMFLO2YyX/ko0EjYSsO6HaXrDIzhcfdhOguK56J5vKad5V7lHKvhQskuXPwjqw==",
-      "path": "primavera.hydrogen.telemetry.abstractions/2.0.1.87",
-      "hashPath": "primavera.hydrogen.telemetry.abstractions.2.0.1.87.nupkg.sha512"
-    },
-    "Primavera.Hydrogen.Telemetry.Azure/2.0.1.87": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-PjRbJ1cXNKjSF7PA428s5aHPdvzHIOhIfl0iooQYyBwmnoXrGGVETnGrHzOfBeG9SKqR9VZNszkyplIMyrMnjg==",
-      "path": "primavera.hydrogen.telemetry.azure/2.0.1.87",
-      "hashPath": "primavera.hydrogen.telemetry.azure.2.0.1.87.nupkg.sha512"
+      "sha512": "sha512-w6Nh6pz1RkB4RU2kfmbpoMcOKg9A6g4fSm8V9Q9Xb7NTt29p3wpwuLndQU74Q65urmTRsHtTtL7o54bjyWQwfg==",
+      "path": "primavera.hydrogen.telemetry.azure/2.0.1.137",
+      "hashPath": "primavera.hydrogen.telemetry.azure.2.0.1.137.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
       "type": "package",
@@ -7180,12 +7171,12 @@
       "path": "system.threading/4.3.0",
       "hashPath": "system.threading.4.3.0.nupkg.sha512"
     },
-    "System.Threading.Channels/4.7.0": {
+    "System.Threading.Channels/4.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-gdOOXBhtt2UpTxYJm1DRmoqNfYg5ypvhzhVt0vxKhzxXFjS81r8yIOSFsJYLRa1Jc14GBAqCnjxJstO3zBN7gg==",
-      "path": "system.threading.channels/4.7.0",
-      "hashPath": "system.threading.channels.4.7.0.nupkg.sha512"
+      "sha512": "sha512-MEH06N0rIGmRT4LOKQ2BmUO0IxfvmIY/PaouSq+DFQku72OL8cxfw8W99uGpTCFf2vx2QHLRSh374iSM3asdTA==",
+      "path": "system.threading.channels/4.5.0",
+      "hashPath": "system.threading.channels.4.5.0.nupkg.sha512"
     },
     "System.Threading.Overlapped/4.3.0": {
       "type": "package",
@@ -7701,11 +7692,6 @@
       "sha512": ""
     },
     "Microsoft.Extensions.FileProviders.Embedded.Reference/3.1.0.0": {
-      "type": "referenceassembly",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.Extensions.Http/3.1.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

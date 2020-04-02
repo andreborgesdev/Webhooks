@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Primavera.Hydrogen.EventBus;
+using Primavera.Hydrogen.EventBus.Contracts;
 using Primavera.Lithium.Faturacao.WebApi.Abstractions;
 
 namespace Primavera.Lithium.Faturacao.WebApi.Managers

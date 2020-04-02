@@ -230,11 +230,15 @@ public void WriteAddDistributedCache(ModelWriter modelWriter, MethodBodyModel mo
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // REDIS cache (resilient)
 
-            services.AddRedisCache();
-            services.AddResilientDistributedCache();
+            services
+                .AddRedisCache();
+            
+            services
+                .AddResilientDistributedCache();
 <#+
 
 }
@@ -248,10 +252,12 @@ public void WriteAddDataProtection(ModelWriter modelWriter, MethodBodyModel mode
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Data protection
 
-            services.AddDataProtectionWithBlobStorage();
+            services
+                .AddDataProtectionWithBlobStorage();
 <#+
 
 }
@@ -265,10 +271,12 @@ public void WriteAddIsolatedStorage(ModelWriter modelWriter, MethodBodyModel mod
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Data protection
 
-            services.AddFilesIsolatedStorage();
+            services
+                .AddFilesIsolatedStorage();
 <#+
 
 }
@@ -282,10 +290,12 @@ public void WriteAddSecretsStorage(ModelWriter modelWriter, MethodBodyModel mode
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // SecretsStorage
 
-            services.AddAzureSecretsStorage();
+            services
+                .AddAzureSecretsStorage();
 <#+
 
 }
@@ -299,10 +309,12 @@ public void WriteAddAzureTableStorage(ModelWriter modelWriter, MethodBodyModel m
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Azure table storage
 
-            services.AddAzureTableStorage();
+            services
+                .AddAzureTableStorage();
 <#+
 
 }
@@ -316,10 +328,12 @@ public void WriteAddAzureBlobStorage(ModelWriter modelWriter, MethodBodyModel mo
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Azure table storage
 
-            services.AddAzureBlobStorage();
+            services
+                .AddAzureBlobStorage();
 <#+
 
 }
@@ -333,10 +347,12 @@ public void WriteAddAzureSearch(ModelWriter modelWriter, MethodBodyModel model)
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Azure table storage
 
-            services.AddAzureSearch();
+            services
+                .AddAzureSearch();
 <#+
 
 }
@@ -349,6 +365,10 @@ public void WriteAddConfiguration(ModelWriter modelWriter, MethodBodyModel model
     ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
 
 #>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+
             // Common options
 
             services
@@ -576,6 +596,44 @@ public void WriteAddAdditionalServices(ModelWriter modelWriter, MethodBodyModel 
 {
 
 #>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Add HttpClient
+
+            this.AddHttpClient(services, hostConfiguration);
+
+            // Add endpoint analyzer
+
+            services
+                .AddEndpointAnalyzer();
+
+            // Add configuration analyzer
+
+            services
+                .AddConfigurationAnalyzer();
+<#+
+
+}
+
+// *** WriteAddHttpClient
+
+public void WriteAddHttpClient(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // NOTE:
+            // For more information on the HTTP Client factory:
+            // https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
+            // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests
+
             // Add HttpClient
 
             services
@@ -592,6 +650,11 @@ public void WriteAddOpenApiDocumentation(ModelWriter modelWriter, MethodBodyMode
     ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
 
 #>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
             // Default version
 
             services.AddOpenApiDocument(
@@ -647,6 +710,30 @@ public void WriteAddTelemetry(ModelWriter modelWriter, MethodBodyModel model)
 {
 
 #>
+            // Ignore Spelling: api
+
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Add status code 404 telemetry initializer
+
+            services
+                .AddSingleton<Microsoft.ApplicationInsights.Extensibility.ITelemetryInitializer>(
+                    (provider) =>
+                    {
+                        return new StatusCodeTelemetryInitializer(provider)
+                        {
+                            Requests = RequestTelemetryInitializerBehavior.Specified,
+                            RequestPaths = new List<string>()
+                            {
+                                "/api/*",
+                            },
+                            StatusCode = HttpStatusCode.NotFound
+                        };
+                    });
+
             // Add Azure Insights telemetry
 
             services
@@ -664,6 +751,11 @@ public void WriteAddMvc(ModelWriter modelWriter, MethodBodyModel model)
     ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
 
 #>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
             // API controllers with views
             
             IMvcBuilder builder = services
@@ -698,6 +790,11 @@ public void WriteAddAuthorization(ModelWriter modelWriter, MethodBodyModel model
     {
 
 #>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
             // Add authorization and authorization policies
 
             services
@@ -718,8 +815,40 @@ public void WriteAddAuthorizationPolicies(ModelWriter modelWriter, MethodBodyMod
     CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
     ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
 
-    if (sourceModel.AuthorizationMode == AuthorizationMode.On)
+    if (sourceModel.AuthorizationMode == AuthorizationMode.Off)
     {
+        return;
+    }
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => options, options);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Policy for default scope
+
+            options.AddPolicy(
+                Constants.Policies.<#= sourceModel.Name #>,
+                (policy) =>
+                {
+                    policy.AuthenticationSchemes = new List<string> 
+                    { 
+                        OidcConstants.AuthenticationSchemes.Bearer 
+                    };
+
+                    policy.RequireClaim(JwtClaimTypes.Scope, <#= sourceModel.Namespace #>.Models.Metadata.Scopes.<#= sourceModel.Name #>);
+                });
+<#+
+
+    if (sourceModel.AuthorizationScopes.Count > 0)
+    {
+
+#>
+
+            // Policies for authorization scopes
+
+<#+
         foreach (AuthorizationScope scope in sourceModel.AuthorizationScopes.OrderBy(n => n.Name))
         {
 
@@ -738,21 +867,26 @@ public void WriteAddAuthorizationPolicies(ModelWriter modelWriter, MethodBodyMod
 <#+
 
         }
+    }
+
+    if (sourceModel.AuthorizationPolicies.Count > 0)
+    {
+
+#>
+
+            // Policies for authorization policies
+
+<#+
+        foreach (AuthorizationPolicy policy in sourceModel.AuthorizationPolicies.OrderBy(n => n.Name))
+        {
 
 #>
             options.AddPolicy(
-                Constants.Policies.<#= sourceModel.Name #>,
-                (policy) =>
-                {
-                    policy.AuthenticationSchemes = new List<string> 
-                    { 
-                        OidcConstants.AuthenticationSchemes.Bearer 
-                    };
-
-                    policy.RequireClaim(JwtClaimTypes.Scope, <#= sourceModel.Namespace #>.Models.Metadata.Scopes.<#= sourceModel.Name #>);
-                });
+                Constants.Policies.<#= policy.Name #>,
+                this.Configure<#= policy.Name #>Policy);
 <#+
 
+        }
     }
 }
 
@@ -760,16 +894,70 @@ public void WriteAddAuthorizationPolicies(ModelWriter modelWriter, MethodBodyMod
 
 public void WriteAddAuthentication(ModelWriter modelWriter, MethodBodyModel model)
 {
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+    if (sourceModel.GenerateOidcSupport)
+    {
+        this.WriteAddAuthenticationBearerAndOidc(modelWriter, model);
+    }
+    else
+    {
+        this.WriteAddAuthenticationBearer(modelWriter, model);
+    }
+}
+
+// *** WriteAddAuthenticationBearer
+
+public void WriteAddAuthenticationBearer(ModelWriter modelWriter, MethodBodyModel model)
+{
 
 #>
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Add authentication
 
             AuthenticationBuilder builder = services
                 .AddAuthentication(OidcConstants.AuthenticationSchemes.Bearer);
+
+            // Add JWT bearer
+
+            this.AddJwtBearer(services, builder, hostConfiguration);
+<#+
+
+}
+
+// *** WriteAddAuthenticationBearerAndOidc
+
+public void WriteAddAuthenticationBearerAndOidc(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Add authentication
+
+            AuthenticationBuilder builder = services
+                .AddAuthentication(
+                    (options) =>
+                    {
+                        options.DefaultScheme = OidcConstants.AuthenticationSchemes.Cookies;
+                        options.DefaultChallengeScheme = OidcConstants.AuthenticationSchemes.Oidc;
+                    });
+
+            // Add Cookie
+
+            this.AddCookie(services, builder, hostConfiguration);
+
+            // Add OIDC
+
+            this.AddOidc(services, builder, hostConfiguration);
 
             // Add JWT bearer
 
@@ -801,11 +989,18 @@ public void WriteAddJwtBearer(ModelWriter modelWriter, MethodBodyModel model)
                         // Standard configuration
 
                         options.Authority = hostConfiguration.IdentityServerBaseUri?.Trim();
-                        options.Audience = Scopes.<#= sourceModel.Name #>;
+                        options.Audience = <#= sourceModel.Namespace #>.Models.Metadata.Scopes.<#= sourceModel.Name #>;
                         options.RequireHttpsMetadata = false;
                         options.IncludeErrorDetails = true;
                         options.RefreshOnIssuerKeyNotFound = true;
                         options.SaveToken = true;
+
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            NameClaimType = "name",
+                            RoleClaimType = "role"
+                        };
+
                         options.Events = new HttpBearerChallengeEvents()
                         {
                             OnAuthenticationFailed = this.OnJwtBearerAuthenticationFailed,
@@ -818,6 +1013,126 @@ public void WriteAddJwtBearer(ModelWriter modelWriter, MethodBodyModel model)
                         // Custom configuration
 
                         this.ConfigureJwtBearerOptions(services, builder, options, hostConfiguration);
+                    });
+<#+
+
+}
+
+// *** WriteAddCookie
+
+public void WriteAddCookie(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => builder, builder);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Add
+
+            builder
+                .AddCookie(
+                    (options) =>
+                    {
+                        // Standard configuration
+
+                        options.AccessDeniedPath = Constants.Controllers.Home.Routes.AccessDenied;
+                        options.ReturnUrlParameter = options.ReturnUrlParameter?.Transform().ToLowerCase();
+
+                        options.Events = new Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents()
+                        {
+                            OnRedirectToLogin = this.OnCookieRedirectToLogin,
+                            OnRedirectToLogout = this.OnCookieRedirectToLogout,
+                            OnSignedIn = this.OnCookieSignedIn,
+                            OnSigningIn = this.OnCookieSigningIn,
+                            OnSigningOut = this.OnCookieSigningOut,
+                            OnValidatePrincipal = this.OnCookieValidatePrincipal,
+                        };
+
+                        // Custom configuration
+
+                        this.ConfigureCookieOptions(services, builder, options, hostConfiguration);
+                    });
+<#+
+
+}
+
+// *** WriteAddOidc
+
+public void WriteAddOidc(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
+
+#>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => builder, builder);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
+            // Add
+
+            builder
+                .AddOpenIdConnect(
+                    OidcConstants.AuthenticationSchemes.Oidc,
+                    (options) =>
+                    {
+                        // Standard configuration
+
+                        options.SignInScheme = OidcConstants.AuthenticationSchemes.Cookies;
+                        options.Authority = hostConfiguration.IdentityServerBaseUri?.Trim();
+                        options.RequireHttpsMetadata = false;
+                        options.ClientId = Constants.Credentials.Hybrid.ClientId;
+                        options.ClientSecret = Constants.Credentials.Hybrid.ClientSecret;
+                        options.ResponseType = OpenIdConnectResponseType.CodeIdTokenToken;
+                        options.SaveTokens = true;
+                        options.GetClaimsFromUserInfoEndpoint = true;
+
+                        options.Scope.Add(<#= sourceModel.Namespace #>.Models.Metadata.Scopes.<#= sourceModel.Name #>);
+<#+
+
+    foreach (AuthorizationScope scope in sourceModel.AuthorizationScopes.OrderBy(s => s.Name))
+    {
+
+#>
+                        options.Scope.Add(<#= sourceModel.Namespace #>.Models.Metadata.Scopes.<#= scope.Name #>);
+<#+
+
+    }
+
+#>
+                        options.Scope.Add(JwtClaimTypes.Email);
+                        options.Scope.Add(JwtClaimTypes.Profile);
+
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            NameClaimType = "name",
+                            RoleClaimType = "role"
+                        };
+
+                        options.Events = new Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents()
+                        {
+                            OnAuthenticationFailed = this.OnOidcAuthenticationFailed,
+                            OnAuthorizationCodeReceived = this.OnOidcAuthorizationCodeReceived,
+                            OnMessageReceived = this.OnOidcMessageReceived,
+                            OnRedirectToIdentityProvider = this.OnOidcRedirectToIdentityProvider,
+                            OnRedirectToIdentityProviderForSignOut = this.OnOidcRedirectToIdentityProviderForSignOut,
+                            OnRemoteFailure = this.OnOidcRemoteFailure,
+                            OnRemoteSignOut = this.OnOidcRemoteSignOut,
+                            OnTicketReceived = this.OnOidcTicketReceived,
+                            OnTokenResponseReceived = this.OnOidcTokenResponseReceived,
+                            OnTokenValidated = this.OnOidcTokenValidated,
+                            OnUserInformationReceived = this.OnOidcUserInformationReceived,
+                        };
+
+                        // Custom configuration
+
+                        this.ConfigureOidcOptions(services, builder, options, hostConfiguration);
                     });
 <#+
 
@@ -839,6 +1154,7 @@ public void WriteAddBackgroundServices(ModelWriter modelWriter, MethodBodyModel 
             // Validation
 
             SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Add queues
 
@@ -1131,19 +1447,6 @@ public void WriteUseEndpoints(ModelWriter modelWriter, MethodBodyModel model)
                 // Map default controller route
 
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-
-                // On Development environment
-
-                if (this.CurrentEnvironment.IsDevelopment())
-                {
-                    // Map route analyzer
-
-                    endpoints.MapRouteAnalyzer();
-
-                    // Map configuration analyzer
-
-                    endpoints.MapConfigurationAnalyzer();
-                }
             });
 <#+
 
@@ -1288,6 +1591,10 @@ public void WriteOnJwtBearerAuthenticationFailed(ModelWriter modelWriter, Method
 {
 
 #>
+            // Logging
+
+            this.Logger.LogDebug($"JWT: authentication failed.");
+
             // Get exception
 
             Exception exception = context?.Exception;
@@ -1325,7 +1632,11 @@ public void WriteOnJwtBearerForbidden(ModelWriter modelWriter, MethodBodyModel m
 {
 
 #>
-            // Done
+            // Logging
+
+            this.Logger.LogDebug($"JWT: forbidden.");
+
+            // Result
 
             return Task.CompletedTask;
 <#+
@@ -1338,7 +1649,11 @@ public void WriteOnJwtBearerMessageReceived(ModelWriter modelWriter, MethodBodyM
 {
 
 #>
-            // Done
+            // Logging
+
+            this.Logger.LogDebug($"JWT: message received.");
+
+            // Result
 
             return Task.CompletedTask;
 <#+
@@ -1351,6 +1666,10 @@ public void WriteOnJwtBearerTokenValidated(ModelWriter modelWriter, MethodBodyMo
 {
 
 #>
+            // Logging
+
+            this.Logger.LogDebug($"JWT: token validated.");
+
             // Get access token used
 
             string accessToken = context?.Request?.Headers?["Authorization"];
@@ -1363,7 +1682,7 @@ public void WriteOnJwtBearerTokenValidated(ModelWriter modelWriter, MethodBodyMo
                 this.Logger.LogInformation($"Access token was '{accessToken}'.");
             }
 
-            // Done
+            // Result
 
             return Task.CompletedTask;
 <#+
@@ -1376,7 +1695,11 @@ public void WriteOnJwtBearerChallenge(ModelWriter modelWriter, MethodBodyModel m
 {
 
 #>
-            // Done
+            // Logging
+
+            this.Logger.LogDebug($"JWT: challenge.");
+
+            // Result
 
             return Task.CompletedTask;
 <#+
@@ -1391,6 +1714,10 @@ public void WriteConfigureApiVersioningOptions(ModelWriter modelWriter, MethodBo
     ServiceModel sourceModel = rootModel.SourceModel as ServiceModel;
 
 #>
+            // Validation
+
+            SmartGuard.NotNull(() => options, options);
+
             // Default API version
 
             ApiVersion defaultVersion = new ApiVersion(
@@ -1403,8 +1730,8 @@ public void WriteConfigureApiVersioningOptions(ModelWriter modelWriter, MethodBo
 
 #>
             ApiVersion <#= apiVersion.NameProvider.Transform().ToCamelCase() #>Version = new ApiVersion(
-                ApiVersions.Values.<#= apiVersion.NameProvider #>.Major,
-                ApiVersions.Values.<#= apiVersion.NameProvider #>.Minor);
+                <#= sourceModel.Namespace #>.Models.Metadata.ApiVersions.Values.<#= apiVersion.NameProvider #>.Major,
+                <#= sourceModel.Namespace #>.Models.Metadata.ApiVersions.Values.<#= apiVersion.NameProvider #>.Minor);
 <#+
 
     }
@@ -1456,6 +1783,11 @@ public void WriteAddClientLibraryDocumentation(ModelWriter modelWriter, MethodBo
 {
 
 #>
+            // Validation
+
+            SmartGuard.NotNull(() => services, services);
+            SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
+
             // Add markdown
 
             services.AddMarkdown();
@@ -1471,6 +1803,7 @@ public void WriteUseClientLibraryDocumentation(ModelWriter modelWriter, MethodBo
 #>
             // Validation
 
+            SmartGuard.NotNull(() => app, app);
             SmartGuard.NotNull(() => hostConfiguration, hostConfiguration);
 
             // Configure middleware
@@ -1614,6 +1947,298 @@ public void WriteDisallowsCookiesSameSiteNone(ModelWriter modelWriter, MethodBod
             // All others
 
             return false;
+<#+
+
+}
+
+// *** WriteOnCookieRedirectToLogin
+
+public void WriteOnCookieRedirectToLogin(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"Cookie: redirect to login.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnCookieRedirectToLogout
+
+public void WriteOnCookieRedirectToLogout(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"Cookie: redirect to logout.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnCookieSignedIn
+
+public void WriteOnCookieSignedIn(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"Cookie: signed-in.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnCookieSigningIn
+
+public void WriteOnCookieSigningIn(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"Cookie: signing in.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnCookieSigningOut
+
+public void WriteOnCookieSigningOut(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"Cookie: signing out.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnCookieValidatePrincipal
+
+public void WriteOnCookieValidatePrincipal(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"Cookie: validate principal.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcAuthenticationFailed
+
+public void WriteOnOidcAuthenticationFailed(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: authentication failed.");
+            this.Logger.LogDebug($"Exception: {context?.Exception}");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcAuthorizationCodeReceived
+
+public void WriteOnOidcAuthorizationCodeReceived(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: authorization code received.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcMessageReceived
+
+public void WriteOnOidcMessageReceived(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: message received.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcRedirectToIdentityProvider
+
+public void WriteOnOidcRedirectToIdentityProvider(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: redirect to identity provider.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcRedirectToIdentityProviderForSignOut
+
+public void WriteOnOidcRedirectToIdentityProviderForSignOut(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: redirect to identity provider for sign-out.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcRemoteFailure
+
+public void WriteOnOidcRemoteFailure(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: remote failure.");
+            this.Logger.LogDebug($"Failure: {context?.Failure}");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcRemoteSignOut
+
+public void WriteOnOidcRemoteSignOut(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: remote sign-out.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcTicketReceived
+
+public void WriteOnOidcTicketReceived(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: ticket received.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcTokenResponseReceived
+
+public void WriteOnOidcTokenResponseReceived(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: token response received.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcTokenValidated
+
+public void WriteOnOidcTokenValidated(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: token validated.");
+
+            // Result
+
+            return Task.CompletedTask;
+<#+
+
+}
+
+// *** WriteOnOidcUserInformationReceived
+
+public void WriteOnOidcUserInformationReceived(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Logging
+
+            this.Logger.LogDebug($"OIDC: user information received.");
+            this.Logger.LogDebug($"User: {context?.User?.ToString()}");
+
+            // Result
+
+            return Task.CompletedTask;
 <#+
 
 }

@@ -1,8 +1,8 @@
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Design\bin\Debug\netstandard2.0\Design.deps.json
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Design\bin\Debug\netstandard2.0\Design.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Design\bin\Debug\netstandard2.0\Design.pdb
-C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Design\obj\Debug\netstandard2.0\Design.csprojAssemblyReference.cache
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Design\obj\Debug\netstandard2.0\Design.AssemblyInfoInputs.cache
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Design\obj\Debug\netstandard2.0\Design.AssemblyInfo.cs
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Design\obj\Debug\netstandard2.0\Design.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Design\obj\Debug\netstandard2.0\Design.pdb
+C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Design\obj\Debug\netstandard2.0\Design.csprojAssemblyReference.cache

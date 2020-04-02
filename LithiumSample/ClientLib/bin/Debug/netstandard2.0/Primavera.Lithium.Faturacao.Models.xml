@@ -118,6 +118,16 @@
             Defines the route for the action that diagnoses the service. This action is used to perform functional tests on the service.
             </summary>
         </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Monitoring.Endpoints">
+            <summary>
+            Defines the route for the action that analyzes the endpoints of the service. This action is used to verify the service implementation.
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Monitoring.Configuration">
+            <summary>
+            Defines the route for the action that analyzes the configuration of the service. This action is used to verify the service implementation.
+            </summary>
+        </member>
         <member name="T:Primavera.Lithium.Faturacao.Models.Metadata.Routes.Billing">
             <summary>
             Defines constants that specify the routes used by the Billing actions.

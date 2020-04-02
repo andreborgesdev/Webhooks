@@ -49,6 +49,46 @@
 							]
                         }
                     }
+                },
+                {
+                    "name": "Endpoints (Endpoints)",
+                    "request": {
+                        "description": "Analyzes the endpoints of the service.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/monitoring/endpoints",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"monitoring",
+								"routes"
+							]
+                        }
+                    }
+                },
+                {
+                    "name": "Configuration (Configuration)",
+                    "request": {
+                        "description": "Analyzes the configuration of the service.",
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{serverBaseAddress}}/api/v{{apiVersion}}/monitoring/configuration",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v{{apiVersion}}",
+								"monitoring",
+								"configuration"
+							]
+                        }
+                    }
                 }
             ]
         },

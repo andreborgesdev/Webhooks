@@ -64,6 +64,14 @@ controller.AddModelWriter<MethodBodyModel>(
     this.WriteDiagnosticsAsync);
 
 controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("EndpointsAsync"),
+    this.WriteEndpointsAsync);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("ConfigurationAsync"),
+    this.WriteConfigurationAsync);
+
+controller.AddModelWriter<MethodBodyModel>(
     (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteException"),
     this.WriteWriteException);
 
@@ -170,6 +178,14 @@ controller.AddModelWriter<MethodBodyModel>(
 controller.AddModelWriter<MethodBodyModel>(
     (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("DisposeServiceClient"),
     this.WriteDisposeServiceClient);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteEndpoints"),
+    this.WriteWriteEndpoints);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) => m.ParentModelAs<MethodModel>().Name.EqualsNoCase("WriteEndpoint"),
+    this.WriteWriteEndpoint);
 
 // Generate code
 

@@ -13,12 +13,14 @@
     "standard": [
       {
         "name": "Logging:IncludeScopes",
+        "description": "Indicates whether log scopes are enabled.",
         "value": {
           "pd": false
         }
       },
       {
         "name": "Logging:Debug:LogLevel:Default",
+        "description": "The default log level for the Debug provider.",
         "value": {
           "dv": "Trace",
           "pd": "Warning"
@@ -26,6 +28,7 @@
       },
       {
         "name": "Logging:Console:LogLevel:Default",
+        "description": "The default log level for the Console provider.",
         "value": {
           "dv": "Trace",
           "pd": "Warning"
@@ -33,6 +36,7 @@
       },
       {
         "name": "Logging:ApplicationInsights:LogLevel:Default",
+        "description": "The default log level for the Application Insights provider.",
         "value": {
           "dv": "Trace",
           "pd": "Warning"
@@ -40,6 +44,8 @@
       },
       {
         "name": "HostConfiguration:IdentityServerBaseUri",
+        "description": "The Identity Server base address.",
+        "global": true,
         "alwaysOverride": true,
         "value": {
           "dv": "https://stg-identity.primaverabss.com",
@@ -49,18 +55,21 @@
       },
       {
         "name": "AzureInsightsTelemetryOptions:Enabled",
+        "description": "Indicates whether telemetry on Azure Application Insights is enabled.",
         "value": {
           "pd": true
         }
       },
       {
         "name": "AzureInsightsTelemetryOptions:IgnoreErrors",
+        "description": "Indicates whether errors while recording telemetry should be ignored.",
         "value": {
           "pd": true
         }
       },
       {
         "name": "AzureInsightsTelemetryOptions:DeveloperMode",
+        "description": "Indicates whether the developer mode is enabled. When enabled, telemetry records are dispatched faster.",
         "value": {
           "dv": true,
           "pd": false
@@ -68,41 +77,48 @@
       },
       {
         "name": "AzureInsightsTelemetryOptions:EnableAdaptiveSampling",
+        "description": "Indicates whether adaptive sampling is enabled.",
         "value": {
           "pd": false
         }
       },
       {
         "name": "AzureInsightsTelemetryOptions:DefaultProperties:Lithium-Service",
+        "description": "The default property that identifies the Lithium service.",
         "value": {
           "pd": "Faturacao"
         }
       },
       {
         "name": "AzureInsightsTelemetryOptions:InstrumentationKey",
+        "description": "The Azure Application Insights instrumentation key.",
         "alwaysOverride": true,
         "value": {}
       },
       {
         "name": "AzureInsightsTelemetryOptions:RequestTracking:TrackRequestHeaders",
+        "description": "Indicates whether request headers should be tracked.",
         "value": {
           "pd": true
         }
       },
       {
         "name": "AzureInsightsTelemetryOptions:RequestTracking:TrackResponseHeaders",
+        "description": "Indicates whether response headers should be tracked.",
         "value": {
           "pd": false
         }
       },
       {
         "name": "AzureInsightsTelemetryOptions:RequestTracking:IgnoreAvailabilityTestsRequests",
+        "description": "Indicates whether requests to availability endpoints should be ignored in telemetry.",
         "value": {
           "pd": true
         }
       },
       {
         "name": "AzureKeyVaultSecretsStorageOptions:AutomaticAuthenticationEnabled",
+        "description": "Indicates whether automatic authentication with Azure KeyVault is enabled.",
         "value": {
           "dv": false,
           "st": true,
@@ -111,19 +127,22 @@
       },
       {
         "name": "AzureKeyVaultSecretsStorageOptions:ClientId",
+        "description": "The client identifier that should be used to authenticate with Azure KeyVault (when automatic authentication is disabled or not configured.",
         "value": {}
       },
       {
         "name": "AzureKeyVaultSecretsStorageOptions:ClientSecret",
+        "description": "The client secret that should be used to authenticate with Azure KeyVault (when automatic authentication is disabled or not configured.",
         "value": {}
       },
       {
         "name": "AzureKeyVaultSecretsStorageOptions:ConfigurationStorageBaseUrl",
-        "alwaysOverride": true,
+        "description": "The base address of the Azure KeyVault that should be used for configuration.",
         "value": {}
       },
       {
         "name": "AzureTableStorageOptions:ConnectionString",
+        "description": "The connection string used by the Table Storage service.",
         "alwaysOverride": true,
         "value": {}
       }
@@ -131,7 +150,8 @@
     "custom": []
   },
   "apiResource": {
-    "scopes": []
+    "scopes": [],
+    "claims": []
   },
   "clients": [],
   "endpoints": [
@@ -152,6 +172,30 @@
       "name": "Diagnostics",
       "route": "GET api/v{version:apiVersion}/monitoring/diagnostics",
       "summary": "Allows diagnosing the health of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Monitoring",
+      "name": "Endpoints",
+      "route": "GET api/v{version:apiVersion}/monitoring/endpoints",
+      "summary": "Allows verifying the endpoints of the service.",
+      "apiVersions": [
+        {
+          "version": "1.0",
+          "isDefault": true
+        }
+      ]
+    },
+    {
+      "controller": "Monitoring",
+      "name": "Configuration",
+      "route": "GET api/v{version:apiVersion}/monitoring/configuration",
+      "summary": "Allows verifying the configuration of the service.",
       "apiVersions": [
         {
           "version": "1.0",
@@ -299,6 +343,10 @@
     {
       "name": "BackgroundServices",
       "summary": "Includes background services has hosted services."
+    },
+    {
+      "name": "OidcAuthentication",
+      "summary": "Uses OIDC authentication."
     }
   ],
   "apiVersions": [
@@ -306,5 +354,6 @@
       "version": "1.0",
       "isDefault": true
     }
-  ]
+  ],
+  "authorizationPolicies": []
 }

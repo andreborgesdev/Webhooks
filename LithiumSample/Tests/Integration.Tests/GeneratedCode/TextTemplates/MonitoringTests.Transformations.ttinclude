@@ -26,9 +26,11 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
         .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
         .WithNamespaceImport(new NamespaceImportModel("System.Diagnostics.CodeAnalysis"))
-        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client"))
         .WithNamespaceImport(new NamespaceImportModel("System.Net"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
         .WithNamespaceImport(new NamespaceImportModel("FluentAssertions"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Routing"))
         .WithNamespaceImport(new NamespaceImportModel("Xunit"));
 
     targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".Integration.Tests");
@@ -54,6 +56,28 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
             {
                 Modifiers = MethodModifiers.Public | MethodModifiers.Async,
                 Documentation = new DocumentationModel("Tests the diagnostics endpoint.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+                .WithAttribute(new AttributeModel("Fact"))
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Naming\", \"CA1707:IdentifiersShouldNotContainUnderscores\")"))
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("Monitoring_Endpoints", "Task")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Async,
+                Documentation = new DocumentationModel("Tests the endpoints endpoint.")
+                {
+                    Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                }
+            })
+                .WithAttribute(new AttributeModel("Fact"))
+                .WithAttribute(new AttributeModel("SuppressMessage(\"Microsoft.Naming\", \"CA1707:IdentifiersShouldNotContainUnderscores\")"))
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("Monitoring_Configuration", "Task")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Async,
+                Documentation = new DocumentationModel("Tests the configuration analyzer endpoint.")
                 {
                     Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
                 }

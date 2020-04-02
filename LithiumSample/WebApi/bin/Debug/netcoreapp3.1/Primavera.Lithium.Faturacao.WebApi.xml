@@ -255,14 +255,14 @@
             <summary>
             The message event handler.
             </summary>
-            <seealso cref="T:Primavera.Hydrogen.EventBus.IEventBusEventHandler`1"/>
+            <seealso cref="!:Primavera.Hydrogen.EventBus.IEventBusEventHandler&lt;T&gt;"/>
         </member>
         <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MessageEventHandler.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.MessageEventHandler"/> class.
             </summary>
         </member>
-        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MessageEventHandler.Handle(Primavera.Hydrogen.EventBus.IEventBusEvent{Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksSubscription})">
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MessageEventHandler.Handle(Primavera.Hydrogen.EventBus.Contracts.IEventBusEvent{Primavera.Lithium.Faturacao.WebApi.Abstractions.WebhooksSubscription})">
             <summary>
             Handles the specified message event.
             </summary>
@@ -409,6 +409,21 @@
             This is the base class of the MVC controller.
             </remarks>
         </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.EndpointAnalyzer">
+            <summary>
+            Gets the endpoint analyzer service.
+            </summary>
+        </member>
+        <member name="P:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.ConfigurationAnalyzer">
+            <summary>
+            Gets the configuration analyzer service.
+            </summary>
+        </member>
         <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase" /> class.
@@ -419,6 +434,28 @@
         </member>
         <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.DiagnosticsAsync">
             <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.EndpointsAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.ConfigurationAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.SaveConfigurationInBlobStorageAsync(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Saves the specified configuration options to the blob storage.
+            </summary>
+            <param name="options">The configuration options.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            A value indicating whether the configuration options were saved.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.MonitoringControllerBase.SaveConfigurationInFileSystem(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Saves the specified configuration options in the file system.
+            </summary>
+            <param name="options">The configuration options.</param>
         </member>
         <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.BillingControllerBase">
             <summary>
@@ -723,7 +760,8 @@
             Provides an action that probes the service. This action is used to perform dependencies tests on the service.
             </summary>
             <returns>
-            'OK'.
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            <see cref="F:System.Net.HttpStatusCode.OK"/> if the operation succeeds.
             </returns>
         </member>
         <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IMonitoringController.DiagnosticsAsync">
@@ -731,8 +769,31 @@
             Provides an action that diagnoses the service. This action is used to perform functional tests on the service.
             </summary>
             <returns>
-            'OK'.
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            <see cref="F:System.Net.HttpStatusCode.OK"/> if the operation succeeds.
             </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IMonitoringController.EndpointsAsync">
+            <summary>
+            Provides an action that analyzes the endpoints of the service. This action is used to verify the service implementation.
+            </summary>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            <see cref="F:System.Net.HttpStatusCode.OK"/> if the operation succeeds.
+            A list of <see cref="T:Primavera.Hydrogen.Rest.Routing.EndpointInfo"/> describing the endpoints.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Controllers.IMonitoringController.ConfigurationAsync">
+            <summary>
+            Provides an action that analyzes the configuration of the service. This action is used to verify the service implementation.
+            </summary>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            <see cref="F:System.Net.HttpStatusCode.OK"/> if the operation succeeds.
+            </returns>
+            <remarks>
+            If the service uses blob storage, the configuration options will be dumped in a blob container named 'ConfigAnalyzer'. Otherwise, the configuration options will be saved in a file named 'ConfigAnalyzer.json'.
+            </remarks>
         </member>
         <member name="T:Primavera.Lithium.Faturacao.WebApi.Controllers.IBillingController">
             <summary>
@@ -1036,7 +1097,7 @@
             <param name="webhooksEvent">The webhooks event.</param>
             <returns>Asynchronous task.</returns>
         </member>
-        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksEventManager.SendEventToSubscribers(Primavera.Hydrogen.EventBus.IEventBusEvent{System.String})">
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.IWebhooksEventManager.SendEventToSubscribers(Primavera.Hydrogen.EventBus.Contracts.IEventBusEvent{System.String})">
             <summary>
             Deletes the webhooks event.
             </summary>
@@ -1107,7 +1168,7 @@
         <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager.GetWebhooksEventsByProduct(System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager.SendEventToSubscribers(Primavera.Hydrogen.EventBus.IEventBusEvent{System.String})">
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksEventManager.SendEventToSubscribers(Primavera.Hydrogen.EventBus.Contracts.IEventBusEvent{System.String})">
             <inheritdoc />
         </member>
         <member name="T:Primavera.Lithium.Faturacao.WebApi.Managers.WebhooksSubscriptionManager">
@@ -1425,9 +1486,44 @@
             The Portuguese culture (as a string).
             </summary>
         </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseFromAngolaCultureString">
+            <summary>
+            The Portuguese (Angola) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseFromBrazilCultureString">
+            <summary>
+            The Portuguese (Brazil) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseFromCapeVerdeCultureString">
+            <summary>
+            The Portuguese (Cape Verde) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseFromGuineaBissauCultureString">
+            <summary>
+            The Portuguese (Guinea-Bissau) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseFromMozambiqueCultureString">
+            <summary>
+            The Portuguese (Mozambique) culture (as a string).
+            </summary>
+        </member>
         <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseFromPortugalCultureString">
             <summary>
             The Portuguese (Portugal) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseFromSaoTomeAndPrincipeCultureString">
+            <summary>
+            The Portuguese (São Tomé e Príncipe) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.PortugueseFromTimorLesteCultureString">
+            <summary>
+            The Portuguese (Timor-Leste) culture (as a string).
             </summary>
         </member>
         <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.EnglishDefaultCultureString">
@@ -1435,14 +1531,39 @@
             The English culture (as a string).
             </summary>
         </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.EnglishFromIrelandCultureString">
+            <summary>
+            The English (Ireland) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.EnglishFromGreatBritainCultureString">
+            <summary>
+            The English (G.B.) culture (as a string).
+            </summary>
+        </member>
         <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.EnglishFromUnitedStatesCultureString">
             <summary>
-            The English (US) culture (as a string).
+            The English (U.S.) culture (as a string).
             </summary>
         </member>
         <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.SpanishDefaultCultureString">
             <summary>
             The Spanish culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.SpanishFromArgentinaCultureString">
+            <summary>
+            The Spanish (Argentina) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.SpanishFromChileCultureString">
+            <summary>
+            The Spanish (Chile) culture (as a string).
+            </summary>
+        </member>
+        <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.SpanishFromMexicoCultureString">
+            <summary>
+            The Spanish (Mexico) culture (as a string).
             </summary>
         </member>
         <member name="F:Primavera.Lithium.Faturacao.WebApi.Constants.Localization.SpanishFromSpainCultureString">
@@ -1795,6 +1916,16 @@
             <param name="hostConfiguration">The host configuration.</param>
             <remarks>
             The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>.
+            </remarks>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddHttpClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">
+            <summary>
+            Called to add the HTTP Client factory to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="hostConfiguration">The host configuration.</param>
+            <remarks>
+            The method is called from <see cref="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddAdditionalServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)"/>.
             </remarks>
         </member>
         <member name="M:Primavera.Lithium.Faturacao.WebApi.StartupBase.AddOpenApiDocumentation(Microsoft.Extensions.DependencyInjection.IServiceCollection,Primavera.Lithium.Faturacao.WebApi.Configuration.HostConfiguration)">

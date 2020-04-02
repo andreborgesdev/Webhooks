@@ -8,6 +8,6 @@ namespace Primavera.Lithium.Webhooks.EventBus
 {
     public interface IWebhooksEventBusPublish
     {
-        Task Publish(string serviceNamespace, EventTriggeredDto eventTriggeredDto, Dictionary<string, string> additionalProperties = null);
+        Task Publish(EventTriggeredDto eventTriggeredDto, Dictionary<string, string> additionalProperties = null);
     }
 }

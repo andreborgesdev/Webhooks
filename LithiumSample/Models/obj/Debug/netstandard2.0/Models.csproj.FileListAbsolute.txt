@@ -26,9 +26,9 @@ C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\bin\Debug\
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\bin\Debug\netstandard2.0\pt\Primavera.Hydrogen.Core.resources.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\bin\Debug\netstandard2.0\es\Primavera.Hydrogen.Rest.resources.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\bin\Debug\netstandard2.0\pt\Primavera.Hydrogen.Rest.resources.dll
-C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\obj\Debug\netstandard2.0\Models.csprojAssemblyReference.cache
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\obj\Debug\netstandard2.0\Primavera.Lithium.Faturacao.Models.GeneratedCode.ModelsResources.gen.resources
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\obj\Debug\netstandard2.0\Models.csproj.GenerateResource.cache
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\obj\Debug\netstandard2.0\Models.csproj.CopyComplete
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\obj\Debug\netstandard2.0\Primavera.Lithium.Faturacao.Models.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\obj\Debug\netstandard2.0\Primavera.Lithium.Faturacao.Models.pdb
+C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Models\obj\Debug\netstandard2.0\Models.csprojAssemblyReference.cache

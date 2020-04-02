@@ -11,14 +11,19 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Primavera.Hydrogen;
+using Primavera.Hydrogen.AspNetCore.Configuration;
 using Primavera.Hydrogen.AspNetCore.Mvc;
+using Primavera.Hydrogen.AspNetCore.Routing;
 using Primavera.Hydrogen.Rest;
+using Primavera.Hydrogen.Rest.Routing;
+using Primavera.Hydrogen.Storage.Blobs;
 
 namespace Primavera.Lithium.Faturacao.WebApi.Controllers
 {
@@ -37,6 +42,43 @@ namespace Primavera.Lithium.Faturacao.WebApi.Controllers
     public abstract partial class MonitoringControllerBase : ApiControllerBase, IMonitoringController
     {
         #region Code
+
+        #region Protected Properties
+
+        /// <summary>
+        /// Gets the logger.
+        /// </summary>
+        protected ILogger Logger
+        {
+            get
+            {
+                return this.HttpContext.RequestServices.GetRequiredService<ILogger<MonitoringControllerBase>>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the endpoint analyzer service.
+        /// </summary>
+        protected IEndpointAnalyzerService EndpointAnalyzer
+        {
+            get
+            {
+                return this.HttpContext.RequestServices.GetRequiredService<IEndpointAnalyzerService>();
+            }
+        }
+
+        /// <summary>
+        /// Gets the configuration analyzer service.
+        /// </summary>
+        protected IConfigurationAnalyzerService ConfigurationAnalyzer
+        {
+            get
+            {
+                return this.HttpContext.RequestServices.GetRequiredService<IConfigurationAnalyzerService>();
+            }
+        }
+
+        #endregion
 
         #region Protected Constructors
 
@@ -61,6 +103,131 @@ namespace Primavera.Lithium.Faturacao.WebApi.Controllers
         [HttpGet(Primavera.Lithium.Faturacao.Models.Metadata.Routes.Monitoring.Diagnostics)]
         [ProducesResponseType(typeof(string), 200)]
         public abstract Task<IActionResult> DiagnosticsAsync();
+
+        /// <inheritdoc />
+        [HttpGet(Primavera.Lithium.Faturacao.Models.Metadata.Routes.Monitoring.Endpoints)]
+        [ProducesResponseType(typeof(EndpointInfo), 200)]
+        public virtual Task<IActionResult> EndpointsAsync()
+        {
+            // Retrieve the endpoints
+
+            IEnumerable<EndpointInfo> endpoints = this.EndpointAnalyzer.Analyze();
+
+            // Result
+
+            return Task.FromResult<IActionResult>(
+                this.Ok(endpoints));
+        }
+
+        /// <inheritdoc />
+        [HttpGet(Primavera.Lithium.Faturacao.Models.Metadata.Routes.Monitoring.Configuration)]
+        [ProducesResponseType(typeof(IDictionary<string, string>), 200)]
+        public virtual async Task<IActionResult> ConfigurationAsync()
+        {
+            // Retrieve the configuration options using the service
+
+            IDictionary<string, string> options = this.ConfigurationAnalyzer.Analyze();
+
+            // Try to save using the blob storage
+
+            bool saved = await this.SaveConfigurationInBlobStorageAsync(options);
+            if (saved)
+            {
+                return this.Ok("OK (saved in blob storage)");
+            }
+
+            // Save in the file system
+
+            this.SaveConfigurationInFileSystem(options);
+
+            // Result
+
+            return this.Ok("OK (saved in the file system)");
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        /// <summary>
+        /// Saves the specified configuration options to the blob storage.
+        /// </summary>
+        /// <param name="options">The configuration options.</param>
+        /// <returns>
+        /// The <see cref="Task{TResult}"/> that represents the asynchronous operation.
+        /// A value indicating whether the configuration options were saved.
+        /// </returns>
+        protected virtual async Task<bool> SaveConfigurationInBlobStorageAsync(IDictionary<string, string> options)
+        {
+            // Resolve blob storage service
+
+            IBlobStorageService service = this.HttpContext.RequestServices.GetService<IBlobStorageService>();
+            if (service == null)
+            {
+                return false;
+            }
+
+            // Create the container, if necessary
+
+            IContainerReference container = service.GetContainer("ConfigAnalyzer");
+
+            await container.CreateIfNotExistsAsync().ConfigureAwait(false);
+
+            // Serialize
+
+            JsonSerializerOptions serializerOptions = new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                IgnoreNullValues = true
+            };
+
+            string json = JsonSerializer.Serialize(options, serializerOptions);
+
+            // Upload the blob
+
+            IBlockBlobReference blob = container.GetBlockBlob("FATUR.json");
+
+            await blob.UploadTextAsync(
+                json,
+                "application/json")
+                .ConfigureAwait(false);
+
+            // Result
+
+            return true;
+        }
+
+        /// <summary>
+        /// Saves the specified configuration options in the file system.
+        /// </summary>
+        /// <param name="options">The configuration options.</param>
+        protected virtual void SaveConfigurationInFileSystem(IDictionary<string, string> options)
+        {
+            // Serialize
+
+            JsonSerializerOptions serializerOptions = new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                IgnoreNullValues = true
+            };
+
+            string json = JsonSerializer.Serialize(options, serializerOptions);
+
+            // Save
+
+            System.IO.DirectoryInfo directory = new System.IO.DirectoryInfo(
+                System.IO.Path.Combine(
+                    Environment.CurrentDirectory,
+                    ".Config"));
+
+            if (!directory.Exists)
+            {
+                directory.Create();
+            }
+
+            string fileName = System.IO.Path.Combine(directory.FullName, "ConfigAnalyzer.json");
+            System.IO.File.WriteAllText(fileName, json);
+        }
 
         #endregion
 

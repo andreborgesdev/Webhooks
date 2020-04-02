@@ -34,6 +34,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authentication"))
         .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authentication.JwtBearer"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Azure.DataProtection"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Caching.Distributed.Redis"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.IdentityModel.Client.Caching"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client.Authentication"))
@@ -246,6 +247,17 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                 Documentation = new DocumentationModel("configures the blob storage options.")
             })
                 .WithParameter(new MethodParameterModel("options", "AzureBlobStorageOptions"));
+    }
+
+    if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DataProtection))
+    {
+        mockBaseClass
+            .AddMethod(new MethodModel("ConfigureAzureBlobStorageDataProtectionOptions", "void")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("configures the data protection options.")
+            })
+                .WithParameter(new MethodParameterModel("options", "AzureBlobStorageDataProtectionOptions"));
     }
 
     ClassModel mockClass = targetModel.Namespace

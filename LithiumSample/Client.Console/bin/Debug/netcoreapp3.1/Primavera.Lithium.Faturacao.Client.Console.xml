@@ -98,6 +98,19 @@
             This method needs to be overridden to handle the custom application menu options.
             </remarks>
         </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteEndpoints(System.Collections.Generic.IEnumerable{Primavera.Hydrogen.Rest.Routing.EndpointInfo})">
+            <summary>
+            Writes the specified endpoints to the console.
+            </summary>
+            <param name="endpoints">The endpoints.</param>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteEndpoint(System.String,Primavera.Hydrogen.Rest.Routing.EndpointInfo)">
+            <summary>
+            Writes the specified endpoint to the console.
+            </summary>
+            <param name="spacing">The spacing.</param>
+            <param name="endpoint">The endpoint.</param>
+        </member>
         <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.WriteException(System.Exception)">
             <summary>
             Writes the specified exception to the console.
@@ -178,6 +191,22 @@
         <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.DiagnosticsAsync">
             <summary>
             Executes the diagnosis endpoint.
+            </summary>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.EndpointsAsync">
+            <summary>
+            Executes the endpoints analyzer endpoint.
+            </summary>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.Client.Console.ApplicationBase.ConfigurationAsync">
+            <summary>
+            Executes the configuration analyzer endpoint.
             </summary>
             <returns>
             The <see cref="T:System.Threading.Tasks.Task"/> that represents the asynchronous operation.

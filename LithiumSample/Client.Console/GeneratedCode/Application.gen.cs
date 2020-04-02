@@ -10,6 +10,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using Primavera.Hydrogen.Hosting;
 using Primavera.Hydrogen.Rest;
 using Primavera.Hydrogen.Rest.Client;
 using Primavera.Hydrogen.Rest.Client.Authentication;
+using Primavera.Hydrogen.Rest.Routing;
 using Primavera.Lithium.Faturacao.Client.Console.Configuration;
 
 namespace Primavera.Lithium.Faturacao.Client.Console
@@ -229,6 +231,43 @@ namespace Primavera.Lithium.Faturacao.Client.Console
         protected abstract Task<bool> HandleCustomMenuOptionsAsync(ConsoleKeyInfo key);
 
         /// <summary>
+        /// Writes the specified endpoints to the console.
+        /// </summary>
+        /// <param name="endpoints">The endpoints.</param>
+        protected virtual void WriteEndpoints(IEnumerable<EndpointInfo> endpoints)
+        {
+            ConsoleHelper.WriteInformationLine("Endpoints:");
+
+            if (endpoints != null)
+            {
+                foreach (EndpointInfo endpoint in endpoints.OrderBy(e => e.RoutePattern).ThenBy(e => e.HttpMethods))
+                {
+                    this.WriteEndpoint("..", endpoint);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Writes the specified endpoint to the console.
+        /// </summary>
+        /// <param name="spacing">The spacing.</param>
+        /// <param name="endpoint">The endpoint.</param>
+        protected virtual void WriteEndpoint(string spacing, EndpointInfo endpoint)
+        {
+            ConsoleHelper.WriteInformationLine(spacing + "Endpoint:");
+            ConsoleHelper.WriteInformationLine(spacing + "..HttpMethods...: {0}", endpoint.HttpMethods);
+            ConsoleHelper.WriteInformationLine(spacing + "..RoutePattern..: {0}", endpoint.RoutePattern);
+            ConsoleHelper.WriteInformationLine(spacing + "..EndpointName..: {0}", endpoint.EndpointName);
+            ConsoleHelper.WriteInformationLine(spacing + "..RouteName.....: {0}", endpoint.RouteName);
+            ConsoleHelper.WriteInformationLine(spacing + "..ControllerName: {0}", endpoint.ControllerName);
+            ConsoleHelper.WriteInformationLine(spacing + "..ActionName....: {0}", endpoint.ActionName);
+            ConsoleHelper.WriteInformationLine(spacing + "..Order.........: {0}", endpoint.Order);
+            ConsoleHelper.WriteInformationLine(spacing + "..DisplayName...: {0}", endpoint.DisplayName);
+            ConsoleHelper.WriteInformationLine(spacing + "..ApiVersions...: {0}", endpoint.ApiVersions);
+            ConsoleHelper.WriteInformationLine(spacing + "..Secured.......: {0}", endpoint.Secured);
+        }
+
+        /// <summary>
         /// Writes the specified exception to the console.
         /// </summary>
         /// <param name="ex">The exception.</param>
@@ -275,7 +314,7 @@ namespace Primavera.Lithium.Faturacao.Client.Console
         {
             if (error != null)
             {
-                ConsoleHelper.WriteErrorLine(spacing + "Error code: '{0}'", error.Code);
+                ConsoleHelper.WriteErrorLine(spacing + "Error code...: '{0}'", error.Code);
                 ConsoleHelper.WriteErrorLine(spacing + "Error message: '{0}'", error.Message);
                 if (error.Details != null)
                 {
@@ -296,8 +335,8 @@ namespace Primavera.Lithium.Faturacao.Client.Console
         {
             if (error != null)
             {
-                ConsoleHelper.WriteErrorLine(spacing + "Error code: '{0}'", error.Code);
-                ConsoleHelper.WriteErrorLine(spacing + "Error description: '{0}'", error.Description);
+                ConsoleHelper.WriteErrorLine(spacing + "Error code...: '{0}'", error.Code);
+                ConsoleHelper.WriteErrorLine(spacing + "Error message: '{0}'", error.Message);
             }
         }
 
@@ -310,7 +349,7 @@ namespace Primavera.Lithium.Faturacao.Client.Console
             if (request != null)
             {
                 ConsoleHelper.WriteErrorLine("Request:");
-                ConsoleHelper.WriteErrorLine("..URI: '{0}'", request.RequestUri.AbsoluteUri);
+                ConsoleHelper.WriteErrorLine("..URI...: '{0}'", request.RequestUri.AbsoluteUri);
                 ConsoleHelper.WriteErrorLine("..Method: '{0}'", request.Method.Method);
                 this.WriteHeaders(request.Headers);
             }
@@ -325,7 +364,7 @@ namespace Primavera.Lithium.Faturacao.Client.Console
             if (response != null)
             {
                 ConsoleHelper.WriteErrorLine("Response:");
-                ConsoleHelper.WriteErrorLine("..StatusCode: '{0}'", response.StatusCode);
+                ConsoleHelper.WriteErrorLine("..StatusCode..: '{0}'", response.StatusCode);
                 ConsoleHelper.WriteErrorLine("..ReasonPhrase: '{0}'", response.ReasonPhrase);
                 this.WriteHeaders(response.Headers);
             }
@@ -414,6 +453,8 @@ namespace Primavera.Lithium.Faturacao.Client.Console
                 ConsoleHelper.WriteLine();
                 ConsoleHelper.WriteLine("1. Probe.");
                 ConsoleHelper.WriteLine("2. Diagnostics.");
+                ConsoleHelper.WriteLine("3. Endpoints.");
+                ConsoleHelper.WriteLine("4. Configuration.");
                 ConsoleHelper.WriteLine("<. Back.");
                 ConsoleHelper.WriteLine("Q. Quit.");
                 ConsoleHelper.Write(">> ");
@@ -437,6 +478,14 @@ namespace Primavera.Lithium.Faturacao.Client.Console
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
                         await this.DiagnosticsAsync().ConfigureAwait(false);
+                        break;
+                    case ConsoleKey.D3:
+                    case ConsoleKey.NumPad3:
+                        await this.EndpointsAsync().ConfigureAwait(false);
+                        break;
+                    case ConsoleKey.D4:
+                    case ConsoleKey.NumPad4:
+                        await this.ConfigurationAsync().ConfigureAwait(false);
                         break;
                     default:
                         break;
@@ -493,6 +542,68 @@ namespace Primavera.Lithium.Faturacao.Client.Console
             try
             {
                 ServiceOperationResult<string> response = await this.Client.Monitoring.DiagnosticsAsync().ConfigureAwait(false);
+
+                ConsoleHelper.WriteInformationLine("Web API call succeeded. Result: {0}.", response.Body);
+            }
+            catch (ServiceException ex)
+            {
+                this.WriteServiceException(ex);
+            }
+            catch (Exception ex)
+            {
+                ConsoleHelper.WriteErrorLine(ex);
+            }
+        }
+
+        /// <summary>
+        /// Executes the endpoints analyzer endpoint.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/> that represents the asynchronous operation.
+        /// </returns>
+        protected virtual async Task EndpointsAsync()
+        {
+            // Call the Web API
+
+            ConsoleHelper.WriteLine();
+            ConsoleHelper.WriteInformationLine("Calling the Web API...");
+
+            try
+            {
+                ServiceOperationResult<IEnumerable<EndpointInfo>> response = await this.Client.Monitoring.EndpointsAsync().ConfigureAwait(false);
+
+                ConsoleHelper.WriteInformationLine("Web API returned the result. See below.");
+
+                IEnumerable<EndpointInfo> endpoints = response.Body;
+
+                WriteEndpoints(endpoints);
+            }
+            catch (ServiceException ex)
+            {
+                this.WriteServiceException(ex);
+            }
+            catch (Exception ex)
+            {
+                ConsoleHelper.WriteErrorLine(ex);
+            }
+        }
+
+        /// <summary>
+        /// Executes the configuration analyzer endpoint.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task"/> that represents the asynchronous operation.
+        /// </returns>
+        protected virtual async Task ConfigurationAsync()
+        {
+            // Call the Web API
+
+            ConsoleHelper.WriteLine();
+            ConsoleHelper.WriteInformationLine("Calling the Web API...");
+
+            try
+            {
+                ServiceOperationResult<string> response = await this.Client.Monitoring.ConfigurationAsync().ConfigureAwait(false);
 
                 ConsoleHelper.WriteInformationLine("Web API call succeeded. Result: {0}.", response.Body);
             }

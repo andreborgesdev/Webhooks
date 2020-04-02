@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Primavera.Hydrogen.Rest.Routing;
 
 namespace Primavera.Lithium.Faturacao.WebApi.Controllers
 {
@@ -33,7 +34,8 @@ namespace Primavera.Lithium.Faturacao.WebApi.Controllers
         /// Provides an action that probes the service. This action is used to perform dependencies tests on the service.
         /// </summary>
         /// <returns>
-        /// 'OK'.
+        /// The <see cref="Task{TResult}"/> that represents the asynchronous operation.
+        /// <see cref="HttpStatusCode.OK"/> if the operation succeeds.
         /// </returns>
         Task<IActionResult> ProbeAsync();
 
@@ -41,9 +43,32 @@ namespace Primavera.Lithium.Faturacao.WebApi.Controllers
         /// Provides an action that diagnoses the service. This action is used to perform functional tests on the service.
         /// </summary>
         /// <returns>
-        /// 'OK'.
+        /// The <see cref="Task{TResult}"/> that represents the asynchronous operation.
+        /// <see cref="HttpStatusCode.OK"/> if the operation succeeds.
         /// </returns>
         Task<IActionResult> DiagnosticsAsync();
+
+        /// <summary>
+        /// Provides an action that analyzes the endpoints of the service. This action is used to verify the service implementation.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task{TResult}"/> that represents the asynchronous operation.
+        /// <see cref="HttpStatusCode.OK"/> if the operation succeeds.
+        /// A list of <see cref="EndpointInfo"/> describing the endpoints.
+        /// </returns>
+        Task<IActionResult> EndpointsAsync();
+
+        /// <summary>
+        /// Provides an action that analyzes the configuration of the service. This action is used to verify the service implementation.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="Task{TResult}"/> that represents the asynchronous operation.
+        /// <see cref="HttpStatusCode.OK"/> if the operation succeeds.
+        /// </returns>
+        /// <remarks>
+        /// If the service uses blob storage, the configuration options will be dumped in a blob container named 'ConfigAnalyzer'. Otherwise, the configuration options will be saved in a file named 'ConfigAnalyzer.json'.
+        /// </remarks>
+        Task<IActionResult> ConfigurationAsync();
 
         #endregion
 

@@ -145,6 +145,14 @@ controller.AddModelWriter<MethodBodyModel>(
     }, 
     this.WriteConfigureAzureBlobStorageOptions);
 
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("ConfigureAzureBlobStorageDataProtectionOptions");
+    }, 
+    this.WriteConfigureAzureBlobStorageDataProtectionOptions);
+
 // Generate code
 
 controller.Write(targetModel);

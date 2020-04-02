@@ -43,6 +43,7 @@ public void WriteAction(ModelWriter modelWriter, MethodBodyModel model)
 
             return this.<#= action.Name #>CoreAsync(<#= parametersText #>);
 <#+
+
 }
 
 // *** WriteActionValidation
@@ -477,6 +478,162 @@ private string FindRegularExpression(string name, ControllerTypeActionScalarPara
     }
 
     return regularExpression.Value;
+}
+
+// *** WriteEndpointsAsync
+
+public void WriteEndpointsAsync(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Retrieve the endpoints
+
+            IEnumerable<EndpointInfo> endpoints = this.EndpointAnalyzer.Analyze();
+
+            // Result
+
+            return Task.FromResult<IActionResult>(
+                this.Ok(endpoints));
+<#+
+
+}
+
+// *** WriteConfigurationAsync
+
+public void WriteConfigurationAsync(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Retrieve the configuration options using the service
+
+            IDictionary<string, string> options = this.ConfigurationAnalyzer.Analyze();
+
+            // Try to save using the blob storage
+
+            bool saved = await this.SaveConfigurationInBlobStorageAsync(options);
+            if (saved)
+            {
+                return this.Ok("OK (saved in blob storage)");
+            }
+
+            // Save in the file system
+
+            this.SaveConfigurationInFileSystem(options);
+
+            // Result
+
+            return this.Ok("OK (saved in the file system)");
+<#+
+
+}
+
+// *** WriteSaveConfigurationInBlobStorageAsync
+
+public void WriteSaveConfigurationInBlobStorageAsync(ModelWriter modelWriter, MethodBodyModel model)
+{
+    ServiceModel sourceModel = model.RootModelAs<CSharpFileModel>().SourceModel as ServiceModel;
+
+#>
+            // Resolve blob storage service
+
+            IBlobStorageService service = this.HttpContext.RequestServices.GetService<IBlobStorageService>();
+            if (service == null)
+            {
+                return false;
+            }
+
+            // Create the container, if necessary
+
+            IContainerReference container = service.GetContainer("ConfigAnalyzer");
+
+            await container.CreateIfNotExistsAsync().ConfigureAwait(false);
+
+            // Serialize
+
+            JsonSerializerOptions serializerOptions = new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                IgnoreNullValues = true
+            };
+
+            string json = JsonSerializer.Serialize(options, serializerOptions);
+
+            // Upload the blob
+
+            IBlockBlobReference blob = container.GetBlockBlob("<#= sourceModel.GUID #>.json");
+
+            await blob.UploadTextAsync(
+                json,
+                "application/json")
+                .ConfigureAwait(false);
+
+            // Result
+
+            return true;
+<#+
+
+}
+
+// *** WriteSaveConfigurationInFileSystem
+
+public void WriteSaveConfigurationInFileSystem(ModelWriter modelWriter, MethodBodyModel model)
+{
+
+#>
+            // Serialize
+
+            JsonSerializerOptions serializerOptions = new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                IgnoreNullValues = true
+            };
+
+            string json = JsonSerializer.Serialize(options, serializerOptions);
+
+            // Save
+
+            System.IO.DirectoryInfo directory = new System.IO.DirectoryInfo(
+                System.IO.Path.Combine(
+                    Environment.CurrentDirectory,
+                    ".Config"));
+
+            if (!directory.Exists)
+            {
+                directory.Create();
+            }
+
+            string fileName = System.IO.Path.Combine(directory.FullName, "ConfigAnalyzer.json");
+            System.IO.File.WriteAllText(fileName, json);
+<#+
+
+}
+
+// *** WriteEndpointAnalyzer
+
+public void WriteEndpointAnalyzer(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                return this.HttpContext.RequestServices.GetRequiredService<IEndpointAnalyzerService>();
+            }
+<#+
+
+}
+
+// *** WriteConfigurationAnalyzer
+
+public void WriteConfigurationAnalyzer(ModelWriter modelWriter, PropertyGetAccessorModel model)
+{
+
+#>
+            get
+            {
+                return this.HttpContext.RequestServices.GetRequiredService<IConfigurationAnalyzerService>();
+            }
+<#+
+
 }
 
 #>

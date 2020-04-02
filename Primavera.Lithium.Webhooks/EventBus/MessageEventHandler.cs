@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using Primavera.Hydrogen;
 using Primavera.Hydrogen.AspNetCore.Hosting;
 using Primavera.Hydrogen.EventBus;
+using Primavera.Hydrogen.EventBus.Contracts;
+using Primavera.Hydrogen.EventBus.Exceptions;
 using Primavera.Hydrogen.Policies.Retry.Strategies;
 using Primavera.Lithium.Webhooks.Abstractions;
 using Primavera.Lithium.Webhooks.Application;
@@ -72,15 +74,9 @@ namespace Primavera.Lithium.Webhooks.EventBus
         {
             SmartGuard.NotNull(() => eventBusEvent, eventBusEvent);
 
-            bool success = false;
-            var retryStrategy = new ExponentialBackoffRetryStrategy();
-
             try
             {
-                //this.WorkerQueue.Enqueue(
-                //    new SendWebhooksToSubscriptionsWorker(
-                //        this.ServiceProvider,
-                //        this.ServiceProvider.GetRequiredService<ILogger<SendWebhooksToSubscriptionsWorker>>()));
+                // Enqueue?
 
                 await Worker.Executar(eventBusEvent.Body);
 
@@ -88,7 +84,7 @@ namespace Primavera.Lithium.Webhooks.EventBus
                 
                 return true;
             }
-            catch (EventBusException e)
+            catch (EventBusServiceException e)
             {
                 Console.WriteLine($"Message handler has encountered an exception: '{e.Message}'");
 

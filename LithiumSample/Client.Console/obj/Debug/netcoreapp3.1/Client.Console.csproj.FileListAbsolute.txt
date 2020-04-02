@@ -1,4 +1,3 @@
-C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\obj\Debug\netcoreapp3.1\Client.Console.csprojAssemblyReference.cache
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\bin\Debug\netcoreapp3.1\CustomCode\appsettings.json
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\bin\Debug\netcoreapp3.1\GeneratedCode\appsettings.gen.json
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\bin\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.Client.Console.exe
@@ -62,6 +61,7 @@ C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\bi
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\bin\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.Models.xml
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\bin\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.pdb
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\bin\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.xml
+C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\obj\Debug\netcoreapp3.1\Client.Console.csprojAssemblyReference.cache
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\obj\Debug\netcoreapp3.1\Client.Console.csproj.CopyComplete
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\obj\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.Client.Console.dll
 C:\Users\Andre.Borges\source\repos\LithiumSample\LithiumSample\Client.Console\obj\Debug\netcoreapp3.1\Primavera.Lithium.Faturacao.Client.Console.pdb

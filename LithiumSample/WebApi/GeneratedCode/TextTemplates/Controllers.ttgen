@@ -62,6 +62,54 @@ controller.AddModelWriter<PropertyGetAccessorModel>(
     }, 
     this.WriteBaseControllerLogger);
 
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("EndpointsAsync");
+    }, 
+    this.WriteEndpointsAsync);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("ConfigurationAsync");
+    }, 
+    this.WriteConfigurationAsync);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("SaveConfigurationInBlobStorageAsync");
+    }, 
+    this.WriteSaveConfigurationInBlobStorageAsync);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("SaveConfigurationInFileSystem");
+    }, 
+    this.WriteSaveConfigurationInFileSystem);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        return parentProperty.Name.EqualsNoCase("EndpointAnalyzer");
+    }, 
+    this.WriteEndpointAnalyzer);
+
+controller.AddModelWriter<PropertyGetAccessorModel>(
+    (w, m) =>
+    {
+        PropertyModel parentProperty = m.ParentModelAs<PropertyModel>();
+        return parentProperty.Name.EqualsNoCase("ConfigurationAnalyzer");
+    }, 
+    this.WriteConfigurationAnalyzer);
+
 // Generate code
 
 controller.Write(targetModel);

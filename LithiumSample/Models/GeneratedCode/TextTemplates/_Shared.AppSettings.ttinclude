@@ -10,67 +10,67 @@ public IList<AppSettingSpec> GetAppSettings(ServiceModel model)
 
     // ... Logging
 
-    standard.Add(new AppSettingSpec("Logging:IncludeScopes", false, new AppSettingValueSpec(false)));
+    standard.Add(new AppSettingSpec("Logging:IncludeScopes", "Indicates whether log scopes are enabled.", false, new AppSettingValueSpec(false)));
     
-    standard.Add(new AppSettingSpec("Logging:Debug:LogLevel:Default", false, new AppSettingValueSpec("Trace", "Warning")));
+    standard.Add(new AppSettingSpec("Logging:Debug:LogLevel:Default", "The default log level for the Debug provider.", false, new AppSettingValueSpec("Trace", "Warning")));
     
-    standard.Add(new AppSettingSpec("Logging:Console:LogLevel:Default", false, new AppSettingValueSpec("Trace", "Warning")));
+    standard.Add(new AppSettingSpec("Logging:Console:LogLevel:Default", "The default log level for the Console provider.", false, new AppSettingValueSpec("Trace", "Warning")));
     
-    standard.Add(new AppSettingSpec("Logging:ApplicationInsights:LogLevel:Default", false, new AppSettingValueSpec("Trace", "Warning")));
+    standard.Add(new AppSettingSpec("Logging:ApplicationInsights:LogLevel:Default", "The default log level for the Application Insights provider.", false, new AppSettingValueSpec("Trace", "Warning")));
 
     // ... Host configuration
 
-    standard.Add(new AppSettingSpec("HostConfiguration:IdentityServerBaseUri", true, new AppSettingValueSpec("https://stg-identity.primaverabss.com", "https://stg-identity.primaverabss.com", "https://identity.primaverabss.com")));
+    standard.Add(new AppSettingSpec("HostConfiguration:IdentityServerBaseUri", "The Identity Server base address.", true, true, new AppSettingValueSpec("https://stg-identity.primaverabss.com", "https://stg-identity.primaverabss.com", "https://identity.primaverabss.com")));
 
     // ... Telemetry
 
-    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:Enabled", false, new AppSettingValueSpec(true)));
-    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:IgnoreErrors", false, new AppSettingValueSpec(true)));
-    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:DeveloperMode", false, new AppSettingValueSpec(true, false)));
-    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:EnableAdaptiveSampling", false, new AppSettingValueSpec(false)));
-    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:DefaultProperties:Lithium-Service", false, new AppSettingValueSpec(model.Name)));
-    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:InstrumentationKey", true));
-    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:RequestTracking:TrackRequestHeaders", false, new AppSettingValueSpec(true)));
-    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:RequestTracking:TrackResponseHeaders", false, new AppSettingValueSpec(false)));
-    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:RequestTracking:IgnoreAvailabilityTestsRequests", false, new AppSettingValueSpec(true)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:Enabled", "Indicates whether telemetry on Azure Application Insights is enabled.", false, new AppSettingValueSpec(true)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:IgnoreErrors", "Indicates whether errors while recording telemetry should be ignored.", false, new AppSettingValueSpec(true)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:DeveloperMode", "Indicates whether the developer mode is enabled. When enabled, telemetry records are dispatched faster.", false, new AppSettingValueSpec(true, false)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:EnableAdaptiveSampling", "Indicates whether adaptive sampling is enabled.", false, new AppSettingValueSpec(false)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:DefaultProperties:Lithium-Service", "The default property that identifies the Lithium service.", false, new AppSettingValueSpec(model.Name)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:InstrumentationKey", "The Azure Application Insights instrumentation key.", true));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:RequestTracking:TrackRequestHeaders", "Indicates whether request headers should be tracked.", false, new AppSettingValueSpec(true)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:RequestTracking:TrackResponseHeaders", "Indicates whether response headers should be tracked.", false, new AppSettingValueSpec(false)));
+    standard.Add(new AppSettingSpec("AzureInsightsTelemetryOptions:RequestTracking:IgnoreAvailabilityTestsRequests", "Indicates whether requests to availability endpoints should be ignored in telemetry.", false, new AppSettingValueSpec(true)));
 
     // ... Secrets storage
 
-    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:AutomaticAuthenticationEnabled", false, new AppSettingValueSpec(false, true, true)));
-    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:ClientId", false));
-    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:ClientSecret", false));
-    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:ConfigurationStorageBaseUrl", true));
+    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:AutomaticAuthenticationEnabled", "Indicates whether automatic authentication with Azure KeyVault is enabled.", false, new AppSettingValueSpec(false, true, true)));
+    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:ClientId", "The client identifier that should be used to authenticate with Azure KeyVault (when automatic authentication is disabled or not configured.", false));
+    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:ClientSecret", "The client secret that should be used to authenticate with Azure KeyVault (when automatic authentication is disabled or not configured.", false));
+    standard.Add(new AppSettingSpec("AzureKeyVaultSecretsStorageOptions:ConfigurationStorageBaseUrl", "The base address of the Azure KeyVault that should be used for configuration.", false));
 
     // ... Blob storage
 
     if (model.Dependencies.Any(d => d.Kind == DependencyKind.BlobStorage))
     {
-        standard.Add(new AppSettingSpec("AzureBlobStorageOptions:ConnectionString", true));
+        standard.Add(new AppSettingSpec("AzureBlobStorageOptions:ConnectionString", "The connection string used by the Blob Storage service.", true));
     }
 
     // ... Table storage
 
     if (model.Dependencies.Any(d => d.Kind == DependencyKind.TableStorage))
     {
-        standard.Add(new AppSettingSpec("AzureTableStorageOptions:ConnectionString", true));
+        standard.Add(new AppSettingSpec("AzureTableStorageOptions:ConnectionString", "The connection string used by the Table Storage service.", true));
     }
 
     // ... Search
 
     if (model.Dependencies.Any(d => d.Kind == DependencyKind.Search))
     {
-        standard.Add(new AppSettingSpec("AzureSearchOptions:ServiceName", true));
-        standard.Add(new AppSettingSpec("AzureSearchOptions:AdminApiKey", true));
+        standard.Add(new AppSettingSpec("AzureSearchOptions:ServiceName", "The name of the Azure Search Service used by the Search service.", true));
+        standard.Add(new AppSettingSpec("AzureSearchOptions:AdminApiKey", "The API key of the Azure Search Service used by the Search service.", true));
     }
 
     // ... Distributed cache
 
     if (model.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))
     {
-        standard.Add(new AppSettingSpec("RedisCacheOptions:ConnectionString", true));
-        standard.Add(new AppSettingSpec("RedisCacheOptions:InstanceName", false));
-        standard.Add(new AppSettingSpec("ResilientCacheOptions:MaxRetries", false, new AppSettingValueSpec(2)));
-        standard.Add(new AppSettingSpec("ResilientCacheOptions:MinRetryBackoff", false, new AppSettingValueSpec("00:00:01")));
+        standard.Add(new AppSettingSpec("RedisCacheOptions:ConnectionString", "The connection string for the REDIS cache instance.", true));
+        standard.Add(new AppSettingSpec("RedisCacheOptions:InstanceName", "The name of the REDIS cache instance that should be used.", false));
+        standard.Add(new AppSettingSpec("ResilientCacheOptions:MaxRetries", "The maximum number of times that operations on the REDIS cache should be retried.", false, new AppSettingValueSpec(2)));
+        standard.Add(new AppSettingSpec("ResilientCacheOptions:MinRetryBackoff", "The minimum back-off time between retries on the REDIS cache.", false, new AppSettingValueSpec("00:00:01")));
     }
 
     // ... Data protection
@@ -79,8 +79,8 @@ public IList<AppSettingSpec> GetAppSettings(ServiceModel model)
     {
         string applicationName = "lithium-{0}".Format(model.Name.Transform().ToLowerCase());
 
-        standard.Add(new AppSettingSpec("AzureBlobStorageDataProtectionOptions:ApplicationName", false, new AppSettingValueSpec(applicationName)));
-        standard.Add(new AppSettingSpec("AzureBlobStorageDataProtectionOptions:UseBlobStorage", false, new AppSettingValueSpec(false, true)));
+        standard.Add(new AppSettingSpec("AzureBlobStorageDataProtectionOptions:ApplicationName", "The application name that should be used by the Data Protection service.", false, new AppSettingValueSpec(applicationName)));
+        standard.Add(new AppSettingSpec("AzureBlobStorageDataProtectionOptions:UseBlobStorage", "Indicates whether Blob Storage should be used to store the Data Protection keys.", false, new AppSettingValueSpec(false, true)));
     }
 
     return standard;

@@ -8,9 +8,9 @@
   <Import Project="GeneratedCode\Project.gen.props" Condition="Exists('GeneratedCode\Project.gen.props')" />
 
   <ItemGroup>
-    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.25" PrivateAssets="All" />
-    <PackageReference Include="Primavera.Hydrogen.Core" version="2.0.1.87" />
-    <PackageReference Include="Primavera.Hydrogen.DesignTime.UnitTesting" version="2.0.1.87" />
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.Configuration" Version="2.0.0.26" PrivateAssets="All" />
+    <PackageReference Include="Primavera.Hydrogen.Core" version="2.0.1.137" />
+    <PackageReference Include="Primavera.Hydrogen.DesignTime.UnitTesting" version="2.0.1.137" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" PrivateAssets="All" />
     <PackageReference Include="coverlet.msbuild" Version="2.8.0" PrivateAssets="All" />
     <PackageReference Include="xunit" Version="2.4.1" PrivateAssets="All" />

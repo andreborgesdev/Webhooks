@@ -43,8 +43,6 @@ namespace Primavera.Lithium.Webhooks.BackgroundServices
             Console.WriteLine("EXECUTIIIIIIIIIIIING");
 
             //IEnumerable<SmsNotificationStateData> records = await this.SmsNotificationReceiversManager.GetQueuedAsync().ConfigureAwait(false);
-
-
         }
 
         public async Task Executar(EventTriggeredDto eventTriggered)

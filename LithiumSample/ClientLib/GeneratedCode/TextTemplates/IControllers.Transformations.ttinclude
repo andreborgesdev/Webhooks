@@ -22,7 +22,8 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
         .WithNamespaceImport(new NamespaceImportModel("System.Threading"))
         .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
-        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client"));
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Routing"));
 
     targetModel.Namespace = new NamespaceModel(sourceModel.Namespace);
 
@@ -76,6 +77,40 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                 Documentation = new DocumentationModel("The cancellation token.")
             });
 
+        interfaceModel.AddMethod(new MethodModel("EndpointsAsync", "Task<ServiceOperationResult<IEnumerable<EndpointInfo>>>")
+        {
+            Documentation = new DocumentationModel("Analyzes the service endpoints.")
+            {
+                Returns = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\nThe <see cref=\"ServiceOperationResult{T}\"/> result.",
+                Exceptions = new Dictionary<string, string>()
+                {
+                    ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                }
+            }
+        })
+            .AddParameter(new MethodParameterModel("cancellationToken", "CancellationToken")
+            {
+                DefaultValue = "default(CancellationToken)",
+                Documentation = new DocumentationModel("The cancellation token.")
+            });
+
+        interfaceModel.AddMethod(new MethodModel("ConfigurationAsync", "Task<ServiceOperationResult<string>>")
+        {
+            Documentation = new DocumentationModel("Analyzes the service configuration.")
+            {
+                Returns = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\nThe <see cref=\"ServiceOperationResult{T}\"/> result.",
+                Exceptions = new Dictionary<string, string>()
+                {
+                    ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                }
+            }
+        })
+            .AddParameter(new MethodParameterModel("cancellationToken", "CancellationToken")
+            {
+                DefaultValue = "default(CancellationToken)",
+                Documentation = new DocumentationModel("The cancellation token.")
+            });
+
         if (sourceModel.GenerateSyncActions)
         {
             interfaceModel.AddMethod(new MethodModel("Probe", "ServiceOperationResult<string>")
@@ -93,6 +128,30 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
             interfaceModel.AddMethod(new MethodModel("Diagnostics", "ServiceOperationResult<string>")
             {
                 Documentation = new DocumentationModel("Diagnoses the service.")
+                {
+                    Returns = "The <see cref=\"ServiceOperationResult{T}\"/> result.",
+                    Exceptions = new Dictionary<string, string>()
+                    {
+                        ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                    }
+                }
+            });
+
+            interfaceModel.AddMethod(new MethodModel("Endpoints", "ServiceOperationResult<IEnumerable<EndpointInfo>>")
+            {
+                Documentation = new DocumentationModel("Analyzes the service endpoints.")
+                {
+                    Returns = "The <see cref=\"ServiceOperationResult{T}\"/> result.",
+                    Exceptions = new Dictionary<string, string>()
+                    {
+                        ["ServiceException"] = "Raised when the operation returns an unexpected status code."
+                    }
+                }
+            });
+
+            interfaceModel.AddMethod(new MethodModel("Configuration", "ServiceOperationResult<string>")
+            {
+                Documentation = new DocumentationModel("Analyzes the service configuration.")
                 {
                     Returns = "The <see cref=\"ServiceOperationResult{T}\"/> result.",
                     Exceptions = new Dictionary<string, string>()

@@ -7,9 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Primavera.Hydrogen.AspNetCore.Hosting;
 using Primavera.Hydrogen.EventBus;
 using Primavera.Hydrogen.EventBus.Azure;
-using Primavera.Hydrogen.EventBus.InMemory;
+using Primavera.Hydrogen.EventBus.Azure.Entities;
+using Primavera.Hydrogen.EventBus.Contracts;
 using Primavera.Hydrogen.Policies.Retry.Strategies;
+using Primavera.Hydrogen.Storage.Azure.Tables;
 using Primavera.Lithium.Webhooks.Abstractions;
+using Primavera.Lithium.Webhooks.Application;
 using Primavera.Lithium.Webhooks.BackgroundServices;
 using Primavera.Lithium.Webhooks.EventBus;
 
@@ -32,43 +35,55 @@ namespace Primavera.Lithium.Webhooks
             return services;
         }
 
-        public static IServiceCollection AddWebhooksServices(this IServiceCollection services, string serviceNamespace)
+        public static IServiceCollection AddWebhooksServices(this IServiceCollection services, Action<AddWebhooksServicesOptions> configureDelegate = null)
         {
+            AddWebhooksServicesOptions webhooksOptions = new AddWebhooksServicesOptions();
+
+            configureDelegate?.Invoke(webhooksOptions);
+
+            services.AddAzureTableStorage(
+                (options) =>
+                {
+                    options.ConnectionString = webhooksOptions.TableStorage.ConnectionString;
+                });
+
             // Add Mediator service
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
-            services.AddTransient<IWebhooksEventBusPublish, WebhooksEventBusPublish>();
+            var serviceNamespace = webhooksOptions.ServiceNamespace.Replace(" ", String.Empty).ToLower();
+            var product = webhooksOptions.Product.Replace(" ", String.Empty);
 
-            //Add EventBus
+            services.AddTransient<IWebhooksEventBusPublish, WebhooksEventBusPublish>();
+            services.AddSingleton<WebhooksOptions>(s =>
+            {
+                return new WebhooksOptions(serviceNamespace, product);
+            });
+
+            // Add EventBus
             services.AddAzureEventBus(
                 (options) =>
                 {
-                    options.ConnectionString = "Endpoint=sb://tbx-eventbus-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=8cjm4NSJBpQvRZy/QlYxReESPp/tQC23h35X5hH6Dug=";
+                    options.ConnectionString = webhooksOptions.EventBus.ConnectionString;
                     options.EventHandlerOptions = new AzureEventBusEventHandlerOptions(autoComplete: false, maxConcurrentCalls: 10);
                     options.RetryStrategy = new ExponentialBackoffRetryStrategy();
                 });
-           
+
             IEventBusEventHandler<EventTriggeredDto> messageEventHandler = new MessageEventHandler(services.BuildServiceProvider());
             IEventBusEventFilters<EventTriggeredDto> messageFilters = new AzureEventBusEventFilters<EventTriggeredDto>();
 
             var serviceProvider = services.BuildServiceProvider();
-            var eventbus = serviceProvider.GetRequiredService<IEventBus>();
+            var eventbus = serviceProvider.GetRequiredService<IEventBusService>();
 
-            messageFilters.Filters.Add("Service", serviceNamespace.Replace(" ", String.Empty).ToLower());
+            messageFilters.Filters.Add("Service", serviceNamespace);
 
             eventbus.Subscribe("webhooks", messageEventHandler, messageFilters);
 
+            foreach (var webhook in webhooksOptions.WebHooks)
+            {
+                serviceProvider.GetRequiredService<IMediator>().Send(new CreateWebhooksEventCommand() { WebhooksEvent = webhook }); 
+            }
+
             return services;
         }
-
-
-        /// <summary>
-        /// Gets the event bus service.
-        /// </summary>
-        /// <returns>The event bus service.</returns>
-        //private static IEventBus GetEventBusService()
-        //{
-        //    return new InMemoryEventBus();
-        //}
     }
 }

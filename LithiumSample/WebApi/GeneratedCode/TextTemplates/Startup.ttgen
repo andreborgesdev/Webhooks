@@ -153,6 +153,15 @@ controller.AddModelWriter<MethodBodyModel>(
     {
         MethodModel parentMethod = m.ParentModelAs<MethodModel>();
         ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddHttpClient");
+    }, 
+    this.WriteAddHttpClient);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
         return parentMethod.Name.EqualsNoCase("AddOpenApiDocumentation");
     }, 
     this.WriteAddOpenApiDocumentation);
@@ -228,6 +237,24 @@ controller.AddModelWriter<MethodBodyModel>(
         return parentMethod.Name.EqualsNoCase("AddJwtBearer");
     }, 
     this.WriteAddJwtBearer);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddCookie");
+    }, 
+    this.WriteAddCookie);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("AddOidc");
+    }, 
+    this.WriteAddOidc);
 
 controller.AddModelWriter<MethodBodyModel>(
     (w, m) =>
@@ -408,6 +435,159 @@ controller.AddModelWriter<MethodBodyModel>(
         return parentMethod.Name.EqualsNoCase("DisallowsCookiesSameSiteNone");
     }, 
     this.WriteDisallowsCookiesSameSiteNone);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnCookieRedirectToLogin");
+    }, 
+    this.WriteOnCookieRedirectToLogin);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnCookieRedirectToLogout");
+    }, 
+    this.WriteOnCookieRedirectToLogout);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnCookieSignedIn");
+    }, 
+    this.WriteOnCookieSignedIn);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnCookieSigningIn");
+    }, 
+    this.WriteOnCookieSigningIn);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnCookieSigningOut");
+    }, 
+    this.WriteOnCookieSigningOut);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnCookieValidatePrincipal");
+    }, 
+    this.WriteOnCookieValidatePrincipal);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcAuthenticationFailed");
+    }, 
+    this.WriteOnOidcAuthenticationFailed);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcAuthorizationCodeReceived");
+    }, 
+    this.WriteOnOidcAuthorizationCodeReceived);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcMessageReceived");
+    }, 
+    this.WriteOnOidcMessageReceived);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcRedirectToIdentityProvider");
+    }, 
+    this.WriteOnOidcRedirectToIdentityProvider);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcRedirectToIdentityProviderForSignOut");
+    }, 
+    this.WriteOnOidcRedirectToIdentityProviderForSignOut);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcRemoteFailure");
+    }, 
+    this.WriteOnOidcRemoteFailure);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcRemoteSignOut");
+    }, 
+    this.WriteOnOidcRemoteSignOut);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcTicketReceived");
+    }, 
+    this.WriteOnOidcTicketReceived);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcTokenResponseReceived");
+    }, 
+    this.WriteOnOidcTokenResponseReceived);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcTokenValidated");
+    }, 
+    this.WriteOnOidcTokenValidated);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        ClassModel parentClass = parentMethod.ParentModelAs<ClassModel>();
+        return parentMethod.Name.EqualsNoCase("OnOidcUserInformationReceived");
+    }, 
+    this.WriteOnOidcUserInformationReceived);
 
 // Generate code
 

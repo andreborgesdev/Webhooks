@@ -13,11 +13,11 @@ namespace Primavera.Lithium.Webhooks.Abstractions
     /// </summary>
     public class WebhooksEvent : TableEntity
     {
-        [NotEmpty]
-        public string Description { get; set; }
-
         [Required]
         public string Event { get; set; }
+
+        [Required]
+        public string Description { get; set; }
 
         [Required]
         public string Product { get; set; }
@@ -34,7 +34,6 @@ namespace Primavera.Lithium.Webhooks.Abstractions
 
         public WebhooksEvent()
         {
-
         }
     }
 }

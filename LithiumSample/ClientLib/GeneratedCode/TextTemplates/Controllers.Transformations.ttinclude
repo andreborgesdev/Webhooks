@@ -25,6 +25,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("System.Threading"))
         .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Routing"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Client"));
 
     targetModel.Namespace = new NamespaceModel(sourceModel.Namespace);
@@ -107,6 +108,26 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                 {
                     DefaultValue = "default(CancellationToken)"
                 })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("EndpointsAsync", "Task<ServiceOperationResult<IEnumerable<EndpointInfo>>>")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel(true)
+            })
+                .WithParameter(new MethodParameterModel("cancellationToken", "CancellationToken")
+                {
+                    DefaultValue = "default(CancellationToken)"
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("ConfigurationAsync", "Task<ServiceOperationResult<string>>")
+            {
+                Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel(true)
+            })
+                .WithParameter(new MethodParameterModel("cancellationToken", "CancellationToken")
+                {
+                    DefaultValue = "default(CancellationToken)"
+                })
                 .ParentModelAs<ClassModel>();
 
         if (sourceModel.GenerateSyncActions)
@@ -119,6 +140,18 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                 })
                     .ParentModelAs<ClassModel>()
                 .AddMethod(new MethodModel("Diagnostics", "ServiceOperationResult<string>")
+                {
+                    Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel(true)
+                })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("Endpoints", "ServiceOperationResult<IEnumerable<EndpointInfo>>")
+                {
+                    Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel(true)
+                })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("Configuration", "ServiceOperationResult<string>")
                 {
                     Modifiers = MethodModifiers.Public | MethodModifiers.Virtual,
                     Documentation = new DocumentationModel(true)

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Primavera.Hydrogen.Rest.Client;
+using Primavera.Hydrogen.Rest.Routing;
 
 namespace Primavera.Lithium.Faturacao
 {
@@ -51,6 +52,28 @@ namespace Primavera.Lithium.Faturacao
         /// </returns>
         /// <exception cref="ServiceException">Raised when the operation returns an unexpected status code.</exception>
         Task<ServiceOperationResult<string>> DiagnosticsAsync(CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Analyzes the service endpoints.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// The <see cref="Task{TResult}"/> that represents the asynchronous operation.
+        /// The <see cref="ServiceOperationResult{T}"/> result.
+        /// </returns>
+        /// <exception cref="ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        Task<ServiceOperationResult<IEnumerable<EndpointInfo>>> EndpointsAsync(CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Analyzes the service configuration.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// The <see cref="Task{TResult}"/> that represents the asynchronous operation.
+        /// The <see cref="ServiceOperationResult{T}"/> result.
+        /// </returns>
+        /// <exception cref="ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        Task<ServiceOperationResult<string>> ConfigurationAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         #endregion
 

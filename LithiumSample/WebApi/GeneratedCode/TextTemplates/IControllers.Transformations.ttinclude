@@ -17,7 +17,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("System.Net"))
         .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
         .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Mvc"))
-        ;
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Rest.Routing"));
 
     targetModel.Namespace = new NamespaceModel(sourceModel.Namespace + ".WebApi.Controllers");
 
@@ -31,14 +31,29 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
             {
                 Documentation = new DocumentationModel("Provides an action that probes the service. This action is used to perform dependencies tests on the service.")
                 {
-                    Returns = "'OK'."
+                    Returns = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\n<see cref=\"HttpStatusCode.OK\"/> if the operation succeeds."
                 }
             })
             .WithMethod(new MethodModel("DiagnosticsAsync", "Task<IActionResult>")
             {
                 Documentation = new DocumentationModel("Provides an action that diagnoses the service. This action is used to perform functional tests on the service.")
                 {
-                    Returns = "'OK'."
+                    Returns = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\n<see cref=\"HttpStatusCode.OK\"/> if the operation succeeds."
+                }
+            })
+            .WithMethod(new MethodModel("EndpointsAsync", "Task<IActionResult>")
+            {
+                Documentation = new DocumentationModel("Provides an action that analyzes the endpoints of the service. This action is used to verify the service implementation.")
+                {
+                    Returns = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\n<see cref=\"HttpStatusCode.OK\"/> if the operation succeeds.\nA list of <see cref=\"EndpointInfo\"/> describing the endpoints."
+                }
+            })
+            .WithMethod(new MethodModel("ConfigurationAsync", "Task<IActionResult>")
+            {
+                Documentation = new DocumentationModel("Provides an action that analyzes the configuration of the service. This action is used to verify the service implementation.")
+                {
+                    Returns = "The <see cref=\"Task{TResult}\"/> that represents the asynchronous operation.\n<see cref=\"HttpStatusCode.OK\"/> if the operation succeeds.",
+                    Remarks = "If the service uses blob storage, the configuration options will be dumped in a blob container named 'ConfigAnalyzer'. Otherwise, the configuration options will be saved in a file named 'ConfigAnalyzer.json'."
                 }
             });
 }

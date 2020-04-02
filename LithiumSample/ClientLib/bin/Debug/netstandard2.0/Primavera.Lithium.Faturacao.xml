@@ -39,6 +39,12 @@
         <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.DiagnosticsAsync(System.Threading.CancellationToken)">
             <inheritdoc />
         </member>
+        <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.EndpointsAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.ConfigurationAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
         <member name="M:Primavera.Lithium.Faturacao.MonitoringOperationsBase.Dispose(System.Boolean)">
             <summary>
             Releases unmanaged and - optionally - managed resources.
@@ -272,6 +278,28 @@
         <member name="M:Primavera.Lithium.Faturacao.IMonitoringOperations.DiagnosticsAsync(System.Threading.CancellationToken)">
             <summary>
             Diagnoses the service.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IMonitoringOperations.EndpointsAsync(System.Threading.CancellationToken)">
+            <summary>
+            Analyzes the service endpoints.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            The <see cref="T:System.Threading.Tasks.Task`1"/> that represents the asynchronous operation.
+            The <see cref="T:Primavera.Hydrogen.Rest.Client.ServiceOperationResult`1"/> result.
+            </returns>
+            <exception cref="T:Primavera.Hydrogen.Rest.Client.ServiceException">Raised when the operation returns an unexpected status code.</exception>
+        </member>
+        <member name="M:Primavera.Lithium.Faturacao.IMonitoringOperations.ConfigurationAsync(System.Threading.CancellationToken)">
+            <summary>
+            Analyzes the service configuration.
             </summary>
             <param name="cancellationToken">The cancellation token.</param>
             <returns>

@@ -14,6 +14,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("System"))
         .WithNamespaceImport(new NamespaceImportModel("System.CodeDom.Compiler"))
         .WithNamespaceImport(new NamespaceImportModel("System.Collections.Generic"))
+        .WithNamespaceImport(new NamespaceImportModel("System.Net"))
         .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Builder"))
         .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Configuration"))
         .WithNamespaceImport(new NamespaceImportModel("Microsoft.Extensions.Hosting"))
@@ -24,13 +25,15 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
         .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Localization"))
         .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Mvc.Versioning"))
         .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Http"))
+        .WithNamespaceImport(new NamespaceImportModel("Microsoft.IdentityModel.Tokens"))
         .WithNamespaceImport(new NamespaceImportModel("Westwind.AspNetCore.Markdown"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Telemetry.Azure"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Telemetry.Azure.Initializers"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.Configuration"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Mvc"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Hosting"))
-        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Mvc.Routing"))
+        .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Routing"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Configuration"))
         .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.OpenApi.Schema"))
         .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".WebApi.Configuration"))
@@ -42,10 +45,14 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
             .WithNamespaceImport(new NamespaceImportModel("System.Threading.Tasks"))
             .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authentication"))
             .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authorization"))
-            .WithNamespaceImport(new NamespaceImportModel("Microsoft.AspNetCore.Authentication.JwtBearer"))
             .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.AspNetCore.Authentication.JwtBearer"))
-            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.IdentityModel"))
-            .WithNamespaceImport(new NamespaceImportModel(sourceModel.Namespace + ".Models.Metadata"));
+            .WithNamespaceImport(new NamespaceImportModel("Primavera.Hydrogen.IdentityModel"));
+    }
+
+    if (sourceModel.GenerateOidcSupport)
+    {
+        targetModel
+            .WithNamespaceImport(new NamespaceImportModel("Microsoft.IdentityModel.Protocols.OpenIdConnect"));
     }
 
     if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))
@@ -192,6 +199,23 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                 Documentation = new DocumentationModel("Called to add additional (custom) services to the service collection.")
                 {
                     Remarks = "The method is called from <see cref=\"ConfigureServices(IServiceCollection)\"/>."
+                }
+            })
+                .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                {
+                    Documentation = new DocumentationModel("The service collection.")
+                })
+                .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                {
+                    Documentation = new DocumentationModel("The host configuration.")
+                })
+                .ParentModelAs<ClassModel>()
+            .AddMethod(new MethodModel("AddHttpClient")
+            {
+                Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                Documentation = new DocumentationModel("Called to add the HTTP Client factory to the service collection.")
+                {
+                    Remarks = "The method is called from <see cref=\"AddAdditionalServices(IServiceCollection, HostConfiguration)\"/>."
                 }
             })
                 .WithParameter(new MethodParameterModel("services", "IServiceCollection")
@@ -701,7 +725,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                 {
                     Documentation = new DocumentationModel("The authentication builder.")
                 })
-                .WithParameter(new MethodParameterModel("options", "JwtBearerOptions")
+                .WithParameter(new MethodParameterModel("options", "Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions")
                 {
                     Documentation = new DocumentationModel("The JWT bearer options.")
                 })
@@ -718,7 +742,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                     Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
                 }
             })
-                .WithParameter(new MethodParameterModel("context", "AuthenticationFailedContext")
+                .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.JwtBearer.AuthenticationFailedContext")
                 {
                     Documentation = new DocumentationModel("The context.")
                 })
@@ -731,7 +755,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                     Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
                 }
             })
-                .WithParameter(new MethodParameterModel("context", "ForbiddenContext")
+                .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.JwtBearer.ForbiddenContext")
                 {
                     Documentation = new DocumentationModel("The context.")
                 })
@@ -744,7 +768,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                     Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
                 }
             })
-                .WithParameter(new MethodParameterModel("context", "MessageReceivedContext")
+                .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.JwtBearer.MessageReceivedContext")
                 {
                     Documentation = new DocumentationModel("The context.")
                 })
@@ -757,7 +781,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                     Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
                 }
             })
-                .WithParameter(new MethodParameterModel("context", "TokenValidatedContext")
+                .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.JwtBearer.TokenValidatedContext")
                 {
                     Documentation = new DocumentationModel("The context.")
                 })
@@ -770,7 +794,7 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                     Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
                 }
             })
-                .WithParameter(new MethodParameterModel("context", "JwtBearerChallengeContext")
+                .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerChallengeContext")
                 {
                     Documentation = new DocumentationModel("The context.")
                 })
@@ -809,6 +833,344 @@ public void TransformServiceModel(DomainModelElement sourceElement, CSharpFileMo
                     Documentation = new DocumentationModel("The current host configuration.")
                 })
                 .ParentModelAs<ClassModel>();
+
+        if (sourceModel.GenerateOidcSupport)
+        {
+            baseClassModel
+                .AddMethod(new MethodModel("AddCookie")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called to add Cookie authentication to the service collection.")
+                    {
+                        Remarks = "The method is called from <see cref=\"AddAuthentication(IServiceCollection, HostConfiguration)\"/>."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                    {
+                        Documentation = new DocumentationModel("The service collection.")
+                    })
+                    .WithParameter(new MethodParameterModel("builder", "AuthenticationBuilder")
+                    {
+                        Documentation = new DocumentationModel("The authentication builder.")
+                    })
+                    .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                    {
+                        Documentation = new DocumentationModel("The host configuration.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("ConfigureCookieOptions")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called to configure cookie options after it is added to the service collection.")
+                    {
+                        Remarks = "The method is called from <see cref=\"AddCookie(IServiceCollection, AuthenticationBuilder, HostConfiguration)\"/>."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                    {
+                        Documentation = new DocumentationModel("The service collection.")
+                    })
+                    .WithParameter(new MethodParameterModel("builder", "AuthenticationBuilder")
+                    {
+                        Documentation = new DocumentationModel("The authentication builder.")
+                    })
+                    .WithParameter(new MethodParameterModel("options", "Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions")
+                    {
+                        Documentation = new DocumentationModel("The cookies options.")
+                    })
+                    .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                    {
+                        Documentation = new DocumentationModel("The host configuration.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("AddOidc")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called to add OIDC authentication to the service collection.")
+                    {
+                        Remarks = "The method is called from <see cref=\"AddAuthentication(IServiceCollection, HostConfiguration)\"/>."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                    {
+                        Documentation = new DocumentationModel("The service collection.")
+                    })
+                    .WithParameter(new MethodParameterModel("builder", "AuthenticationBuilder")
+                    {
+                        Documentation = new DocumentationModel("The authentication builder.")
+                    })
+                    .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                    {
+                        Documentation = new DocumentationModel("The host configuration.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("ConfigureOidcOptions")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called to configure OIDC options after it is added to the service collection.")
+                    {
+                        Remarks = "The method is called from <see cref=\"AddOidc(IServiceCollection, AuthenticationBuilder, HostConfiguration)\"/>."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("services", "IServiceCollection")
+                    {
+                        Documentation = new DocumentationModel("The service collection.")
+                    })
+                    .WithParameter(new MethodParameterModel("builder", "AuthenticationBuilder")
+                    {
+                        Documentation = new DocumentationModel("The authentication builder.")
+                    })
+                    .WithParameter(new MethodParameterModel("options", "Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectOptions")
+                    {
+                        Documentation = new DocumentationModel("The OIDC options.")
+                    })
+                    .WithParameter(new MethodParameterModel("hostConfiguration", "HostConfiguration")
+                    {
+                        Documentation = new DocumentationModel("The host configuration.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnCookieRedirectToLogin", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called when cookie authentication redirects to login.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "RedirectContext<Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions>")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnCookieRedirectToLogout", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called when cookie authentication redirects to logout.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "RedirectContext<Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions>")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnCookieSignedIn", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called when cookie authentication is signed in.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.Cookies.CookieSignedInContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnCookieSigningIn", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called when cookie authentication is signing in.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.Cookies.CookieSigningInContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnCookieSigningOut", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called when cookie authentication is signing out.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.Cookies.CookieSigningOutContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnCookieValidatePrincipal", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Called when cookie authentication is validating the principal.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.Cookies.CookieValidatePrincipalContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcAuthenticationFailed", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked if exceptions are thrown during request processing.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthenticationFailedContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcAuthorizationCodeReceived", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked after security token validation if an authorization code is present in the protocol message.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.OpenIdConnect.AuthorizationCodeReceivedContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcMessageReceived", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked when a protocol message is first received.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.OpenIdConnect.MessageReceivedContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcRedirectToIdentityProvider", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked before redirecting to the identity provider to authenticate.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.OpenIdConnect.RedirectContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcRedirectToIdentityProviderForSignOut", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked before redirecting to the identity provider to sign out.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.OpenIdConnect.RedirectContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcRemoteFailure", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked when a remote failure occurs.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "RemoteFailureContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcRemoteSignOut", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked when a request is received on the remotes sign out path.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.OpenIdConnect.RemoteSignOutContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcTicketReceived", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked after a ticket is received.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "TicketReceivedContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcTokenResponseReceived", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked after authorization code is redeemed for tokens at the token endpoint.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.OpenIdConnect.TokenResponseReceivedContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcTokenValidated", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked when an identity token has been validated and produced an authentication ticket.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.OpenIdConnect.TokenValidatedContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>()
+                .AddMethod(new MethodModel("OnOidcUserInformationReceived", "Task")
+                {
+                    Modifiers = MethodModifiers.Protected | MethodModifiers.Virtual,
+                    Documentation = new DocumentationModel("Invoked when user information is retrieved from the user info endpoint.")
+                    {
+                        Returns = "The <see cref=\"Task\"/> that represents the asynchronous operation."
+                    }
+                })
+                    .WithParameter(new MethodParameterModel("context", "Microsoft.AspNetCore.Authentication.OpenIdConnect.UserInformationReceivedContext")
+                    {
+                        Documentation = new DocumentationModel("The context.")
+                    })
+                    .ParentModelAs<ClassModel>();
+        }
+
+        if (sourceModel.AuthorizationPolicies.Count > 0)
+        {
+            foreach (AuthorizationPolicy policy in sourceModel.AuthorizationPolicies)
+            {
+                baseClassModel
+                    .AddMethod(new MethodModel("Configure{0}Policy".Format(policy.Name))
+                    {
+                        Modifiers = MethodModifiers.Abstract | MethodModifiers.Protected,
+                        Documentation = new DocumentationModel("Called to configure the '{0}' authorizationPolicy.".Format(policy.DisplayName))
+                        {
+                            Remarks = "The method is called from <see cref=\"AddAuthorizationPolicies(AuthorizationOptions, HostConfiguration)\"/>."
+                        }
+                    })
+                        .WithParameter(new MethodParameterModel("policy", "AuthorizationPolicyBuilder")
+                        {
+                            Documentation = new DocumentationModel("The authorization policy builder.")
+                        });
+            }
+        }
     }
 
     if (sourceModel.Dependencies.Any(d => d.Kind == DependencyKind.DistributedCache))

@@ -252,6 +252,19 @@ public void WriteAddConfiguration(ModelWriter modelWriter, MethodBodyModel model
 <#+
 
     }
+
+    if (serviceModel.Dependencies.Any(d => d.Kind == DependencyKind.DataProtection))
+    {
+
+#>
+
+            // Data protection options
+
+            services.Configure<AzureBlobStorageDataProtectionOptions>(this.ConfigureAzureBlobStorageDataProtectionOptions);
+<#+
+
+    }
+
 #>
 
             // Resolve the host configuration instance
@@ -389,6 +402,22 @@ public void WriteConfigureAzureBlobStorageOptions(ModelWriter modelWriter, Metho
 
 #>
             options.ConnectionString = ExternalTestResources.Azure.ClassicTableStorageConnectionString;
+<#+
+
+}
+
+// *** WriteConfigureAzureBlobStorageDataProtectionOptions
+
+public void WriteConfigureAzureBlobStorageDataProtectionOptions(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+    string applicationName = "lithium-{0}".Format(serviceModel.Name.Transform().ToLowerCase());
+
+#>
+            options.ApplicationName = "<#= applicationName #>";
+            options.UseBlobStorage = false;
 <#+
 
 }

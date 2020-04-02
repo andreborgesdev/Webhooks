@@ -75,4 +75,80 @@ public void WriteMonitoringDiagnostics(ModelWriter modelWriter, MethodBodyModel 
     }
 }
 
+// *** WriteMonitoringEndpoints
+
+public void WriteMonitoringEndpoints(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+
+#>
+            // Create fixture
+
+            using IntegrationTestsFixture fixture = new IntegrationTestsFixture();
+
+            // Create service client
+            
+            using <#= serviceModel.Name #>Client serviceClient = await fixture.GetServiceClientAsync()
+                .ConfigureAwait(false);
+
+            // Execute action
+
+            ServiceOperationResult<IEnumerable<EndpointInfo>> result1 = await serviceClient.Monitoring.EndpointsAsync().ConfigureAwait(false);
+            result1.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result1.Body.Should().NotBeEmpty();
+<#+
+
+    if (serviceModel.GenerateSyncActions)
+    {
+
+#>
+
+            ServiceOperationResult<IEnumerable<EndpointInfo>> result2 = serviceClient.Monitoring.Endpoints();
+            result2.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result2.Body.Should().NotBeEmpty();
+<#+
+
+    }
+}
+
+// *** WriteMonitoringConfiguration
+
+public void WriteMonitoringConfiguration(ModelWriter modelWriter, MethodBodyModel model)
+{
+    CSharpFileModel rootModel = model.RootModelAs<CSharpFileModel>();
+    ServiceModel serviceModel = rootModel.SourceModel as ServiceModel;
+
+
+#>
+            // Create fixture
+
+            using IntegrationTestsFixture fixture = new IntegrationTestsFixture();
+
+            // Create service client
+            
+            using <#= serviceModel.Name #>Client serviceClient = await fixture.GetServiceClientAsync()
+                .ConfigureAwait(false);
+
+            // Execute action
+
+            ServiceOperationResult<IDictionary<string, string>> result1 = await serviceClient.Monitoring.ConfigurationAsync().ConfigureAwait(false);
+            result1.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result1.Body.Should().NotBeEmpty();
+<#+
+
+    if (serviceModel.GenerateSyncActions)
+    {
+
+#>
+
+            ServiceOperationResult<IDictionary<string, string>> result2 = serviceClient.Monitoring.Configuration();
+            result2.Response.StatusCode.Should().Be(HttpStatusCode.OK);
+            result2.Body.Should().NotBeEmpty();
+<#+
+
+    }
+}
+
 #>

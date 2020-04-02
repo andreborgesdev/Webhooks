@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Primavera.Hydrogen;
 using Primavera.Hydrogen.EventBus;
+using Primavera.Hydrogen.EventBus.Contracts;
+using Primavera.Hydrogen.EventBus.Exceptions;
 using Primavera.Hydrogen.Policies.Retry.Strategies;
 using Primavera.Hydrogen.Storage.Tables;
 using Primavera.Lithium.Faturacao.WebApi.Abstractions;
@@ -92,7 +94,7 @@ namespace Primavera.Lithium.Faturacao.WebApi.Controllers
 
                 return true;
             }
-            catch (EventBusException e)
+            catch (EventBusServiceException e)
             {
                 Console.WriteLine($"Message handler has encountered an exception: '{e.Message}'");
 

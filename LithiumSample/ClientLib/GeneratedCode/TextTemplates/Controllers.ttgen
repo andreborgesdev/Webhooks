@@ -72,6 +72,22 @@ controller.AddModelWriter<MethodBodyModel>(
     (w, m) =>
     {
         MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("EndpointsAsync");
+    }, 
+    this.WriteEndpointsActionCancellation);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("ConfigurationAsync");
+    }, 
+    this.WriteConfigurationActionCancellation);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
         return parentMethod.Name.EqualsNoCase("Probe");
     }, 
     this.WriteProbeAction);
@@ -83,6 +99,22 @@ controller.AddModelWriter<MethodBodyModel>(
         return parentMethod.Name.EqualsNoCase("Diagnostics");
     }, 
     this.WriteDiagnosticsAction);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("Endpoints");
+    }, 
+    this.WriteEndpointsAction);
+
+controller.AddModelWriter<MethodBodyModel>(
+    (w, m) =>
+    {
+        MethodModel parentMethod = m.ParentModelAs<MethodModel>();
+        return parentMethod.Name.EqualsNoCase("Configuration");
+    }, 
+    this.WriteConfigurationAction);
 
 // Generate code
 

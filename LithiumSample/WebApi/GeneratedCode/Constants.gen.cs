@@ -224,10 +224,22 @@ namespace Primavera.Lithium.Faturacao.WebApi
                     return new List<CultureInfo>
                     {
                         new CultureInfo(Localization.EnglishDefaultCultureString),
+                        new CultureInfo(Localization.EnglishFromIrelandCultureString),
+                        new CultureInfo(Localization.EnglishFromGreatBritainCultureString),
                         new CultureInfo(Localization.EnglishFromUnitedStatesCultureString),
                         new CultureInfo(Localization.PortugueseDefaultCultureString),
+                        new CultureInfo(Localization.PortugueseFromAngolaCultureString),
+                        new CultureInfo(Localization.PortugueseFromBrazilCultureString),
+                        new CultureInfo(Localization.PortugueseFromCapeVerdeCultureString),
+                        new CultureInfo(Localization.PortugueseFromGuineaBissauCultureString),
+                        new CultureInfo(Localization.PortugueseFromMozambiqueCultureString),
                         new CultureInfo(Localization.PortugueseFromPortugalCultureString),
+                        new CultureInfo(Localization.PortugueseFromSaoTomeAndPrincipeCultureString),
+                        new CultureInfo(Localization.PortugueseFromTimorLesteCultureString),
                         new CultureInfo(Localization.SpanishDefaultCultureString),
+                        new CultureInfo(Localization.SpanishFromArgentinaCultureString),
+                        new CultureInfo(Localization.SpanishFromChileCultureString),
+                        new CultureInfo(Localization.SpanishFromMexicoCultureString),
                         new CultureInfo(Localization.SpanishFromSpainCultureString)
                     };
                 }
@@ -276,9 +288,44 @@ namespace Primavera.Lithium.Faturacao.WebApi
             internal const string PortugueseDefaultCultureString = "pt";
 
             /// <summary>
+            /// The Portuguese (Angola) culture (as a string).
+            /// </summary>
+            internal const string PortugueseFromAngolaCultureString = "pt-AO";
+
+            /// <summary>
+            /// The Portuguese (Brazil) culture (as a string).
+            /// </summary>
+            internal const string PortugueseFromBrazilCultureString = "pt-BR";
+
+            /// <summary>
+            /// The Portuguese (Cape Verde) culture (as a string).
+            /// </summary>
+            internal const string PortugueseFromCapeVerdeCultureString = "pt-CV";
+
+            /// <summary>
+            /// The Portuguese (Guinea-Bissau) culture (as a string).
+            /// </summary>
+            internal const string PortugueseFromGuineaBissauCultureString = "pt-GW";
+
+            /// <summary>
+            /// The Portuguese (Mozambique) culture (as a string).
+            /// </summary>
+            internal const string PortugueseFromMozambiqueCultureString = "pt-MZ";
+
+            /// <summary>
             /// The Portuguese (Portugal) culture (as a string).
             /// </summary>
             internal const string PortugueseFromPortugalCultureString = "pt-PT";
+
+            /// <summary>
+            /// The Portuguese (São Tomé e Príncipe) culture (as a string).
+            /// </summary>
+            internal const string PortugueseFromSaoTomeAndPrincipeCultureString = "pt-ST";
+
+            /// <summary>
+            /// The Portuguese (Timor-Leste) culture (as a string).
+            /// </summary>
+            internal const string PortugueseFromTimorLesteCultureString = "pt-TL";
 
             /// <summary>
             /// The English culture (as a string).
@@ -286,7 +333,17 @@ namespace Primavera.Lithium.Faturacao.WebApi
             internal const string EnglishDefaultCultureString = "en";
 
             /// <summary>
-            /// The English (US) culture (as a string).
+            /// The English (Ireland) culture (as a string).
+            /// </summary>
+            internal const string EnglishFromIrelandCultureString = "en-IE";
+
+            /// <summary>
+            /// The English (G.B.) culture (as a string).
+            /// </summary>
+            internal const string EnglishFromGreatBritainCultureString = "en-GB";
+
+            /// <summary>
+            /// The English (U.S.) culture (as a string).
             /// </summary>
             internal const string EnglishFromUnitedStatesCultureString = "en-US";
 
@@ -294,6 +351,21 @@ namespace Primavera.Lithium.Faturacao.WebApi
             /// The Spanish culture (as a string).
             /// </summary>
             internal const string SpanishDefaultCultureString = "es";
+
+            /// <summary>
+            /// The Spanish (Argentina) culture (as a string).
+            /// </summary>
+            internal const string SpanishFromArgentinaCultureString = "es-AR";
+
+            /// <summary>
+            /// The Spanish (Chile) culture (as a string).
+            /// </summary>
+            internal const string SpanishFromChileCultureString = "es-CL";
+
+            /// <summary>
+            /// The Spanish (Mexico) culture (as a string).
+            /// </summary>
+            internal const string SpanishFromMexicoCultureString = "es-MX";
 
             /// <summary>
             /// The Spanish (Spain) culture (as a string).
